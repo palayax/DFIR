@@ -50,11 +50,21 @@ Every ingested source is normalized to the schema in [`timeline_schema.json`](ti
 
 ### 2.3 Analyze
 
-See section 4 (providers) and section 5 (token budgeting / map-reduce) below.
+The Analyze view (`assets/js/views/analyze.js`) shows the selected provider/model, the timeline row count and the detection count, and refuses to run until a SuperTimeline exists and the provider's credentials validate — the credential check happens *before* pack building, not at send time.
+
+**Nothing is sent until you have seen the plan.** *Preview plan* calls `previewPlan()`, which is deterministic and makes no model call, and reports the pack count, rows included vs. omitted, the reduction ratio, estimated input/output tokens, estimated cost, the number of model calls, and a per-pack breakdown with a `digest` identifying that exact pack set. *Run analysis* then streams live per-phase progress (`dashboard` → `packs` → `map` → `reduce` → `validate` → `repair` → `done`) and is cancellable mid-run via an `AbortSignal`.
+
+A map-phase pack that fails permanently is non-fatal: it is recorded in `provenance.warnings[]` and the run continues on the remaining packs. Its progress line says `FAILED`, so a run where every pack failed is visibly different from a clean one. A reduce-phase failure is fatal — without the synthesis there is no report.
+
+On success the report is stored and the app navigates to the Report view. See section 4 (providers) and section 5 (token budgeting / map-reduce) below.
 
 ### 2.4 Report
 
-Renders `web/report.html`: evidence table (filterable/sortable, every row backed by a `row_hash`), dashboard (severity/source distribution, hourly heatmap), entity graph, MITRE ATT&CK coverage matrix, IOC panel, analytic gaps list, dismissed-detections list. See section 6 for what parts of this are model-authored vs. deterministic.
+The in-app Report view (`assets/js/views/report.js`) is a review-and-export surface: finding counts by severity, analytic-gap and dismissed-detection counts, the citation rate (`n/a` rather than a misleading 100% when there are no findings), rows analysed, the provider/model/prompt-version line, and any pipeline warnings. From there: *Open interactive report*, *Export JSON*, *Export PDF*, *Upload to storage*.
+
+The interactive dashboard deliberately lives in a **separate page** (`web/report.html`) rather than inline, because it is the artifact an analyst shares, prints and archives — it must stand alone with no dependency on the console's in-memory state. Hand-off is via `sessionStorage` under the key `irtriage.report.json` (a tab opened with `window.open` inherits a copy of its opener's `sessionStorage`, and unlike a `blob:` URL it survives a reload of the report tab); if the report exceeds the `sessionStorage` quota the view falls back to a `blob:` URL passed through `report.html?src=`. `report.html` also loads a report JSON from a file picker or `?src=` with no console involvement at all.
+
+It renders: evidence table (filterable/sortable, every row backed by a `row_hash`), dashboard (severity/source distribution, hourly heatmap), entity graph, MITRE ATT&CK coverage matrix, IOC panel, analytic gaps list, dismissed-detections list. See section 6 for what parts of this are model-authored vs. deterministic.
 
 ### 2.5 Export
 
@@ -96,7 +106,19 @@ All 7 adapters plus a built-in mock implement the same `LLMProvider` interface (
 | Google Gemini/Vertex | `providers/google.js` | `mode` (`gemini`\|`vertex`); Gemini mode: `apiKey` (secret); Vertex mode: `accessToken` (secret, OAuth bearer), `project`, `location` | The app does not implement an OAuth refresh flow — you are responsible for supplying a live `accessToken` for Vertex mode |
 | OpenRouter | `providers/openrouter.js` | `apiKey` (secret), `referer` (optional, sent as `HTTP-Referer`), `appTitle` (optional, sent as `X-Title`) | |
 | OpenCode | `providers/opencode.js` | `baseUrl` (**required** — no hosted default is assumed), `apiKey` (secret), `model` (free text, no fixed catalogue) | `requiredKeys: ['apiKey','baseUrl']` |
-| Mock | `providers/mock.js` | none | Deterministic, zero-cost, zero-network. Used by the automated test suite and recommended for a first dry run of any new engagement config |
+| Mock | `providers/mock.js` | none | Deterministic, zero-cost, zero-network. Registered in `providers[]`, so it is selectable in the Settings dropdown like any other. See §4.3 |
+
+### 4.3 The Mock provider / offline dry run
+
+Selecting **Mock Provider (offline / dry run)** in Settings runs the entire pipeline with no network call and no spend. It is the recommended first step on any new engagement config, and the only provider that works in a fully air-gapped environment.
+
+What a dry run actually proves, and what it does not:
+
+- **Real:** pack construction, the map/reduce plumbing and its bounded concurrency, report assembly, schema validation and the repair loop, the renderer, the PDF writer — and every figure in `dashboard`, `scope` and `mitre_coverage`, because those are computed from your timeline before any provider is called.
+- **Not real:** the verdict, the narrative and the findings. The provider returns a fixed skeleton, so the report's verdict is always `inconclusive` / `low` confidence, its executive summary says in plain language that no model was involved, and `analytic_gaps[]` carries an explicit *"No model analysis was performed."* entry. A dry-run report is deliberately impossible to mistake for real analysis.
+- The one synthesised finding cites **real `row_hash` values harvested from your own evidence packs**, so citation resolution is exercised for real rather than faked.
+
+Under test, `setCanned(hash, response)` / `setBehavior(hash, behavior)` still take precedence over the skeleton; the skeleton is only the default when nothing is registered. Note that `hashRequest()` hashes `jsonSchema` along with `system`/`messages`/`model`, so a behavior must be registered against the hash of the request *actually sent*.
 
 ### 4.2 Storage providers
 
