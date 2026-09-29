@@ -1,0 +1,174 @@
+// Demo incident loader.
+//
+// Turns the generated payload in web/demo/ into File objects and hands them to
+// the app's REAL ingest path. It deliberately does NOT push records onto the
+// store itself: the point of the demo is to exercise format detection
+// (ingest/index.js -> detectIngestModule), the IRTriage JSONL parser, the
+// merge/dedupe stage and everything downstream, exactly as a dropped file does.
+// A shortcut that injected records directly would make the demo prove nothing.
+//
+// Why the payload is a set of ES MODULES rather than .jsonl files fetched over
+// HTTP: `fetch()` of a sibling file is blocked from `file://` in Chrome, and
+// README.md/docs/WEB_APP.md both tell analysts to open index.html from disk for
+// air-gapped work. A dynamic import() is exactly as available as the app's own
+// modules -- if the app loads, the demo payload loads. The loader reconstitutes
+// canonical JSONL text from the rows, so the bytes the parser sees are the same
+// bytes a real IRTriage export would contain.
+//
+// Every URL here is RELATIVE. GitHub Pages serves this project from the /DFIR/
+// subpath, so an absolute '/demo/...' would 404 in production while working
+// perfectly on a local server; scripts/publish-web.sh gates on exactly that.
+
+import { appStore } from '../store.js';
+
+/** web/demo/, resolved relative to THIS module. */
+const DEMO_BASE = new URL('../../../demo/', import.meta.url);
+
+export const DEMO_FILE_TYPE = 'application/x-ndjson';
+
+let manifestPromise = null;
+let reportPromise = null;
+
+/**
+ * Load web/demo/manifest.js (host inventory, entity inventory, narrative).
+ * Cached: the Ingest view renders the narrative from it and the loader reads it
+ * again when the operator clicks, and it should only be fetched once.
+ */
+export function loadDemoManifest() {
+  if (!manifestPromise) {
+    manifestPromise = import(new URL('manifest.js', DEMO_BASE).href)
+      .then((mod) => {
+        if (!mod?.manifest || !Array.isArray(mod.manifest.files)) {
+          throw new Error('web/demo/manifest.js did not export a manifest with a files[] array.');
+        }
+        return mod.manifest;
+      })
+      .catch((err) => {
+        // Reset so a transient failure (offline, blocked import) can be retried
+        // by clicking the button again rather than being cached forever.
+        manifestPromise = null;
+        throw new Error(`Could not load the demo incident manifest: ${err?.message || err}`);
+      });
+  }
+  return manifestPromise;
+}
+
+/** Load one host's timeline rows. `entry` is an element of manifest.files. */
+export async function loadDemoRows(entry) {
+  const mod = await import(new URL(entry.module, DEMO_BASE).href);
+  if (!Array.isArray(mod?.rows)) {
+    throw new Error(`${entry.module} did not export a rows[] array.`);
+  }
+  return mod.rows;
+}
+
+/**
+ * Canonical IRTriage timeline.jsonl text: one JSON object per line, trailing
+ * newline. This is the exact shape ingest/irtriage-jsonl.js detect() sniffs and
+ * parse() streams.
+ */
+export function rowsToJsonl(rows) {
+  return `${rows.map((r) => JSON.stringify(r)).join('\n')}\n`;
+}
+
+/**
+ * Build the demo payloads as { name, text, host, rowCount } records.
+ * Separated from demoFiles() so tests (and any non-browser consumer) can assert
+ * on the bytes without needing the File constructor.
+ */
+export async function buildDemoPayloads() {
+  const manifest = await loadDemoManifest();
+  const payloads = [];
+  for (const entry of manifest.files) {
+    const rows = await loadDemoRows(entry);
+    payloads.push({
+      name: entry.file_name,
+      text: rowsToJsonl(rows),
+      host: entry.host,
+      rowCount: rows.length,
+    });
+  }
+  return payloads;
+}
+
+/**
+ * The demo incident as File objects, ready to pass to the Ingest view's
+ * addFiles() — i.e. through format detection, the worker (or its main-thread
+ * fallback) and on to Merge.
+ */
+export async function demoFiles() {
+  const payloads = await buildDemoPayloads();
+  if (typeof File !== 'function') {
+    throw new Error('This environment has no File constructor, so the demo cannot be handed to the ingest path.');
+  }
+  return payloads.map((p) => new File([p.text], p.name, { type: DEMO_FILE_TYPE }));
+}
+
+/** Total row count across the demo, for UI copy, without loading the rows. */
+export async function demoRowCount() {
+  const manifest = await loadDemoManifest();
+  return manifest.row_count ?? manifest.files.reduce((n, f) => n + (f.row_count || 0), 0);
+}
+
+// ---------------------------------------------------------------------------
+// the pre-authored finished report
+//
+// Loading the evidence gets an evaluator to a merged SuperTimeline, but seeing a
+// REPORT would otherwise require running an analysis -- and the mock provider
+// deliberately produces an empty one, because its job is to prove the pipeline
+// runs with no API key, not to invent findings. web/demo/report.js is a
+// pre-authored, schema-valid report over the SAME rows (generated by
+// scripts/gen-demo-report.mjs, which derives every citation from them), so the
+// Report view, the interactive dashboard and the PDF exporter can all be
+// demonstrated offline, with no key and no network.
+//
+// Same ES-module-not-JSON reasoning as the payload above: a dynamic import()
+// works from file://, a fetch() of a sibling file does not.
+// ---------------------------------------------------------------------------
+
+/**
+ * Load web/demo/report.js. Cached, and the cache is cleared on failure so a
+ * transient/blocked import can be retried by clicking again.
+ */
+export function loadDemoReport() {
+  if (!reportPromise) {
+    reportPromise = import(new URL('report.js', DEMO_BASE).href)
+      .then((mod) => {
+        const report = mod?.report;
+        if (!report || typeof report !== 'object' || !Array.isArray(report.findings)) {
+          throw new Error('web/demo/report.js did not export a report with a findings[] array.');
+        }
+        return report;
+      })
+      .catch((err) => {
+        reportPromise = null;
+        throw new Error(`Could not load the demo forensic report: ${err?.message || err}`);
+      });
+  }
+  return reportPromise;
+}
+
+/**
+ * Put a report on the app store, which is what the Report view renders from.
+ *
+ * This lives here rather than in panel.js so the panel never writes to the
+ * store itself (web/tests/demo.test.mjs asserts that, because the EVIDENCE must
+ * always travel through the real ingest path rather than being injected). A
+ * finished report has no ingest path to bypass -- there is no parser, no merge
+ * and no detection stage for it -- so `store.report` is its only entry point,
+ * exactly as it is for a report the pipeline produces.
+ *
+ * @param {object} report
+ * @param {{ store?: { set: Function } }} [opts] pass the view's own store when
+ *        one is available; defaults to the app-wide singleton the router hands
+ *        to every view, so the two are the same object either way.
+ */
+export function applyDemoReport(report, { store = appStore } = {}) {
+  store.set({ report });
+  return report;
+}
+
+/** Convenience: load web/demo/report.js and put it on the store. */
+export async function loadDemoReportIntoStore(opts) {
+  return applyDemoReport(await loadDemoReport(), opts);
+}

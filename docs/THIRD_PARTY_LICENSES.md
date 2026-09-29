@@ -4,7 +4,7 @@
 > `build/assets.lock.json`. Do not edit by hand; bump the version in
 > `build/sources.json`, re-run `build/fetch-assets.ps1`, then regenerate.
 
-Generated from lockfile dated `2026-09-26T13:42:18Z`.
+Generated from lockfile dated `2026-09-29T12:55:50Z`.
 
 `IRTriage.exe` embeds and redistributes the components below. Each is downloaded from its official source over HTTPS and pinned by SHA-256; none is modified, except that non-compiling YARA rule files and remote-scanning Nuclei template categories are **removed** at build time (noted per component).
 

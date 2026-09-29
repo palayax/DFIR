@@ -341,6 +341,153 @@
       "location": "timeline:row_hash"
     },
     {
+      "action": "hash",
+      "classes": [
+        "host_identifier"
+      ],
+      "description": "Computer name carried inside the Windows event record — a SECOND COPY of the hostname. Must use the same component action (and therefore the same pseudonym) as timeline.host, or the two disagree and the redaction leaks the very identifier it removed from the host column.",
+      "id": "timeline.event_computer",
+      "kind": "timeline_field",
+      "location": "timeline:event_computer"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "Alternate-data-stream name and code-signing subject. Both are free text: an ADS name is attacker-chosen (a classic hiding place, so its shape is diagnostic), and a signer on an internally-signed binary names the customer's own organisation or internal CA.",
+      "id": "timeline.file_provenance",
+      "kind": "timeline_field",
+      "location": "timeline:{file_ads_name,file_signer}"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "Leaf filename. Scanned with the same action as timeline.file_path — a redacted path sitting beside an unredacted filename would leak exactly what the path redaction removed.",
+      "id": "timeline.file_name",
+      "kind": "timeline_field",
+      "location": "timeline:file_name"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "Executable path and parent command line. Both routinely contain C:\\\\Users\\\\<name>\\\\ and, in the parent command line, credentials passed as arguments. Same action as timeline.target and timeline.process_command_line respectively.",
+      "id": "timeline.process_image_path",
+      "kind": "timeline_field",
+      "location": "timeline:{process_image_path,process_parent_command_line}"
+    },
+    {
+      "action": "hash",
+      "classes": [
+        "pii"
+      ],
+      "description": "Account the process ran as. Pseudonymised with the SAME component action as timeline.user so one account maps to one pseudonym everywhere it appears.",
+      "id": "timeline.process_user",
+      "kind": "timeline_field",
+      "location": "timeline:process_user"
+    },
+    {
+      "action": "mask",
+      "classes": [
+        "network_identifier"
+      ],
+      "description": "The collected host's own address. Masked on the same terms as timeline.network_dst_ip: private addresses map the customer's internal network, public ones are indicators and are preserved. Omitting it would publish the victim's own subnet.",
+      "id": "timeline.network_src_ip",
+      "kind": "timeline_field",
+      "location": "timeline:network_src_ip"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Hive the key came from (HKLM, HKCU, SOFTWARE, NTUSER.DAT). A fixed Windows vocabulary, not customer data, and required to interpret the key path.",
+      "id": "timeline.registry_hive",
+      "kind": "timeline_field",
+      "location": "timeline:registry_hive"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Event record number, logon session id and severity level. Kept as an explicit reviewed decision: they identify the EVENT and the session, not the customer, and logon_id in particular is what ties a logon to everything that happened inside that session.",
+      "id": "timeline.event_identifiers",
+      "kind": "timeline_field",
+      "location": "timeline:{event_record_id,event_logon_id,event_level}"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Structural and analytic attributes of a row: MFT record numbers and allocation state, integrity level, session id, ports, protocol, socket state, registry value type, and the SHA-1 hash. Kept verbatim — none identifies the customer, and several (is_allocated, mft_entry) are the evidence that a file was DELETED, which is often the finding itself. Note hashes_sha1 was missing from timeline.hashes, which named only sha256 and md5 even though output.hash_algorithms accepts sha1.",
+      "id": "timeline.structural_nested",
+      "kind": "timeline_field",
+      "location": "timeline:{file_mft_entry,file_mft_sequence,file_is_directory,file_is_allocated,file_attributes,process_integrity_level,process_session_id,network_src_port,network_protocol,network_state,registry_value_type,hashes_sha1}"
+    },
+    {
+      "action": "hash",
+      "classes": [
+        "host_identifier"
+      ],
+      "description": "Tenant / organisation identifier (Entra tenant id or domain, Workspace customer id). Names the customer directly, so pseudonymised — but not dropped, because \"these events are all the same tenant\" is the cloud equivalent of multi-host correlation and must survive redaction.",
+      "id": "timeline.cloud_tenant_id",
+      "kind": "timeline_field",
+      "location": "timeline:cloud_tenant_id"
+    },
+    {
+      "action": "hash",
+      "classes": [
+        "host_identifier"
+      ],
+      "description": "Subscription / AWS account / GCP project id. An isolation boundary, and crossing one is a real escalation step, so the identity must be stable across rows while not identifying the customer.",
+      "id": "timeline.cloud_account_id",
+      "kind": "timeline_field",
+      "location": "timeline:cloud_account_id"
+    },
+    {
+      "action": "hash",
+      "classes": [
+        "pii"
+      ],
+      "description": "Acting identity: UPN, service-principal object id, IAM ARN or service account. Hashed with the SAME key as timeline.user deliberately, so a human who appears both in endpoint evidence and in cloud sign-ins pseudonymises to the same value and the cross-plane link survives. That link is usually the whole finding.",
+      "id": "timeline.cloud_principal",
+      "kind": "timeline_field",
+      "location": "timeline:cloud_principal",
+      "preserve_values": [
+        "",
+        "unknown",
+        "system",
+        "Microsoft.Graph",
+        "AzureActiveDirectory"
+      ]
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "Resource identifier and client string. Both are free text that routinely embeds customer names, mailbox addresses, storage account names and file paths, so they are scanned rather than kept verbatim. The user agent is worth preserving in shape because it is often the clearest fingerprint of attacker tooling in a cloud intrusion.",
+      "id": "timeline.cloud_resource",
+      "kind": "timeline_field",
+      "location": "timeline:{cloud_resource_id,cloud_user_agent}"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Kept verbatim, as an explicit reviewed decision. These describe the ATTACKER'S BEHAVIOUR rather than the victim: which service and operation, whether it succeeded, whether a second factor was actually satisfied, and the provider correlation id that reconstructs the session. Redacting them would destroy the analysis while protecting nothing — none of them names the customer or a person. `region` is coarse geography, not an address. `correlation_id` is a provider-assigned GUID, not customer data.",
+      "id": "timeline.cloud_analytic",
+      "kind": "timeline_field",
+      "location": "timeline:{cloud_provider,cloud_service,cloud_region,cloud_principal_type,cloud_operation,cloud_resource_type,cloud_result,cloud_auth_method,cloud_correlation_id}"
+    },
+    {
       "action": "scan",
       "classes": [
         "content"
@@ -348,7 +495,7 @@
       "description": "The JSONL form nests these fields as objects (`process: {pid, name, command_line}`) where the CSV form flattens them to `process_pid`, `process_name`, ... Both shapes must be governed, or a policy written against the CSV column names would silently miss the JSONL export — which is the richer of the two and the one the web app actually ingests. The leaf values are governed individually by the components above; this entry exists so the container names are audited too and the coverage test can prove no field escapes.",
       "id": "timeline.nested_groups",
       "kind": "timeline_field",
-      "location": "timeline:{file,process,event,registry,network,hashes}",
+      "location": "timeline:{file,process,event,registry,network,hashes,cloud}",
       "note": "Added after a test asserted every field of docs/timeline_schema.json has a catalogue entry and found 7 that did not."
     },
     {

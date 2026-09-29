@@ -6,6 +6,7 @@ import { createDropzone } from '../ui/dropzone.js';
 import { createProgress } from '../ui/progress.js';
 import { showError, showToast } from '../ui/toast.js';
 import { detectIngestModule, getIngestModule } from '../ingest/index.js';
+import { mountDemoPanel } from '../demo/panel.js';
 
 let seq = 0;
 function nextId() {
@@ -41,6 +42,17 @@ export async function mount(container, { store }) {
   actions.appendChild(continueBtn);
   header.appendChild(actions);
   container.appendChild(header);
+
+  // The demo entry point. A first-time visitor to the hosted build otherwise
+  // lands on an empty console and can see nothing until they supply an evidence
+  // ZIP of their own, so the synthetic demo incident needs a visible way in.
+  // It is mounted BEFORE the dropzone deliberately: it is the first thing an
+  // evaluator should see. It feeds addFiles() — the same entry point the
+  // dropzone uses — so the demo exercises the real ingest path rather than a
+  // shortcut around it.
+  const demoPanel = document.createElement('div');
+  demoPanel.className = 'panel';
+  container.appendChild(demoPanel);
 
   const dzPanel = document.createElement('div');
   dzPanel.className = 'panel';
@@ -237,6 +249,8 @@ export async function mount(container, { store }) {
     onFiles: addFiles,
   });
 
+  const demo = mountDemoPanel(demoPanel, { onFiles: addFiles });
+
   const unsubscribe = store.subscribeSelector((s) => s.files, renderFiles);
   renderFiles();
 
@@ -244,6 +258,7 @@ export async function mount(container, { store }) {
     unmount() {
       unsubscribe();
       dz.destroy();
+      demo.destroy();
       worker?.terminate();
     },
   };

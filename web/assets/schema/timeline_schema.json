@@ -3,7 +3,7 @@
   "$id": "https://github.com/irtriage/schema/timeline/v1.json",
   "title": "IRTriage Unified Timeline Record",
   "description": "One row of the deterministic triage timeline. Emitted as JSONL (full fidelity, one object per line) by client/internal/timeline, and as a flattened CSV for analyst tooling. THIS IS THE CONTRACT BETWEEN THE CLIENT AND THE WEB APP - neither side may change it without updating the other side and its tests.",
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
 
   "x-determinism": {
     "sortKey": ["timestamp_utc", "source", "artifact", "row_hash"],
@@ -57,7 +57,8 @@
       "enum": [
         "filesystem", "eventlog", "registry", "execution", "persistence",
         "network", "process", "browser", "account", "service", "scheduled_task",
-        "usb_device", "memory", "detection", "system_info", "log", "other"
+        "usb_device", "memory", "detection", "system_info", "log", "other",
+        "cloud_audit", "cloud_identity", "cloud_resource", "cloud_mail"
       ]
     },
     "artifact": {
@@ -136,6 +137,63 @@
         "url": { "type": "string" },
         "direction": { "type": "string", "enum": ["inbound", "outbound", "listening", "unknown"] },
         "state": { "type": "string" }
+      }
+    },
+
+    "cloud": {
+      "type": "object", "additionalProperties": false,
+      "description": "Cloud control-plane detail, for rows whose source is one of the cloud_* values. Present only on cloud evidence; a host-collected row never carries it.\n\nTHREE CONTRACT NOTES, each of which is a trap if missed:\n\n1. `host` stays REQUIRED on every row, including cloud rows, because relaxing a required field would break every existing consumer. A cloud row therefore sets `host` to the tenant or service identity it concerns (e.g. \"contoso.onmicrosoft.com\" or \"aws:123456789012\"), NOT to an endpoint hostname. The web app's host facet then groups cloud evidence coherently instead of showing a blank.\n\n2. `row_hash` does NOT cover any field in this object (x-determinism.rowHash is a fixed list). Two cloud events that differ ONLY inside `cloud` therefore collapse into one row on dedupe. Producers must ensure the distinguishing information also reaches a hashed field - in practice `message`, `target` and `host` - or evidence is silently lost. This is the same reason `detections[]` is not hashed.\n\n3. There is deliberately no `client_ip` here. The actor's source address belongs in `network.src_ip`, which already exists, is already governed by the redaction register, and already preserves public addresses as indicators while masking private ones. A second copy would have to be governed separately and the two could disagree.",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "Which cloud produced the event.",
+          "enum": ["m365", "entra", "azure", "aws", "gcp", "other"]
+        },
+        "tenant_id": {
+          "type": "string",
+          "description": "Tenant / organisation boundary (Entra tenant id or domain, Google Workspace customer id). The unit of blast radius in a cloud intrusion."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Isolation and billing boundary within the tenant: AWS account id, Azure subscription id, GCP project id. Crossing one is a significant escalation step."
+        },
+        "service": {
+          "type": "string",
+          "description": "Service touched, normalised lowercase (e.g. exchange, sharepoint, entra_id, ec2, s3, iam, gmail)."
+        },
+        "region": { "type": "string" },
+        "principal": {
+          "type": "string",
+          "description": "Actor identity: UPN, service-principal object id, IAM ARN or service-account address. Personal data when it names a human."
+        },
+        "principal_type": {
+          "type": "string",
+          "description": "Whether the actor was a human or a workload. Central to cloud triage: the same operation is routine from a managed identity and alarming from a user.",
+          "enum": ["user", "service_principal", "managed_identity", "application", "role", "unknown"]
+        },
+        "operation": {
+          "type": "string",
+          "description": "Audit operation name as the provider reports it (e.g. \"Add member to role\", \"ConsoleLogin\", \"New-InboxRule\")."
+        },
+        "resource_id": { "type": "string" },
+        "resource_type": { "type": "string" },
+        "user_agent": {
+          "type": "string",
+          "description": "Client string from the audit record. Often the clearest fingerprint of attacker tooling in a cloud incident."
+        },
+        "correlation_id": {
+          "type": "string",
+          "description": "Provider-assigned id tying one chain of operations together - the cloud equivalent of a process tree, and usually the only way to reconstruct a session."
+        },
+        "result": {
+          "type": "string",
+          "description": "Outcome. Failures matter as much as successes: a run of failures is what password spraying looks like.",
+          "enum": ["success", "failure", "partial", "unknown"]
+        },
+        "auth_method": {
+          "type": "string",
+          "description": "How the actor authenticated, and whether a second factor was actually satisfied (e.g. password, mfa_sms, mfa_app, certificate, token_replay, unknown). Decisive in business-email-compromise and adversary-in-the-middle cases, where the question is never whether MFA was configured but whether it was met."
+        }
       }
     },
 

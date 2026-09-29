@@ -26,6 +26,7 @@ import {
   filterFindings, filterEvents, isFilterActive,
 } from './filters.js';
 import { generateReportPdf, resolveWatermarkText } from './pdf.js';
+import { caseSlug } from '../lib/case-slug.js';
 
 const THEME_KEY = 'irtriage.theme';
 // Best-effort handoff key: if the main SPA's own report view (views/report.js,
@@ -437,8 +438,13 @@ function toCsvValue(v) {
   return /[",\n]/.test(s) ? `"${s.replaceAll('"', '""')}"` : s;
 }
 
+// Delegates to the shared helper rather than sanitising here. This function used
+// to replace illegal characters with '_' while views/report.js used '-', so a case
+// id like `IR 2026/014` produced IR_2026_014 on this page and IR-2026-014 in the
+// console -- two filenames for one report. Both shipped fixtures happen to contain
+// no illegal characters, which is why it went unnoticed. See lib/case-slug.js.
 function caseIdSlug() {
-  return (currentReport?.meta?.engagement?.case_id || 'report').replace(/[^a-zA-Z0-9._-]+/g, '_');
+  return caseSlug(currentReport);
 }
 
 async function handleIocCopy(btn) {

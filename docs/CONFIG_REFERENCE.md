@@ -86,6 +86,10 @@ Recorded verbatim into `manifest.json`. **Never** written into the timeline itse
 | `rules` overrides | `sigma_enabled=true`, `yara_enabled=true`, `nuclei_enabled=true`, `hayabusa_enabled=true` |
 | `memory` | `process_dump_enabled=true`, `process_names=["lsass.exe"]` |
 
+> **`process_names` entries must be exact executable names, including `.exe`.** They are anchored and regex-escaped before being passed as `Windows.Memory.ProcessDump`'s `ProcessRegex`, so `lsass` matches nothing while `lsass.exe` matches exactly that process (and not, say, `not-lsass.exe-either`, which an unanchored pattern would).
+>
+> **A dump that succeeds and captures nothing is reported as a failure.** `lsass.exe` in particular is a Protected Process Light on most current Windows installs (LSA protection / `RunAsPPL`, and anywhere Credential Guard is on), which denies `MiniDumpWriteDump` even to SYSTEM — the artifact writes an empty file and exits 0. `manifest.json`'s `memory.runs[]` therefore carries `dump_files`/`dump_bytes` measured from the collected content, and a non-skipped run with `dump_bytes: 0` is recorded as `status: "failed"` with `dump_produced_0_bytes` plus an entry in `coverage.gaps[]`. **Elevation does not fix this** — see [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md).
+
 ### `profiles.custom`
 
 Empty by design (`velociraptor_artifacts: []`, `native_collectors: []`). If `run.profile: custom` and both lists are still empty, config validation **fails** — a forensics tool must never silently collect nothing because a profile was left blank. The file includes a ready-to-uncomment example block.

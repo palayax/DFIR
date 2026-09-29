@@ -13,8 +13,10 @@
 // the same exports.
 
 import { generateReportPdf, resolveWatermarkText } from '../report/pdf.js';
+import { loadDemoReport } from '../demo/index.js';
 import { redactReport, REDACT_PROFILES } from '../redact/report.js';
 import { citationRate, sortFindings } from '../report/metrics.js';
+import { caseSlug } from '../lib/case-slug.js';
 import { getStorageProvider, defaultStorageProviderId } from '../providers/storage/index.js';
 import { showToast, showError } from '../ui/toast.js';
 
@@ -46,10 +48,11 @@ function downloadBlob(blob, fileName) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-function caseSlug(report) {
-  const raw = report?.meta?.case_id || report?.case_id || 'report';
-  return String(raw).replace(/[^A-Za-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '') || 'report';
-}
+// caseSlug is imported, NOT defined here. This page and report/main.js both name
+// exports after the case id, and each used to carry its own copy -- which drifted
+// twice over (wrong field here, different sanitiser there), so the same report
+// downloaded from the two pages got two different filenames. See
+// ../lib/case-slug.js for the full history. Do not reintroduce a local copy.
 
 export async function mount(container, { store }) {
   const header = document.createElement('div');
@@ -176,6 +179,45 @@ export async function mount(container, { store }) {
     return store.getState().report || null;
   }
 
+  /** "Load demo report" for the empty state. It only ever writes
+   * `state.report` -- the same slot the analysis pipeline writes -- so every
+   * export below still funnels through forExport() and the redaction gate. */
+  function demoActions() {
+    const wrap = document.createElement('div');
+    wrap.className = 'view-actions';
+    const btn = document.createElement('button');
+    btn.className = 'btn';
+    btn.type = 'button';
+    btn.dataset.testid = 'load-demo-report-view';
+    btn.textContent = 'Load demo report';
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      const original = btn.textContent;
+      btn.textContent = 'Loading…';
+      try {
+        store.set({ report: await loadDemoReport() });
+        showToast({
+          type: 'success',
+          title: 'Demo forensic report loaded',
+          detail: 'Synthetic incident, pre-authored analysis — no API key or network involved. Every export below '
+            + 'still honours the redaction profile.',
+          timeoutMs: 8000,
+        });
+      } catch (err) {
+        btn.textContent = original;
+        btn.disabled = false;
+        showError('Could not load the demo report', err);
+      }
+    });
+    wrap.appendChild(btn);
+    const hint = document.createElement('div');
+    hint.className = 'field-hint';
+    hint.textContent = 'No evidence to hand? Load a finished, schema-valid report for the synthetic demo incident '
+      + 'and exercise the dashboard, charts, entity graph and PDF export offline.';
+    wrap.appendChild(hint);
+    return wrap;
+  }
+
   function setEnabled(on) {
     openBtn.disabled = !on;
     jsonBtn.disabled = !on;
@@ -200,6 +242,13 @@ export async function mount(container, { store }) {
       hint.className = 'field-hint';
       hint.textContent = 'Already have a report JSON? Open report.html directly and load it from there.';
       summaryPanel.appendChild(hint);
+      // Second escape from the empty state: the pre-authored demo report. An
+      // evaluator with no evidence and no API key otherwise has no route to a
+      // rendered report at all -- the zero-cost mock provider deliberately
+      // produces an empty one. The demo panel on the Ingest view offers the same
+      // thing; this button is here because the empty state is where somebody
+      // looking for a report actually lands.
+      summaryPanel.appendChild(demoActions());
       return;
     }
 
