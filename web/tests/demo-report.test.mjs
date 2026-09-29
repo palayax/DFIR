@@ -53,7 +53,27 @@ const REPORT_MODULE = path.join(WEB, 'demo', 'report.js');
 // The generator is imported, not shelled out to: running the derivation
 // in-process is what makes "byte-identical across two consecutive runs" and
 // "the committed file matches the generator" the same assertion.
-const generator = await import(pathToFileURL(path.join(REPO, 'scripts', 'gen-demo-report.mjs')).href);
+//
+// Guarded, because this is a TOP-LEVEL await of a file OUTSIDE web/. An
+// unguarded version threw ERR_MODULE_NOT_FOUND and took the entire test file
+// down with it in the published repo, where scripts/ was not part of the publish
+// set -- and because the Pages workflow runs `npm test` before deploying, that
+// blocked the deploy (run #7). The generators are published now, so this path
+// should not trigger; it stays so that a future change to the publish set
+// degrades to a named skip instead of a whole suite vanishing.
+let generator = null;
+let generatorMissing = '';
+try {
+  generator = await import(pathToFileURL(path.join(REPO, 'scripts', 'gen-demo-report.mjs')).href);
+} catch (err) {
+  if (err?.code !== 'ERR_MODULE_NOT_FOUND') throw err;
+  generatorMissing = 'scripts/gen-demo-report.mjs is not present in this checkout, so the '
+    + 'regenerate-and-compare assertions cannot run here. Every other guard in this file still does.';
+  // Loud on purpose: a silent skip is how a guard stops guarding without anyone
+  // noticing. In the source repo the generator is always present, so seeing this
+  // line at all means the publish set has changed.
+  console.warn(`[demo-report.test] SKIPPING generator checks: ${generatorMissing}`);
+}
 
 /** Every demo row, and the set of hashes a citation may legally reference. */
 const allRows = (await Promise.all(manifest.files.map((e) => loadDemoRows(e)))).flat();
@@ -424,14 +444,14 @@ describe('demo report: every renderer handles it', () => {
 // ---------------------------------------------------------------------------
 
 describe('the generator is deterministic and the committed file is not stale', () => {
-  test('two consecutive derivations produce byte-identical module source', async () => {
+  test('two consecutive derivations produce byte-identical module source', { skip: generatorMissing || false }, async () => {
     const first = generator.reportModuleSource((await generator.buildReport()).report);
     const second = generator.reportModuleSource((await generator.buildReport()).report);
     assert.equal(first, second, 'scripts/gen-demo-report.mjs is not deterministic');
     assert.ok(first.length > 10000);
   });
 
-  test('web/demo/report.js matches what the generator produces right now', async () => {
+  test('web/demo/report.js matches what the generator produces right now', { skip: generatorMissing || false }, async () => {
     const { report: rebuilt, payload } = await generator.buildReport();
     const expected = generator.reportModuleSource(rebuilt);
     // core.autocrlf means the working tree may hold CRLF while the generator
@@ -449,7 +469,7 @@ describe('the generator is deterministic and the committed file is not stale', (
     assert.equal(payload.allRows.length, allRows.length);
   });
 
-  test('the generator refuses to emit a report with a dangling citation', async () => {
+  test('the generator refuses to emit a report with a dangling citation', { skip: generatorMissing || false }, async () => {
     // The guard that matters most, exercised rather than assumed: corrupt one
     // citation and checkReport() must reject it.
     const { report: fresh, payload } = await generator.buildReport();
