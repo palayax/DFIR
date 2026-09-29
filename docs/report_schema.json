@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/irtriage/schema/report/v1.json",
+  "title": "IRTriage Forensic Analysis Report",
+  "description": "The structured output of the LLM analysis pipeline. THIS IS THE CONTRACT between the analysis pipeline (C5), the interactive dashboard (C6) and the PDF exporter (C7). All three read this and only this. The model is asked to emit exactly this shape; the pipeline validates and repairs before any renderer sees it.",
+  "schemaVersion": "1.0.0",
+
+  "x-design-notes": {
+    "everyClaimIsCited": "Every finding and narrative phase MUST carry evidence[] referencing real SuperTimeline rows by row_hash. A renderer shows an 'uncited' badge when evidence[] is empty, because an uncited assertion in a forensic report is an opinion, not a finding. The validator counts them and the report header reports the citation rate.",
+    "modelUncertaintyIsFirstClass": "confidence and the analytic_gaps[] array exist so the model can say 'I could not determine X' instead of inventing it. An empty analytic_gaps[] on a large dataset is itself suspicious and the UI flags it.",
+    "determinismBoundary": "The client timeline is deterministic; THIS artifact is not, because it is LLM output. Therefore every report records the exact model, provider, prompt version, evidence-pack digest and token usage so a conclusion can be reproduced and audited.",
+    "dashboardDataIsPrecomputed": "dashboard aggregates are computed deterministically from the SuperTimeline by the pipeline, NOT by the model. The model never produces a number that drives a chart - it only interprets. This keeps charts truthful even if the model hallucinates in prose."
+  },
+
+  "type": "object",
+  "required": ["schema_version", "meta", "scope", "verdict", "executive_summary", "findings", "dashboard", "provenance"],
+  "additionalProperties": false,
+
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0.0" },
+
+    "meta": {
+      "type": "object",
+      "required": ["generated_utc", "engagement", "model"],
+      "additionalProperties": false,
+      "properties": {
+        "report_id": { "type": "string", "description": "UUID for this report generation." },
+        "generated_utc": { "type": "string", "format": "date-time" },
+        "engagement": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "case_id": { "type": "string" },
+            "examiner": { "type": "string" },
+            "organization": { "type": "string" },
+            "classification": { "type": "string", "description": "Handling marking, rendered into the PDF watermark and page furniture." },
+            "description": { "type": "string" }
+          }
+        },
+        "model": {
+          "type": "object",
+          "required": ["provider", "model_id"],
+          "additionalProperties": false,
+          "description": "Recorded so a conclusion is auditable and reproducible.",
+          "properties": {
+            "provider": { "type": "string", "enum": ["anthropic", "openai", "azure-openai", "bedrock", "google", "openrouter", "opencode", "mock"] },
+            "model_id": { "type": "string", "examples": ["claude-opus-5-5"] },
+            "prompt_version": { "type": "string", "description": "Version of the pipeline's prompt templates, so prompt changes are attributable." },
+            "temperature": { "type": "number" },
+            "passes": { "type": "integer", "description": "Number of map-reduce passes performed." }
+          }
+        },
+        "usage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "input_tokens": { "type": "integer" },
+            "output_tokens": { "type": "integer" },
+            "cached_input_tokens": { "type": "integer" },
+            "estimated_cost_usd": { "type": "number" },
+            "wall_clock_seconds": { "type": "number" }
+          }
+        }
+      }
+    },
+
+    "scope": {
+      "type": "object",
+      "required": ["hosts", "row_count", "time_range"],
+      "additionalProperties": false,
+      "description": "What was actually analysed. Computed deterministically from the SuperTimeline, never by the model.",
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "properties": {
+              "host": { "type": "string" }, "host_id": { "type": "string" },
+              "row_count": { "type": "integer" },
+              "os": { "type": "string" },
+              "first_event_utc": { "type": "string" }, "last_event_utc": { "type": "string" }
+            }
+          }
+        },
+        "row_count": { "type": "integer" },
+        "rows_analysed": { "type": "integer", "description": "Rows actually included in evidence packs sent to the model - may be < row_count after budget reduction." },
+        "reduction_ratio": { "type": "number", "description": "rows_analysed / row_count. Surfaced prominently: a low ratio means the model saw a sample, not the whole picture." },
+        "time_range": {
+          "type": "object", "additionalProperties": false,
+          "properties": { "start_utc": { "type": "string" }, "end_utc": { "type": "string" } }
+        },
+        "sources": { "type": "object", "additionalProperties": { "type": "integer" }, "description": "Row count per timeline `source` value." },
+        "artifacts": { "type": "object", "additionalProperties": { "type": "integer" }, "description": "Row count per producing artifact." },
+        "input_files": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "properties": { "name": { "type": "string" }, "sha256": { "type": "string" }, "rows": { "type": "integer" }, "clock_skew_seconds": { "type": "integer" } }
+          }
+        }
+      }
+    },
+
+    "verdict": {
+      "type": "object",
+      "required": ["assessment", "confidence"],
+      "additionalProperties": false,
+      "properties": {
+        "assessment": {
+          "type": "string",
+          "enum": ["no_evidence_of_compromise", "inconclusive", "suspicious_activity", "likely_compromised", "confirmed_compromised"],
+          "description": "Deliberately includes 'inconclusive'. A triage collection frequently cannot support a definitive verdict, and forcing a binary answer produces false confidence."
+        },
+        "confidence": { "type": "string", "enum": ["low", "moderate", "high"] },
+        "confidence_rationale": { "type": "string", "description": "Why this confidence level - what would need to be true to raise or lower it." },
+        "rationale": { "type": "string" },
+        "earliest_suspicious_activity_utc": { "type": "string" },
+        "attack_stage": { "type": "string", "description": "Furthest observed stage, e.g. 'credential access', 'lateral movement', 'exfiltration'." }
+      }
+    },
+
+    "executive_summary": {
+      "type": "object",
+      "required": ["text"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string", "description": "3-6 paragraphs for a non-technical reader. States what happened, what is known, what is not known, and what to do now." },
+        "bullets": { "type": "array", "items": { "type": "string" }, "maxItems": 8 }
+      }
+    },
+
+    "findings": {
+      "type": "array",
+      "description": "The analytic core. Ordered by severity then confidence by the pipeline, not the model.",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "severity", "confidence", "narrative", "evidence"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^F-[0-9]{3}$" },
+          "title": { "type": "string" },
+          "severity": { "type": "string", "enum": ["informational", "low", "medium", "high", "critical"] },
+          "confidence": { "type": "string", "enum": ["low", "moderate", "high"] },
+          "category": {
+            "type": "string",
+            "enum": ["initial_access", "execution", "persistence", "privilege_escalation", "defense_evasion",
+                     "credential_access", "discovery", "lateral_movement", "collection", "command_and_control",
+                     "exfiltration", "impact", "anti_forensics", "misconfiguration", "hygiene", "other"]
+          },
+          "narrative": { "type": "string", "description": "What happened and why it matters, in plain language." },
+          "evidence": {
+            "type": "array",
+            "description": "REQUIRED. Citations into the SuperTimeline. A finding with no evidence is rendered with an 'uncited' warning.",
+            "items": {
+              "type": "object",
+              "required": ["row_hash"],
+              "additionalProperties": false,
+              "properties": {
+                "row_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+                "timestamp_utc": { "type": "string" },
+                "host": { "type": "string" },
+                "excerpt": { "type": "string", "description": "The relevant message/target text, for rendering without re-reading the timeline." },
+                "why_relevant": { "type": "string" }
+              }
+            }
+          },
+          "mitre_techniques": { "type": "array", "items": { "type": "string", "pattern": "^T\\d{4}(\\.\\d{3})?$" } },
+          "affected_hosts": { "type": "array", "items": { "type": "string" } },
+          "affected_accounts": { "type": "array", "items": { "type": "string" } },
+          "first_seen_utc": { "type": "string" },
+          "last_seen_utc": { "type": "string" },
+          "recommendation": { "type": "string" },
+          "detection_rules": {
+            "type": "array",
+            "description": "Rules from the client that support this finding.",
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "properties": { "engine": { "type": "string" }, "rule_id": { "type": "string" }, "rule_name": { "type": "string" }, "severity": { "type": "string" } }
+            }
+          },
+          "false_positive_considered": { "type": "string", "description": "The benign explanation the analyst should rule out, and how." }
+        }
+      }
+    },
+
+    "attack_narrative": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Chronological reconstruction. Omitted when the verdict is no_evidence_of_compromise.",
+      "properties": {
+        "summary": { "type": "string" },
+        "phases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["order", "name", "description"],
+            "additionalProperties": false,
+            "properties": {
+              "order": { "type": "integer" },
+              "name": { "type": "string" },
+              "start_utc": { "type": "string" }, "end_utc": { "type": "string" },
+              "description": { "type": "string" },
+              "mitre_tactic": { "type": "string" },
+              "finding_ids": { "type": "array", "items": { "type": "string" } },
+              "evidence": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+            }
+          }
+        }
+      }
+    },
+
+    "iocs": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Extracted indicators, deduplicated. Each carries context so a responder can act without re-reading the report.",
+      "properties": {
+        "files":      { "type": "array", "items": { "$ref": "#/$defs/ioc" } },
+        "hashes":     { "type": "array", "items": { "$ref": "#/$defs/ioc" } },
+        "ip_addresses":{ "type": "array", "items": { "$ref": "#/$defs/ioc" } },
+        "domains":    { "type": "array", "items": { "$ref": "#/$defs/ioc" } },
+        "urls":       { "type": "array", "items": { "$ref": "#/$defs/ioc" } },
+        "registry_keys": { "type": "array", "items": { "$ref": "#/$defs/ioc" } },
+        "accounts":   { "type": "array", "items": { "$ref": "#/$defs/ioc" } },
+        "processes":  { "type": "array", "items": { "$ref": "#/$defs/ioc" } },
+        "scheduled_tasks": { "type": "array", "items": { "$ref": "#/$defs/ioc" } },
+        "services":   { "type": "array", "items": { "$ref": "#/$defs/ioc" } }
+      }
+    },
+
+    "mitre_coverage": {
+      "type": "array",
+      "description": "Observed ATT&CK techniques, for the heatmap. Counts come from the timeline, not the model.",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "properties": {
+          "technique_id": { "type": "string" }, "technique_name": { "type": "string" },
+          "tactic": { "type": "string" },
+          "event_count": { "type": "integer" },
+          "finding_ids": { "type": "array", "items": { "type": "string" } },
+          "max_severity": { "type": "string" }
+        }
+      }
+    },
+
+    "recommendations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "immediate":   { "type": "array", "items": { "$ref": "#/$defs/recommendation" }, "description": "Containment actions for the next hours." },
+        "short_term":  { "type": "array", "items": { "$ref": "#/$defs/recommendation" } },
+        "long_term":   { "type": "array", "items": { "$ref": "#/$defs/recommendation" } },
+        "further_collection": {
+          "type": "array", "items": { "$ref": "#/$defs/recommendation" },
+          "description": "What additional evidence would resolve the open questions - the most valuable output when the verdict is inconclusive."
+        }
+      }
+    },
+
+    "analytic_gaps": {
+      "type": "array",
+      "description": "What could NOT be determined and why. A first-class part of the report, not an afterthought.",
+      "items": {
+        "type": "object",
+        "required": ["gap"],
+        "additionalProperties": false,
+        "properties": {
+          "gap": { "type": "string" },
+          "reason": { "type": "string", "enum": ["evidence_not_collected", "evidence_truncated_by_budget", "log_retention_expired", "anti_forensics_suspected", "requires_network_telemetry", "requires_memory_image", "ambiguous_evidence", "other"] },
+          "detail": { "type": "string" },
+          "how_to_close": { "type": "string" }
+        }
+      }
+    },
+
+    "dismissed_detections": {
+      "type": "array",
+      "description": "Client detections judged benign, with reasoning. The client deliberately over-collects, so explaining what was ruled OUT is as important as what was ruled in - and lets a reviewer challenge a dismissal.",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "properties": {
+          "engine": { "type": "string" }, "rule_id": { "type": "string" }, "rule_name": { "type": "string" },
+          "occurrences": { "type": "integer" },
+          "rationale": { "type": "string" },
+          "confidence": { "type": "string", "enum": ["low", "moderate", "high"] }
+        }
+      }
+    },
+
+    "dashboard": {
+      "type": "object",
+      "description": "Deterministically precomputed aggregates that drive the charts. NEVER model-generated - this is what keeps the visuals honest.",
+      "additionalProperties": false,
+      "required": ["events_over_time", "severity_distribution"],
+      "properties": {
+        "events_over_time": {
+          "type": "array",
+          "items": { "type": "object", "additionalProperties": false,
+            "properties": { "bucket_utc": { "type": "string" }, "count": { "type": "integer" },
+                            "by_severity": { "type": "object", "additionalProperties": { "type": "integer" } } } }
+        },
+        "bucket_size": { "type": "string", "enum": ["minute", "hour", "day", "week"] },
+        "severity_distribution": { "type": "object", "additionalProperties": { "type": "integer" } },
+        "source_distribution":   { "type": "object", "additionalProperties": { "type": "integer" } },
+        "top_detection_rules": {
+          "type": "array",
+          "items": { "type": "object", "additionalProperties": false,
+            "properties": { "rule_name": { "type": "string" }, "engine": { "type": "string" }, "count": { "type": "integer" }, "severity": { "type": "string" } } }
+        },
+        "top_processes":  { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "top_paths":      { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "network_endpoints": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "accounts_active": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "hourly_heatmap": {
+          "type": "array",
+          "description": "day-of-week x hour-of-day activity counts, for spotting out-of-hours behaviour.",
+          "items": { "type": "object", "additionalProperties": false,
+            "properties": { "day_of_week": { "type": "integer", "minimum": 0, "maximum": 6 }, "hour": { "type": "integer", "minimum": 0, "maximum": 23 }, "count": { "type": "integer" } } }
+        },
+        "entity_graph": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Process/file/network/account relationships for the link view.",
+          "properties": {
+            "nodes": { "type": "array", "items": { "type": "object", "additionalProperties": false,
+              "properties": { "id": { "type": "string" }, "label": { "type": "string" },
+                              "kind": { "type": "string", "enum": ["host", "process", "file", "account", "ip", "domain", "registry", "service", "task"] },
+                              "severity": { "type": "string" }, "event_count": { "type": "integer" } } } },
+            "edges": { "type": "array", "items": { "type": "object", "additionalProperties": false,
+              "properties": { "source": { "type": "string" }, "target": { "type": "string" },
+                              "kind": { "type": "string" }, "weight": { "type": "integer" } } } }
+          }
+        }
+      }
+    },
+
+    "provenance": {
+      "type": "object",
+      "required": ["evidence_pack_digest"],
+      "additionalProperties": false,
+      "description": "Auditability of the analysis itself: exactly what the model was shown, and what it was not.",
+      "properties": {
+        "evidence_pack_digest": { "type": "string", "description": "SHA-256 over the concatenated evidence packs sent to the model." },
+        "pack_count": { "type": "integer" },
+        "packs": {
+          "type": "array",
+          "items": { "type": "object", "additionalProperties": false,
+            "properties": { "index": { "type": "integer" }, "rows": { "type": "integer" },
+                            "estimated_tokens": { "type": "integer" }, "time_range": { "type": "object", "additionalProperties": true },
+                            "selection_strategy": { "type": "string" } } }
+        },
+        "reduction_strategy": { "type": "string", "description": "How rows were selected/dropped to fit the token budget - the single most important caveat on any conclusion." },
+        "rows_omitted": { "type": "integer" },
+        "redactions_applied": { "type": "array", "items": { "type": "string" } },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "repair_attempts": { "type": "integer", "description": "Times the model's JSON failed validation and had to be repaired." }
+      }
+    }
+  },
+
+  "$defs": {
+    "ioc": {
+      "type": "object",
+      "required": ["value"],
+      "additionalProperties": false,
+      "properties": {
+        "value": { "type": "string" },
+        "context": { "type": "string" },
+        "first_seen_utc": { "type": "string" },
+        "last_seen_utc": { "type": "string" },
+        "occurrences": { "type": "integer" },
+        "confidence": { "type": "string", "enum": ["low", "moderate", "high"] },
+        "finding_ids": { "type": "array", "items": { "type": "string" } },
+        "row_hashes": { "type": "array", "items": { "type": "string" } },
+        "verdict": { "type": "string", "enum": ["malicious", "suspicious", "unknown", "benign"] }
+      }
+    },
+    "recommendation": {
+      "type": "object",
+      "required": ["action"],
+      "additionalProperties": false,
+      "properties": {
+        "action": { "type": "string" },
+        "priority": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+        "rationale": { "type": "string" },
+        "finding_ids": { "type": "array", "items": { "type": "string" } },
+        "effort": { "type": "string", "enum": ["trivial", "moderate", "significant"] }
+      }
+    }
+  }
+}

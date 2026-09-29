@@ -1,0 +1,337 @@
+/* Reusable UI components: buttons, chips, tables, dialogs, toasts, progress,
+ * dropzone. Kept intentionally plain - this is an investigation tool, not a
+ * marketing surface. */
+
+/* --- Buttons ------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-raised);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  line-height: 1;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+.btn:hover { background: var(--color-row-hover); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+}
+.btn-primary:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); }
+
+.btn-danger {
+  background: var(--color-bg-raised);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+.btn-danger:hover { background: var(--color-danger-bg); }
+
+.btn-icon {
+  padding: var(--space-1) var(--space-2);
+}
+
+/* --- Chips ---------------------------------------------------------------
+ * Used for severity tags, source tags, artifact filters. Severity chips are
+ * the ONE place hue conveys meaning; non-severity chips stay neutral. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 1px var(--space-2);
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  line-height: 1.6;
+  border: var(--border-width) solid var(--color-border);
+  background: var(--color-bg-sunken);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.chip-removable { padding-right: var(--space-1); }
+.chip-remove {
+  background: none;
+  border: none;
+  padding: 0 2px;
+  color: inherit;
+  font-size: 1em;
+  line-height: 1;
+}
+
+.chip-sev-none { color: var(--sev-none); border-color: var(--sev-none); background: transparent; }
+.chip-sev-informational { color: var(--sev-informational); border-color: var(--sev-informational); background: transparent; }
+.chip-sev-low { color: var(--sev-low); border-color: var(--sev-low); background: transparent; }
+.chip-sev-medium { color: var(--sev-medium); border-color: var(--sev-medium); background: transparent; }
+.chip-sev-high { color: var(--sev-high); border-color: var(--sev-high); background: transparent; }
+.chip-sev-critical { color: #fff; border-color: var(--sev-critical); background: var(--sev-critical); }
+
+/* --- Dropzone ------------------------------------------------------------ */
+.dropzone {
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--color-text-muted);
+  background: var(--color-bg-raised);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.dropzone.is-dragover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-bg);
+  color: var(--color-text);
+}
+.dropzone input[type="file"] { display: none; }
+.dropzone .dropzone-hint { font-size: var(--font-size-xs); color: var(--color-text-faint); margin-top: var(--space-2); }
+
+/* --- File list ------------------------------------------------------------ */
+.file-list { list-style: none; padding: 0; margin: var(--space-3) 0 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.file-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-raised);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+}
+.file-row .file-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-row .file-meta { color: var(--color-text-faint); font-size: var(--font-size-xs); }
+
+/* --- Table (virtual-scroll capable) -------------------------------------
+ * table.js renders rows into an absolutely-positioned viewport div rather
+ * than real <tr> elements, so 100k+ row datasets stay smooth; this is the
+ * static shell/chrome around it. */
+.data-table {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-raised);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.data-table-head {
+  display: flex;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-muted);
+  background: var(--color-bg-sunken);
+  border-bottom: var(--border-width) solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.data-table-head .col,
+.data-table-row .col {
+  padding: 0 var(--space-3);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.data-table-head .col { height: var(--row-height); }
+
+.data-table-viewport {
+  position: relative;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.data-table-spacer { position: relative; width: 1px; }
+
+.data-table-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  height: var(--row-height);
+  font-size: var(--font-size-sm);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+.data-table-row:nth-child(odd) { background: var(--color-row-stripe); }
+.data-table-row:hover { background: var(--color-row-hover); }
+.data-table-row.is-selected { background: var(--color-row-selected); }
+.data-table-row.sev-critical { box-shadow: inset 3px 0 0 var(--sev-critical); }
+.data-table-row.sev-high { box-shadow: inset 3px 0 0 var(--sev-high); }
+
+.data-table-empty {
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--color-text-faint);
+}
+
+/* --- Dialog / modal ------------------------------------------------------ */
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: var(--space-4);
+}
+.dialog {
+  background: var(--color-bg-raised);
+  border-radius: var(--radius-lg);
+  border: var(--border-width) solid var(--color-border);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+.dialog-body { padding: var(--space-4); overflow-y: auto; }
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-top: var(--border-width) solid var(--color-border);
+}
+.dialog-close {
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  line-height: 1;
+  padding: var(--space-1);
+}
+
+/* --- Toast ---------------------------------------------------------------- */
+.toast-region {
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  z-index: 200;
+  max-width: 380px;
+}
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: var(--border-width) solid var(--color-border);
+  background: var(--color-bg-raised);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  font-size: var(--font-size-sm);
+  animation: toast-in var(--transition-base);
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.toast-error { border-color: var(--color-danger); }
+.toast-error .toast-icon { color: var(--color-danger); }
+.toast-success { border-color: var(--color-success); }
+.toast-success .toast-icon { color: var(--color-success); }
+.toast-body { flex: 1; }
+.toast-title { font-weight: 600; }
+.toast-detail { color: var(--color-text-muted); margin-top: 2px; }
+.toast-dismiss { background: none; border: none; color: var(--color-text-faint); font-size: var(--font-size-md); line-height: 1; }
+
+/* --- Progress -------------------------------------------------------------- */
+.progress {
+  width: 100%;
+  height: 8px;
+  background: var(--color-bg-sunken);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  background: var(--color-accent);
+  transition: width var(--transition-base);
+}
+.progress-bar.is-indeterminate {
+  width: 40% !important;
+  animation: progress-indeterminate 1.2s ease-in-out infinite;
+}
+@keyframes progress-indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+/* --- Cards / panels -------------------------------------------------------- */
+.panel {
+  background: var(--color-bg-raised);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+.panel-title {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-3);
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-3);
+}
+.stat {
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-sunken);
+}
+.stat-value { font-size: var(--font-size-lg); font-weight: 600; font-variant-numeric: tabular-nums; }
+.stat-label { font-size: var(--font-size-xs); color: var(--color-text-muted); }
+
+/* --- Form controls ---------------------------------------------------------- */
+.field { display: flex; flex-direction: column; gap: var(--space-1); margin-bottom: var(--space-3); }
+.field label { font-size: var(--font-size-sm); font-weight: 500; }
+.field .field-hint { font-size: var(--font-size-xs); color: var(--color-text-faint); }
+.input, select.input, textarea.input {
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-raised);
+  color: var(--color-text);
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  color: var(--color-text-faint);
+}

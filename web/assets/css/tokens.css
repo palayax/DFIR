@@ -1,0 +1,168 @@
+/* Design tokens for the IRTriage web console.
+ *
+ * Intent: a forensic investigation console, not a marketing/dashboard
+ * template. Dense, calm, information-first. A restrained neutral palette
+ * (ink/paper/slate greys) carries almost everything; color is reserved for
+ * severity so an analyst's eye is never pulled toward decoration. Numeric
+ * columns (timestamps, sizes, counts) use tabular figures so columns of
+ * digits align. Legible at 1280px, comfortable at 1920px+ (content clamps
+ * to a max readable width rather than stretching every panel edge to edge).
+ *
+ * Both a light and a dark scheme are defined; the default follows
+ * prefers-color-scheme, and `[data-theme="light"]` / `[data-theme="dark"]`
+ * on <html> let the in-app Settings toggle override the OS preference.
+ */
+
+:root {
+  /* Type */
+  --font-ui: -apple-system, "Segoe UI", "Inter", system-ui, sans-serif;
+  --font-mono: "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.8125rem;
+  --font-size-base: 0.9375rem;
+  --font-size-md: 1.0625rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.625rem;
+  --line-height-base: 1.45;
+  --line-height-tight: 1.2;
+
+  /* Spacing scale (dense: smaller base unit than typical marketing UI) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+
+  --border-width: 1px;
+  --content-max-width: 1600px;
+
+  --focus-ring: 0 0 0 2px var(--color-focus-ring);
+
+  --transition-fast: 120ms ease;
+  --transition-base: 180ms ease;
+
+  --row-height: 28px;
+  --row-height-dense: 24px;
+
+  /* Severity - the ONLY place hue is used for meaning. Fixed vocabulary,
+   * matches docs/timeline_schema.json properties.severity_max.enum. */
+  --sev-none: #6b7280;
+  --sev-informational: #3b82f6;
+  --sev-low: #10b981;
+  --sev-medium: #d97706;
+  --sev-high: #dc2626;
+  --sev-critical: #991b1b;
+  --sev-critical-bg: #fee2e2;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Light scheme (default)                                                  */
+/* ---------------------------------------------------------------------- */
+:root,
+:root[data-theme="light"] {
+  --color-bg: #f4f5f7;
+  --color-bg-raised: #ffffff;
+  --color-bg-sunken: #e9eaed;
+  --color-bg-overlay: rgba(15, 18, 23, 0.55);
+
+  --color-border: #d6d9de;
+  --color-border-strong: #b5b9c1;
+
+  --color-text: #1b1f24;
+  --color-text-muted: #565d68;
+  --color-text-faint: #868d97;
+  --color-text-on-accent: #ffffff;
+
+  --color-accent: #2454b8;
+  --color-accent-hover: #1c4396;
+  --color-accent-bg: #e7edfa;
+
+  --color-focus-ring: #2454b8;
+
+  --color-danger: #b91c1c;
+  --color-danger-bg: #fdecec;
+  --color-success: #15803d;
+  --color-success-bg: #eaf7ef;
+  --color-warning-bg: #fff6e5;
+
+  --color-row-stripe: #fafafb;
+  --color-row-hover: #eef1f7;
+  --color-row-selected: #dce6fb;
+
+  --color-code-bg: #eef0f3;
+
+  color-scheme: light;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Dark scheme                                                             */
+/* ---------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #14171c;
+    --color-bg-raised: #1b1f26;
+    --color-bg-sunken: #0f1115;
+    --color-bg-overlay: rgba(0, 0, 0, 0.65);
+
+    --color-border: #2c313a;
+    --color-border-strong: #3d434f;
+
+    --color-text: #e6e8eb;
+    --color-text-muted: #a6acb6;
+    --color-text-faint: #767d88;
+    --color-text-on-accent: #ffffff;
+
+    --color-accent: #6f96e8;
+    --color-accent-hover: #8caaf0;
+    --color-accent-bg: #22304d;
+
+    --color-focus-ring: #8caaf0;
+
+    --color-danger: #f87171;
+    --color-danger-bg: #3a1d1d;
+    --color-success: #4ade80;
+    --color-success-bg: #1b3324;
+    --color-warning-bg: #3a2f14;
+
+    --color-row-stripe: #181c22;
+    --color-row-hover: #232833;
+    --color-row-selected: #2a3b5c;
+
+    --color-code-bg: #10131700;
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #14171c;
+  --color-bg-raised: #1b1f26;
+  --color-bg-sunken: #0f1115;
+  --color-bg-overlay: rgba(0, 0, 0, 0.65);
+  --color-border: #2c313a;
+  --color-border-strong: #3d434f;
+  --color-text: #e6e8eb;
+  --color-text-muted: #a6acb6;
+  --color-text-faint: #767d88;
+  --color-text-on-accent: #ffffff;
+  --color-accent: #6f96e8;
+  --color-accent-hover: #8caaf0;
+  --color-accent-bg: #22304d;
+  --color-focus-ring: #8caaf0;
+  --color-danger: #f87171;
+  --color-danger-bg: #3a1d1d;
+  --color-success: #4ade80;
+  --color-success-bg: #1b3324;
+  --color-warning-bg: #3a2f14;
+  --color-row-stripe: #181c22;
+  --color-row-hover: #232833;
+  --color-row-selected: #2a3b5c;
+  --color-code-bg: #1a1e24;
+  color-scheme: dark;
+}

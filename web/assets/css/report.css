@@ -1,0 +1,618 @@
+/* Styles for report.html - the standalone interactive forensic report
+ * dashboard (C6). Built entirely on tokens.css/base.css/components.css (no
+ * new colors invented here beyond what tokens.css already exposes) so the
+ * report page matches the rest of the app and gets light/dark theming and
+ * prefers-reduced-motion handling for free from those shared files.
+ *
+ * Class names here are a direct contract with the pure renderers in
+ * assets/js/report/render.js, charts.js and entity-graph.js - see those
+ * files' own markup for the authoritative source of every selector below.
+ */
+
+/* ---------------------------------------------------------------------- */
+/* Page shell                                                              */
+/* ---------------------------------------------------------------------- */
+
+html, body { min-height: 100%; }
+
+.report-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.report-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-bg-raised);
+  border-bottom: var(--border-width) solid var(--color-border);
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.report-toolbar-brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  white-space: nowrap;
+}
+.report-toolbar-brand .app-brand-mark { color: var(--color-accent); }
+.report-toolbar-brand .app-tagline {
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  color: var(--color-text-faint);
+}
+
+.report-source-controls,
+.report-export-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.report-export-controls { margin-left: auto; }
+
+.report-status {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+.report-status[data-tone="error"] { color: var(--color-danger); font-weight: 600; }
+.report-status[data-tone="success"] { color: var(--color-success); }
+
+/* ---------------------------------------------------------------------- */
+/* Filter bar (requirement #11: global filter bar, deep-linkable via URL   */
+/* hash)                                                                    */
+/* ---------------------------------------------------------------------- */
+
+.report-filter-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-bg-sunken);
+  border-bottom: var(--border-width) solid var(--color-border);
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 9;
+}
+.filter-bar-field { margin-bottom: 0; min-width: 140px; }
+.filter-bar-field label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+#filter-sev { min-width: 160px; }
+.filter-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+}
+.filter-active-indicator {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-accent);
+  background: var(--color-accent-bg);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Main content area                                                       */
+/* ---------------------------------------------------------------------- */
+
+#report-main {
+  flex: 1;
+  padding: var(--space-5);
+}
+
+#report-root {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.report-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.text-faint { color: var(--color-text-faint); }
+
+.report-footer { border-top: var(--border-width) solid var(--color-border); }
+
+/* Generic key/value definition list used throughout (header, verdict,
+ * finding meta). */
+.kv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-3) var(--space-5);
+  margin: var(--space-3) 0;
+}
+.kv-grid > div { display: flex; flex-direction: column; gap: 2px; }
+.kv-grid dt {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.kv-grid dd { margin: 0; }
+
+/* ---------------------------------------------------------------------- */
+/* 1. Header                                                               */
+/* ---------------------------------------------------------------------- */
+
+.report-header { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.classification-banner {
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-warning-bg);
+  border: var(--border-width) solid var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.report-header-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .report-header-grid { grid-template-columns: 1fr; }
+}
+
+.report-header-main h1 { font-size: var(--font-size-xl); margin: 0 0 var(--space-2); }
+
+/* The reduction-ratio stat gets a warning treatment (background/border, plus
+ * an explanatory paragraph) whenever the report is sampled - never colour
+ * alone, the label text always spells out "sampled". */
+.stat-warning {
+  background: var(--color-warning-bg);
+  border-color: var(--sev-medium);
+}
+.sampling-warning {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text);
+}
+
+/* ---------------------------------------------------------------------- */
+/* 2. Verdict panel - "inconclusive" gets the SAME neutral tone as a clean  */
+/* result; only suspicious_activity/likely/confirmed get warmer tones.     */
+/* ---------------------------------------------------------------------- */
+
+.verdict-panel { border-left: 4px solid var(--color-border-strong); }
+.verdict-panel.tone-neutral { border-left-color: var(--color-border-strong); }
+.verdict-panel.tone-caution { border-left-color: var(--sev-medium); background: var(--color-warning-bg); }
+.verdict-panel.tone-alert { border-left-color: var(--sev-critical); background: var(--color-danger-bg); }
+
+.verdict-headline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.verdict-assessment { font-size: var(--font-size-lg); font-weight: 700; }
+.verdict-rationale { margin: var(--space-2) 0; }
+
+/* ---------------------------------------------------------------------- */
+/* Chips - severity, confidence, mitre, gap-reason, priority, effort,      */
+/* uncited. Reuses .chip from components.css, adds meaning-bearing variants*/
+/* on top. Colour is never the only channel: every chip also carries text. */
+/* ---------------------------------------------------------------------- */
+
+.chip-finding-sev-informational { color: var(--sev-informational); border-color: var(--sev-informational); background: transparent; }
+.chip-finding-sev-low { color: var(--sev-low); border-color: var(--sev-low); background: transparent; }
+.chip-finding-sev-medium { color: var(--sev-medium); border-color: var(--sev-medium); background: transparent; }
+.chip-finding-sev-high { color: var(--sev-high); border-color: var(--sev-high); background: transparent; }
+.chip-finding-sev-critical { color: #fff; border-color: var(--sev-critical); background: var(--sev-critical); }
+
+.chip-confidence-low { color: var(--color-text-muted); }
+.chip-confidence-moderate { color: var(--color-text); border-color: var(--color-border-strong); }
+.chip-confidence-high { color: var(--color-accent); border-color: var(--color-accent); }
+
+.chip-uncited {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+  background: var(--color-danger-bg);
+  font-weight: 700;
+}
+
+.chip-mitre { font-family: var(--font-mono); }
+
+.chip-gap-reason { text-transform: capitalize; }
+
+.chip-priority-immediate,
+.chip-priority-high { color: var(--color-danger); border-color: var(--color-danger); }
+.chip-priority-medium { color: var(--sev-medium); border-color: var(--sev-medium); }
+.chip-priority-low { color: var(--color-text-muted); }
+.chip-effort { font-style: italic; }
+
+/* ---------------------------------------------------------------------- */
+/* 3. Executive summary                                                    */
+/* ---------------------------------------------------------------------- */
+
+.exec-summary-prose p { margin: 0 0 var(--space-3); }
+.exec-summary-bullets ul { margin: 0; padding-left: var(--space-5); }
+.exec-summary-bullets li { margin-bottom: var(--space-1); }
+
+/* ---------------------------------------------------------------------- */
+/* 4. Findings                                                             */
+/* ---------------------------------------------------------------------- */
+
+.findings-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.finding-card { border-left: 4px solid var(--color-border-strong); }
+.finding-card[data-severity="critical"] { border-left-color: var(--sev-critical); }
+.finding-card[data-severity="high"] { border-left-color: var(--sev-high); }
+.finding-card[data-severity="medium"] { border-left-color: var(--sev-medium); }
+.finding-card[data-severity="low"] { border-left-color: var(--sev-low); }
+.finding-card[data-severity="informational"] { border-left-color: var(--sev-informational); }
+.finding-card[data-uncited="true"] { box-shadow: inset 0 0 0 1px var(--color-danger); }
+
+/* A finding hidden by the active filter set (main.js toggles this) is kept
+ * in the DOM (so counts/anchors stay stable) but visually removed. */
+.finding-card[hidden] { display: none; }
+
+.finding-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.finding-toggle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 0;
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+}
+.finding-toggle .finding-title { font-weight: 600; }
+.finding-chips {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.finding-details { margin-top: var(--space-3); }
+.finding-details summary { cursor: pointer; color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.finding-narrative { margin: var(--space-3) 0; }
+.finding-meta { margin: var(--space-2) 0; }
+.mitre-chips { display: flex; gap: var(--space-2); flex-wrap: wrap; margin: var(--space-2) 0; }
+.finding-recommendation, .finding-fp-considered { margin: var(--space-2) 0; }
+.detection-rules { margin: var(--space-3) 0; font-size: var(--font-size-sm); }
+.detection-rules h4 { margin: 0 0 var(--space-1); font-size: var(--font-size-xs); text-transform: uppercase; color: var(--color-text-muted); }
+
+.evidence-table, .ioc-table, .dismissed-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-2);
+}
+.evidence-table th, .evidence-table td,
+.ioc-table th, .ioc-table td,
+.dismissed-table th, .dismissed-table td {
+  padding: var(--space-2) var(--space-2);
+  border-bottom: var(--border-width) solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+.evidence-table thead th, .ioc-table thead th, .dismissed-table thead th {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.row-hash { font-size: var(--font-size-xs); word-break: break-all; }
+
+.uncited-badge {
+  color: var(--color-danger);
+  font-weight: 700;
+  background: var(--color-danger-bg);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+/* ---------------------------------------------------------------------- */
+/* 5. Attack narrative phase timeline (cross-filtering)                    */
+/* ---------------------------------------------------------------------- */
+
+.phase-timeline {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding: var(--space-2) 0;
+  margin: var(--space-3) 0;
+}
+.phase-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  align-items: flex-start;
+  min-width: 160px;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-sunken);
+  color: var(--color-text);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.phase-item:hover { background: var(--color-row-hover); }
+.phase-item.is-active {
+  background: var(--color-accent-bg);
+  border-color: var(--color-accent);
+}
+.phase-item .phase-order {
+  font-weight: 700;
+  color: var(--color-accent);
+}
+.phase-item .phase-name { font-weight: 600; }
+.phase-item .phase-time { font-size: var(--font-size-xs); color: var(--color-text-faint); }
+
+.phase-descriptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.phase-description h4 { margin: 0 0 var(--space-1); }
+.phase-description p { margin: 0; }
+/* Highlighted when its phase is the active cross-filter. */
+.phase-description.is-active { background: var(--color-accent-bg); border-radius: var(--radius-md); padding: var(--space-2); }
+
+/* ---------------------------------------------------------------------- */
+/* 8. IOC panel - CSS-only radio-button tabs (no JS required to switch     */
+/* tabs; main.js only wires copy/export). Every known IOC type gets its    */
+/* own rule since the panel/radio are matched by id <-> data-ioc-type, not */
+/* DOM adjacency (render.js emits all radios+labels first, then all        */
+/* panels, so a plain sibling combinator can't be generic across types).  */
+/* ---------------------------------------------------------------------- */
+
+.ioc-tabs { display: flex; flex-wrap: wrap; }
+.ioc-tab-radio { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.ioc-tab-label {
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-bottom: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: var(--color-bg-sunken);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  margin-right: 2px;
+}
+.ioc-tab-radio:focus-visible + .ioc-tab-label { box-shadow: var(--focus-ring); }
+.ioc-tab-panel {
+  display: none;
+  width: 100%;
+  order: 999;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+  padding: var(--space-3);
+  background: var(--color-bg-raised);
+}
+.ioc-tab-actions { display: flex; gap: var(--space-2); margin-bottom: var(--space-2); flex-wrap: wrap; }
+
+#ioc-tab-files:checked ~ label[for="ioc-tab-files"],
+#ioc-tab-hashes:checked ~ label[for="ioc-tab-hashes"],
+#ioc-tab-ip_addresses:checked ~ label[for="ioc-tab-ip_addresses"],
+#ioc-tab-domains:checked ~ label[for="ioc-tab-domains"],
+#ioc-tab-urls:checked ~ label[for="ioc-tab-urls"],
+#ioc-tab-registry_keys:checked ~ label[for="ioc-tab-registry_keys"],
+#ioc-tab-accounts:checked ~ label[for="ioc-tab-accounts"],
+#ioc-tab-processes:checked ~ label[for="ioc-tab-processes"],
+#ioc-tab-scheduled_tasks:checked ~ label[for="ioc-tab-scheduled_tasks"],
+#ioc-tab-services:checked ~ label[for="ioc-tab-services"] {
+  background: var(--color-bg-raised);
+  color: var(--color-accent);
+  font-weight: 700;
+  border-color: var(--color-border-strong);
+}
+#ioc-tab-files:checked ~ .ioc-tab-panel[data-ioc-type="files"],
+#ioc-tab-hashes:checked ~ .ioc-tab-panel[data-ioc-type="hashes"],
+#ioc-tab-ip_addresses:checked ~ .ioc-tab-panel[data-ioc-type="ip_addresses"],
+#ioc-tab-domains:checked ~ .ioc-tab-panel[data-ioc-type="domains"],
+#ioc-tab-urls:checked ~ .ioc-tab-panel[data-ioc-type="urls"],
+#ioc-tab-registry_keys:checked ~ .ioc-tab-panel[data-ioc-type="registry_keys"],
+#ioc-tab-accounts:checked ~ .ioc-tab-panel[data-ioc-type="accounts"],
+#ioc-tab-processes:checked ~ .ioc-tab-panel[data-ioc-type="processes"],
+#ioc-tab-scheduled_tasks:checked ~ .ioc-tab-panel[data-ioc-type="scheduled_tasks"],
+#ioc-tab-services:checked ~ .ioc-tab-panel[data-ioc-type="services"] {
+  display: block;
+}
+
+/* ---------------------------------------------------------------------- */
+/* 9. Analytic gaps + dismissed detections - visual prominence via a       */
+/* distinct "callout" panel treatment, not a plain list.                  */
+/* ---------------------------------------------------------------------- */
+
+.callout { border-width: 2px; }
+.callout-gaps { border-color: var(--sev-medium); background: var(--color-warning-bg); }
+.callout-dismissed { border-color: var(--color-border-strong); background: var(--color-bg-sunken); }
+.callout-flag {
+  font-weight: 600;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+.callout-intro { color: var(--color-text-muted); font-size: var(--font-size-sm); }
+
+.gap-list { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+.gap-item {
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-raised);
+  border: var(--border-width) solid var(--color-border);
+}
+.gap-text { font-weight: 600; margin: 0 0 var(--space-2); }
+.gap-meta { margin-bottom: var(--space-2); }
+.gap-detail, .gap-how-to-close { margin: var(--space-1) 0; font-size: var(--font-size-sm); }
+
+/* ---------------------------------------------------------------------- */
+/* 10. Recommendations                                                     */
+/* ---------------------------------------------------------------------- */
+
+.rec-group + .rec-group { margin-top: var(--space-4); }
+.rec-group h3 { font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.02em; color: var(--color-text-muted); margin: 0 0 var(--space-2); }
+.rec-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.rec-item { padding: var(--space-3); border: var(--border-width) solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg-raised); }
+.rec-action { font-weight: 600; }
+.rec-chips { display: flex; gap: var(--space-2); margin: var(--space-1) 0; }
+.rec-rationale { margin: var(--space-1) 0 0; color: var(--color-text-muted); font-size: var(--font-size-sm); }
+
+/* ---------------------------------------------------------------------- */
+/* Dashboard section (charts + entity graph): mounted by main.js after the */
+/* attack-narrative section, per render.js's documented split.            */
+/* ---------------------------------------------------------------------- */
+
+.dashboard-section { display: flex; flex-direction: column; gap: var(--space-4); }
+.dashboard-section > h2 { margin: 0; }
+.dashboard-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+.dashboard-charts-grid .chart-figure.chart-figure-wide { grid-column: 1 / -1; }
+
+.chart-figure {
+  margin: 0;
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-raised);
+}
+.chart-figure figcaption {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.chart-svg { width: 100%; height: auto; display: block; }
+.chart-svg text { fill: var(--color-text); font-size: 10px; font-family: var(--font-ui); }
+.chart-axis-label { fill: var(--color-text-faint); }
+.chart-axis-line { stroke: var(--color-border-strong); stroke-width: 1; }
+.chart-value-label { fill: var(--color-text-muted); font-weight: 600; }
+.chart-no-data-text { fill: var(--color-text-faint); font-size: 13px; }
+.chart-empty { opacity: 0.9; }
+
+.chart-brush-overlay { cursor: crosshair; }
+.chart-brush-overlay:hover { fill: var(--color-accent-bg); fill-opacity: 0.25; }
+
+.bar-seg, .bar { stroke: none; }
+.bar-seg.sev-critical, .bar.sev-critical { fill: var(--sev-critical); }
+.bar-seg.sev-high, .bar.sev-high { fill: var(--sev-high); }
+.bar-seg.sev-medium, .bar.sev-medium { fill: var(--sev-medium); }
+.bar-seg.sev-low, .bar.sev-low { fill: var(--sev-low); }
+.bar-seg.sev-informational, .bar.sev-informational { fill: var(--sev-informational); }
+.bar-seg.sev-none, .bar.sev-none { fill: var(--sev-none); }
+.bar.source-bar { fill: var(--color-accent); }
+
+.heatmap-cell { fill: var(--color-accent); stroke: var(--color-bg-raised); stroke-width: 1; }
+.heatmap-cell-label { fill: var(--color-text-on-accent); font-weight: 600; font-size: 9px; pointer-events: none; }
+
+.mitre-cell { cursor: pointer; }
+.mitre-cell-rect { fill: var(--color-accent); stroke: var(--color-bg-raised); stroke-width: 1; }
+.mitre-cell-label { fill: var(--color-text-on-accent); font-size: 9px; pointer-events: none; }
+.mitre-tactic-label { font-weight: 600; }
+.mitre-cell:focus-visible .mitre-cell-rect,
+.mitre-cell:hover .mitre-cell-rect { stroke: var(--color-text); stroke-width: 2; }
+.mitre-cell.is-active .mitre-cell-rect { stroke: var(--color-danger); stroke-width: 3; }
+
+.chart-data-table { margin-top: var(--space-3); }
+.chart-data-table summary {
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+.chart-data-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-xs);
+  margin-top: var(--space-2);
+}
+.chart-data-table th, .chart-data-table td {
+  padding: var(--space-1) var(--space-2);
+  border-bottom: var(--border-width) solid var(--color-border);
+  text-align: left;
+}
+
+/* ---------------------------------------------------------------------- */
+/* 7. Entity graph                                                         */
+/* ---------------------------------------------------------------------- */
+
+.entity-graph-wrap { display: flex; flex-direction: column; gap: var(--space-3); }
+.entity-graph-svg { background: var(--color-bg-sunken); border-radius: var(--radius-md); }
+.entity-edge { stroke: var(--color-border-strong); opacity: 0.6; }
+.entity-node { stroke: var(--color-bg-raised); stroke-width: 1.5; cursor: pointer; }
+.entity-node.sev-critical { fill: var(--sev-critical); }
+.entity-node.sev-high { fill: var(--sev-high); }
+.entity-node.sev-medium { fill: var(--sev-medium); }
+.entity-node.sev-low { fill: var(--sev-low); }
+.entity-node.sev-informational { fill: var(--sev-informational); }
+.entity-node.sev-none { fill: var(--sev-none); }
+.entity-node-label { fill: var(--color-text-muted); font-size: 9px; pointer-events: none; }
+.entity-node-group:focus-visible .entity-node,
+.entity-node-group:hover .entity-node { stroke: var(--color-text); stroke-width: 2.5; }
+.entity-node-group.is-active .entity-node { stroke: var(--color-danger); stroke-width: 3; }
+
+.entity-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+.entity-legend-item { display: inline-flex; align-items: center; gap: var(--space-1); }
+
+.entity-graph-fallback .callout-flag { margin-bottom: var(--space-3); }
+
+/* SVG elements used as interactive controls (mitre-cell, entity-node-group)
+ * need their own visible focus treatment - base.css's global :focus-visible
+ * rule targets ordinary elements, but a plain outline on an SVG <g> renders
+ * inconsistently across browsers, so give the *shape inside* the ring via
+ * stroke above, and still keep a fallback outline on the group itself. */
+g[tabindex]:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+
+/* ---------------------------------------------------------------------- */
+/* Responsive: legible at 1280px+, comfortable wider. Nothing below this   */
+/* file relies on a narrower breakpoint - 1280px is the documented floor.  */
+/* ---------------------------------------------------------------------- */
+
+@media (max-width: 1280px) {
+  .dashboard-charts-grid { grid-template-columns: 1fr; }
+  .report-filter-bar { position: static; }
+}

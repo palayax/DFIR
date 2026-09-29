@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/irtriage/schema/timeline/v1.json",
+  "title": "IRTriage Unified Timeline Record",
+  "description": "One row of the deterministic triage timeline. Emitted as JSONL (full fidelity, one object per line) by client/internal/timeline, and as a flattened CSV for analyst tooling. THIS IS THE CONTRACT BETWEEN THE CLIENT AND THE WEB APP - neither side may change it without updating the other side and its tests.",
+  "schemaVersion": "1.0.0",
+
+  "x-determinism": {
+    "sortKey": ["timestamp_utc", "source", "artifact", "row_hash"],
+    "rationale": "A total order. Velociraptor's artifact execution order is explicitly non-deterministic and glob() ordering is unspecified, so output order must never depend on them. row_hash is the final tiebreaker, which makes the order total even for otherwise-identical rows.",
+    "timestampFormat": "RFC3339 UTC with EXACTLY 7 fractional digits and a literal 'Z' (e.g. 2026-09-20T10:05:00.0000000Z). 7 digits matches Windows FILETIME 100ns resolution and keeps lexicographic order identical to chronological order.",
+    "unknownTimestampSentinel": "0001-01-01T00:00:00.0000000Z",
+    "excludedFromTimeline": "Every nondeterministic value (run id, collection start/end, durations, tool versions, operator name) lives in manifest.json - NEVER in a timeline row.",
+    "rowHash": "Lowercase hex SHA-256 over the canonical form: the UTF-8 join of [timestamp_utc, timestamp_desc, source, artifact, message, target, host, user] with 0x1F (unit separator) between fields. Also the dedupe key for SuperTimeline merging."
+  },
+
+  "type": "object",
+  "required": [
+    "schema_version", "row_hash", "timestamp_utc", "timestamp_desc",
+    "source", "artifact", "message", "host"
+  ],
+  "additionalProperties": false,
+
+  "properties": {
+    "schema_version": {
+      "type": "string", "const": "1.0.0",
+      "description": "Schema version of this row. Consumers must reject unknown major versions."
+    },
+    "row_hash": {
+      "type": "string", "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 canonical row hash. Stable tiebreaker and cross-host dedupe key."
+    },
+
+    "timestamp_utc": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{7}Z$",
+      "description": "The event time in UTC. Sentinel 0001-01-01T00:00:00.0000000Z means 'unknown' and sorts first."
+    },
+    "timestamp_desc": {
+      "type": "string",
+      "description": "What this timestamp MEANS. A single source row with 4 MACB times becomes 4 timeline rows, one per meaning - this is what makes the timeline a true super-timeline rather than a record dump.",
+      "examples": [
+        "Created", "Modified", "Accessed", "MetadataChanged",
+        "EventTime", "RunTime", "FirstExecuted", "LastExecuted",
+        "InstallDate", "LastWriteTime", "DeletedTime", "LoginTime",
+        "DownloadTime", "VisitTime", "CompileTime", "ScanTime", "ProcessStartTime"
+      ]
+    },
+    "timestamp_source_field": {
+      "type": "string",
+      "description": "The originating column name in the raw data (e.g. 'Mtime', 'System.TimeCreated.SystemTime'). Provenance for review."
+    },
+
+    "source": {
+      "type": "string",
+      "description": "Coarse evidence category. Fixed vocabulary - the web app's dashboard facets on this.",
+      "enum": [
+        "filesystem", "eventlog", "registry", "execution", "persistence",
+        "network", "process", "browser", "account", "service", "scheduled_task",
+        "usb_device", "memory", "detection", "system_info", "log", "other"
+      ]
+    },
+    "artifact": {
+      "type": "string",
+      "description": "Producing collector: a Velociraptor artifact name (e.g. Windows.NTFS.MFT), a custom artifact (Custom.IRTriage.*), or a native collector (native:EventLog, native:RawVolume)."
+    },
+    "collector_kind": {
+      "type": "string", "enum": ["velociraptor", "native", "sigma", "yara", "nuclei", "hayabusa", "derived"],
+      "description": "Which engine produced the row. Lets the analyst separate acquisition from detection."
+    },
+
+    "host": { "type": "string", "description": "Hostname of the triaged endpoint." },
+    "host_id": { "type": "string", "description": "Stable host identifier (machine GUID) - disambiguates same-named hosts when merging." },
+    "user": { "type": "string", "description": "User associated with the event, as DOMAIN\\user where known." },
+
+    "message": {
+      "type": "string",
+      "description": "Deterministic human-readable summary, rendered from a FIXED per-source template. Never LLM-generated, never locale-dependent."
+    },
+    "target": {
+      "type": "string",
+      "description": "Primary object of the event: a file path, registry key, URL, service name, or account name."
+    },
+
+    "file": {
+      "type": "object", "additionalProperties": false,
+      "description": "Filesystem detail when the event concerns a file.",
+      "properties": {
+        "path": { "type": "string" },
+        "name": { "type": "string" },
+        "extension": { "type": "string" },
+        "size_bytes": { "type": "integer", "minimum": 0 },
+        "attributes": { "type": "string" },
+        "mft_entry": { "type": "integer" },
+        "mft_sequence": { "type": "integer" },
+        "is_directory": { "type": "boolean" },
+        "is_allocated": { "type": "boolean" },
+        "ads_name": { "type": "string", "description": "Alternate data stream name, if any." },
+        "signature_status": { "type": "string", "enum": ["signed_valid", "signed_invalid", "unsigned", "unknown"] },
+        "signer": { "type": "string" }
+      }
+    },
+
+    "hashes": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "md5":    { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+        "sha1":   { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+
+    "process": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "pid": { "type": "integer" },
+        "ppid": { "type": "integer" },
+        "name": { "type": "string" },
+        "image_path": { "type": "string" },
+        "command_line": { "type": "string" },
+        "parent_name": { "type": "string" },
+        "parent_command_line": { "type": "string" },
+        "integrity_level": { "type": "string" },
+        "session_id": { "type": "integer" },
+        "user": { "type": "string" }
+      }
+    },
+
+    "network": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "src_ip": { "type": "string" }, "src_port": { "type": "integer" },
+        "dst_ip": { "type": "string" }, "dst_port": { "type": "integer" },
+        "protocol": { "type": "string" },
+        "domain": { "type": "string" },
+        "url": { "type": "string" },
+        "direction": { "type": "string", "enum": ["inbound", "outbound", "listening", "unknown"] },
+        "state": { "type": "string" }
+      }
+    },
+
+    "registry": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "key": { "type": "string" },
+        "value_name": { "type": "string" },
+        "value_data": { "type": "string" },
+        "value_type": { "type": "string" },
+        "hive": { "type": "string" }
+      }
+    },
+
+    "event": {
+      "type": "object", "additionalProperties": false,
+      "description": "Windows event log detail.",
+      "properties": {
+        "channel": { "type": "string" },
+        "provider": { "type": "string" },
+        "event_id": { "type": "integer" },
+        "record_id": { "type": "integer" },
+        "level": { "type": "string" },
+        "computer": { "type": "string" },
+        "logon_type": { "type": "integer" },
+        "logon_id": { "type": "string" }
+      }
+    },
+
+    "detections": {
+      "type": "array",
+      "description": "Detection rules that matched THIS row. Populated by the rule-join stage. An empty array is normal and expected - the client deliberately over-collects; triage is refined downstream by the web app.",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["engine", "rule_name", "severity"],
+        "properties": {
+          "engine": { "type": "string", "enum": ["sigma", "yara", "nuclei", "hayabusa", "velociraptor"] },
+          "rule_id": { "type": "string" },
+          "rule_name": { "type": "string" },
+          "severity": {
+            "type": "string", "enum": ["informational", "low", "medium", "high", "critical"],
+            "description": "Normalized across engines. Sigma level maps 1:1. YARA reads meta.severity, defaulting to medium. Nuclei info->informational. Hayabusa level maps 1:1."
+          },
+          "rule_author": { "type": "string" },
+          "rule_description": { "type": "string" },
+          "rule_source": { "type": "string", "description": "Rule pack the rule came from, e.g. sigma:core++, yara:reversinglabs, nuclei:file/keys." },
+          "mitre_techniques": {
+            "type": "array", "items": { "type": "string", "pattern": "^T\\d{4}(\\.\\d{3})?$" },
+            "description": "Uppercased technique IDs parsed from Sigma 'attack.tXXXX' tags or YARA meta."
+          },
+          "mitre_tactics": { "type": "array", "items": { "type": "string" } },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "false_positives": { "type": "array", "items": { "type": "string" },
+            "description": "The rule's own documented FP conditions - shown to the analyst so a benign hit can be dismissed quickly." },
+          "match_detail": { "type": "string", "description": "Engine-specific evidence: YARA string name, Sigma matched field, Nuclei matcher name." },
+          "match_offset": { "type": "integer", "description": "Byte offset of a YARA string match." }
+        }
+      }
+    },
+
+    "severity_max": {
+      "type": "string", "enum": ["none", "informational", "low", "medium", "high", "critical"],
+      "description": "Highest severity among detections[], or 'none'. Denormalized so CSV consumers and dashboards can sort without parsing the array."
+    },
+    "detection_count": { "type": "integer", "minimum": 0 },
+
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["raw_file"],
+      "description": "Where this row came from inside the acquisition ZIP, so every timeline row is traceable to raw evidence.",
+      "properties": {
+        "raw_file": { "type": "string", "description": "Path within the output ZIP, e.g. raw/Windows.NTFS.MFT/results.json." },
+        "raw_row": { "type": "integer", "description": "0-based row index within that file." },
+        "collection_id": { "type": "string" }
+      }
+    },
+
+    "extra": {
+      "type": "object",
+      "description": "Source-specific fields that have no first-class home. Keys are sorted when serialized so output stays byte-stable.",
+      "additionalProperties": true
+    }
+  },
+
+  "x-csv-projection": {
+    "description": "timeline.csv column order. Nested objects are flattened with '_' and arrays joined with '; '. UTF-8 with BOM and CRLF so Excel and Eric Zimmerman's Timeline Explorer open it correctly without an import wizard.",
+    "columns": [
+      "timestamp_utc", "timestamp_desc", "source", "artifact", "collector_kind",
+      "host", "user", "message", "target",
+      "severity_max", "detection_count", "detection_rules", "detection_engines",
+      "mitre_techniques", "detection_severities",
+      "file_path", "file_size_bytes", "file_extension", "file_signature_status",
+      "hash_sha256", "hash_md5",
+      "process_pid", "process_ppid", "process_name", "process_command_line", "process_parent_name",
+      "event_channel", "event_id", "event_provider", "event_logon_type",
+      "registry_key", "registry_value_name", "registry_value_data",
+      "network_dst_ip", "network_dst_port", "network_domain", "network_url", "network_direction",
+      "provenance_raw_file", "provenance_raw_row", "row_hash"
+    ],
+    "derivedColumns": {
+      "detection_rules": "detections[].rule_name joined with '; '",
+      "detection_engines": "unique detections[].engine joined with '; '",
+      "detection_severities": "detections[].severity joined with '; ', index-aligned with detection_rules",
+      "mitre_techniques": "unique, sorted union of detections[].mitre_techniques joined with '; '"
+    }
+  }
+}

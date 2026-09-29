@@ -1,0 +1,172 @@
+/* Zero-dependency print stylesheet for report.html (C7, path 1 of 2 - the
+ * other being assets/js/report/pdf.js's from-scratch PDF writer). Linked
+ * with media="print" so it never affects on-screen rendering.
+ *
+ * Two things this file deliberately does NOT attempt, and why:
+ *
+ * 1. CSS Paged Media margin boxes (`@page { @top-center {...} }` etc) for a
+ *    "running" header/footer with live page numbers. Browser support for
+ *    margin-box content is effectively nonexistent in Chromium/WebKit and
+ *    partial-behind-a-flag in Gecko as of this writing, and CLAUDE.md rules
+ *    out vendoring a paged-media polyfill (e.g. Paged.js) to fill the gap.
+ *    Instead, the header/footer below use `position: fixed`, which real
+ *    browser print engines DO repeat on every printed page - the
+ *    long-standing, dependency-free trick for this - at the cost of not
+ *    being able to show a live "page N of M" (that specific text needs true
+ *    margin-box support). Case id + classification repeat on every page;
+ *    exact page numbers do not. This is an explicit, documented tradeoff,
+ *    not an oversight - see the C7 handback for how this was verified/not.
+ *
+ * 2. Re-implementing prefers-reduced-motion or dark-mode overrides from
+ *    scratch: prefers-reduced-motion is already handled globally by
+ *    base.css for the screen case and is moot for print (no animation runs
+ *    on a printed page regardless). Dark mode IS force-overridden to light
+ *    below, because a dark UI theme printed as-is wastes toner/ink and reads
+ *    poorly on paper.
+ */
+
+@page {
+  size: letter;
+  margin: 0.9in 0.65in 0.85in 0.65in;
+}
+
+@media print {
+  /* Force light colours regardless of the on-screen theme (data-theme
+   * attribute or OS prefers-color-scheme) - re-declare the light palette's
+   * custom properties at print time so every component that already
+   * consumes var(--color-*) just works, no per-component overrides needed. */
+  :root, :root[data-theme="dark"], :root[data-theme="light"] {
+    --color-bg: #ffffff;
+    --color-bg-raised: #ffffff;
+    --color-bg-sunken: #f4f5f7;
+    --color-bg-overlay: transparent;
+    --color-border: #c7cad0;
+    --color-border-strong: #9aa0aa;
+    --color-text: #101317;
+    --color-text-muted: #43494f;
+    --color-text-faint: #6b7280;
+    --color-text-on-accent: #ffffff;
+    --color-accent: #1c4396;
+    --color-accent-hover: #1c4396;
+    --color-accent-bg: #eef1f7;
+    --color-danger: #8a1414;
+    --color-danger-bg: #fbeaea;
+    --color-warning-bg: #fdf3e0;
+    color-scheme: light;
+  }
+
+  html, body { background: #fff; color: #101317; }
+
+  /* Interactive-only chrome that means nothing on paper. */
+  .report-toolbar,
+  .report-filter-bar,
+  .theme-toggle,
+  .filter-active-indicator,
+  .finding-toggle::after,
+  .ioc-tab-radio,
+  .ioc-tab-label,
+  .chart-brush-overlay,
+  .entity-legend,
+  .skip-link,
+  input[type="file"],
+  #export-pdf-btn,
+  #print-btn,
+  #load-sample-btn {
+    display: none !important;
+  }
+
+  /* <details> elements (finding cards, chart data tables, IOC-adjacent
+   * fallbacks) must render fully open on paper - a collapsed <details> would
+   * silently drop content from the printed/PDF-via-print-dialog output. */
+  details { display: block !important; }
+  details > summary { display: none !important; }
+  .finding-details, .chart-data-table { display: block !important; }
+
+  /* All IOC tab panels print at once, one per type, instead of only the
+   * currently ":checked" one - print is static, so "switching tabs" makes
+   * no sense; show every type's table in sequence. */
+  .ioc-tab-panel { display: block !important; page-break-inside: avoid; break-inside: avoid; margin-bottom: 12pt; }
+  .ioc-tab-actions { display: none !important; }
+
+  a, a:visited { color: inherit; text-decoration: none; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #555; }
+
+  .report-shell { display: block; }
+  #report-main { padding: 0; }
+  #report-root { max-width: none; margin: 0; }
+
+  /* Never split these atomic units across a page break. */
+  .panel, .finding-card, .chart-figure, .gap-item, .rec-item,
+  .stat, .phase-description, table, tr, figure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+
+  .report-header { break-after: avoid; }
+  .classification-banner { border: 1px solid #000; }
+
+  /* The dashboard's force-directed entity graph and hand-rolled SVG charts
+   * are vector output - they print cleanly at any size, but constrain width
+   * so nothing overflows the page box. */
+  .chart-svg, .entity-graph-svg { max-width: 100%; }
+
+  /* ---------------------------------------------------------------------
+   * Running header/footer (see file header comment for why `position:
+   * fixed` rather than @page margin boxes). Content is text set by
+   * main.js via textContent on these two elements (case id, classification,
+   * generated timestamp) - never innerHTML, so nothing report-supplied can
+   * inject markup here.
+   * --------------------------------------------------------------------- */
+  .print-running-header,
+  .print-running-footer {
+    display: block;
+    position: fixed;
+    left: 0.65in;
+    right: 0.65in;
+    font-size: 8pt;
+    color: #43494f;
+    border-color: #c7cad0;
+  }
+  .print-running-header {
+    top: 0.3in;
+    border-bottom: 1px solid #c7cad0;
+    padding-bottom: 4pt;
+    display: flex;
+    justify-content: space-between;
+  }
+  .print-running-footer {
+    bottom: 0.3in;
+    border-top: 1px solid #c7cad0;
+    padding-top: 4pt;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ---------------------------------------------------------------------
+   * Diagonal repeating watermark, from meta.engagement.classification (or
+   * the "UNCLASSIFIED" fallback pdf.js also uses). main.js builds a small
+   * inline SVG containing the rotated text and sets it as this element's
+   * background-image via the --print-watermark-image custom property (a
+   * `url("data:image/svg+xml,...")` value) so the mark tiles across the
+   * whole page without any raster asset or external request. Hidden on
+   * screen; shown only here.
+   * --------------------------------------------------------------------- */
+  .print-watermark-layer {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background-image: var(--print-watermark-image, none);
+    background-repeat: repeat;
+    background-size: 320px 200px;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 9999;
+  }
+}
+
+.print-watermark-layer,
+.print-running-header,
+.print-running-footer {
+  display: none;
+}

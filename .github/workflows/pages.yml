@@ -1,0 +1,97 @@
+# Publishes the backend-less forensic analysis app (web/) to GitHub Pages.
+#
+# The app is deliberately buildless -- plain ES modules with vendored dependencies -- so this
+# workflow only tests and uploads. There is no bundler step to go wrong, which is the point:
+# an analyst can also just clone the repo and open web/index.html locally, air-gapped.
+name: Deploy web app to GitHub Pages
+
+on:
+  push:
+    # Both names are listed deliberately: this repository's local branch is `master`,
+    # while GitHub's default for new repositories is `main`. Matching only one means
+    # the deploy silently never fires, which is a failure mode with no error message.
+    branches: [main, master]
+    paths:
+      - 'web/**'
+      - 'docs/timeline_schema.json'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+# Least privilege: only what Pages deployment requires.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; but don't cancel a deploy already in flight.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # The app has zero runtime dependencies and the tests use only node:test,
+      # so there is nothing to install -- any node_modules appearing here would
+      # be a regression against the "no build step" constraint.
+      - name: Assert no dependencies crept in
+        working-directory: web
+        run: |
+          if [ -f package-lock.json ] || [ -d node_modules ]; then
+            echo "::error::web/ must stay dependency-free (no package-lock.json / node_modules)."
+            exit 1
+          fi
+
+      - name: Unit tests
+        working-directory: web
+        run: npm test
+
+      # A CDN reference would break air-gapped use, which is a hard requirement
+      # for a forensics tool. Fail the build rather than degrade silently.
+      - name: Assert no runtime CDN references
+        run: |
+          if grep -rInE '(src|href)=["'"'"']https?://' web --include='*.html' --include='*.js' \
+             | grep -vE '(^|/)(README|VENDOR)' ; then
+            echo "::error::Found an external runtime reference in web/. Vendor it into web/assets/vendor/ instead."
+            exit 1
+          fi
+          echo "No external runtime references."
+
+      - name: Validate timeline schema is valid JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('docs/timeline_schema.json','utf8')); console.log('schema OK')"
+
+  deploy:
+    name: Deploy
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stage site
+        run: |
+          mkdir -p _site
+          cp -r web/. _site/
+          # The schema is fetched at runtime by the validator, so it must be served too.
+          mkdir -p _site/docs
+          cp docs/timeline_schema.json _site/docs/
+          # Jekyll would otherwise ignore files/directories beginning with an underscore.
+          touch _site/.nojekyll
+          rm -rf _site/node_modules _site/package-lock.json
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

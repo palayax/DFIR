@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "meta": {
+    "generated_utc": "2026-01-01T00:00:00.0000000Z",
+    "engagement": {},
+    "model": {
+      "provider": "mock",
+      "model_id": "mock-model"
+    }
+  },
+  "scope": {
+    "hosts": [],
+    "row_count": 0,
+    "time_range": {}
+  },
+  "verdict": {
+    "assessment": "inconclusive",
+    "confidence": "low"
+  },
+  "executive_summary": {
+    "text": "No usable timeline data was available for this engagement."
+  },
+  "findings": [],
+  "dashboard": {
+    "events_over_time": [],
+    "severity_distribution": {}
+  },
+  "provenance": {
+    "evidence_pack_digest": "2e1cfa82b035c26cbbbdae632cea070514eb8b773f616aaeaf668e2f0be8f10d"
+  }
+}

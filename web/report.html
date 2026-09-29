@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>IR Triage &mdash; Forensic Report</title>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/report.css">
+  <link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body>
+  <a class="skip-link" href="#report-main">Skip to main content</a>
+
+  <!-- Populated only for print (see print.css): a full-page tiled watermark
+       built from an SVG data-URI background-image that main.js sets via the
+       --print-watermark-image custom property, from
+       meta.engagement.classification. Invisible on screen. -->
+  <div class="print-watermark-layer" aria-hidden="true"></div>
+  <!-- Repeating running header/footer for print, driven by `position: fixed`
+       (the only cross-browser-reliable way to repeat content on every printed
+       page without a paged-media polyfill - see print.css's header comment).
+       Also invisible on screen. -->
+  <div class="print-running-header" aria-hidden="true"></div>
+  <div class="print-running-footer" aria-hidden="true"></div>
+
+  <div id="report-shell" class="report-shell">
+    <header class="report-toolbar">
+      <div class="report-toolbar-brand">
+        <span class="app-brand-mark">IR Triage</span>
+        <span class="app-tagline">Forensic report viewer</span>
+      </div>
+
+      <form class="report-source-controls" id="report-source-form" aria-label="Load a report">
+        <label class="btn btn-icon" for="report-file-input">
+          Open file&hellip;
+          <input type="file" id="report-file-input" accept="application/json,.json" class="visually-hidden">
+        </label>
+        <button type="button" class="btn" id="load-sample-btn">Load sample</button>
+        <span class="report-status" id="report-status" role="status" aria-live="polite"></span>
+      </form>
+
+      <div class="report-export-controls">
+        <button type="button" class="btn" id="export-pdf-btn" disabled>Export PDF</button>
+        <button type="button" class="btn" id="print-btn" disabled>Print / Save as PDF</button>
+      </div>
+
+      <div class="theme-toggle" id="theme-toggle" role="group" aria-label="Theme">
+        <button type="button" data-theme="auto" aria-pressed="false">Auto</button>
+        <button type="button" data-theme="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+      </div>
+    </header>
+
+    <form class="report-filter-bar" id="report-filter-bar" aria-label="Filter findings" data-testid="filter-bar">
+      <div class="field filter-bar-field">
+        <label for="filter-q">Search</label>
+        <input class="input" type="search" id="filter-q" placeholder="title, narrative, evidence&hellip;" autocomplete="off">
+      </div>
+      <div class="field filter-bar-field">
+        <label for="filter-sev">Severity</label>
+        <select class="input" id="filter-sev" multiple size="5">
+          <option value="critical">Critical</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+          <option value="informational">Informational</option>
+        </select>
+      </div>
+      <div class="field filter-bar-field">
+        <label for="filter-host">Host</label>
+        <input class="input" type="text" id="filter-host" placeholder="comma-separated" autocomplete="off">
+      </div>
+      <div class="field filter-bar-field">
+        <label for="filter-t0">From (UTC)</label>
+        <input class="input" type="datetime-local" id="filter-t0">
+      </div>
+      <div class="field filter-bar-field">
+        <label for="filter-t1">To (UTC)</label>
+        <input class="input" type="datetime-local" id="filter-t1">
+      </div>
+      <div class="filter-bar-actions">
+        <button type="button" class="btn" id="filter-clear-btn">Clear filters</button>
+        <span class="filter-active-indicator" id="filter-active-indicator" hidden>Filters active &mdash; findings/charts below are narrowed</span>
+      </div>
+    </form>
+
+    <main id="report-main" role="main">
+      <div id="report-root">
+        <p class="empty-state">No report loaded yet. Use &ldquo;Load sample&rdquo; above, choose a file with &ldquo;Open file&hellip;&rdquo;, or open this page with <code>?src=path/to/report.json</code>.</p>
+      </div>
+    </main>
+
+    <footer class="app-footer report-footer">
+      <p>IR Triage Suite &mdash; client-side forensic report viewer. Nothing here is uploaded anywhere; the report JSON stays in this browser tab.</p>
+    </footer>
+  </div>
+
+  <script type="module" src="assets/js/report/main.js"></script>
+</body>
+</html>

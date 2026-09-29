@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IRTriage Console</title>
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+</head>
+<body>
+<a class="skip-link" href="#app-main">Skip to main content</a>
+
+<div id="app-shell">
+  <header class="app-header">
+    <div class="app-brand">
+      <span class="app-brand-mark" aria-hidden="true">&#9670;</span>
+      <span>IRTriage Console</span>
+      <span class="app-tagline">Backend-less forensic triage</span>
+    </div>
+
+    <div class="engagement-picker">
+      <label for="engagement-input">Engagement</label>
+      <input id="engagement-input" class="input" type="text" placeholder="e.g. ACME-2026-014" autocomplete="off">
+    </div>
+
+    <div id="theme-toggle" class="theme-toggle" role="group" aria-label="Color theme">
+      <button type="button" data-theme="auto" aria-pressed="false">Auto</button>
+      <button type="button" data-theme="light" aria-pressed="false">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <nav id="app-nav" class="app-nav" aria-label="Workflow steps"></nav>
+
+  <main id="app-main" class="app-main" role="main" aria-live="polite"></main>
+
+  <footer class="app-footer">
+    Runs entirely in your browser. No files leave this device unless you explicitly export or configure remote storage in Settings.
+  </footer>
+</div>
+
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

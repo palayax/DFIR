@@ -1,0 +1,8 @@
+EventTime,Workstation,Description,Account
+2026-03-15T09:12:03Z,FIN-LAPTOP-07,"User logged on, interactively",CORP\jsmith
+2026-03-15T09:14:11Z,FIN-LAPTOP-07,"Opened ""budget final.xlsx""",CORP\jsmith
+2026-03-15T09:20:47Z,FIN-LAPTOP-07,Process started: powershell.exe -enc ABC==,CORP\jsmith
+2026-03-15T10:02:00Z,FIN-LAPTOP-07,"Multi-line note:
+second line of the same field",CORP\jsmith
+2026-03-15T10:05:19Z,FIN-LAPTOP-07,文件已被访问 — évènement suspect,CORP\jsmith
+2026-03-15T11:00:00Z,FIN-LAPTOP-07,Unmapped timestamp column test,

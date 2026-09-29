@@ -1,0 +1,5461 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T08:00:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "c928970b954d0b210ef543033c558e97a60d14ffe4143519b27ecde6d79ef18e"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T08:49:49.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "54cd1b838277b827f9f7f072206d45ad89bb8a0fadb53197785422ba607ed47b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T09:39:39.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "d3f347a37d341f3ac9f6d0b71638455d42b5947b35832746f4d032c750fd1f2c"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T10:29:28.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "607552b1726ebfb043abff9cb4e918270ca60bfcdbdb4f1d380bbb42c178f02d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T11:19:18.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "b62de6c3aea35eb18d417812837dc923de2a7f81abdac8737b0b8cf57bdf4ce6"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T12:09:08.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "b34f3048e8bfc344e178c918cffa60925eb02a5f78cc188dd3982a633fe680b3"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T12:58:57.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "8a56c6fd20f633af8f2139ee48ee8c1243c01bf000d3e630b3177b34a19d6357"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T13:48:47.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "6954cca40b284f86503952b8971887c87ea29398b0ae3464b8c2a842c21051ea"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T14:38:36.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "0b7f4fc690013151e93a8c919bd6cd4ad50b7c6ff8d31a144570257dcf44a9ba"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T15:28:26.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "f824c57b732035379d676a4b43d4a4aaf18fb928fa294876cb2b7aca0e949ed7"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T16:18:16.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "d8a0582f2bd764fd2f42024031c4fed238b671e45b8f18f3ce1ac430315f8027"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T17:08:05.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "ce3af222d7bc07c3128d196f86f514d9b0721d89e9377375a684c51c101c5411"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T17:57:55.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "0af86f30715db46acce52aa44e09536237578671c56dcdbd8fce5a4cd14c39ce"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T18:47:45.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "91ea9f19d3352ec3b3cc7a0519badfc40f0e3f2afd24c369d623e84aed757430"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T19:37:34.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "3552b6030f113537a1561919c960a74b3487e64ea6bf14fa84853df8d3755c15"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T20:27:24.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "0e1f1a3866dca25f2c9f05ad748784cf300172dd399bbd3cd087c41c026679c8"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T21:17:13.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "31e7c513dd03e015a898afe48a95c4ad5e1f810a4162cab62324441f5fb495a6"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T22:07:03.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "b44717910ff41f10fc6ab189cb04c595c734634facbe7026099c8d6c4519c87f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T22:56:53.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "1ddcc69c2302b96fa6ff8ad78f9fc0271b04a0dbcf7ed3399236a6845df9a728"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-01T23:46:42.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "6c6bcdd38c00c67fa1bbafc76816493a0554f621c8177e6201063f7a0991b200"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T00:36:32.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "b3fe9e3a6410f8d387e34d2ee1d04b284e3cee9ada3bdbb70acd8396358c4129"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T01:26:22.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "c543da989446bccfc174e7f6ad0525627c3e3084fd870ba2ce1e30f43a4ddeb9"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T02:16:11.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "6c172844ed483df7604c1fa4e72033fd2bbd7732782af0e8a8415d638fe51585"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T03:06:01.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "c31a4e5a4e4b09da4febe794a530627a22b532ca6f392f2b41e86d924c2c9d17"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T03:55:50.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "f15387db5f6443f89af9e25684d80f5f74461c6a3c94ab3674e9b1122e420a2b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T04:45:40.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "74615b571df2b5672abada6d4c40e1c907c1ff8e231b518f3699e6c4dbd39a9b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T05:35:30.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "4e73ba98ddfd95c7945c8ad17313025e894471f2ee5d64faf4cc54744ed9950e"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T06:25:19.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "a33c177a034496a608fef03b542ae96b275dae7674a02f5c68fe5d7446ab399a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T07:15:09.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "b40755f1d5e4bc309ca0499a7da4962a7934f82c999aa9f322d1950dbda51de0"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T08:04:58.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "46593a1db2c21271c5937fb062c19b6e1b02d6ab0aa6bf4af1ef8cf7ff9b813d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T08:54:48.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "f4f69cf699297b9c6e440030f5939b9f2c764ea3e630461975f3a5207ba02c71"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T09:44:38.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "07756ade36d58c7dbfe23265948656eef6d18e48f252d96b74ef7a60d2ef69d4"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T10:34:27.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "1848fa341fe072b6163a6ca6105203056ee3d2d5cae18bc8ea693b43a50bc395"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T11:24:17.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "97f26dc391303d5eb430740e9b67639444b7638b9762e87678a725a9c5ec7f7f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T12:14:07.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "0681288923dae71a0fa31137c8cf0b02233f74349642c799f56831b5f0c70946"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T13:03:56.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "20bf7eeec68cad97a569b88c98589d9f630bee2ffc3d1fd553b0fb66e70d4231"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T13:53:46.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "ddef1b4bb2879b8052b84fa2901d46f1668f441d7cf5e7c654e8fee97e56a0b4"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T14:43:35.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "528af2d678302f7991fafbe7d6f40ce1b298940bd724398e5c66bfc6b962d115"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T15:33:25.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "18fea84d07d70fbf270adc02f496ac7ede77aed5a3cacf766e2e5e311fc62186"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T16:23:15.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "ad9dd284500eb6420e01fa32b718b8993445b40a17349c0165743c1229fb41ea"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T17:13:04.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "7cc1bfe2ada8eeab4b121028d1e1e89aff54584311414dce05285d36328f1439"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T18:02:54.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-9001",
+        "rule_name": "Non-standard PowerShell Profile Load",
+        "severity": "informational",
+        "mitre_techniques": [
+          "T1059.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "informational",
+    "row_hash": "6889b0889a2a15b48e5d2528bc9c0953f601cb68182826c6a8068992c9d383b5"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T18:52:44.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "6f5ab9f17aafa196565f498bfe0cfb309ce15d20bb59d1cf049402dcdebb1b68"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T19:42:33.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "ff3c9ec9dab3fc3a6f4f147d6157082ec1a8045f0fedb884904fadd726be9eac"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T20:32:23.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "f4e7d383e620dac9e8ee3f588866ca5157bd1fa02ccf6bef339e6b1a3d541f50"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T21:22:12.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "6306b1855913d546c3a6387d54c4350ae6ce09ba9954c6d174437de4f9987296"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T22:12:02.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "15f689a592384225a11b75c6bb448482677dcbb940bbbaab149744b7446c36c6"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T23:01:52.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "69b7f80dbbe75f6f0f483fe2cfa426e7c623c3db00b24ccfd60e2f21d5f01886"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-02T23:51:41.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "47f33a4c7dced1b578b1ff58bddefce63347d3bf2e7628727ac9568ecab07653"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T00:41:31.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "ed9c4bf95e2a15c4901195ed71eae2b3517bbd2482df103e582587712b00035b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T01:31:20.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "977ab000c91c773157606fb0d3832ccb6a9d0b011d507b4136dc8136f68971aa"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T02:21:10.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "c05ba814ab1fac11badb4a92db8e98ff3690a79ef95e6c83f23a21198994b0c8"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T03:11:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "20d800ae1455c8bfbcaabebfd68755689332f1f8166cd75db1277652fe8fb7fd"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T04:00:49.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "1821c477dde4d824117888befa7be6080b95076dc79f06c9df600610ffb90d39"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T04:50:39.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "7ed9079eac569c3f86c559a4b9fff33b0da83725bdc23c6020e7fd984418b77a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T05:40:29.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "4239865f2597967defb33d6ac19c8d2f273cd864c4cdfa8173596f0b6941e141"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T06:30:18.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "e258c90eb92e9f77141394267218c33a4d3926bda15cd714bfd6dedb61c3fd88"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T07:20:08.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "baecb604c073218dafb3f48264369aa4061419e966cc3aa24cd1bd0ac225a721"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T08:09:57.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "0063b3b5d713b7ec9bbf2d892b2be21dca602d37f1ac42367d4d1e0152c8ed21"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T08:59:47.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "ffd8dfcd940cb5d8aed35897ba808c5df0d34ee19cbdc104d04d83c33fb73160"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T09:49:37.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "c46c41e64a5902ac52244a9f0594f62eed589689c721bf130367e23149c65860"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T10:39:26.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "20580c938bdf7c29bb81290b3e0c0f80b9ab48388421d1fd2985227be4a28d85"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T11:29:16.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "9029cb4537f6698366b26b64316e4de3d3267e9bb04934c233ff515dc8c6ea9a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T12:19:06.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "c70eecc8f1dcb67292e10432564d428cade38a3d0fba5909c028b02bf48a407a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T13:08:55.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "21c51a24df722716abf50916c6713a94fb52035a1cfc5711356f0bc992e3f61e"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T13:58:45.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "e162396a1e60dcd07e0faf4cc6f48270cd450b96235deb550731a5648f614dca"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T14:48:34.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "6eebd22beb6ee0f945ae589f1b1211c0e47ca463d1aa41c39cf59081a0aa1b4f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T15:38:24.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "7c9554327f497d0bb2f178a670245347778e44dcfe4108a594597ee115ad49a7"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T16:28:14.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "4e522da2913e4b3ee78eb7487520c8c0fd58ac95f1e5f63fbe40f59a7c662cdb"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T17:18:03.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "68ebb69d9f2f8bf0fedc66554bc928556eff25140538c632cd9abb15e0171080"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T18:07:53.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "efdce4dc21104c87c9c983c551d0307e58d6fcfcac5a1abaac633ac4cc5321c0"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T18:57:42.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "d368afea7e40852ddb1d7ac4492d1c79377da4b989fce666e84a8973822041a8"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T19:47:32.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "d715ecae3d9d5d57d645bc4fd3147857d6d4019ad67ec3156326beb025a4ea4e"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T20:37:22.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "d974e4f8917f594e7b90f79343d3ec66ad46417a9d99564f27876e918cb42663"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T21:27:11.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "fdd6fd799e98a47a06fa8261a1877bb70364120c0053eec7fc52fa4e4df83a00"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T22:17:01.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "b998a2971dc29c9302353fa90b61d63aac7d0da66e763165e88cb305115780d9"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T23:06:51.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "db61b533b66b305878a8db3e7637b153f954ae4755b21a2091cbe43ecb826d51"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-03T23:56:40.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "226254f562f714874ebfd2dbb7e09ae169c15dc548fa4ed49a45b6dad26fa3fc"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T00:46:30.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "a19a5374157baafbc92e32b7743c7580c10b61f23b30be584a86aec0a9d0f0c3"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T01:36:19.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "d955390b544b7a33431894fec7243cee21c02694fff5dc4ef08829bf971ec799"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T02:26:09.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "8478517525de87b37f6f473d66545a79a3512f1d4fbbca35fc20934d5f31e2ba"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T03:15:59.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "e3e4490f423be3b9ea0916362d5bfd0263b375e518c6a2b829b06efdd55efb4e"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T04:05:48.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-9001",
+        "rule_name": "Non-standard PowerShell Profile Load",
+        "severity": "informational",
+        "mitre_techniques": [
+          "T1059.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "informational",
+    "row_hash": "2cb557744b20d2b1b727ba1456b11c8bf9f3dfd076a6303f82802c5ca966adec"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T04:55:38.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "eaec02e888432182490b8a21485d011ddb814b152134759bb42dec87fd959ff9"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T05:45:28.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "2e722acf559cfbe5123c3ab5ad90fe6e85d117691e8ee4ef74e7747a2ee39911"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T06:35:17.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "07161f8c724020cac4d8ce7eef09aa0d79ae52fcd0340f8c90d5469ffc047a96"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T07:25:07.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "8e0319895da4473423974c57d31f74e4136a7415fc9ceea1a5a0919ecbcf5848"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T08:14:56.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "67f11dbead99be0dab56d16e6d668daed505cc45901bb602d806f3e855a5f1fa"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T09:00:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Created",
+    "user": "DOMAIN\\alice",
+    "message": "File created: invoice_march.docm",
+    "target": "C:\\Users\\alice\\Downloads\\invoice_march.docm",
+    "file": {
+      "path": "C:\\Users\\alice\\Downloads\\invoice_march.docm",
+      "name": "invoice_march.docm"
+    },
+    "row_hash": "c15e7324b43930667e561272c07f5d121193a78e45c51d100bb06d65e3f4b0c5"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T09:01:30.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "WINWORD.EXE spawned powershell.exe -enc <base64>",
+    "target": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "process": {
+      "name": "powershell.exe",
+      "image_path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "parent_name": "WINWORD.EXE"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-1001",
+        "rule_name": "Office Application Spawned Suspicious Child Process",
+        "severity": "high",
+        "mitre_techniques": [
+          "T1566.001",
+          "T1204.002"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "high",
+    "row_hash": "d83666b48fa3268bf39c1046d119be23ce7f17b551d0e76395c94e2ed7cbde96"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T09:02:30.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "Suspicious base64-encoded PowerShell command line observed",
+    "target": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "process": {
+      "name": "powershell.exe",
+      "image_path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "command_line": "powershell.exe -nop -w hidden -enc <base64 stager>"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-1002",
+        "rule_name": "Suspicious Encoded PowerShell Command Line",
+        "severity": "high",
+        "mitre_techniques": [
+          "T1059.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "high",
+    "row_hash": "4408e378f0e5588e818545a6058d305b69ee778a8720d1806b48932293fe2938"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T09:03:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound HTTPS connection from powershell.exe to previously-unseen domain",
+    "target": "185.220.101.42:443",
+    "network": {
+      "dst_ip": "185.220.101.42",
+      "domain": "cdn-update-service.net",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "process": {
+      "name": "powershell.exe",
+      "image_path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-1003",
+        "rule_name": "Network Connection From Suspected Beacon Process",
+        "severity": "medium",
+        "mitre_techniques": [
+          "T1071.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "medium",
+    "row_hash": "d353afa0a70366e62486a2ceea3704d573a1c05f82512b6cfd8466550527fc7d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T09:04:46.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "204d1f0f01420c0c6f525576213b2bdce6f617c33b69a93f3e80688977404b6f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T09:08:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.NTUSER",
+    "timestamp_desc": "LastWriteTime",
+    "user": "DOMAIN\\alice",
+    "message": "Run key value added: OneDriveUpdater",
+    "target": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\OneDriveUpdater",
+    "registry": {
+      "key": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\OneDriveUpdater",
+      "value": "C:\\Users\\alice\\AppData\\Roaming\\svchost32.exe"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-1004",
+        "rule_name": "Persistence via Run Key Pointing to AppData Executable",
+        "severity": "medium",
+        "mitre_techniques": [
+          "T1547.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "medium",
+    "row_hash": "6fceabc97954965908cedb09347a4261b7a87ec1dafc1a4d106e51b98b6e698d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T09:10:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "scheduled_task",
+    "artifact": "Windows.System.TaskScheduler",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "Scheduled task created: MicrosoftEdgeUpdateTaskMachineCore2",
+    "target": "MicrosoftEdgeUpdateTaskMachineCore2",
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-1005",
+        "rule_name": "Scheduled Task Created With Update-Service-Impersonating Name",
+        "severity": "medium",
+        "mitre_techniques": [
+          "T1053.005"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "medium",
+    "row_hash": "22fe420cedd979376b194b95df487e58982fec10094fe088f8ac23a5f4ee133a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T09:54:36.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "309e328e819f3ceb5a318150c8cd1490372ea85b1100c8e6ee3ce43370f30304"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T10:44:25.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "26e5f827ad7ef685fd3b7d5b687ec3c0e8714a907d191c9c4aee4a5c4e32f808"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T11:34:15.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "3c27cc5252e915c58c2a111d2b784854c80601ce3a23b29fab80ddc046030078"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T12:24:04.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "9e0e375959bd70b64e663f8105ae6c9056a9e15692c769f2e64ef65594af3d6b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T13:13:54.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "53a50555732eaa0044348f649f66b035ce9c6d2f21da1bf3cd4535c6d42cdcd1"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T14:03:44.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "e03d4e1c28722666a6bf3e473808c1b07b42075345dbb8d1052fa4d7f99a7905"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T14:53:33.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "2e2bca35d398f472742a690e7c48bbea5b5bceb970da2dbde150f16512e5ebc6"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T15:43:23.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "7e50b05e9e44dda5bdaa5e8e02cd65593bbf0122f752ba06da562300b3e9cf08"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T16:33:13.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "b5b444c0eec2bc2085417641f7db02ce9a72b7c7d512ea79ae4bee8523fd3424"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T17:23:02.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "f11901217a8780dee2b1210de768e98be554dc1042a3e715088a05cae0d41064"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T18:12:52.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "64205639d4189d36d8d53ad4b48a67461bdbf18abde9dc80c8ae655ce6dc0093"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T19:02:41.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "e465eef3210c114505da6aa22d51e3419cbb513534a4d0b36c91561e340d0b2e"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T19:52:31.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "e2e087c99f8c686d10d981fb917d5b6087fbb57f82576c08d59497e92fce093d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T20:42:21.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "ca5e7026bcae34a92ec2e1c994aa5d22a78eb2b4563df2cd5609656fe9917d34"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T21:32:10.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "401288600a8c22dd2943cbd92510adeef762035e6204e7320b9a4fe6fdc639b2"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T22:22:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "a2613fb42a82ffd8209ff8b83c0df172ccb2aaeb1ceeb7f35e40c31740062169"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-04T23:11:50.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "cf123893cebab6a4facb2f4419cad8c9684b3035405dff61f4314daca09fdb43"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T00:01:39.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "3ccc6b1d57a7312bdca1cf194906256fbee1727cf5339f57b6794bfff9d471aa"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T00:51:29.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "de47899ce1ac1d56fea3c9005ef85e5da57996eaa933071ddae28e21897b06d7"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T01:41:18.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "dcce2b3fde07f207843a21d08a5ddadd9b95a64a9bd71e0565a5ade080758ea2"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T02:31:08.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "81810bbb04fa97d63c3925cfd0c2242702494cc2b0c14083acb3c1d13235cb34"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T03:20:58.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "5a02448a51f693e5ac3c400dc205b901a806638a6fecd3f59652b4355d97e87d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T04:10:47.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "73f8ac8d26ac2220e1c956c26aad4e55c9d740e58852906e882c41fe2a5ee4c6"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T05:00:37.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "ede1b4d8467d2f0b2f59af23e269ec88d0ea4910af7b3397c32f2285c8692030"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T05:50:26.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "b4606e013ce5d197d37f6b28ea913704bf72309a304173f9fd0db7b7c235383f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T06:40:16.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "3fb5ad295a5c1da9556b6f2b308d01dd01b60c6052053a0c365675d8df28c9d0"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T07:30:06.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "012d035ecb0b3e2c050ea50e5bb848caf6b40c1d15b122b2634445fdbb929264"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T08:19:55.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "f6a7af645ff2b8d6ec770cf5380c02d4376b76ed3139946ed197070210d27a64"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T09:09:45.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "4ea2e751c24c55e543c71c5f08c6096c5f51097fcd770e1acf0807e7365ac99f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T09:59:35.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "ce5276ef83aee3fe85dc3f295f471f21fface1104372047a9d5f8d34f744fb23"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T10:30:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "rundll32.exe invoked comsvcs.dll MiniDump against lsass.exe",
+    "target": "C:\\Windows\\Temp\\lsass_1.dmp",
+    "process": {
+      "name": "rundll32.exe",
+      "image_path": "C:\\Windows\\System32\\rundll32.exe",
+      "command_line": "rundll32.exe C:\\Windows\\System32\\comsvcs.dll, MiniDump 672 C:\\Windows\\Temp\\lsass_1.dmp full"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-1006",
+        "rule_name": "LSASS Memory Dump via comsvcs.dll MiniDump",
+        "severity": "critical",
+        "mitre_techniques": [
+          "T1003.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "critical",
+    "row_hash": "b8a4fc09f6b18030ac694fde1ff30153863a0f6eb4c1424537456985d16ef627"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T10:32:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "account",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Local administrator account created: svc-support",
+    "target": "svc-support",
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-1007",
+        "rule_name": "Local Administrator Account Created Outside Change Window",
+        "severity": "high",
+        "mitre_techniques": [
+          "T1136.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "high",
+    "row_hash": "74a1f1f5c9d0461455ca54d7e2b375cd097f22534fd86afdb3b176d0b1f0ae6a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T10:34:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "account",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "svc-support",
+    "message": "Interactive logon using newly created account svc-support",
+    "target": "svc-support",
+    "row_hash": "5d9a4b530c23f5be53b913007a2ab00a6283c15183b6db1b16b7c71ef5c41e4d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T10:49:24.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "02c383acd656330265875820a49b9769b0c8fac716c9121346a54045a9cadf37"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T11:39:14.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "61f75ace21986b08f1ef316da33519fb205a0db0346c26dc5ddd75fb49d8b57a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T12:29:03.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "d3652e387e19d37abd3967b699d4069d32b46ef6678943036bace7ca411cc990"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T13:18:53.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "95b7d453251b56723e3c8285b88996f5fa52df5d3f8e98cf7adfaef7e40655bb"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T14:08:43.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-9001",
+        "rule_name": "Non-standard PowerShell Profile Load",
+        "severity": "informational",
+        "mitre_techniques": [
+          "T1059.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "informational",
+    "row_hash": "339a8525fe7a4379a358b5796adf6e62bf909fad0c2f31eef6b9e939b8d1fe87"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T14:58:32.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "cff41605703e5156ca3e1ff7a8f36e55b0534d69c4e686aaded623705724df97"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T15:48:22.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "558d30ea6672388bf54dd970a4ec71a90ff6d2babf741285e4a3ed6d7d49159a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T16:38:12.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "933e06d4e1093cb94818cdf471a9c7ae67cc7ddfee7cd27cae800919f9f786b7"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T17:28:01.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "8c7cdf86fc2de40d19dfb6da62eca017a7ff282221bca16004f8b14539d38c7b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T18:17:51.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "cddc9d7b8c90ce2f7e4ddb7073caa26bf720d576d396f46b31e94384248d0b55"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T19:07:40.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "f52fb7ec2287c0c16991797cff78b39ca9b8b4ba916e6bdbb23af8cc471d762d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T19:57:30.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "cfa028d0f23bfdb071bc6effa8e1e7eaad0cbb85a7896b03f68b71626b34eedd"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T20:47:20.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "adce00fbed9b68c82baf69cbed5c18aa4353ec957e6a911170580c802a460914"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T21:37:09.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "dd1a4132dbd4448eae292b9eec3eb91bcc0524a7630769ccb1904fd8304ecc64"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T22:26:59.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "f69c1faea9562851fe9b9547a8929a3c402c0c07c47b9c2ff8cc8253dba48425"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-05T23:16:48.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "d501c08e8cf36ade510cc5153cdeeb005f160e62e0fcff49d6e422cd38c8086a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T00:06:38.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "bf5512abd24ea3ff58a395ff22552ee96f21e6d9c9ce8dadced1c2f097fce429"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T00:56:28.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "ab5987d93ca99d1677ddd6661ffcad3f14fc10d52c9b0ef0e596000c882cafa3"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T01:46:17.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "d3629d137b2ade567c1c84995e447f8566f92138d32bad34e13330ebf112281d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T02:36:07.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "9259f3281e78027b55bd21a194dfae7bb3f905e9c97b17958ce70b63f598830f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T03:25:57.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "6ef316f55fff8c83604492dfdc16469969f36eae4dae9811fe5beea2487d21c4"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T04:15:46.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "5af569a3b865b8a839e532eb7319d0cfc903351e6c7585bba0767b2384151729"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T05:05:36.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "015268ccc1ab88a7d7dcdeb8e6751cff0bb9442cd59b1d1be3a8887dcbf118f7"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T05:55:25.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "3f2671e6f30c5dba32e568d95718df2839087e9dcf041d01086fb8ef3ed2fe30"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T06:45:15.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "b426d3fa0fc35538e75840c33a773860c0d64193ea595c76280ef1900d3f79c6"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T07:35:05.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "5bd1bbeb4374732b08855cdbf1535d79dcee371e561e67f9aa80c1492ddd1517"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T08:24:54.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "1bab1a844a6c2f06b2cfbf31d472123edbbac3f3d91c01910ff03bfc40142fc6"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T09:14:44.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "05088b61a4fdf6648564366ae1045c4c1bb013af19b9795b2ec58827f09d5b33"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T10:04:34.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "b6325079a8c14927bc838ed2a7c06364aa84c66c69b2cf0223a2d4d5aa0653d7"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T10:54:23.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "1b67833432a6f5b0628c621841bdbd8323d8bc930545704265e5c07db3433397"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T11:15:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "svc-support",
+    "message": "SMB connection to peer host WKS-CORP-02",
+    "target": "10.0.5.22:445",
+    "network": {
+      "dst_ip": "10.0.5.22",
+      "dst_port": 445,
+      "direction": "outbound"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-1008",
+        "rule_name": "SMB Connection From Recently-Created Account",
+        "severity": "high",
+        "mitre_techniques": [
+          "T1021.002"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "high",
+    "row_hash": "7619f8b5e2a1204d950c9f9389c49cca3cfbaa24c34494e1c862a7a2f620ed86"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T11:17:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "service",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "svc-support",
+    "message": "Remote service created: WindowsUpdate32",
+    "target": "WindowsUpdate32",
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-1009",
+        "rule_name": "Remote Service Creation Following Lateral SMB Connection",
+        "severity": "high",
+        "mitre_techniques": [
+          "T1021.002",
+          "T1569.002"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "high",
+    "row_hash": "93fc1b89ea1ec5696093109f4b538b7795dae68106e25c7d082b9655769df77b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T11:44:13.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "36b3a11b64706a9430a2723f5522a26226433905ee22e9a24640135cd4b8a1ad"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T12:34:02.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "c7242e5d1f19110da53c687e887e65390a81088081ae0ab85e4cdb189b96633a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T13:23:52.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "18e7231d291efec100b60434f708948898f531b297d17613aad678b9e0db9338"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T14:13:42.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "4fa55da80faaf4117ab1f6a3cd4deb134831d6664ebdfd30620c45466d7f43a9"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T15:03:31.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "a489a756cef3dedf1d5a0dd6361edf9086a512bbaad509c6d48ed2e40fcdaaf7"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T15:53:21.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "1723644bc13fe38d2cc5cfae07bf03f71689f493bd9c4c64752f79059cc8b732"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T16:43:11.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "ff67add3465bdbac428de93134bb1fab63a3d66d32ed268f4410d627bf856971"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T17:33:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "f5bf29497dbe3d5f508c87feab24461f374ed073b78aae92c85f8d527f971d88"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T18:22:50.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "95db48f1797a17fe107ddd018d7d243e1bb8193bd40a497810797b5bed9bd962"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T19:12:39.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "f19e3a956379722563a5f9c336645d673188c62022e376e8fc4861d381bc65ff"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T20:02:29.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "2b0f03a39178c380ac4cbac655c95ceb63c3dc9d012e43ca744c378ab6e43526"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T20:52:19.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "f43c23826da132bd8b3e7642639035ca3a4c9233eaa6fde5b8dbfe092b070872"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T21:42:08.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "c29a65c10284f3f386e85f78bffb2824ac4922cfa4dc5aa742b8c2db594050bc"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T22:31:58.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "40adb4de55d667f74c8aba315b5eba09ea1ea40bc8a4ce31755eacf3a638b27f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-06T23:21:47.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "d3229aef17267a228d5826ddb3e97e7e84ebe19a0c9a5065739c547fe7f836d0"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T00:11:37.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-9001",
+        "rule_name": "Non-standard PowerShell Profile Load",
+        "severity": "informational",
+        "mitre_techniques": [
+          "T1059.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "informational",
+    "row_hash": "1423e1919bc44da706a896137e8c7db71f828eee12f7eef1ea6274a6306c64cc"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T01:01:27.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "2fa0c7f79c013ef7a158982433e0f34fbd4feedb7f8213cdda0ac64fa4762b06"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T01:51:16.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "f0107b254bad9a361d7aea7eccfa6ad1bb9c825cd53a1bb85a47fa3898f9f2a8"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T02:41:06.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "c8b3f2ff1e3501e16258c0c6c0c1c43ae291af3fbab9a1905172c2d3a62de57b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T03:30:56.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "9e92d6c34e8cf4bae76e04033aa8735f792eb00467ec3441a4602e8e434b1ad8"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T04:20:45.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "c28d659eab98d10afb9475814a50a1839c9729fd26970a1e4faa0851a7bdca8d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T05:10:35.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "b1e47b5019a16ff64f10f12ac829640964f7a45bf94bea0dd3b612c0d9f9b6a8"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T06:00:24.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "6f99dd3ad4da03f92de176ef519f71bd9fe8a9d6fea0e0b3dd09d1969efa821c"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T06:50:14.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "a5018c7bd827cf346308159813e741a85eb1e9aae7ee3ad9efe5aaed51c799c5"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T07:40:04.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "b172998e33da2062931b338bcd43dbf91de031b2a0cd704c966b050c595b38a9"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T08:29:53.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "20e17a2c5f51750b4c550e7bbbf0a88b7e2b326a66ea651d3067a5a02a77f302"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T09:19:43.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "e76c2a8d2d167e948df01c6654f34ef20bfc5144109093fff6c088b0d55496c1"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T10:09:33.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "6b2517d937995322322efc73f94488f7f1584029f6a91b8eff5cfa782b21e478"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T10:59:22.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "f7033105c0ba72c650b900c0220de5499caebfa7630d3101fc206c20bb033985"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T11:49:12.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "12237da287e5fb274c4e9dd8bd9463c42f78520205d1e2bcefa5a7ee64f30e9b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T12:39:01.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "5453a703a5240775af076996ab022899f1f5c05387a8d10e33c8b0624dc30aa5"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T13:28:51.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "f7f341f5fbddfbc040f7ca016cd250a5708eb104b55caac621be5e222ed544da"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T14:18:41.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "cab3b6ba93b7357479b57b6f0ad9312d2bb6a17fe2b4e358cd1cffa612d8e2b2"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T15:08:30.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "aec9f6309a516460bdec96bf03c893f8ccce545241f3bad7208a091ca210de22"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T15:58:20.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "4b79f8d328c3369c8912d5f6fad26adea99851029b9426c276bf047ed474a118"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T16:48:09.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "a1e0613ca6ef91c21cac13832138e7b427fe2812e457e59122a065475992fddc"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T17:37:59.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "943d57ddcd0250d150e622b4142370ce83f52844b74422b7835fb746ee6719ba"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T18:27:49.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "7058e7dc72518535708d6f96f8442ad413b4b9cbef53089f4fe0981e22623c25"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T19:17:38.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "90f2d35285e4957a912de4f8a991dc285835b4b83decda75994d7fd5edb9e856"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T20:07:28.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "fbbd39043262e4c48625eca05f73a245539cc8d7378b54e4ed6911b57f738ee4"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T20:57:18.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "ca946c18e64c7938734c9d2345a719fb1341e17c773ebf28f44853c5975ef0af"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T21:47:07.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "29c76581ea92efb6d0505da2a5da7171684268b00c890496c92a43d4281cdff5"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T22:36:57.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "79ba99b28ba85d8d091c87d9ee2c48d7d51b4b0417b1b2086e796c56819ac506"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-07T23:26:46.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "b79f1a38b30fa4c9048ec1848a01c4113ea60758b9ad5b245a444e88ff64e276"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T00:16:36.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "0cfd4e607ce1fb0d2d87ef5711a0400ca857904224186963e09dd743a346eeb4"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T01:06:26.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "2eb554b9fb3f96239d16478e58888e0afbb1e5f1156596895a9ea7a8acf64778"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T01:56:15.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "d337fb4010b52c7744f8e7b6fbdb1da77f0ba4f21ca8b06e2be35778474dd36a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T02:46:05.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "3539aee9a87894bf665e2cf8128cb5d3a7f44261d4176bfe25ed7f22ab76ecf3"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T03:35:55.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "4baa7014d072a5f105800f4add361b901234d94ace87c6e94b275c58b877d40a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T04:25:44.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "a21a87a615c5e5d601620549dc14fcf4ce067fb0accb5d13856628dda406f259"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T05:15:34.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "f294485a6cdd719d3cf00c4c1908a338fb202d577a942fe5b36c930df34100f9"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T06:05:23.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "9d8cc272cd8108ed43acabb7c2c8443ee49c0eddf5507f6fe949fbf9b0cca26f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T06:55:13.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "7fdf52287fac00a48222ac94d54120a392908d11ce7fc29e0cfb4559b6da5d69"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T07:45:03.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "6005fb4481d1d835ba7df275a45737701f96ccc575f30ee0c25933acdb970c89"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T08:34:52.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "97bbdde2b7ee9ff4ce35bbf441f667617ff725b40d28fbc062530cbaba384eba"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T09:24:42.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "ccd29575d09be8346bb998c17deb574bb17beae4f3fecf30cfcd700193ea6a3a"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T10:14:31.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-9001",
+        "rule_name": "Non-standard PowerShell Profile Load",
+        "severity": "informational",
+        "mitre_techniques": [
+          "T1059.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "informational",
+    "row_hash": "b2530008284c0e8be8118ba64af02458d77e6cc684db3191d7399d68f7abf20d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T11:04:21.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "46ac75db7e3e2f5855688ce97952cb2e3c3c1ef8e98f0ce4f71262e81dd3b90c"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T11:54:11.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "fe42b893385ab874db6a7d5a6c8abd9e7c65f0d2609f8eee30b0cc0f23eaf2a1"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T12:44:00.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "113fae69b1267f6a81d3ed57c3fc0fc14fd8858d9a678db6fcdefd1eabc8abcd"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T13:33:50.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "2d7df68f5d6a702159e94174b433da26d6923606949b45dc9f37667051d2075f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T14:23:40.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "5e974d3989589dbc03711c58e67a6702e72ade5935b1034a6d8552e7e26d051f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T15:13:29.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "d69e15d7a2058740e1109b70031c66620cad9f0a1d631cbf9e25ab2adbb44f59"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T16:03:19.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "c0e90e14dad562f415fffc61cbceb942d432aa78f5553123f06e10deeb41ee78"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T16:53:08.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "eb6118c53b8f74209fe361b564cd2132f7a2acba67d2f7f135838a9cca99cc94"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T17:42:58.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "eb7e0b2cb91ad96146c9dc95d847b4926808752e77294c87f3e7b86c10dc3796"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T18:32:48.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "2a5e619defbee2beb9a1744cf939168e0d178b0b833834efab8168dc62164dee"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T19:22:37.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "b5df42462d9e456e1d1930c3f5278cb733f6f123c2a1f2935bdc46e85dfed7b9"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T20:12:27.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "3a0def771b1914147ee6b863e0bbfaef247b06af8c33bc0ecb69da7bbc950fa8"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T21:02:17.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "9f9155094f9ca60267253d0932ddc33fbd069b3e48ee352c9cc1fdae03a7c385"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T21:52:06.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "f5d4c510d6d1d65d9c264e0b7ad4bc5852196847c4216eebd6057c6f55475b4d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T22:41:56.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "5df607d0ae35af0de9fa9b984bc7cb7b31fe3155577bae5436a6ccd28caf89b1"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-08T23:31:45.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "99c7d83c2cc8e009215739f380897d5188ec2e1768b5c3fbe201f439e9fbb059"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T00:21:35.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "2475b4999517d43800916c72384d449e03d71265ce2ab0d3cf50a83a09525edf"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T01:11:25.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "53d54b45204aa1151366fcce452edeb8ca1b33d0429bcea47b6544e87feeccbc"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T02:01:14.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "065dc12f645b09a3c62dca28b5adeaa3ea3f9d6c63550e177a9fcd40fb4e29ca"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T02:51:04.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "321403ef4c7b57870c6847f2e89769806bc6d8b5b59f26f55d99ae5a5cd95e18"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T03:40:53.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "45f02ab2e7204f482c009edb4956e339d037b39f3962f705cc84add23392b2af"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T04:30:43.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "6a9cef345e022ab0284c2a5fbb6cfedef1b54aaf6ec56765da71f6e838ddf1ba"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T05:20:33.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "c1233838cb27b5641c73e3f15e86fb96cfd112c5da59a88865e153d6836472fe"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T06:10:22.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "a219fa9841660f6bb40dbb39f4cfeff64f04bb08cd5f204cdd7294201c133759"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T07:00:12.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "f929d71214c234f4459c17d911821ef970dbbb6bed953e6abccfe5bafc0b137b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T07:50:02.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "45570c64c3c9a3bacc1a1124fe931ef4d2b3e7a7a9da802d8670b895220339c5"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T08:39:51.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "99cb6528dd00b88dcd8764a6d483102675f2f7ffc69fdf512bd6068b3e93cc19"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T09:29:41.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "be8f7798583dffee3d65209fd8bc71b95f9a2803607fd09135a7fde9feb097ce"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T10:19:30.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "aefa3d728ce0fe7a16b032df9b0730dbf1587c197eb499aff53b31600cb12c5b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T11:09:20.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "8d35a540ee70a9f9d9cc55b27ddd3c035fbc1ff5911bf2716c16f29b0d6671f7"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T11:59:10.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "7ab5bce019db95c7e2f466a0d36f78e05e8d474d130c86b137356b5415661b0b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T12:48:59.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "c3f85d7acd461c059e0e47e870fd330fcbfb8b2aacc9def232546c469218defa"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T13:38:49.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "dc46f8923741394509a8daaca2fd447122a116f0679c5dfb4f35b14a95c6daf5"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T14:28:39.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "9a929383c9dceb875c7789c1675f6bffb843cbd41af89df6a63d4d36d60757ec"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T15:18:28.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "29d7ffdf5bd0cef90c6162111bd4336f3dd2f9c950c6272a554ecbf99ae89ed2"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T16:08:18.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "4c6bd1f05fbdb0abcec5a758b12ad398581fd7f188033b9e88b63ecad9db0872"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T16:58:07.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "435fe304030ea12b0799d73d7f7aff6eb5b05c16e320fa13b2cfea3016235dfe"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T17:47:57.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "c92b33d068f5ec58104150bc7bef58d68bc70d2c4eb2a57f5c5fa329e5a452e8"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T18:37:47.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "c46dd51b7c8cc45aa9fe21be676a98eab8551ef7e3ae94b15b1b13a76ce06dab"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T19:27:36.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "1d5a5aa720c38a5971c30017a8cdcfe990e837f1066af38dfd9f0e25d1030003"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T20:17:26.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-9001",
+        "rule_name": "Non-standard PowerShell Profile Load",
+        "severity": "informational",
+        "mitre_techniques": [
+          "T1059.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "informational",
+    "row_hash": "45e3c50236b2f0284ec7e2c071b7c2929f2bc19937c090140262653b0a2b1829"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T21:07:15.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "00611beeb511701ad891b5829860629ddc7992486ad08bd08f37d2cbbe7dc8e1"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T21:57:05.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "abea54a0e3fa1d75069a4e2aeb423df29e1be0bd1706dc218391e143dbaa788d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T22:46:55.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "bcde73e67abb1d74afcd594a9417ec7f3cc81d60225dc2aac304cee19ddacd55"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-09T23:36:44.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "610b2e1599d9f53aca74ac720bf2245dd96c38b4c9e6c9859826d251713f706b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T00:26:34.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "601f86d84296343b1794faab0d488ea7596bdc2d3dc852f3fe57fae3336ad800"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T01:16:24.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "a3a7ec3c59abc9185a79fe954e017eddea4e283928a7c2ff75bea5bce50cdab4"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T02:06:13.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "8f95b5a7b7e577bd30575ab020ee388f28f7bfa33b2f9a7f1d2d7940a44ef27e"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T02:56:03.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "5ad163fe508f9567810e0ef672fa916cb077bd230fde6df21ee89ee2ba6043a4"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T03:45:52.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "71de8eb1c15727920fc5ddcb719996b220afe0978afa80fde60b8bf408d398f2"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T04:35:42.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "0658f1c82a7cf4b87c9aab19f9a98f84d004280a9f261cb81185b0265712c777"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T05:25:32.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "8b46baab6f1ce7c2af5509dfbb85b2e66ea8893d8abc62eca9d5f4219504cd1b"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T06:15:21.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "70e31e6ca07694a7bee94fd53f3cbe549ab0eec20f14c6ba285a25e31e10e13f"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T07:05:11.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "f89108dd96e276f8ceb3841550051eccab7d185741d2c6ec06fade1226a473ce"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T07:55:01.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "88a994d7f47fe19ed079493b224a70737b7b756302a29ff4e13b0e8084daedc6"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T08:44:50.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "641861e9e6a1c9017627271df1c4e654c71cb8cac6be75c27a08b94eb49d18a3"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T09:34:40.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "58694ea1a65a1e50e72ef93fe7a8c1109544e973f06e5fda4b0c429dbe7ca1b7"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T10:24:29.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "58f53e25b8a845a39df52ffe21f9f394b1427bd554397bd93247b7155bfcfce1"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T11:14:19.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "92921500cd7b67f8c0befe038b6af799c79d6583b5f06ec30119323a500ab35e"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T12:04:09.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "af9a5154356b59121853c6374c8be0737942a4a9264ae6d5c74d59063e420339"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T12:53:58.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "80d5f620b9858a03226e6a45d9d3ae5535904a080ac26255e420bb47737f6766"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T13:43:48.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "8861d23d88a9333093eec58b7f6c125246f4a0989fa3b91dc59c33d460607b44"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T14:33:37.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "200d0e48242170390e4c1a0b621b45372c097c06edbbb8a95abb197dccb11ee5"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T15:23:27.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "860d5439640ef7712f95d8c9bdbc82d1e9e1c18792e926b4457091e4101e0292"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T16:13:17.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "6c1bf9dddc522a94fa7592dab5def58d3e24039ce23845f000403365af560611"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T17:03:06.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "73c99a5f75f20780f0e605fd49f286e3bf4b6ded15e4ffca6ca61243ee8617ba"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T17:52:56.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "7ebfaa2a70b0a2f19129f8fdbe7e47c4d3172fdc4a616d2210a0e73bb01e68fa"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T18:42:46.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "3f8e7cb9d4ed821cd20a862276e1e8a27554817e08713571489337383fc03ca9"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T19:32:35.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "dbfa7798621c9454670e2625ca8f0c20e6b8ae3bdf3811ee03a04e0cfe072bae"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T20:22:25.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "be557fdde9a71d62e57cd3358baf3c4d105885fb964bb4e4d3f31a0031164cf7"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T21:12:14.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "97c17320689c73d84ed066874245e20304d59c5b67278e262b9ef9ace0f441b1"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T22:02:04.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "1c3c3c4495718fce83d5608e70afb455c07caa4e03fafabc50d32fefd5b63403"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T22:51:54.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "c1d4db0c08e9b039a0a8bad2538c9357ab1c41bfa708b9ec43db9815c42af637"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-10T23:41:43.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "a1550a015feec14b499788e261fd79e1f1c8155fe5ec4c4d224e78748349a894"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-11T00:31:33.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "2e99e32c710747493300ca44653e9af1fe9ac08eb079ac33d95526e199aa2712"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-11T01:21:23.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "row_hash": "837b00aa32a9f431aad5b74d3e49035b9d81edc9df8757133fba6aca83a056d3"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-11T02:11:12.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "deeb182d44d2334ddd01c5fdd1b9b578d4b46f7506d4e3ab49bd471af80bfed2"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-11T03:01:02.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "filesystem",
+    "artifact": "Generic.Collectors.File",
+    "timestamp_desc": "Modified",
+    "user": "DOMAIN\\alice",
+    "message": "File written",
+    "target": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+    "file": {
+      "path": "C:\\Users\\alice\\Documents\\quarterly-report.docx",
+      "name": "quarterly-report.docx"
+    },
+    "row_hash": "502d95971bf4a0bcc10f3fd866fa4eb659ba94bdaf7de5b64bad8c0f0a5517a5"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-11T03:50:51.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "process",
+    "artifact": "Windows.System.Pslist",
+    "timestamp_desc": "EventTime",
+    "user": "SYSTEM",
+    "message": "svchost.exe running",
+    "target": "C:\\Windows\\System32\\svchost.exe",
+    "process": {
+      "name": "svchost.exe",
+      "image_path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "row_hash": "d56ebe713108c866caa0cdc12ad433ff6ddf8f9c2afc93e61be80230107fb651"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-11T04:40:41.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "network",
+    "artifact": "Windows.Network.Netstat",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "Outbound connection to update service",
+    "target": "23.45.67.8:443",
+    "network": {
+      "dst_ip": "23.45.67.8",
+      "domain": "updates.contoso-cdn.example",
+      "dst_port": 443,
+      "direction": "outbound"
+    },
+    "row_hash": "18dd8f8b264e68ed32f525ad294935768aeafc1578ff87660b21582273fe472c"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-11T05:30:31.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "registry",
+    "artifact": "Windows.Registry.AppCompatCache",
+    "timestamp_desc": "LastWriteTime",
+    "user": "SYSTEM",
+    "message": "AppCompatCache entry updated",
+    "target": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache",
+    "registry": {
+      "key": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache"
+    },
+    "row_hash": "8f3250d8b2699cd945348e142bcdb5125fc6e3e46d37329d4ce4d014c546f4b8"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-11T06:20:20.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "execution",
+    "artifact": "Windows.Forensics.Prefetch",
+    "timestamp_desc": "LastExecuted",
+    "user": "DOMAIN\\alice",
+    "message": "OUTLOOK.EXE executed",
+    "target": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "process": {
+      "name": "OUTLOOK.EXE",
+      "image_path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+    },
+    "detections": [
+      {
+        "engine": "sigma",
+        "rule_id": "SIGMA-9001",
+        "rule_name": "Non-standard PowerShell Profile Load",
+        "severity": "informational",
+        "mitre_techniques": [
+          "T1059.001"
+        ]
+      }
+    ],
+    "detection_count": 1,
+    "severity_max": "informational",
+    "row_hash": "242896c235753c71775ac4ba397e6c7efc6c956d45f7c9dd07e5f274a1b8605d"
+  },
+  {
+    "schema_version": "1.0.0",
+    "timestamp_utc": "2026-03-11T07:10:10.0000000Z",
+    "host": "WKS-CORP-07",
+    "host_id": "GUID-HOST-7",
+    "collector_kind": "velociraptor",
+    "source": "eventlog",
+    "artifact": "Windows.EventLogs.Evtx",
+    "timestamp_desc": "EventTime",
+    "user": "DOMAIN\\alice",
+    "message": "An account was successfully logged on",
+    "target": "Security.evtx",
+    "row_hash": "5577960eb8fb17a68862fb507df55e285f5931ebb85905423ab7726f03da1c2b"
+  }
+]
