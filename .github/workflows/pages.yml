@@ -89,17 +89,30 @@ jobs:
           touch _site/.nojekyll
           rm -rf _site/node_modules _site/package-lock.json
 
-      # enablement: true makes this workflow BOOTSTRAP Pages on a repository where
-      # it has never been turned on, using the `pages: write` permission granted
-      # above. Without it, the very first deploy into a fresh repository fails at
-      # this step with a bare "Get Pages site failed ... Not Found", and someone has
-      # to go flip a switch in Settings -> Pages by hand before any deploy can ever
-      # succeed -- a manual step with no discoverable connection to the error.
+      # FIRST DEPLOY INTO A FRESH REPOSITORY NEEDS ONE MANUAL STEP.
       #
-      # It also sets the build type to `workflow` (rather than legacy Jekyll branch
-      # builds), which is what actions/deploy-pages@v4 below requires. Enabling Pages
-      # through the REST API instead needs a token with the Pages permission; doing it
-      # here keeps the whole deploy self-contained in the repository.
+      # Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+      #
+      # `enablement: true` asks this action to create the Pages site itself if it
+      # does not exist. That is worth keeping -- it makes the deploy self-healing if
+      # Pages is ever turned back off -- but it CANNOT bootstrap a repository that
+      # has never had Pages enabled, and the failure is confusing enough to be worth
+      # recording here. Measured on this repository, run #2:
+      #
+      #   ##[warning]Get Pages site failed. Error: Not Found
+      #   ##[error]Create Pages site failed. Error: Resource not accessible by integration
+      #
+      # The `permissions: pages: write` block above is granted and is NOT the
+      # problem: the Actions GITHUB_TOKEN is an app-installation token, and creating
+      # a Pages site requires repository-administration rights that an installation
+      # token is not given, whatever the workflow requests. Enabling Pages from
+      # outside instead needs a PAT with the "Pages: Read and write" permission --
+      # "Contents + Workflows + Actions" is not enough, which is easy to get wrong
+      # because every other part of this deploy works with just those.
+      #
+      # Once the site exists, this step also pins the build type to `workflow`
+      # (rather than legacy Jekyll branch builds), which actions/deploy-pages@v4
+      # below requires.
       - uses: actions/configure-pages@v5
         with:
           enablement: true
