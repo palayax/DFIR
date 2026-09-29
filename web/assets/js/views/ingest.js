@@ -59,12 +59,35 @@ export async function mount(container, { store }) {
   listPanel.append(listTitle, fileList, emptyMsg);
   container.appendChild(listPanel);
 
+  // The worker is a PERFORMANCE optimisation (it keeps the UI responsive while a
+  // multi-hundred-MB acquisition ZIP is unzipped), not a functional requirement.
+  // It must never be the difference between a working app and a dead one.
+  //
+  // It genuinely fails to construct in contexts this app is documented to support:
+  //   - `file://`, which README.md and docs/WEB_APP.md both tell an analyst to use
+  //     for air-gapped work. Chrome refuses to load a module worker from an opaque
+  //     `null` origin.
+  //   - any document whose worker URL resolves cross-origin (worker scripts must be
+  //     same-origin regardless of CORS headers).
+  //
+  // Previously `worker = null` meant ingestOne() marked EVERY file
+  // `error: 'ingest worker unavailable'`. The page still rendered perfectly, so the
+  // app looked healthy and was in fact completely unusable -- nothing can be
+  // ingested, therefore nothing can be merged, analysed or reported. Now it falls
+  // back to parsing on the main thread: slower, and it blocks the UI on a large
+  // file, but it works.
   let worker;
   try {
     worker = new Worker(new URL('../workers/ingest.worker.js', import.meta.url), { type: 'module' });
   } catch (err) {
-    showError('Could not start the ingest worker; parsing will be unavailable', err);
     worker = null;
+    showToast({
+      type: 'info',
+      title: 'Parsing on the main thread',
+      detail: 'The background ingest worker is unavailable here (this is normal when the app is opened directly from disk). Large files will take longer and the page may be briefly unresponsive while they parse.',
+      timeoutMs: 9000,
+    });
+    console.warn('[ingest] worker unavailable, falling back to main-thread parsing:', err);
   }
 
   const pending = new Map(); // requestId -> { fileEntryId }
@@ -112,14 +135,56 @@ export async function mount(container, { store }) {
   }
 
   function ingestOne(fileEntryId, file) {
+    updateFile(fileEntryId, { status: 'parsing', rowsParsed: 0 });
     if (!worker) {
-      updateFile(fileEntryId, { status: 'error', error: 'ingest worker unavailable' });
+      ingestOnMainThread(fileEntryId, file);
       return;
     }
     const requestId = `req-${++reqSeq}`;
     pending.set(requestId, { fileEntryId });
-    updateFile(fileEntryId, { status: 'parsing', rowsParsed: 0 });
     worker.postMessage({ type: 'ingest', requestId, file });
+  }
+
+  // Main-thread mirror of ingest.worker.js's handleIngest(). It deliberately
+  // reproduces the worker's behaviour rather than sharing code with it, because the
+  // worker's interface is postMessage and extracting a shared generator would mean
+  // touching the worker protocol that the rest of this view depends on.
+  //
+  // Yields to the event loop every PROGRESS_INTERVAL rows so the row counter
+  // actually updates and the tab does not appear frozen. Without that await, a
+  // 1.9 MB JSONL parses in one uninterruptible task and the UI shows "parsing… 0
+  // rows" until it is completely done.
+  async function ingestOnMainThread(fileEntryId, file) {
+    const PROGRESS_INTERVAL = 1000;
+    try {
+      const entry = await detectIngestModule(file);
+      if (!entry) {
+        throw new Error(`No ingest module recognised file "${file.name}". Try Generic CSV/JSON mapping.`);
+      }
+      const records = [];
+      let rowsParsed = 0;
+      for await (const record of entry.module.parse(file, {})) {
+        records.push(record);
+        rowsParsed++;
+        if (rowsParsed % PROGRESS_INTERVAL === 0) {
+          updateFile(fileEntryId, { rowsParsed });
+          renderFiles();
+          await new Promise((r) => setTimeout(r, 0));
+        }
+      }
+      updateFile(fileEntryId, {
+        status: 'parsed',
+        records,
+        recordCount: records.length,
+        moduleId: entry.id,
+      });
+      renderFiles();
+    } catch (err) {
+      const message = err?.message || String(err);
+      updateFile(fileEntryId, { status: 'error', error: message });
+      showError('Failed to ingest file', message);
+      renderFiles();
+    }
   }
 
   if (worker) {

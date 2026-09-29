@@ -26,6 +26,10 @@ python -m http.server 8000
 # needs either a server or the page's ?src= query parameter.
 ```
 
+**One degradation applies to the `file://` path.** Ingest normally parses in a Web Worker so the UI stays responsive while a large acquisition ZIP is unzipped. Chrome refuses to construct a module worker from an opaque (`file://`) origin, so there the app falls back to parsing on the **main thread**: functionally identical, but slower, and the page may be briefly unresponsive while a large file parses. A one-time toast says so. Nothing else about the pipeline changes.
+
+Until 2026-09-29 this was not a degradation but a hard failure: a missing worker marked every file `error: ingest worker unavailable`, so the documented from-disk workflow loaded a perfectly-rendered page that could not ingest anything at all. The same failure occurs for any document whose worker URL resolves cross-origin, since worker scripts must be same-origin regardless of CORS.
+
 Air-gapped operation: with no LLM provider configured (or the mock provider selected) and local-download storage, the app makes **zero** network requests after the page itself loads. This makes it usable inside a fully isolated analysis environment.
 
 ---

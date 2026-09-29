@@ -25,6 +25,15 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const VIEWS_DIR = path.join(HERE, '..', 'assets', 'js', 'views');
 
+/** Remove /* *\/ blocks and // line comments so an assertion about CODE is not
+ * satisfied (or broken) by prose in a comment. Good enough for these files: they
+ * contain no regex literals or strings that would be mangled by it. */
+function stripComments(src) {
+  return src
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/(^|[^:])\/\/.*$/gm, '$1');
+}
+
 async function viewFiles() {
   const names = await readdir(VIEWS_DIR);
   return names.filter((n) => n.endsWith('.js')).sort();
@@ -89,6 +98,38 @@ describe('views are wired to their engines', () => {
     assert.match(src, /irtriage\.report\.json/, 'report.js must use the sessionStorage handoff key report/main.js reads');
     const mainSrc = await readFile(path.join(HERE, '..', 'assets', 'js', 'report', 'main.js'), 'utf8');
     assert.match(mainSrc, /irtriage\.report\.json/, 'report/main.js must still read the same handoff key');
+  });
+
+  test('ingest view falls back to main-thread parsing when the worker cannot start', async () => {
+    // The Web Worker is a performance optimisation, not a functional requirement,
+    // and `new Worker(...)` genuinely throws in contexts this app documents as
+    // supported: `file://` (Chrome refuses a module worker from an opaque origin --
+    // and README/docs/WEB_APP.md both tell analysts to open index.html from disk for
+    // air-gapped work) and any document where the worker URL resolves cross-origin.
+    //
+    // The old code set `worker = null` and then marked every single file
+    // `error: 'ingest worker unavailable'`. The page rendered perfectly, so the app
+    // looked healthy while being totally unusable: nothing ingests, so nothing
+    // merges, analyses or reports. Found by running the real hosted app.
+    const src = await readFile(path.join(VIEWS_DIR, 'ingest.js'), 'utf8');
+    // Strip comments before asserting absence: this file now DOCUMENTS the old
+    // failure string in a comment explaining why the fallback exists, and a naive
+    // doesNotMatch over the raw source fails on that comment rather than on code.
+    const code = stripComments(src);
+    assert.doesNotMatch(
+      code,
+      /error:\s*['"]ingest worker unavailable['"]/,
+      'a missing worker must no longer be a terminal error for the file',
+    );
+    assert.match(src, /ingestOnMainThread/, 'ingest.js must define a main-thread fallback');
+    assert.match(
+      src,
+      /if\s*\(\s*!worker\s*\)\s*\{\s*\n\s*ingestOnMainThread\(/,
+      'ingestOne() must route to the main-thread fallback when there is no worker',
+    );
+    // The fallback must do real parsing, not just report a nicer error.
+    assert.match(src, /for await \(const record of entry\.module\.parse\(/, 'the fallback must actually parse the file');
+    assert.match(src, /detectIngestModule\(file\)/, 'the fallback must run format detection');
   });
 
   test('report view passes storage credentials under the key the providers read', async () => {
