@@ -13,6 +13,7 @@
 // the same exports.
 
 import { generateReportPdf, resolveWatermarkText } from '../report/pdf.js';
+import { redactReport, REDACT_PROFILES } from '../redact/report.js';
 import { citationRate, sortFindings } from '../report/metrics.js';
 import { getStorageProvider, defaultStorageProviderId } from '../providers/storage/index.js';
 import { showToast, showError } from '../ui/toast.js';
@@ -76,6 +77,92 @@ export async function mount(container, { store }) {
   actions.append(openBtn, jsonBtn, pdfBtn, uploadBtn);
   header.appendChild(actions);
   container.appendChild(header);
+
+  // --- redaction controls --------------------------------------------------
+  // Placed above the summary, before the export buttons are used, because the
+  // choice has to be made BEFORE exporting rather than discovered afterwards.
+  const redactPanel = document.createElement('div');
+  redactPanel.className = 'panel';
+  const redactTitle = document.createElement('div');
+  redactTitle.className = 'panel-title';
+  redactTitle.textContent = 'Redaction (applies to Export JSON / Export PDF / Upload)';
+  const redactRow = document.createElement('div');
+  redactRow.className = 'two-col';
+
+  const profField = document.createElement('div');
+  profField.className = 'field';
+  const profLabel = document.createElement('label');
+  profLabel.textContent = 'Profile';
+  const profSelect = document.createElement('select');
+  profSelect.className = 'input';
+  for (const p of REDACT_PROFILES) {
+    const o = document.createElement('option');
+    o.value = p.id;
+    o.textContent = p.label;
+    profSelect.appendChild(o);
+  }
+  profSelect.value = 'none';
+  profField.append(profLabel, profSelect);
+
+  const keyField = document.createElement('div');
+  keyField.className = 'field';
+  const keyLabel = document.createElement('label');
+  keyLabel.textContent = 'Pseudonym key (hex, optional)';
+  const keyInput = document.createElement('input');
+  keyInput.className = 'input';
+  keyInput.type = 'text';
+  keyInput.placeholder = 'blank = fresh random key per export';
+  keyInput.autocomplete = 'off';
+  keyField.append(keyLabel, keyInput);
+  const keyHint = document.createElement('div');
+  keyHint.className = 'field-hint';
+  keyHint.textContent = 'Use the SAME key the client used (output.redact_key_hex / --redact-key) if this report must '
+    + 'cross-reference a redacted timeline — otherwise its pseudonyms will not match.';
+  keyField.appendChild(keyHint);
+
+  redactRow.append(profField, keyField);
+  const redactHint = document.createElement('div');
+  redactHint.className = 'field-hint';
+  redactPanel.append(redactTitle, redactRow, redactHint);
+  container.appendChild(redactPanel);
+
+  function describeRedaction() {
+    if (profSelect.value === 'none') {
+      redactHint.textContent = 'Exports will be VERBATIM — they will contain real hostnames, accounts, paths and '
+        + 'whatever the model quoted from the evidence. Do not publish this.';
+      return;
+    }
+    if (profSelect.value === 'publish') {
+      redactHint.textContent = 'Identifiers are pseudonymised, private addresses masked, engagement metadata dropped, '
+        + 'and every free-text field scanned. Public IPs, hashes, rule names and ATT&CK mappings are kept as indicators. '
+        + 'Redaction is best-effort — review the redaction record in the exported JSON before publishing.';
+      return;
+    }
+    redactHint.textContent = 'Secrets and credentials are removed; host and account identity are KEPT so internal '
+      + 'responders can act on it. Not suitable for publication.';
+  }
+  profSelect.addEventListener('change', describeRedaction);
+  describeRedaction();
+
+  // Applies the selected profile, or returns the report unchanged for "none".
+  // Every export path funnels through this, so there is exactly one place where
+  // the decision is honoured — a second path that forgot to call it would be a
+  // silent leak.
+  async function forExport(r) {
+    const { report: out, redacted } = await redactReport(r, {
+      profile: profSelect.value,
+      keyHex: keyInput.value.trim(),
+    });
+    if (redacted) {
+      showToast({
+        type: 'info',
+        title: `Exported with the "${profSelect.value}" redaction profile`,
+        detail: 'The export carries a `redaction` record listing what was changed. Review it before publishing.',
+        timeoutMs: 7000,
+      });
+    }
+    return out;
+  }
 
   const summaryPanel = document.createElement('div');
   summaryPanel.className = 'panel';
@@ -228,11 +315,19 @@ export async function mount(container, { store }) {
     }
   });
 
-  jsonBtn.addEventListener('click', () => {
+  jsonBtn.addEventListener('click', async () => {
     const r = report();
     if (!r) return;
-    const blob = new Blob([JSON.stringify(r, null, 2)], { type: 'application/json' });
-    downloadBlob(blob, `${caseSlug(r)}-forensic-report.json`);
+    jsonBtn.disabled = true;
+    try {
+      const out = await forExport(r);
+      const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
+      downloadBlob(blob, `${caseSlug(out)}-forensic-report.json`);
+    } catch (err) {
+      showError('Export failed', err);
+    } finally {
+      jsonBtn.disabled = false;
+    }
   });
 
   pdfBtn.addEventListener('click', async () => {
@@ -242,9 +337,10 @@ export async function mount(container, { store }) {
     const original = pdfBtn.textContent;
     pdfBtn.textContent = 'Building PDF…';
     try {
-      const blob = await generateReportPdf(r);
-      downloadBlob(blob, `${caseSlug(r)}-forensic-report.pdf`);
-      showToast({ type: 'success', title: 'PDF exported', detail: `Watermark: ${resolveWatermarkText(r)}`, timeoutMs: 5000 });
+      const out = await forExport(r);
+      const blob = await generateReportPdf(out);
+      downloadBlob(blob, `${caseSlug(out)}-forensic-report.pdf`);
+      showToast({ type: 'success', title: 'PDF exported', detail: `Watermark: ${resolveWatermarkText(out)}`, timeoutMs: 5000 });
     } catch (err) {
       showError('PDF export failed', err);
     } finally {
@@ -271,8 +367,9 @@ export async function mount(container, { store }) {
     }
     uploadBtn.disabled = true;
     try {
-      const name = `${caseSlug(r)}-forensic-report.json`;
-      const blob = new Blob([JSON.stringify(r, null, 2)], { type: 'application/json' });
+      const out = await forExport(r);
+      const name = `${caseSlug(out)}-forensic-report.json`;
+      const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
       // The StorageProvider contract names this option `creds`, not `credentials`
       // (see web/tests/storage.test.mjs). Passing the wrong key does not throw --
       // s3/azure/gcs would read `opts.creds` as undefined and fail deep inside

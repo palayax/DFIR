@@ -1,0 +1,749 @@
+{
+  "_generated": "from config/sensitive-data.yaml by scripts/gen-sensitive-data.py -- do not edit",
+  "classes": [
+    {
+      "default_action": "exclude",
+      "description": "Anything from which an authenticator can be recovered: password hashes, Kerberos tickets, DPAPI master keys, LSA secrets, cached domain credentials, private keys, API tokens, process memory that holds any of these. Highest severity — recovery of one of these is an immediate, actionable compromise of the customer.",
+      "id": "credential",
+      "name": "Credentials and credential material"
+    },
+    {
+      "default_action": "drop",
+      "description": "API keys, bearer tokens, connection strings, webhook URLs with embedded tokens. Distinguished from `credential` only in that they authenticate to a third-party service rather than to the host or directory.",
+      "id": "secret",
+      "name": "Application secrets"
+    },
+    {
+      "default_action": "hash",
+      "description": "Data identifying a natural person: account names, display names, email addresses, home directory paths, browsing history, document names, recent file lists. Publication risk is regulatory (GDPR/CCPA) as well as reputational.",
+      "id": "pii",
+      "name": "Personal data"
+    },
+    {
+      "default_action": "hash",
+      "description": "Hostnames, machine GUIDs, domain names, SIDs, MAC addresses, asset tags. Individually low-harm, but collectively they attribute a published report to a named customer, which is usually the thing a customer most objects to.",
+      "id": "host_identifier",
+      "name": "Host and organisation identifiers"
+    },
+    {
+      "default_action": "mask",
+      "description": "Private IPs, internal DNS names, internal URLs, listening ports, share paths. Publishing these hands an attacker a free network map.",
+      "id": "network_identifier",
+      "name": "Internal network topology"
+    },
+    {
+      "default_action": "scan",
+      "description": "Raw file bytes, registry value data, command lines, script blocks. Cannot be classified in advance because the content is whatever was on the host — it may contain any of the classes above, or customer intellectual property.",
+      "id": "content",
+      "name": "Arbitrary file and value content"
+    },
+    {
+      "default_action": "drop",
+      "description": "Case ID, examiner name, collection paths, engagement label. Not host data, but it attributes the output to a specific engagement and a specific person.",
+      "id": "case_metadata",
+      "name": "Engagement metadata"
+    },
+    {
+      "default_action": "keep",
+      "description": "File hashes, malware rule names, MITRE technique IDs, detection metadata, public IPs and domains that are part of the ATTACK rather than the victim. Deliberately NOT treated as sensitive: these are the shareable part of an investigation, and stripping them would make a published report worthless.",
+      "id": "forensic_indicator",
+      "name": "Indicators of compromise"
+    }
+  ],
+  "components": [
+    {
+      "action": "exclude",
+      "classes": [
+        "credential"
+      ],
+      "description": "Process memory dumps (profiles.full dumps lsass.exe by default). An lsass dump is the canonical credential-theft artifact: NTLM hashes, Kerberos tickets, and often cleartext passwords. Never publishable in any form.",
+      "id": "raw.memory.dumps",
+      "kind": "raw_file",
+      "location": "archive:raw/files/memory/**",
+      "note": "Observed on the build host: the dump reported completion but produced 0 bytes, because lsass was PPL-protected. Do not rely on that — on a host without RunAsPPL/Credential Guard it will contain real credential material."
+    },
+    {
+      "action": "exclude",
+      "classes": [
+        "credential"
+      ],
+      "description": "Machine registry hives. SAM holds local account password hashes; SECURITY holds LSA secrets, cached domain credentials and DPAPI backup keys; SYSTEM holds the boot key needed to decrypt both.",
+      "id": "raw.registry.machine_hives",
+      "kind": "raw_file",
+      "location": "archive:raw/files/**/{SAM,SECURITY,SYSTEM,SAM.LOG*,SECURITY.LOG*,SYSTEM.LOG*}"
+    },
+    {
+      "action": "exclude",
+      "classes": [
+        "pii",
+        "credential"
+      ],
+      "description": "Per-user hives. Contain typed paths, MRU lists, ShellBags, RunMRU, mapped drives, and DPAPI-protected blobs including saved credentials.",
+      "id": "raw.registry.user_hives",
+      "kind": "raw_file",
+      "location": "archive:raw/files/**/{NTUSER.DAT,UsrClass.dat,usrClass.dat}*"
+    },
+    {
+      "action": "exclude",
+      "classes": [
+        "credential"
+      ],
+      "description": "Private keys, certificate stores, password databases and saved session files.",
+      "id": "raw.credential_files",
+      "kind": "raw_file",
+      "location": "archive:raw/files/**/{*.pfx,*.p12,*.pem,*.key,*.jks,*.keystore,*.kdbx,*.ppk,id_rsa,id_ed25519,*.ovpn,*.rdp}"
+    },
+    {
+      "action": "exclude",
+      "classes": [
+        "pii",
+        "credential"
+      ],
+      "description": "Browser databases. History and form history are PII; Cookies and Login Data are live session tokens and saved passwords.",
+      "id": "raw.browser_stores",
+      "kind": "raw_file",
+      "location": "archive:raw/files/**/{History,Cookies,Login Data,Web Data,places.sqlite,cookies.sqlite,formhistory.sqlite}*"
+    },
+    {
+      "action": "exclude",
+      "classes": [
+        "content"
+      ],
+      "description": "Everything else collected as raw bytes. Deliberately excluded wholesale under the `publish` profile rather than scanned: the content is arbitrary customer data (documents, source code, configuration) and there is no responsible way to assert it is safe to publish. Measured on an elevated full-profile run: 3,935 files / 12.3 GB.",
+      "id": "raw.files.other",
+      "kind": "raw_file",
+      "location": "archive:raw/files/**",
+      "note": "This is the component that makes a published archive small AND safe. The parsed timeline rows describing these files are retained, so the analysis survives; only the bytes go."
+    },
+    {
+      "action": "exclude",
+      "classes": [
+        "content"
+      ],
+      "description": "Per-artifact Velociraptor result archives. These are the unparsed source of the timeline and contain every field the parser dropped, including full command lines, registry value data and event-log payloads.",
+      "id": "raw.artifact_zips",
+      "kind": "raw_file",
+      "location": "archive:raw/*.zip"
+    },
+    {
+      "action": "exclude",
+      "classes": [
+        "content"
+      ],
+      "description": "Raw output of the in-process Win32 collectors, same reasoning as raw.artifact_zips.",
+      "id": "raw.native_json",
+      "kind": "raw_file",
+      "location": "archive:raw/native-*.json"
+    },
+    {
+      "action": "hash",
+      "classes": [
+        "host_identifier"
+      ],
+      "description": "Hostname. Pseudonymised rather than dropped because multi-host correlation is the entire point of a SuperTimeline — \"these three events are the same machine\" must survive redaction.",
+      "id": "timeline.host",
+      "kind": "timeline_field",
+      "location": "timeline:host"
+    },
+    {
+      "action": "hash",
+      "classes": [
+        "host_identifier"
+      ],
+      "description": "Stable machine GUID. Must be pseudonymised with the SAME key as timeline.host so the merge layer's host-identity logic keeps working.",
+      "id": "timeline.host_id",
+      "kind": "timeline_field",
+      "location": "timeline:host_id"
+    },
+    {
+      "action": "hash",
+      "classes": [
+        "pii"
+      ],
+      "description": "Account name, often DOMAIN\\\\user. Pseudonymised so \"the same account did both of these\" survives. Note that well-known accounts are exempted below via `preserve_values`, because losing SYSTEM/LOCAL SERVICE destroys analysis for no privacy gain.",
+      "id": "timeline.user",
+      "kind": "timeline_field",
+      "location": "timeline:user",
+      "preserve_values": [
+        "SYSTEM",
+        "LOCAL SERVICE",
+        "NETWORK SERVICE",
+        "NT AUTHORITY\\SYSTEM",
+        "NT AUTHORITY\\LOCAL SERVICE",
+        "NT AUTHORITY\\NETWORK SERVICE",
+        "TrustedInstaller",
+        "None",
+        ""
+      ]
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "The object an event acted on — usually a path, sometimes a URL or an endpoint. Scanned rather than dropped: the path SHAPE is diagnostic (`\\\\AppData\\\\Local\\\\Temp\\\\x.exe` matters), but the user directory inside it is PII and any embedded secret must go.",
+      "id": "timeline.target",
+      "kind": "timeline_field",
+      "location": "timeline:target"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "Human-readable event summary, assembled from artifact fields. Free text, so scanned.",
+      "id": "timeline.message",
+      "kind": "timeline_field",
+      "location": "timeline:message"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "Full path of a file-derived row. Same reasoning as timeline.target.",
+      "id": "timeline.file_path",
+      "kind": "timeline_field",
+      "location": "timeline:file_path"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content",
+        "secret"
+      ],
+      "description": "Full command line. The single highest-yield place for accidental secret exposure in any triage output — passwords passed as `-p`, `/pass:`, `--token`, connection strings, and pre-shared keys all land here. Scanned aggressively.",
+      "id": "timeline.process_command_line",
+      "kind": "timeline_field",
+      "location": "timeline:process_command_line"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content",
+        "secret"
+      ],
+      "description": "Registry value contents. Commonly holds service account passwords, AutoAdminLogon credentials, proxy credentials and licence keys.",
+      "id": "timeline.registry_value_data",
+      "kind": "timeline_field",
+      "location": "timeline:registry_value_data"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Executable name. Load-bearing for analysis and not itself identifying.",
+      "id": "timeline.process_name",
+      "kind": "timeline_field",
+      "location": "timeline:process_name"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Parent executable name — the basis of process-lineage analysis.",
+      "id": "timeline.process_parent_name",
+      "kind": "timeline_field",
+      "location": "timeline:process_parent_name"
+    },
+    {
+      "action": "mask",
+      "classes": [
+        "network_identifier"
+      ],
+      "description": "Destination address. PRIVATE addresses are masked (they map the customer's internal network). PUBLIC addresses are preserved by the `publish` profile, because a C2 address is an indicator the community needs — see the `public_ip_is_indicator` option below.",
+      "id": "timeline.network_dst_ip",
+      "kind": "timeline_field",
+      "location": "timeline:network_dst_ip"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "network_identifier"
+      ],
+      "description": "Domain name. Internal suffixes (.local, .corp, .internal, .lan) are customer topology; external domains are usually indicators.",
+      "id": "timeline.network_domain",
+      "kind": "timeline_field",
+      "location": "timeline:network_domain"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "network_identifier",
+        "secret"
+      ],
+      "description": "Full URL. Scanned rather than kept because query strings routinely carry session tokens, and internal URLs expose hostnames.",
+      "id": "timeline.network_url",
+      "kind": "timeline_field",
+      "location": "timeline:network_url"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Port number. Diagnostic, not identifying.",
+      "id": "timeline.network_dst_port",
+      "kind": "timeline_field",
+      "location": "timeline:network_dst_port"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "File hashes. Explicitly preserved: they are the most useful single thing a published report can contain, and a hash of a customer document is not itself disclosure.",
+      "id": "timeline.hashes",
+      "kind": "timeline_field",
+      "location": "timeline:{hash_sha256,hash_md5}"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Rule names, engines, ATT&CK technique IDs and severities. The shareable core of a finding.",
+      "id": "timeline.detection_metadata",
+      "kind": "timeline_field",
+      "location": "timeline:{detection_rules,detection_engines,mitre_techniques,detection_severities,detection_count,severity_max}"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Timestamps, provenance and numeric/enumerated attributes. Not sensitive and required for the timeline to be a timeline.",
+      "id": "timeline.structural",
+      "kind": "timeline_field",
+      "location": "timeline:{timestamp_utc,timestamp_desc,source,artifact,collector_kind,event_channel,event_id,event_provider,event_logon_type,file_size_bytes,file_extension,file_signature_status,process_pid,process_ppid,network_direction}"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "Registry key and value NAME (not data). Mostly well-known paths, but a per-user key embeds a SID and a profile path, so scanned.",
+      "id": "timeline.registry_key",
+      "kind": "timeline_field",
+      "location": "timeline:{registry_key,registry_value_name}"
+    },
+    {
+      "action": "review",
+      "classes": [
+        "host_identifier"
+      ],
+      "controlled_by": "recompute_row_hash",
+      "description": "SHA-256 over the row's own field values. This deserves thought: because it is computed from unredacted content, publishing it alongside redacted fields creates a CONFIRMATION ORACLE — someone who guesses a username can hash a candidate row and check. For high-entropy rows that is impractical; for a row whose fields are all low-entropy it is not.",
+      "id": "timeline.row_hash",
+      "kind": "timeline_field",
+      "location": "timeline:row_hash"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "The JSONL form nests these fields as objects (`process: {pid, name, command_line}`) where the CSV form flattens them to `process_pid`, `process_name`, ... Both shapes must be governed, or a policy written against the CSV column names would silently miss the JSONL export — which is the richer of the two and the one the web app actually ingests. The leaf values are governed individually by the components above; this entry exists so the container names are audited too and the coverage test can prove no field escapes.",
+      "id": "timeline.nested_groups",
+      "kind": "timeline_field",
+      "location": "timeline:{file,process,event,registry,network,hashes}",
+      "note": "Added after a test asserted every field of docs/timeline_schema.json has a catalogue entry and found 7 that did not."
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Name of the artifact field the row's timestamp came from (e.g. `Created`, `Timestamp`, `mtime`). Provenance metadata about the schema, not data from the host — required to interpret a MACB-expanded timeline correctly.",
+      "id": "timeline.timestamp_source_field",
+      "kind": "timeline_field",
+      "location": "timeline:timestamp_source_field"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "case_metadata"
+      ],
+      "description": "Pointer back to the raw source row. Kept even under `publish` (where the raw file itself is excluded) because it documents chain of custody; the pointer alone discloses nothing.",
+      "id": "timeline.provenance",
+      "kind": "timeline_field",
+      "location": "timeline:{provenance_raw_file,provenance_raw_row}"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "Bytes surrounding a YARA/Sigma/Nuclei match. This is verbatim file content by definition — the most likely place for a secret to survive into an otherwise-clean export.",
+      "id": "detections.match_context",
+      "kind": "detection_field",
+      "location": "detections:{context,matched_strings,match_context,excerpt}"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Which rule fired. Shareable.",
+      "id": "detections.rule_identity",
+      "kind": "detection_field",
+      "location": "detections:{engine,rule_id,rule_name,severity,mitre_techniques}"
+    },
+    {
+      "action": "hash",
+      "classes": [
+        "host_identifier"
+      ],
+      "description": "Hostname, domain, OS build, machine GUID, interface addresses of the collected host.",
+      "id": "manifest.host",
+      "kind": "manifest_field",
+      "location": "manifest:host.*"
+    },
+    {
+      "action": "drop",
+      "classes": [
+        "case_metadata"
+      ],
+      "description": "Case identity, examiner name and local filesystem paths. Paths also leak the operator's own username, which is a second, easily-forgotten disclosure.",
+      "id": "manifest.engagement",
+      "kind": "manifest_field",
+      "location": "manifest:{case_id,examiner,engagement,output_path,temp_path,config_path}"
+    },
+    {
+      "action": "keep",
+      "classes": [
+        "forensic_indicator"
+      ],
+      "description": "Versions, coverage gaps, error list and row counts. Kept deliberately: a published report without its coverage gaps is misleading, because a reader cannot tell \"not present\" from \"not collected\".",
+      "id": "manifest.integrity",
+      "kind": "manifest_field",
+      "location": "manifest:{run_id,tool_version,payload_versions,coverage,errors,counts}"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "case_metadata",
+        "host_identifier"
+      ],
+      "description": "Operator-facing log. Contains absolute paths (hence the operator's username), the hostname, and every artifact name. Scanned rather than excluded because it is the audit trail of what the tool actually did.",
+      "id": "archive.run_log",
+      "kind": "raw_file",
+      "location": "archive:run.log"
+    },
+    {
+      "action": "rewrite",
+      "classes": [
+        "content"
+      ],
+      "description": "Per-entry hash list. Must be REWRITTEN, not scanned: after redaction the file contents have changed, so the original hashes no longer verify, and entries for excluded components must be removed. Leaving it stale would make `--verify` fail on a legitimately-redacted archive and destroy the integrity story.",
+      "id": "archive.sha256sums",
+      "kind": "raw_file",
+      "location": "archive:SHA256SUMS"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content"
+      ],
+      "description": "Model-authored prose. The model was given real evidence, so it will quote real hostnames, usernames and paths back into the narrative. Scanning this is essential — redacting the timeline while publishing an un-redacted narrative achieves nothing.",
+      "id": "report.narrative",
+      "kind": "report_field",
+      "location": "report:{executive_summary.text,executive_summary.bullets,verdict.rationale,verdict.confidence_rationale,attack_narrative.summary,attack_narrative.phases[].description,findings[].narrative,findings[].title,recommendations.*}"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "content",
+        "pii"
+      ],
+      "description": "Verbatim quotes from timeline rows, carried into the report for rendering.",
+      "id": "report.evidence_excerpts",
+      "kind": "report_field",
+      "location": "report:findings[].evidence[].{excerpt,why_relevant,host}"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "forensic_indicator",
+        "network_identifier"
+      ],
+      "description": "The IOC panel deliberately mixes attacker indicators (keep) with victim identifiers such as internal accounts and hosts (redact), so it must be scanned per value rather than kept or dropped wholesale.",
+      "id": "report.iocs",
+      "kind": "report_field",
+      "location": "report:iocs.*"
+    },
+    {
+      "action": "scan",
+      "classes": [
+        "pii",
+        "network_identifier"
+      ],
+      "description": "Deterministic aggregates — but they are aggregates OF identifiers: top accounts, top paths, network endpoints and the entity graph's node labels are exactly the customer-identifying values, rolled up.",
+      "id": "report.dashboard_entities",
+      "kind": "report_field",
+      "location": "report:dashboard.{top_processes,top_paths,network_endpoints,accounts_active,entity_graph}"
+    },
+    {
+      "action": "drop",
+      "classes": [
+        "case_metadata"
+      ],
+      "description": "Engagement attribution carried in report metadata.",
+      "id": "report.model_identity",
+      "kind": "report_field",
+      "location": "report:meta.{engagement,case_id,report_id}"
+    }
+  ],
+  "patterns": [
+    {
+      "classes": [
+        "credential"
+      ],
+      "description": "PEM private key block, any type.",
+      "id": "pattern.private_key_block",
+      "regex": "-----BEGIN [A-Z ]*PRIVATE KEY-----[\\s\\S]*?-----END [A-Z ]*PRIVATE KEY-----",
+      "replacement": "[REDACTED-PRIVATE-KEY]"
+    },
+    {
+      "classes": [
+        "secret"
+      ],
+      "description": "AWS access key id. ASIA is an STS temporary key.",
+      "id": "pattern.aws_access_key",
+      "regex": "\\b(?:AKIA|ASIA|ABIA|ACCA)[0-9A-Z]{16}\\b",
+      "replacement": "[REDACTED-AWS-KEY-ID]"
+    },
+    {
+      "classes": [
+        "secret"
+      ],
+      "description": "GitHub classic and fine-grained personal access tokens.",
+      "id": "pattern.github_token",
+      "regex": "\\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{36,}\\b|\\bgithub_pat_[A-Za-z0-9_]{50,}\\b",
+      "replacement": "[REDACTED-GITHUB-TOKEN]"
+    },
+    {
+      "classes": [
+        "secret"
+      ],
+      "description": "Slack bot/user/app tokens.",
+      "id": "pattern.slack_token",
+      "regex": "\\bxox[abprs]-[A-Za-z0-9-]{10,}\\b",
+      "replacement": "[REDACTED-SLACK-TOKEN]"
+    },
+    {
+      "classes": [
+        "secret"
+      ],
+      "description": "Google API key.",
+      "id": "pattern.google_api_key",
+      "regex": "\\bAIza[0-9A-Za-z_-]{35}\\b",
+      "replacement": "[REDACTED-GOOGLE-API-KEY]"
+    },
+    {
+      "classes": [
+        "secret"
+      ],
+      "description": "JSON Web Token. The header almost always base64-encodes to `{\"`, hence the eyJ prefix.",
+      "id": "pattern.jwt",
+      "regex": "\\beyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\b",
+      "replacement": "[REDACTED-JWT]"
+    },
+    {
+      "classes": [
+        "credential"
+      ],
+      "description": "A secret passed on a command line or in a config string. Keeps the flag name (diagnostically important — \"they used -p\" is a finding) and destroys the value. The bare short flags `-p` and `/p` are included because that is how psexec, sqlcmd, mysql and net use actually take a password; they are listed LAST in each alternation so Go's leftmost-first matching still prefers the longer `-password`/`/pass` forms. A `-p` that meant something else (tar, mkdir) will be over-redacted, which is the correct direction to err in.",
+      "id": "pattern.password_argument",
+      "regex": "(?i)((?:--?(?:password|passwd|pwd|pass|token|secret|apikey|api-key|accesskey|p)|/(?:password|pass|p)|(?:password|pwd|secret|token)\\s*=)[:=\\s]+)(\"[^\"]*\"|'[^']*'|\\S+)",
+      "replacement": "$1[REDACTED-SECRET]"
+    },
+    {
+      "classes": [
+        "credential"
+      ],
+      "description": "ADO/ODBC/JDBC connection string password field.",
+      "id": "pattern.connection_string_password",
+      "regex": "(?i)(Password|Pwd)\\s*=\\s*([^;\\\"']+)",
+      "replacement": "$1=[REDACTED-SECRET]"
+    },
+    {
+      "classes": [
+        "credential"
+      ],
+      "description": "Credentials embedded in a URL authority.",
+      "id": "pattern.url_basic_auth",
+      "regex": "\\b([a-zA-Z][a-zA-Z0-9+.-]*://)([^/\\s:@]+):([^/\\s@]+)@",
+      "replacement": "$1[REDACTED-USER]:[REDACTED-SECRET]@"
+    },
+    {
+      "classes": [
+        "credential"
+      ],
+      "description": "LM:NT hash pair as dumped by credential-theft tooling.",
+      "id": "pattern.ntlm_hash",
+      "regex": "\\b[a-fA-F0-9]{32}:[a-fA-F0-9]{32}\\b",
+      "replacement": "[REDACTED-NTLM-HASH]"
+    },
+    {
+      "classes": [
+        "pii"
+      ],
+      "description": "Windows user profile directory. Keeps the path shape so `C:\\\\Users\\\\[USER]\\\\AppData\\\\Local\\\\Temp\\\\evil.exe` stays fully diagnostic while the account name goes.",
+      "id": "pattern.user_profile_path",
+      "preserve_values": [
+        "Public",
+        "Default",
+        "Default User",
+        "All Users"
+      ],
+      "regex": "(?i)([A-Za-z]:\\\\Users\\\\)([^\\\\/:*?\"<>|\\r\\n]+)",
+      "replacement": "$1[USER]"
+    },
+    {
+      "classes": [
+        "pii"
+      ],
+      "description": "POSIX home directory, for cross-platform generic CSV ingest.",
+      "id": "pattern.unix_home_path",
+      "regex": "(/home/|/Users/)([^/\\s]+)",
+      "replacement": "$1[USER]"
+    },
+    {
+      "classes": [
+        "pii"
+      ],
+      "description": "Email address, partially masked. The surviving first character and TLD keep \"two events involve the same kind of address\" readable without identifying anyone.",
+      "id": "pattern.email",
+      "regex": "\\b([A-Za-z0-9._%+-])[A-Za-z0-9._%+-]*@([A-Za-z0-9-])[A-Za-z0-9.-]*\\.([A-Za-z]{2,})\\b",
+      "replacement": "$1***@$2***.$3"
+    },
+    {
+      "classes": [
+        "pii",
+        "host_identifier"
+      ],
+      "description": "Domain/machine SID. The machine identifier is redacted; the RID is kept, because RID 500 (Administrator) / 501 (Guest) / 512 (Domain Admins) are diagnostic and not identifying.",
+      "id": "pattern.windows_sid_user",
+      "regex": "\\bS-1-5-21-\\d{6,}-\\d{6,}-\\d{6,}-(\\d{3,})\\b",
+      "replacement": "S-1-5-21-[DOMAIN]-$1"
+    },
+    {
+      "classes": [
+        "host_identifier"
+      ],
+      "description": "MAC address — a durable hardware identifier.",
+      "id": "pattern.mac_address",
+      "regex": "\\b([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}\\b",
+      "replacement": "[REDACTED-MAC]"
+    },
+    {
+      "classes": [
+        "network_identifier"
+      ],
+      "description": "UNC share path. The server name is internal topology; the share path after it is kept.",
+      "id": "pattern.unc_path",
+      "regex": "\\\\\\\\([A-Za-z0-9._-]+)\\\\",
+      "replacement": "\\\\\\\\[HOST]\\\\"
+    },
+    {
+      "classes": [
+        "network_identifier"
+      ],
+      "description": "RFC1918 / link-local / loopback address. These map the customer's internal network and are never useful to an outside reader.",
+      "id": "pattern.ipv4_private",
+      "regex": "\\b(?:10\\.(?:\\d{1,3}\\.){2}\\d{1,3}|192\\.168\\.\\d{1,3}\\.\\d{1,3}|172\\.(?:1[6-9]|2\\d|3[01])\\.\\d{1,3}\\.\\d{1,3}|169\\.254\\.\\d{1,3}\\.\\d{1,3}|127\\.(?:\\d{1,3}\\.){2}\\d{1,3})\\b",
+      "replacement": "[REDACTED-PRIVATE-IP]"
+    },
+    {
+      "classes": [
+        "host_identifier",
+        "network_identifier"
+      ],
+      "description": "Hostname under a reserved/internal suffix. The suffix is kept so a reader can still see that the traffic was internal.",
+      "id": "pattern.internal_hostname",
+      "regex": "(?i)\\b([A-Za-z0-9][A-Za-z0-9-]{0,62})\\.(local|localdomain|internal|intranet|corp|lan|home|test|invalid|example)\\b",
+      "replacement": "[REDACTED-INTERNAL-HOST].$2"
+    },
+    {
+      "classes": [
+        "network_identifier"
+      ],
+      "description": "IPv6 unique-local (fc00::/7) and link-local (fe80::/10).",
+      "id": "pattern.ipv6_ula",
+      "regex": "\\b(?:f[cd][0-9a-fA-F]{2}|fe80)(?::[0-9a-fA-F]{0,4}){1,7}\\b",
+      "replacement": "[REDACTED-PRIVATE-IPV6]"
+    },
+    {
+      "classes": [
+        "pii"
+      ],
+      "description": "Payment card number by issuer prefix. NOT Luhn-validated — a false positive here costs nothing, a false negative is a PCI incident.",
+      "id": "pattern.credit_card",
+      "regex": "\\b(?:4\\d{3}|5[1-5]\\d{2}|3[47]\\d{2}|6(?:011|5\\d{2}))[ -]?\\d{4}[ -]?\\d{4}[ -]?\\d{1,4}\\b",
+      "replacement": "[REDACTED-PAN]"
+    },
+    {
+      "classes": [
+        "pii"
+      ],
+      "description": "IBAN. Deliberately loose for the same reason as pattern.credit_card.",
+      "id": "pattern.iban",
+      "regex": "\\b[A-Z]{2}\\d{2}[A-Z0-9]{11,30}\\b",
+      "replacement": "[REDACTED-IBAN]"
+    }
+  ],
+  "profiles": [
+    {
+      "description": "Verbatim output. This is the DEFAULT and must stay the default: a forensic investigation needs the real data, and silently redacting an investigator's own evidence would be far worse than the disclosure risk it avoids. Redaction is an explicit publishing step, never an implicit one.",
+      "enabled": false,
+      "id": "none",
+      "name": "No redaction (default)"
+    },
+    {
+      "class_actions": {
+        "case_metadata": "keep",
+        "content": "scan",
+        "credential": "exclude",
+        "forensic_indicator": "keep",
+        "host_identifier": "keep",
+        "network_identifier": "keep",
+        "pii": "scan",
+        "secret": "drop"
+      },
+      "description": "For sharing within the responding organisation: strips credential material and secrets, which nobody needs in a shared copy, but keeps host and user identity because internal responders must know which machine and which account. Raw evidence files are kept.",
+      "id": "internal",
+      "name": "Internal sharing",
+      "options": {
+        "exclude_raw_files": false,
+        "public_ip_is_indicator": true,
+        "recompute_row_hash": false
+      }
+    },
+    {
+      "class_actions": {
+        "case_metadata": "drop",
+        "content": "scan",
+        "credential": "exclude",
+        "forensic_indicator": "keep",
+        "host_identifier": "hash",
+        "network_identifier": "mask",
+        "pii": "hash",
+        "secret": "drop"
+      },
+      "description": "For anything leaving your control — a blog post, a conference talk, a shared sample, a public repository. Excludes ALL raw bytes, pseudonymises every identifier, scans every free-text field, and drops engagement metadata. Produces a small, self-consistent archive that still supports the analysis: timestamps, hashes, rule names, ATT&CK mappings, coverage gaps and the shape of every path survive.",
+      "id": "publish",
+      "name": "Public publication",
+      "options": {
+        "exclude_raw_files": true,
+        "fail_on_unredactable_credential": true,
+        "public_ip_is_indicator": true,
+        "recompute_row_hash": true,
+        "write_redaction_report": true
+      }
+    }
+  ],
+  "version": 1
+}

@@ -132,6 +132,33 @@ describe('views are wired to their engines', () => {
     assert.match(src, /detectIngestModule\(file\)/, 'the fallback must run format detection');
   });
 
+  test('every report export path honours the redaction setting', async () => {
+    // This project's recurring defect is a complete, tested engine that no UI path
+    // can reach — it happened with the analysis pipeline, the PDF writer and the
+    // mock provider. A redaction engine with an export path that bypasses it would
+    // be the same mistake with a much worse consequence: a report the operator
+    // believes is redacted, published verbatim.
+    const src = stripComments(await readFile(path.join(VIEWS_DIR, 'report.js'), 'utf8'));
+    assert.match(src, /from '\.\.\/redact\/report\.js'/, 'report.js must import the redaction pass');
+    assert.match(src, /REDACT_PROFILES/, 'report.js must offer the profile selector');
+    assert.match(src, /async function forExport\(/, 'report.js must funnel exports through a single redaction gate');
+
+    // All three export paths must call forExport(), and none may serialise the raw
+    // report directly.
+    const calls = src.match(/forExport\(/g) || [];
+    assert.ok(calls.length >= 4, `expected forExport() to be defined and used by all three export paths, found ${calls.length} reference(s)`);
+    assert.doesNotMatch(
+      src,
+      /JSON\.stringify\(r,\s*null,\s*2\)/,
+      'an export serialises the UNREDACTED report object directly — it must go through forExport() first',
+    );
+    assert.doesNotMatch(
+      src,
+      /generateReportPdf\(r\)/,
+      'the PDF export renders the UNREDACTED report — it must go through forExport() first',
+    );
+  });
+
   test('report view passes storage credentials under the key the providers read', async () => {
     // s3/azure/gcs read opts.creds. Passing `credentials:` instead does not
     // throw -- it fails later inside request signing with an unrelated-looking
