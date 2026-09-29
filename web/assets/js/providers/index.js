@@ -14,6 +14,14 @@ import openRouterProvider from './openrouter.js';
 import openCodeProvider from './opencode.js';
 import { createMockProvider, mockProvider } from './mock.js';
 
+// mockProvider is LAST but it IS registered. It was previously exported from
+// this module without appearing in this array, which meant the Settings view --
+// which builds its dropdown from `providers` -- never offered it. Both
+// docs/WEB_APP.md and the published README tell an operator to use the mock
+// provider for a zero-cost dry run of a new engagement's config before spending
+// real tokens, and that advice was impossible to follow through the UI. It is
+// also the only provider that can be exercised end-to-end with no credentials
+// and no network, which makes it the one an air-gapped analyst needs most.
 export const providers = [
   anthropicProvider,
   openAiProvider,
@@ -22,6 +30,7 @@ export const providers = [
   googleProvider,
   openRouterProvider,
   openCodeProvider,
+  mockProvider,
 ];
 
 export const providerRegistry = new Map(providers.map((p) => [p.id, p]));

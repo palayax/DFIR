@@ -521,11 +521,16 @@ test('analyze(): a map-phase pack whose call permanently fails is recorded as a 
   const ctx = await computePipelineContext(MULTI_RECORDS, MULTI_BUDGET);
   assert.equal(ctx.packs.length, 2);
 
-  // Pack 0's hash is deliberately left un-canned: the mock provider's default
-  // fallback text is not valid JSON, so callModel will throw after
-  // exhausting attempts. budget.callMaxAttempts:1 makes that immediate
-  // (no retry delay) and deterministic.
+  // Pack 0 is made to fail EXPLICITLY. This used to rely on leaving pack 0
+  // un-canned, on the assumption that "the mock provider's default fallback text
+  // is not valid JSON, so callModel will throw" -- an assumption about an
+  // unrelated adapter's default that silently stopped holding when the mock
+  // gained a valid-JSON dry-run response for the app's offline mode, at which
+  // point pack 0 succeeded and this test stopped testing failure handling at all.
+  // Scripting the failure makes the test independent of that default.
+  // callMaxAttempts:1 keeps it immediate (no retry delay) and deterministic.
   const pack0Hash = mapHashOnly(provider, ctx.packs[0], 2);
+  provider.setBehavior(pack0Hash, { failTimes: Number.MAX_SAFE_INTEGER, retryAfterMs: 1 });
 
   const mapResp1 = buildCannedMapResponse(ctx.packs[1], MULTI_RECORDS, {});
   registerMap(provider, ctx.packs[1], 2, mapResp1, { inputTokens: 50, outputTokens: 25 });

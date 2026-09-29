@@ -451,16 +451,31 @@ export async function analyze(records, opts = {}) {
     async (pack) => {
       throwIfAborted(signal);
       const { system, user } = buildMapPrompt(pack, packs.length, { caseContext });
+      // A failed pack is non-fatal on purpose: losing one slice of evidence is
+      // better than losing the whole analysis. But the progress line must not
+      // claim success -- it previously read "Analysed evidence pack N of M"
+      // whatever happened, so a run in which EVERY pack failed looked identical
+      // to a clean one until the report's warnings[] was read afterwards.
+      let failure = null;
       try {
         const { response, parsed } = await callModel(provider, modelId, creds, { system, user }, { signal, maxAttempts: callMaxAttempts, maxTokens: maxOutputTokens });
         accumulateUsage(response.usage);
         mapResults[pack.index] = normalizeMapResult(parsed, pack);
       } catch (err) {
         if (err?.name === 'AbortError') throw err;
+        failure = err;
         warnings.push(`Evidence pack ${pack.index + 1} of ${packs.length} could not be analysed: ${err.message}`);
         mapResults[pack.index] = normalizeMapResult({}, pack);
       }
-      onProgress({ phase: 'map', message: `Analysed evidence pack ${pack.index + 1} of ${packs.length}`, packIndex: pack.index, packCount: packs.length });
+      onProgress({
+        phase: 'map',
+        message: failure
+          ? `Evidence pack ${pack.index + 1} of ${packs.length} FAILED: ${failure.message}`
+          : `Analysed evidence pack ${pack.index + 1} of ${packs.length}`,
+        packIndex: pack.index,
+        packCount: packs.length,
+        failed: Boolean(failure),
+      });
     },
     concurrency,
     signal,

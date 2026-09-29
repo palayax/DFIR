@@ -518,10 +518,20 @@ describe('mock provider', () => {
     assert.ok(result.text);
 
     const mock2 = createMockProvider();
-    const req2 = { messages: [{ role: 'user', content: 'broken' }] };
+    // hashRequest() hashes jsonSchema along with system/messages/model, so the
+    // behavior must be registered against the hash of the request ACTUALLY sent.
+    // This previously hashed a request without jsonSchema and then sent one with
+    // it, so the behavior lookup always missed and malformedJson was never
+    // applied at all -- the assertion passed only because the mock's default
+    // fallback response happened to be non-JSON prose. Once that default became
+    // valid JSON (so the provider could serve the app's offline dry run), the
+    // test failed and exposed that it had never tested what it claimed.
+    const req2 = { messages: [{ role: 'user', content: 'broken' }], jsonSchema: { type: 'object' } };
     const hash2 = mock2.hashRequest(req2);
     mock2.setBehavior(hash2, { malformedJson: true });
-    const broken = await mock2.send({ ...req2, jsonSchema: { type: 'object' } }, {});
+    const broken = await mock2.send(req2, {});
+    assert.equal(mock2.getCallCount(hash2), 1, 'the behavior must have been looked up under the hash of the request actually sent');
+    assert.match(broken.text, /not.*valid json/, 'malformedJson behavior must actually have been applied');
     assert.equal(broken.jsonValue, undefined, 'malformed JSON must not be silently parsed');
   });
 });

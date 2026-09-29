@@ -159,8 +159,24 @@ function renderAll() {
  * main.js into their own containers"). Inserting rather than editing
  * render.js keeps its 26 passing tests untouched. */
 function mountDashboard() {
+  if (!currentReport) return;
+  // Preferred position is straight after the attack narrative. But the dashboard
+  // is the DETERMINISTIC part of the report -- the figures that are computed from
+  // the timeline and can never be model-authored -- so it must not be contingent
+  // on an OPTIONAL, model-authored section happening to exist. Silently skipping
+  // it when the anchor was missing is how a report came out with no charts at all
+  // and no error to explain why. Fall back to appending to the report body.
   const anchor = document.querySelector('[data-testid="attack-narrative"]');
-  if (!anchor || !currentReport) return;
+  if (!anchor) {
+    const body = document.querySelector('.report-body') || document.getElementById('report-root');
+    if (!body) return;
+    mountDashboardInto(body, 'beforeend');
+    return;
+  }
+  mountDashboardInto(anchor, 'afterend');
+}
+
+function mountDashboardInto(target, position) {
 
   const d = currentReport.dashboard ?? {};
   const mitre = currentReport.mitre_coverage ?? [];
@@ -175,7 +191,7 @@ function mountDashboard() {
 
   const entityGraphHtml = renderEntityGraph(d.entity_graph ?? {});
 
-  anchor.insertAdjacentHTML('afterend', `
+  target.insertAdjacentHTML(position, `
 <section class="dashboard-section" aria-labelledby="dashboard-heading" data-testid="dashboard-section">
   <h2 id="dashboard-heading">Dashboard</h2>
   <div class="dashboard-charts-grid">${figures}</div>

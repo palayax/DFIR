@@ -268,7 +268,18 @@ export function renderFindings(report) {
 export function renderAttackNarrative(report) {
   const narrative = report?.attack_narrative;
   if (!narrative || !narrative.phases || narrative.phases.length === 0) {
-    return emptyNote('No attack narrative was reconstructed for this report (expected when the verdict is "no evidence of compromise").');
+    // The empty case MUST still emit the data-testid="attack-narrative" section.
+    // main.js's mountDashboard() uses it as the insertion anchor for the entire
+    // Dashboard and entity-graph sections, so returning a bare <p> here made the
+    // deterministic charts silently disappear from any report whose model output
+    // contained no narrative phases -- which is the normal case for a clean host
+    // or a zero-finding run. Nothing errored; the charts were just absent.
+    return `
+<section class="panel" aria-labelledby="narrative-heading" data-testid="attack-narrative">
+  <h2 id="narrative-heading">Attack narrative</h2>
+  ${narrative?.summary ? `<p>${esc(narrative.summary)}</p>` : ''}
+  ${emptyNote('No attack narrative was reconstructed for this report (expected when the verdict is "no evidence of compromise").')}
+</section>`;
   }
   const phases = [...narrative.phases].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   const items = phases.map((p) => `
