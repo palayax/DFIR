@@ -89,7 +89,20 @@ jobs:
           touch _site/.nojekyll
           rm -rf _site/node_modules _site/package-lock.json
 
+      # enablement: true makes this workflow BOOTSTRAP Pages on a repository where
+      # it has never been turned on, using the `pages: write` permission granted
+      # above. Without it, the very first deploy into a fresh repository fails at
+      # this step with a bare "Get Pages site failed ... Not Found", and someone has
+      # to go flip a switch in Settings -> Pages by hand before any deploy can ever
+      # succeed -- a manual step with no discoverable connection to the error.
+      #
+      # It also sets the build type to `workflow` (rather than legacy Jekyll branch
+      # builds), which is what actions/deploy-pages@v4 below requires. Enabling Pages
+      # through the REST API instead needs a token with the Pages permission; doing it
+      # here keeps the whole deploy self-contained in the repository.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
