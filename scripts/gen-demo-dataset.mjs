@@ -32,9 +32,13 @@
 // randomness is a seeded mulberry32 PRNG. Running this twice produces
 // byte-identical output; web/tests/demo.test.mjs re-derives every row_hash.
 //
-// Run with:  node scripts/gen-demo-dataset.mjs
+// Run with:
+//   node scripts/gen-demo-dataset.mjs            # regenerate web/demo/
+//   node scripts/gen-demo-dataset.mjs --check     # fail if web/demo/ is stale,
+//                                                 # writing nothing. This is what
+//                                                 # build/build.ps1 gates on.
 
-import { writeFile, mkdir } from 'node:fs/promises';
+import { writeFile, readFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -43,6 +47,24 @@ import { severityMaxOfDetections } from '../web/assets/js/lib/severity.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.join(HERE, '..', 'web', 'demo');
+
+// --- argument handling ------------------------------------------------------
+// UNKNOWN ARGUMENTS ARE REFUSED, and that is the point of this block. This
+// script used to ignore argv completely, which meant `--check` was accepted and
+// then wrote the files regardless -- a flag doing the exact opposite of its
+// name, with exit 0. Silently ignoring an argument you do not understand turns
+// every typo into a wrong action that reports success, so a gate built on it
+// reports PASS while verifying nothing.
+const ARGS = process.argv.slice(2);
+const CHECK_ONLY = ARGS.includes('--check');
+{
+  const unknown = ARGS.filter((a) => a !== '--check');
+  if (unknown.length) {
+    console.error(`gen-demo-dataset: unknown argument(s): ${unknown.join(' ')}`);
+    console.error('usage: node scripts/gen-demo-dataset.mjs [--check]');
+    process.exit(2);
+  }
+}
 
 const SCHEMA_VERSION = '1.0.0';
 const SENTINEL_TS = '0001-01-01T00:00:00.0000000Z';
@@ -1733,17 +1755,22 @@ async function main() {
     throw new Error(`narrative techniques with no detection in the rows: ${missingTechniques.join(', ')}`);
   }
 
-  await mkdir(OUT_DIR, { recursive: true });
+  // Every intended output is COLLECTED first and emitted at the end, so
+  // --check and the default write share one code path. Generating into a
+  // buffer and then either writing it or comparing it is what makes --check
+  // mean "would this write change anything"; a --check that re-derives the
+  // content by a second route could agree with the file while disagreeing with
+  // what a real run produces.
+  const outputs = [];
 
   const files = [];
   for (const host of HOSTS) {
     const rows = byHostRows.get(host.name);
     const moduleName = `host-${host.slug}.js`;
-    await writeFile(
-      path.join(OUT_DIR, moduleName),
-      rowsModuleSource(`Demo timeline rows for ${host.name} (${rows.length} records).`, rows),
-      'utf8',
-    );
+    outputs.push({
+      name: moduleName,
+      source: rowsModuleSource(`Demo timeline rows for ${host.name} (${rows.length} records).`, rows),
+    });
     files.push({
       id: host.slug,
       host: host.name,
@@ -1802,11 +1829,47 @@ async function main() {
     narrative: story,
   };
 
-  await writeFile(
-    path.join(OUT_DIR, 'manifest.js'),
-    moduleSource('Demo incident manifest: host inventory, entity inventory and the narrative the rows encode.', 'manifest', manifest),
-    'utf8',
-  );
+  outputs.push({
+    name: 'manifest.js',
+    source: moduleSource('Demo incident manifest: host inventory, entity inventory and the narrative the rows encode.', 'manifest', manifest),
+  });
+
+  // --- emit or verify -------------------------------------------------------
+  // Previously this script ignored unknown arguments entirely, so
+  // `--check` was accepted and then WROTE the files anyway -- the exact
+  // opposite of what the flag says, and silently, with exit 0. That made it
+  // unusable as a build gate: wiring it in would have had every client build
+  // mutate committed files under a flag whose whole purpose is not to.
+  if (CHECK_ONLY) {
+    const stale = [];
+    for (const out of outputs) {
+      const target = path.join(OUT_DIR, out.name);
+      let current = null;
+      try {
+        current = await readFile(target, 'utf8');
+      } catch (err) {
+        if (err?.code !== 'ENOENT') throw err;
+      }
+      if (current === null) stale.push(`${out.name}: MISSING`);
+      else if (current !== out.source) {
+        stale.push(`${out.name}: STALE (committed ${current.length} bytes, regenerated ${out.source.length})`);
+      }
+    }
+    if (stale.length) {
+      console.error('web/demo is out of date with scripts/gen-demo-dataset.mjs:');
+      for (const s of stale) console.error(`  ${s}`);
+      console.error('\nRegenerate with:  node scripts/gen-demo-dataset.mjs');
+      process.exitCode = 1;
+      return;
+    }
+    console.log(`web/demo is up to date (${outputs.length} files, ${manifest.row_count} rows, ${files.length} hosts).`);
+    return;
+  }
+
+  await mkdir(OUT_DIR, { recursive: true });
+  for (const out of outputs) {
+    await writeFile(path.join(OUT_DIR, out.name), out.source, 'utf8');
+  }
 
   const bytes = allRows.reduce((n, r) => n + JSON.stringify(r).length + 1, 0);
   console.log('web/demo written.');
