@@ -15,6 +15,14 @@ on:
       - 'web/**'
       - 'docs/timeline_schema.json'
       - '.github/workflows/pages.yml'
+      # scripts/ holds the two demo generators, which are part of the publish set
+      # because web/tests/demo-report.test.mjs does a top-level import() of one of
+      # them. Omitting this path made them the ONE part of the published tree whose
+      # changes could never trigger the suite that depends on them -- a change to a
+      # generator could break `npm test` and no run would ever fire to say so.
+      # Observed: a push changing only scripts/gen-demo-dataset.mjs produced no
+      # workflow run at all.
+      - 'scripts/**'
   workflow_dispatch:
 
 # Least privilege: only what Pages deployment requires.
