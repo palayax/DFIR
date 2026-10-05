@@ -327,7 +327,12 @@
                               "severity": { "type": "string" }, "event_count": { "type": "integer" } } } },
             "edges": { "type": "array", "items": { "type": "object", "additionalProperties": false,
               "properties": { "source": { "type": "string" }, "target": { "type": "string" },
-                              "kind": { "type": "string" }, "weight": { "type": "integer" } } } }
+                              "kind": { "type": "string" }, "weight": { "type": "integer" } } } },
+            "truncated": { "type": "object", "additionalProperties": false,
+              "description": "Present ONLY when the graph was capped. computeDashboard bounds the emitted node set: a real 480,581-row collection produced 116,485 nodes, 116,229 of them single-event file paths from the MFT walk — 50 MB of a 67 MB report that no renderer ever read, since report/entity-graph.js shows a force layout only at <= 300 nodes and otherwise the top 100 by degree. These are the TRUE totals, so a capped graph cannot be mistaken for the whole picture.",
+              "properties": { "nodes_total": { "type": "integer" }, "edges_total": { "type": "integer" },
+                              "nodes_shown": { "type": "integer" }, "edges_shown": { "type": "integer" },
+                              "selection": { "type": "string", "description": "How membership was decided, so the cap is auditable." } } }
           }
         }
       }

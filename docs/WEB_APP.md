@@ -34,6 +34,22 @@ Air-gapped operation: with no LLM provider configured (or the mock provider sele
 
 ---
 
+## 1b. Layers and navigation
+
+| Layer | Route | View |
+|---|---|---|
+| 1 · Ingest | `#/ingest` | Triage collections (IRTriage ZIP / timeline upload, DFIR demo) |
+| 1 · Ingest | `#/inventory` | Estate inventory: every asset class, triage coverage, business-service mapping |
+| 1 · Ingest | `#/context` | Business context: organisation & goals, services & BIA, KPIs/SLOs/SLAs (incl. AI-proposed), GRC controls & policies, documents, API/MCP connectors |
+| 2 · Cyber risks | `#/cyber` | Risk register (vulnerabilities, misconfigurations, exposures), IOC/IOA, ATT&CK exposure; deep link `#/cyber/<risk-id>` |
+| 2 · Cyber risks | `#/merge`, `#/analyze` | SuperTimeline and AI analysis (sections 2.2–2.3) |
+| 3 · Business risks | `#/business` (default) | Executive dashboard: value at risk vs appetite, top business risks with drill-down, risk matrix, service × dimension heatmap, KPI projections, compliance, 12-month trend, What-if remediation; exports to watermarked PDF / JSON / CSV / print |
+| 4 · Report | `#/report` | Forensic report and a link to the executive export |
+
+The layer views load the ACME.Corp mock (`web/demo/acme/context.js`) whenever the
+store holds no business context. The method is in `docs/BUSINESS_RISK_MODEL.md`
+and the dataset is described in `docs/ACME_DEMO.md`.
+
 ## 2. Pipeline
 
 ### 2.1 Ingest

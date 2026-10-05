@@ -154,8 +154,23 @@ export function renderEntityGraph(entityGraph, opts = {}) {
     return '<p class="empty-state">No entity relationships were extracted for this report.</p>';
   }
 
+  // A CAPPED GRAPH MUST SAY SO.
+  //
+  // computeDashboard bounds the emitted node set (a real 480,581-row collection
+  // produced 116,485 nodes, almost all single-event MFT paths) and records the
+  // true totals in `truncated`. Without this notice the view drew 251 nodes and
+  // said nothing, so an analyst reading it would reasonably conclude those were
+  // ALL the entities in evidence -- a graph that silently claims to be the whole
+  // picture is worse than a smaller one that states its own limits. Note this is
+  // a DIFFERENT cap from the render-side threshold below: this one is about what
+  // reached the report at all.
+  const t = entityGraph?.truncated;
+  const capNotice = t
+    ? `<p class="callout-flag" data-testid="entity-graph-truncated">Showing ${Number(t.nodes_shown ?? nodes.length).toLocaleString('en-US')} of ${Number(t.nodes_total ?? 0).toLocaleString('en-US')} entities and ${Number(t.edges_shown ?? edges.length).toLocaleString('en-US')} of ${Number(t.edges_total ?? 0).toLocaleString('en-US')} relationships. Selection: ${esc(t.selection || 'severity first')}. Nothing carrying a detection is omitted.</p>`
+    : '';
+
   if (nodes.length > ENTITY_GRAPH_NODE_THRESHOLD) {
-    return renderRankedFallback(nodes, edges);
+    return capNotice + renderRankedFallback(nodes, edges);
   }
 
   const width = opts.width ?? 800;
@@ -188,6 +203,7 @@ export function renderEntityGraph(entityGraph, opts = {}) {
   const legend = Object.entries(KIND_SHAPE).map(([kind, shape]) => `<span class="entity-legend-item"><svg width="16" height="16" viewBox="-8 -8 16 16" aria-hidden="true">${shapeMarkup(shape, 0, 0, 5, 'entity-node sev-none')}</svg> ${esc(kind)}</span>`).join('');
 
   return `<div class="entity-graph-wrap">
+    ${capNotice}
     <svg viewBox="0 0 ${width} ${height}" class="chart-svg entity-graph-svg" role="img" aria-label="Entity relationship graph, ${nodes.length} nodes, ${edges.length} relationships">
       <title>Entity relationship graph (process/file/network/account relationships)</title>
       <g class="entity-edges">${edgeLines}</g>

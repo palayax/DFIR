@@ -102,6 +102,18 @@ function table(headers, rows, colFractions) {
   return blocks;
 }
 
+/** A labelled horizontal bar (value 0..1), drawn with rectangle ops. The
+ * only non-text mark the writer supports; enough for an executive summary's
+ * "score vs. threshold" figures without embedding images. */
+function bar(label, value, valueLabel, opts = {}) {
+  const v = Math.max(0, Math.min(1, Number(value) || 0));
+  return { type: 'bar', label: enc(label), valueLabel: enc(valueLabel ?? ''), value: v, marker: opts.marker, tone: opts.tone, height: 18 };
+}
+
+/** Block constructors for callers that build their own document (e.g. the
+ * executive business-risk report). Same objects the IR report uses. */
+export const pdfBlocks = { h, body, kv, rule, spacer, pagebreak, table, bar };
+
 // ---------------------------------------------------------------------------
 // Document model: report JSON -> flat block list
 // ---------------------------------------------------------------------------
@@ -311,6 +323,21 @@ function renderBlockOps(placed) {
     ops.push('0.08 0.09 0.11 rg\n');
   } else if (block.type === 'rule') {
     ops.push(`0.7 0.71 0.73 RG\n0.75 w\n${fmtNum(MARGIN)} ${fmtNum(baseY() - 4)} m ${fmtNum(MARGIN + CONTENT_W)} ${fmtNum(baseY() - 4)} l S\n`);
+  } else if (block.type === 'bar') {
+    const labelW = CONTENT_W * 0.34;
+    const valueW = CONTENT_W * 0.16;
+    const trackX = MARGIN + labelW;
+    const trackW = CONTENT_W - labelW - valueW;
+    const y = baseY() - 13;
+    const fill = block.tone === 'bad' ? '0.75 0.2 0.2' : block.tone === 'warn' ? '0.85 0.55 0.1' : '0.16 0.47 0.84';
+    ops.push('0.08 0.09 0.11 rg\n', textOp('F1', 9, MARGIN, y + 2, block.label));
+    ops.push('0.9 0.91 0.92 rg\n', `${fmtNum(trackX)} ${fmtNum(y)} ${fmtNum(trackW)} 10 re\nf\n`);
+    ops.push(`${fill} rg\n`, `${fmtNum(trackX)} ${fmtNum(y)} ${fmtNum(Math.max(0.5, trackW * block.value))} 10 re\nf\n`);
+    if (typeof block.marker === 'number') {
+      const mx = trackX + trackW * Math.max(0, Math.min(1, block.marker));
+      ops.push(`0.08 0.09 0.11 RG\n1.2 w\n${fmtNum(mx)} ${fmtNum(y - 2)} m ${fmtNum(mx)} ${fmtNum(y + 12)} l S\n`);
+    }
+    ops.push('0.08 0.09 0.11 rg\n', textOp('F2', 9, trackX + trackW + 6, y + 2, block.valueLabel));
   } else if (block.type === 'table-row') {
     if (block.bold) ops.push('0.93 0.94 0.95 rg\n', `${fmtNum(MARGIN)} ${fmtNum(baseY() - block.height + 4)} ${fmtNum(CONTENT_W)} ${fmtNum(block.height)} re\nf\n`, '0.08 0.09 0.11 rg\n');
     let x = MARGIN;
@@ -341,12 +368,12 @@ function watermarkOps(watermarkBinary) {
   return ops;
 }
 
-function headerFooterOps(watermarkText, caseId, pageNum, pageCount) {
+function headerFooterOps(headerText, footerText, pageNum, pageCount) {
   const headerY = PAGE_H - MARGIN + 4;
   const footerY = MARGIN - 12;
   let ops = '0.45 0.47 0.5 rg\n';
-  ops += textOp('F1', 8, MARGIN, headerY, enc(`Case ${caseId || 'unassigned'}  —  ${toBinaryTruncated(watermarkText, 40)}`));
-  ops += textOp('F1', 8, MARGIN, footerY, enc(`IRTriage forensic report export`));
+  ops += textOp('F1', 8, MARGIN, headerY, enc(headerText));
+  ops += textOp('F1', 8, MARGIN, footerY, enc(footerText));
   const pageLabel = enc(`Page ${pageNum} of ${pageCount}`);
   const w = textWidthPt(pageLabel, 8);
   ops += textOp('F1', 8, PAGE_W - MARGIN - w, footerY, pageLabel);
@@ -429,10 +456,19 @@ class PdfWriter {
  * without going through Blob.arrayBuffer() everywhere). */
 export async function buildReportPdfBytes(report, opts = {}) {
   const watermarkText = resolveWatermarkText(report, opts);
-  const watermarkBinary = enc(watermarkText);
   const caseId = report?.meta?.engagement?.case_id;
+  return buildPdfFromBlocks(buildDocumentBlocks(report, opts), {
+    watermarkText,
+    headerText: `Case ${caseId || 'unassigned'}  —  ${toBinaryTruncated(watermarkText, 40)}`,
+    footerText: 'IRTriage forensic report export',
+    title: `Forensic Analysis Report - ${caseId || ''}`,
+  });
+}
 
-  const blocks = buildDocumentBlocks(report, opts);
+/** Generic writer: a flat block list (see pdfBlocks) -> PDF bytes, with the
+ * same watermark/header/footer treatment on every page. */
+export async function buildPdfFromBlocks(blocks, { watermarkText = 'UNCLASSIFIED', headerText = '', footerText = '', title = '' } = {}) {
+  const watermarkBinary = enc(watermarkText);
   const pages = paginate(blocks);
   const pageCount = pages.length;
 
@@ -440,7 +476,7 @@ export async function buildReportPdfBytes(report, opts = {}) {
   const rawStreams = pages.map((placedBlocks, i) => {
     let s = '';
     for (const p of placedBlocks) s += renderBlockOps(p);
-    s += headerFooterOps(watermarkText, caseId, i + 1, pageCount);
+    s += headerFooterOps(headerText, footerText, i + 1, pageCount);
     s += watermarkOps(watermarkBinary);
     return s;
   });
@@ -478,7 +514,7 @@ export async function buildReportPdfBytes(report, opts = {}) {
   w.endObject();
 
   w.beginObject(6);
-  w.write(`<< /Producer (${escapePdfLiteral(enc('IRTriage web console (hand-rolled PDF 1.7 writer, no vendored library)'))}) /Title (${escapePdfLiteral(enc(`Forensic Analysis Report - ${caseId || ''}`))}) >>\n`);
+  w.write(`<< /Producer (${escapePdfLiteral(enc('IRTriage web console (hand-rolled PDF 1.7 writer, no vendored library)'))}) /Title (${escapePdfLiteral(enc(title))}) >>\n`);
   w.endObject();
 
   pages.forEach((_, k) => {

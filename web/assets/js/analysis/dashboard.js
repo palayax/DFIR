@@ -31,6 +31,13 @@ export const BUCKET_SPAN_THRESHOLDS_MS = {
 
 export const DEFAULT_TOP_N = 15;
 
+// Entity-graph caps. 500 is deliberately ABOVE report/entity-graph.js's
+// ENTITY_GRAPH_NODE_THRESHOLD of 300, so a graph large enough to need the ranked
+// fallback still has material for that fallback to rank, while the emitted JSON
+// stays bounded. See computeEntityGraph for the measurement that forced these.
+export const DEFAULT_MAX_ENTITY_NODES = 500;
+export const DEFAULT_MAX_ENTITY_NODES_PER_KIND = 100;
+
 function parseMs(ts) {
   if (!ts || isUnknownTimestamp(ts)) return undefined;
   const ms = Date.parse(ts);
@@ -365,7 +372,9 @@ function entitiesOf(rec) {
   return out;
 }
 
-function computeEntityGraph(records) {
+function computeEntityGraph(records, opts = {}) {
+  const maxNodes = opts.maxEntityNodes ?? DEFAULT_MAX_ENTITY_NODES;
+  const maxPerKind = opts.maxEntityNodesPerKind ?? DEFAULT_MAX_ENTITY_NODES_PER_KIND;
   const nodes = new Map();
   const edges = new Map();
 
@@ -397,9 +406,71 @@ function computeEntityGraph(records) {
     if (process && account) bumpEdge(edges, nodeId('account', account.key), nodeId('process', process.key), 'account_process');
   }
 
-  const nodeArr = [...nodes.values()].sort((a, b) => a.kind.localeCompare(b.kind) || a.id.localeCompare(b.id));
-  const edgeArr = [...edges.values()].sort((a, b) => a.source.localeCompare(b.source) || a.target.localeCompare(b.target) || a.kind.localeCompare(b.kind));
-  return { nodes: nodeArr, edges: edgeArr };
+  const nodesTotal = nodes.size;
+  const edgesTotal = edges.size;
+
+  // CAP WHAT WE EMIT. Every other dashboard aggregate is bounded by topN; this
+  // one was not, and on real evidence that is the difference between a report of
+  // tens of kilobytes and one of 67 MB.
+  //
+  // Measured on a real domain-controller collection (480,581 rows): 116,485
+  // nodes, of which 116,229 were `file` nodes with event_count 1 -- one per
+  // distinct path seen in the MFT walk. 50 MB of the 67 MB report was this
+  // single key. No consumer ever read it: report/entity-graph.js renders a force
+  // layout only at <= 300 nodes and otherwise falls back to the top 100 by
+  // degree, so >99.9% of those nodes were serialized, stored, transferred and
+  // parsed to be discarded at render time. It also meant every real run fell
+  // through the sessionStorage handoff to the blob-URL path in views/report.js.
+  //
+  // Selection is deterministic and severity-first, so the cap can never drop an
+  // entity that carries a detection in favour of an arbitrary MFT path:
+  //   severity desc -> event_count desc -> id asc (total order, no ties)
+  // A per-kind cap runs first so one high-cardinality kind cannot crowd out the
+  // others -- without it, 100 alphabetically-lucky file paths would displace
+  // every service and account.
+  //
+  // The true totals are reported in `truncated` rather than being silently lost:
+  // "showing 500 of 116,485 entities" is a fact an analyst needs, and a graph
+  // that quietly claims to be the whole picture is worse than a smaller one that
+  // says what it is.
+  const byRank = (a, b) => (
+    severityRank(b.severity) - severityRank(a.severity)
+    || (b.event_count ?? 0) - (a.event_count ?? 0)
+    || a.id.localeCompare(b.id)
+  );
+
+  const perKind = new Map();
+  for (const n of nodes.values()) {
+    if (!perKind.has(n.kind)) perKind.set(n.kind, []);
+    perKind.get(n.kind).push(n);
+  }
+  const kept = [];
+  for (const kind of [...perKind.keys()].sort()) {
+    kept.push(...perKind.get(kind).sort(byRank).slice(0, maxPerKind));
+  }
+  kept.sort(byRank);
+  const selected = kept.slice(0, maxNodes);
+
+  const keptIds = new Set(selected.map((n) => n.id));
+  const edgeArr = [...edges.values()]
+    .filter((e) => keptIds.has(e.source) && keptIds.has(e.target))
+    .sort((a, b) => a.source.localeCompare(b.source) || a.target.localeCompare(b.target) || a.kind.localeCompare(b.kind));
+
+  // Emit in the stable (kind, id) order the renderer and the tests expect; the
+  // ranking above decided MEMBERSHIP, not presentation order.
+  const nodeArr = selected.sort((a, b) => a.kind.localeCompare(b.kind) || a.id.localeCompare(b.id));
+
+  const graph = { nodes: nodeArr, edges: edgeArr };
+  if (nodeArr.length < nodesTotal || edgeArr.length < edgesTotal) {
+    graph.truncated = {
+      nodes_total: nodesTotal,
+      edges_total: edgesTotal,
+      nodes_shown: nodeArr.length,
+      edges_shown: edgeArr.length,
+      selection: 'severity desc, then event_count desc, then id asc; capped per kind then overall',
+    };
+  }
+  return graph;
 }
 
 // ---------------------------------------------------------------------------
@@ -423,7 +494,10 @@ export function computeDashboard(records, opts = {}) {
   const events_over_time = computeEventsOverTime(rows, _earliestMs, _latestMs, bucket_size);
   const hourly_heatmap = computeHourlyHeatmap(rows);
   const distributions = computeDistributions(rows, topN);
-  const entity_graph = computeEntityGraph(rows);
+  const entity_graph = computeEntityGraph(rows, {
+    maxEntityNodes: opts.maxEntityNodes,
+    maxEntityNodesPerKind: opts.maxEntityNodesPerKind,
+  });
 
   const dashboard = {
     events_over_time,

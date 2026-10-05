@@ -62,6 +62,11 @@ jobs:
         working-directory: web
         run: npm test
 
+      # web/demo/acme/ is generated AND committed; prove it is what the
+      # generator produces (exit 1 if stale) rather than trusting the commit.
+      - name: ACME.Corp demo payload is current
+        run: node scripts/gen-acme-dataset.mjs --check
+
       # A CDN reference would break air-gapped use, which is a hard requirement
       # for a forensics tool. Fail the build rather than degrade silently.
       - name: Assert no runtime CDN references

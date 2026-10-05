@@ -59,9 +59,19 @@ export async function mount(container, { store }) {
   header.className = 'view-header';
   header.innerHTML = `
     <div>
-      <h1>Report</h1>
-      <div class="view-subtitle">Review, open, and export the generated forensic report.</div>
+      <div class="layer-tag">Report &amp; export</div>
+      <h1>Reports</h1>
+      <div class="view-subtitle">Review, open, and export the generated forensic report — or the executive cyber-to-business risk report.</div>
     </div>`;
+
+  // The executive (layer 3) report is exported from its own dashboard, where the
+  // active filters and What-if scenario define what the PDF/JSON/CSV contains.
+  const execPanel = document.createElement('div');
+  execPanel.className = 'panel';
+  execPanel.innerHTML = `
+    <h2 class="panel-title">Executive cyber-to-business risk report</h2>
+    <p class="view-subtitle">Board-ready summary: value at risk vs appetite, top business risks, KPIs/SLAs under pressure, compliance posture and recommended remediation. Watermarked PDF, JSON and CSV.</p>
+    <div class="view-actions"><a class="btn btn-primary" href="#/business">Open executive dashboard &amp; export</a></div>`;
 
   const actions = document.createElement('div');
   actions.className = 'view-actions';
@@ -80,6 +90,12 @@ export async function mount(container, { store }) {
   actions.append(openBtn, jsonBtn, pdfBtn, uploadBtn);
   header.appendChild(actions);
   container.appendChild(header);
+  container.appendChild(execPanel);
+
+  const forensicTitle = document.createElement('h2');
+  forensicTitle.className = 'panel-title';
+  forensicTitle.textContent = 'Forensic analysis report (DFIR)';
+  container.appendChild(forensicTitle);
 
   // --- redaction controls --------------------------------------------------
   // Placed above the summary, before the export buttons are used, because the

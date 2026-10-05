@@ -81,6 +81,8 @@ export const appStore = createStore({
   files: [], // [{ id, name, size, kind, status: 'pending'|'parsing'|'parsed'|'error', error?, recordCount?, records? }]
   superTimeline: null, // { records, stats } once merge.js has run
   report: null, // LLM-generated report, once produced
+  businessContext: null, // BusinessContext (layer 1 business data + layer 2 risk register), e.g. the ACME.Corp demo
+  whatIf: [], // cyber-risk ids marked remediated in the What-if panel (layer 3)
   settings: {
     llmProviderId: null,
     llmModelId: null,

@@ -216,7 +216,12 @@ function selectTier4(remaining, earliestMs, latestMs, strataCount) {
     }
     round++;
   }
-  out.push(...undated);
+  // Loop, not `out.push(...undated)`: same argument-limit trap as the Math.min
+  // above. `undated` is one entry per row with no usable timestamp, and that is
+  // not a small set by nature -- before the MFT/EVTX timestamp-mapping fix
+  // (commit b5b63c7) a real collection put 476,357 of 477,010 rows here. This
+  // code must not silently depend on that bug being fixed.
+  for (const r of undated) out.push(r);
   return out;
 }
 
@@ -233,9 +238,31 @@ export function rankRows(records, opts = {}) {
   const prioritySources = opts.prioritySources ?? DEFAULT_PRIORITY_SOURCES;
   const strataCount = opts.strataCount ?? DEFAULT_STRATA_COUNT;
 
-  const allMs = records.map((r) => parseMs(r.timestamp_utc)).filter((ms) => ms !== undefined);
-  const earliestMs = allMs.length ? Math.min(...allMs) : undefined;
-  const latestMs = allMs.length ? Math.max(...allMs) : undefined;
+  // NEVER SPREAD A PER-RECORD ARRAY INTO A FUNCTION CALL.
+  //
+  // This was `Math.min(...allMs)` over one entry per record, and it threw
+  // `RangeError: Maximum call stack size exceeded` on the first real collection
+  // ever put through this pipeline -- 480,581 rows. Spreading into a CALL passes
+  // one argument per element and so is bounded by the engine's argument limit
+  // (~124k in V8, and it depends on the remaining stack, so the threshold is not
+  // even stable); spreading into an ARRAY LITERAL (`[...map.values()]`, used all
+  // over merge/ and dashboard.js) has no such limit and is fine at any size.
+  //
+  // Every test in web/tests/ uses fixtures of tens to a few thousand rows, so the
+  // whole suite passed while the Analyze step could not run on any real evidence
+  // at all: the crash is in rankRows, which is the FIRST thing buildEvidencePacks
+  // calls, so nothing downstream had ever executed at scale either.
+  //
+  // One pass, no intermediate array -- which also drops a 480k-element allocation
+  // whose only purpose was to be reduced to two numbers.
+  let earliestMs;
+  let latestMs;
+  for (const r of records) {
+    const ms = parseMs(r.timestamp_utc);
+    if (ms === undefined) continue;
+    if (earliestMs === undefined || ms < earliestMs) earliestMs = ms;
+    if (latestMs === undefined || ms > latestMs) latestMs = ms;
+  }
 
   const tier1 = selectTier1(records);
   const selected = new Set(tier1.map((r) => r.row_hash));

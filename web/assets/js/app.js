@@ -7,19 +7,34 @@
 import { appStore } from './store.js';
 import { showError } from './ui/toast.js';
 
+// Routes are grouped by the solution's three layers (plus reporting):
+//   1 Ingested data  -> triage collections, estate inventory, business context
+//   2 Cyber risks    -> risk register (vulns/misconfigs/exposures/IOC/IOA),
+//                       SuperTimeline, AI analysis
+//   3 Business risks -> executive dashboard (the headline output)
+//   4 Report         -> forensic report and exports
+// Route ids are stable: existing deep links (#/ingest, #/merge, ...) keep working.
 const ROUTES = [
-  { id: 'ingest', path: 'ingest', label: 'Ingest', step: 1 },
-  { id: 'merge', path: 'merge', label: 'Merge', step: 2 },
-  { id: 'analyze', path: 'analyze', label: 'Analyze', step: 3 },
-  { id: 'report', path: 'report', label: 'Report', step: 4 },
-  { id: 'settings', path: 'settings', label: 'Settings', step: 5 },
+  { id: 'ingest', path: 'ingest', label: 'Triage collections', step: 1, group: 'Ingest' },
+  { id: 'inventory', path: 'inventory', label: 'Estate inventory', step: 1, group: 'Ingest' },
+  { id: 'context', path: 'context', label: 'Business context', step: 1, group: 'Ingest' },
+  { id: 'cyber', path: 'cyber', label: 'Risk register', step: 2, group: 'Cyber risks' },
+  { id: 'merge', path: 'merge', label: 'SuperTimeline', step: 2, group: 'Cyber risks' },
+  { id: 'analyze', path: 'analyze', label: 'AI analysis', step: 2, group: 'Cyber risks' },
+  { id: 'business', path: 'business', label: 'Executive dashboard', step: 3, group: 'Business risks' },
+  { id: 'report', path: 'report', label: 'Reports & export', step: 4, group: 'Report' },
+  { id: 'settings', path: 'settings', label: 'Settings', step: '⚙', group: '' },
 ];
-const DEFAULT_ROUTE = 'ingest';
+const DEFAULT_ROUTE = 'business';
 
 const viewLoaders = {
   ingest: () => import('./views/ingest.js'),
+  inventory: () => import('./views/inventory.js'),
+  context: () => import('./views/context.js'),
+  cyber: () => import('./views/cyber.js'),
   merge: () => import('./views/merge.js'),
   analyze: () => import('./views/analyze.js'),
+  business: () => import('./views/business.js'),
   report: () => import('./views/report.js'),
   settings: () => import('./views/settings.js'),
 };
@@ -36,22 +51,37 @@ function parseHash() {
 function renderNav() {
   const nav = document.getElementById('app-nav');
   if (!nav) return;
+  let lastGroup = null;
   nav.replaceChildren(
-    ...ROUTES.map((route) => {
+    ...ROUTES.flatMap((route) => {
+      const out = [];
+      if (route.group !== lastGroup) {
+        lastGroup = route.group;
+        if (route.group) {
+          const label = document.createElement('span');
+          label.className = 'nav-group-label';
+          label.textContent = `${route.step} · ${route.group}`;
+          out.push(label);
+        }
+      }
       const a = document.createElement('a');
       a.href = `#/${route.path}`;
       a.textContent = '';
-      const stepEl = document.createElement('span');
-      stepEl.className = 'nav-step-number';
-      stepEl.textContent = String(route.step);
       const labelEl = document.createElement('span');
       labelEl.textContent = route.label;
-      a.append(stepEl, labelEl);
+      if (!route.group) {
+        const stepEl = document.createElement('span');
+        stepEl.className = 'nav-step-number';
+        stepEl.textContent = String(route.step);
+        a.append(stepEl);
+      }
+      a.append(labelEl);
       if (route.id === currentRouteId) {
         a.classList.add('is-active');
         a.setAttribute('aria-current', 'page');
       }
-      return a;
+      out.push(a);
+      return out;
     }),
   );
 }
