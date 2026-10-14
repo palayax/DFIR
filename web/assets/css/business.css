@@ -79,30 +79,19 @@
   --status-critical: #d03b3b;
 }
 
-/* ---- navigation groups ------------------------------------------------- */
-.app-nav .nav-group-label {
-  display: inline-flex;
-  align-items: center;
-  padding: 0 var(--space-2) 0 var(--space-4);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-text-faint);
-  white-space: nowrap;
-}
-.app-nav .nav-group-label:first-child { padding-left: 0; }
-
-/* Header must not force horizontal scroll at phone / narrow-pane widths. */
-.app-header { flex-wrap: wrap; row-gap: var(--space-2); min-width: 0; }
+/* ---- header (responsive) --------------------------------------------- */
+/* Header must not force horizontal scroll at phone / narrow-pane widths:
+ * below 900px the menu drops to its own scrollable row. */
+.app-header { flex-wrap: wrap; min-width: 0; }
 .app-nav { max-width: 100vw; }
 @media (max-width: 900px) {
-  .app-brand .app-tagline { display: none; }
-  .app-header { padding: var(--space-2) var(--space-3); }
-  .engagement-picker input { width: 150px; }
+  .app-header { padding: var(--space-2) var(--space-3) 0; row-gap: var(--space-2); }
+  .app-header > .engagement-picker { margin-left: auto; }
+  .app-nav { order: 3; flex-basis: 100%; min-height: 40px; }
 }
 @media (max-width: 520px) {
   .engagement-picker { display: none; }
+  .app-header > .theme-toggle { margin-left: auto; }
 }
 
 /* Flex/grid children default to min-width:auto, so one wide table would push

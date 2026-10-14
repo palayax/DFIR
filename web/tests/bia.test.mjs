@@ -232,6 +232,19 @@ describe('BIA explorer is reachable from the UI', () => {
     assert.match(app, /const DEFAULT_ROUTE = 'bia'/);
   });
 
+  test('the menu is short: register, SuperTimeline and dashboard are hidden, not removed', async () => {
+    const app = await readFile(path.join(HERE, '..', 'assets', 'js', 'app.js'), 'utf8');
+    for (const id of ['cyber', 'merge', 'business']) {
+      assert.match(app, new RegExp(`\\{ id: '${id}'[^}]*hidden: true[^}]*parent: '`), `${id} must stay routable but hidden`);
+      assert.match(app, new RegExp(`${id}: \\(\\) => import\\(`), `${id} must keep its view loader`);
+    }
+    assert.match(app, /ROUTES\.filter\(\(route\) => !route\.hidden\)/, 'the nav must skip hidden routes');
+    assert.doesNotMatch(app, /nav-group-label/, 'no group headlines in the menu');
+    // Hidden steps still lead onward.
+    const merge = await readFile(path.join(HERE, '..', 'assets', 'js', 'views', 'merge.js'), 'utf8');
+    assert.match(merge, /href: '#\/analyze'/);
+  });
+
   test('the view drives every engine entry point', async () => {
     const src = await readFile(path.join(HERE, '..', 'assets', 'js', 'views', 'bia.js'), 'utf8');
     for (const fn of ['computeBia(', 'connectedSet(', 'directLinks(', 'mitigationImpacts(', 'sloScoreTrend(', 'pivot(', 'generateBiaPdf(', 'ensureBusinessContext(store)']) {

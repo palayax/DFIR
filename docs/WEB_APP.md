@@ -47,6 +47,25 @@ Air-gapped operation: with no LLM provider configured (or the mock provider sele
 | 3 · Business risks | `#/business` | Executive dashboard: value at risk vs appetite, top business risks with drill-down, risk matrix, service × dimension heatmap, KPI projections, compliance, 12-month trend, What-if remediation; exports to watermarked PDF / JSON / CSV / print |
 | 4 · Report | `#/report` | Forensic report and a link to the executive export |
 
+**Menu.** The header is one row: BIA explorer · Triage · Inventory · Business
+context · AI analysis · Reports · ⚙. The BIA explorer contains the risk register
+(L6 findings, plus the hunts timeline) and replaces the executive dashboard. So
+`#/cyber`, `#/merge` and `#/business` are *hidden* routes: they are still
+reachable by deep link and by contextual buttons (Triage → SuperTimeline → AI
+analysis; "Open in risk register"; the Reports page), and while one is open its
+parent menu item is highlighted.
+
+**BIA explorer layout.** One control bar holds the tabs (Impact · Explore ·
+Timeline · Pivot) and two toggles:
+- **Filters** and **Simulate** panels stay collapsed until opened. Active
+  filters show as removable chips, and applied mitigations as a count with the
+  delta.
+- SLO detail sections fold (only the waterfall starts open).
+- Explorer levels can be hidden to a thin rail (hover a column's "−", or use
+  the View menu). L7 evidence starts hidden and opens automatically when you
+  focus a finding or evidence record.
+- While focused, empty levels collapse on their own.
+
 The layer views load the ACME.Corp mock (`web/demo/acme/context.js`) whenever the
 store holds no business context. The method is in `docs/BUSINESS_RISK_MODEL.md`
 and the dataset is described in `docs/ACME_DEMO.md`.

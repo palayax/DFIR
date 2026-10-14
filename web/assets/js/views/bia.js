@@ -16,7 +16,7 @@ import {
   LEVELS, COMPONENT_CATEGORIES, PIVOT_DIMENSIONS, PIVOT_MEASURES, levelOf, BIA_MODEL, formatSloValue,
 } from '../business/bia.js';
 import { scoreChip, bandLegend, sloWaterfallSvg, impactBarsSvg, scoreTrendSvg, timelineSvg } from '../business/bia-charts.js';
-import { esc, statusChip, figure } from '../business/charts.js';
+import { esc, statusChip, figure, STATUS_META } from '../business/charts.js';
 import { formatUsdShort, DIMENSIONS } from '../business/engine.js';
 import { ensureBusinessContext, mockBanner, downloadBlob } from '../business/data.js';
 import { generateBiaPdf } from '../business/bia-pdf.js';
@@ -24,10 +24,10 @@ import { stringifyCsvRow } from '../lib/csv.js';
 import { showError, showToast } from '../ui/toast.js';
 
 const TABS = [
-  { id: 'impact', label: 'SLO impact' },
-  { id: 'explorer', label: 'Drill-down explorer' },
-  { id: 'timeline', label: 'Hunts timeline' },
-  { id: 'pivot', label: 'Slice & dice' },
+  { id: 'impact', label: 'SLO impact', short: 'Impact' },
+  { id: 'explorer', label: 'Drill-down explorer', short: 'Explore' },
+  { id: 'timeline', label: 'Hunts timeline', short: 'Timeline' },
+  { id: 'pivot', label: 'Slice & dice', short: 'Pivot' },
 ];
 const COLUMN_LIMIT = 25;
 const CATEGORY_ICON = { people: '◉', process: '⟳', data: '▤', system: '▣' };
@@ -57,21 +57,24 @@ function parseHash() {
 }
 
 export async function mount(container, { store }) {
+  container.classList.add('bia-view');
   const header = document.createElement('div');
-  header.className = 'view-header';
-  header.innerHTML = `
-    <div>
-      <div class="layer-tag">Layer 3 · Business impact analysis</div>
-      <h1>BIA explorer</h1>
-      <div class="view-subtitle">From business SLOs down to the evidence: slice, dice, drill down and drill through seven levels of cyber-to-business impact.</div>
-    </div>`;
-  const actions = document.createElement('div');
-  actions.className = 'view-actions';
-  const pdfBtn = Object.assign(document.createElement('button'), { className: 'btn btn-primary', textContent: 'Export PDF', type: 'button' });
-  const jsonBtn = Object.assign(document.createElement('button'), { className: 'btn', textContent: 'Export JSON', type: 'button' });
-  const csvBtn = Object.assign(document.createElement('button'), { className: 'btn', textContent: 'Export CSV', type: 'button' });
-  actions.append(pdfBtn, jsonBtn, csvBtn);
-  header.appendChild(actions);
+  header.className = 'bia-head';
+  header.innerHTML = `<div class="bia-title"><h1>BIA explorer</h1><span class="bia-mock" hidden></span></div>`;
+  // One quiet "Export" menu instead of a row of buttons.
+  const exportMenu = document.createElement('details');
+  exportMenu.className = 'menu-pop';
+  exportMenu.innerHTML = '<summary class="btn">Export</summary>';
+  const menuList = document.createElement('div');
+  menuList.className = 'menu-pop-list';
+  const pdfBtn = Object.assign(document.createElement('button'), { textContent: 'PDF report', type: 'button' });
+  const jsonBtn = Object.assign(document.createElement('button'), { textContent: 'JSON', type: 'button' });
+  const csvBtn = Object.assign(document.createElement('button'), { textContent: 'CSV (all levels)', type: 'button' });
+  const printBtn = Object.assign(document.createElement('button'), { textContent: 'Print', type: 'button' });
+  menuList.append(pdfBtn, jsonBtn, csvBtn, printBtn);
+  exportMenu.appendChild(menuList);
+  exportMenu.addEventListener('click', (e) => { if (e.target.closest('button')) exportMenu.open = false; });
+  header.appendChild(exportMenu);
   container.appendChild(header);
 
   const loading = document.createElement('div');
@@ -94,7 +97,13 @@ export async function mount(container, { store }) {
     container.appendChild(p);
     return { unmount() {} };
   }
-  container.appendChild(mockBanner(ctx));
+  // The mock-data notice is a quiet badge; the full sentence is its tooltip.
+  const mock = header.querySelector('.bia-mock');
+  if (ctx.synthetic) {
+    mock.hidden = false;
+    mock.textContent = `Mock data · ${ctx.organization?.name || ''}`;
+    mock.title = mockBanner(ctx).textContent;
+  }
 
   const initial = parseHash();
   const state = {
@@ -110,28 +119,34 @@ export async function mount(container, { store }) {
     pivot: { row: 'scenario', col: 'slo', measure: 'findings', cell: null },
     includeClosed: false,
     simExpanded: false,
+    showFilters: false,
+    showSim: false,
+    // Columns start collapsed to a thin rail; L7 evidence opens on demand.
+    hiddenCols: new Set(['evidence']),
   };
 
-  const filterRow = document.createElement('div');
-  filterRow.className = 'filter-row panel';
-  container.appendChild(filterRow);
-
-  const layout = document.createElement('div');
-  layout.className = 'bia-layout';
-  const main = document.createElement('div');
-  main.className = 'bia-main';
-  const side = document.createElement('aside');
-  side.className = 'bia-side panel';
-  side.setAttribute('aria-label', 'Mitigation simulator');
-  layout.append(main, side);
-  container.appendChild(layout);
-
+  // One control bar: tabs on the left, Filters / Simulate toggles on the right.
+  // Both panels stay collapsed until asked for (contextual, not always-on).
+  const bar = document.createElement('div');
+  bar.className = 'bia-bar';
   const tabs = document.createElement('div');
-  tabs.className = 'tabs';
+  tabs.className = 'seg-tabs';
   tabs.setAttribute('role', 'tablist');
+  const toggles = document.createElement('div');
+  toggles.className = 'bia-bar-right';
+  bar.append(tabs, toggles);
+  container.appendChild(bar);
+
+  const filterRow = document.createElement('div');
+  filterRow.className = 'bia-pop-panel filter-row';
+  const side = document.createElement('div');
+  side.className = 'bia-pop-panel bia-sim';
+  side.setAttribute('aria-label', 'Mitigation simulator');
+  container.append(filterRow, side);
+
   const body = document.createElement('div');
   body.className = 'bia-body';
-  main.append(tabs, body);
+  container.appendChild(body);
 
   let current = null; // { bia, baseline, impacts, names, connected }
   const caches = { impacts: new Map(), trend: new Map(), links: new Map() };
@@ -170,8 +185,8 @@ export async function mount(container, { store }) {
   // ---------------------------------------------------------------- filters
   function renderFilters() {
     const sites = ctx.organization.sites || [];
+    filterRow.hidden = !state.showFilters;
     filterRow.innerHTML = `
-      <span class="slicer-label">Slice</span>
       <label>Site<select data-f="site">${option('', 'All sites', !state.filters.site)}${sites.map((s) => option(s.id, `${s.name} (${s.city})`, state.filters.site === s.id)).join('')}</select></label>
       <label>Cloud<select data-f="cloud">${option('', 'All / on-prem', !state.filters.cloud)}${['aws', 'azure', 'gcp'].map((x) => option(x, x.toUpperCase(), state.filters.cloud === x)).join('')}</select></label>
       <label>Business service<select data-f="service">${option('', 'All services', !state.filters.service)}${ctx.business_services.map((s) => option(s.id, s.name, state.filters.service === s.id)).join('')}</select></label>
@@ -183,6 +198,29 @@ export async function mount(container, { store }) {
     if (!f) return;
     state.filters[f] = e.target.value;
     render();
+  });
+  const FILTER_LABEL = { site: 'Site', cloud: 'Cloud', service: 'Service', dimension: 'Dimension' };
+  function filterValueLabel(k, v) {
+    if (k === 'site') return ctx.organization.sites?.find((s) => s.id === v)?.name || v;
+    if (k === 'service') return ctx.business_services.find((s) => s.id === v)?.name || v;
+    return v.toUpperCase() === v || k === 'cloud' ? v.toUpperCase() : v[0].toUpperCase() + v.slice(1);
+  }
+  function renderToggles() {
+    const active = Object.entries(state.filters).filter(([, v]) => v);
+    const applied = mitigations();
+    const rank = current?.bia.slos.find((x) => x.id === state.rankSlo);
+    const rankBase = current?.baseline.slos.find((x) => x.id === state.rankSlo);
+    const delta = rank && rankBase ? rank.loss_usd - rankBase.loss_usd : 0;
+    toggles.innerHTML = `${active.map(([k, v]) => `<button type="button" class="filter-chip" data-clear-filter="${k}" title="Remove filter">${esc(FILTER_LABEL[k])}: ${esc(filterValueLabel(k, v))} <span aria-hidden="true">✕</span></button>`).join('')}
+      <button type="button" class="btn btn-quiet${state.showFilters ? ' is-on' : ''}" data-action="toggle-filters" aria-expanded="${state.showFilters}">Filters${active.length ? ` <span class="count">${active.length}</span>` : ''}</button>
+      <button type="button" class="btn btn-quiet${state.showSim ? ' is-on' : ''}" data-action="toggle-sim" aria-expanded="${state.showSim}">Simulate${applied.length ? ` <span class="count">${applied.length}</span> <span class="sim-delta">${signedUsd(delta)}</span>` : ''}</button>`;
+  }
+  toggles.addEventListener('click', (e) => {
+    const clear = e.target.closest('[data-clear-filter]');
+    if (clear) { state.filters[clear.dataset.clearFilter] = ''; renderFilters(); render(); return; }
+    const a = e.target.closest('[data-action]')?.dataset.action;
+    if (a === 'toggle-filters') { state.showFilters = !state.showFilters; renderFilters(); renderToggles(); }
+    if (a === 'toggle-sim') { state.showSim = !state.showSim; renderSide(); renderToggles(); }
   });
   filterRow.addEventListener('click', (e) => {
     if (e.target?.dataset?.action !== 'reset-filters') return;
@@ -199,23 +237,21 @@ export async function mount(container, { store }) {
     const rankBase = baseline.slos.find((s) => s.id === rank.id);
     const changed = bia.slos.filter((s) => s.status !== baseline.slos.find((b) => b.id === s.id)?.status).length;
     const summary = applied.size
-      ? `<p class="sim-summary"><strong>${applied.size}</strong> mitigation${applied.size > 1 ? 's' : ''} applied · ${formatUsdShort(bia.headline.mitigation_cost_usd)}<br>
-          ${esc(rank.slo.name)}: ${formatUsdShort(rankBase.loss_usd)} → <strong>${formatUsdShort(rank.loss_usd)}</strong> (${signedUsd(rank.loss_usd - rankBase.loss_usd)}), score ${rankBase.score} → ${scoreChip(rank.score)}${changed ? `<br>${changed} SLO status change${changed > 1 ? 's' : ''}` : ''}</p>`
-      : '<p class="sim-summary muted">Tick proposed mitigations to see every SLO, score and level recompute live.</p>';
-    // Outside the SLO-impact tab the explorer needs the full width: the simulator
-    // collapses into a strip of toggle chips above the tabs.
-    const narrow = window.matchMedia?.('(max-width: 1200px)').matches;
-    const stripMode = state.tab !== 'impact' || narrow;
-    const compact = stripMode && !state.simExpanded;
-    layout.classList.toggle('is-compact', stripMode);
-    if (compact) {
-      side.innerHTML = `<div class="sim-strip-head"><h2 class="panel-title">Mitigation simulator</h2>${summary}<button type="button" class="btn" data-action="sim-expand">Details</button></div>
-        <div class="sim-chips">${(narrow ? impacts.filter((m, i) => i < 4 || m.applied) : impacts).map((m) => `<button type="button" class="sim-chip" data-mit-toggle="${esc(m.mitigation.id)}" aria-pressed="${m.applied}" title="${esc(m.mitigation.title)}: ${esc(rank.slo.name)} −${formatUsdShort(m.reduction_usd)}, cost ${formatUsdShort(m.mitigation.cost_usd)}"><span aria-hidden="true">${m.applied ? '✓' : '+'}</span> ${esc(m.mitigation.title.length > 34 ? `${m.mitigation.title.slice(0, 33)}…` : m.mitigation.title)} <strong>−${formatUsdShort(m.reduction_usd)}</strong></button>`).join('')}${narrow && impacts.length > 4 ? `<button type="button" class="link-btn" data-action="sim-expand">All ${impacts.length} mitigations</button>` : ''}</div>`;
+      ? `<p class="sim-summary"><strong>${applied.size}</strong> applied · ${formatUsdShort(bia.headline.mitigation_cost_usd)} ·
+          ${esc(rank.slo.name)}: ${formatUsdShort(rankBase.loss_usd)} → <strong>${formatUsdShort(rank.loss_usd)}</strong> (${signedUsd(rank.loss_usd - rankBase.loss_usd)}), score ${rankBase.score} → ${scoreChip(rank.score)}${changed ? ` · ${changed} SLO status change${changed > 1 ? 's' : ''}` : ''}</p>`
+      : '<p class="sim-summary muted">Toggle proposed mitigations; every SLO, score and level recomputes live.</p>';
+    // Collapsed by default (the "Simulate" toggle opens it); chips first, the
+    // full list with costs and ROI one click further.
+    side.hidden = !state.showSim;
+    if (!state.showSim) { side.innerHTML = ''; return; }
+    const stripMode = true;
+    if (!state.simExpanded) {
+      side.innerHTML = `<div class="sim-strip-head">${summary}<button type="button" class="link-btn" data-action="sim-expand">Costs &amp; ROI</button></div>
+        <div class="sim-chips">${impacts.map((m) => `<button type="button" class="sim-chip" data-mit-toggle="${esc(m.mitigation.id)}" aria-pressed="${m.applied}" title="${esc(m.mitigation.title)}: ${esc(rank.slo.name)} −${formatUsdShort(m.reduction_usd)}, cost ${formatUsdShort(m.mitigation.cost_usd)}"><span aria-hidden="true">${m.applied ? '✓' : '+'}</span> ${esc(m.mitigation.title.length > 34 ? `${m.mitigation.title.slice(0, 33)}…` : m.mitigation.title)} <strong>−${formatUsdShort(m.reduction_usd)}</strong></button>`).join('')}</div>`;
       return;
     }
     side.innerHTML = `
-      <div class="sim-strip-head"><h2 class="panel-title">Mitigation simulator</h2>${stripMode ? '<button type="button" class="btn" data-action="sim-collapse">Collapse</button>' : ''}</div>
-      ${summary}
+      <div class="sim-strip-head">${summary}${stripMode ? '<button type="button" class="link-btn" data-action="sim-collapse">Fewer details</button>' : ''}</div>
       <label class="sim-rank">Rank by impact on<select data-action="rank">${bia.slos.map((s) => option(s.id, s.slo.name, s.id === state.rankSlo)).join('')}</select></label>
       <div class="view-actions sim-actions"><button class="btn" type="button" data-action="best3">Apply best 3 by ROI</button><button class="btn" type="button" data-action="clear-mit">Clear</button></div>
       <div class="sim-list">${impacts.map((m) => `
@@ -259,7 +295,7 @@ export async function mount(container, { store }) {
 
   // ---------------------------------------------------------------- tabs
   function renderTabs() {
-    tabs.innerHTML = TABS.map((t) => `<button type="button" role="tab" data-tab="${t.id}" aria-selected="${t.id === state.tab}">${esc(t.label)}</button>`).join('');
+    tabs.innerHTML = TABS.map((t) => `<button type="button" role="tab" data-tab="${t.id}" aria-selected="${t.id === state.tab}">${esc(t.short || t.label)}</button>`).join('');
   }
   tabs.addEventListener('click', (e) => {
     const t = e.target.closest('[data-tab]')?.dataset.tab;
@@ -277,28 +313,20 @@ export async function mount(container, { store }) {
     const arr = bia.slos.find((s) => s.id === 'SLO-ARR') || bia.slos[0];
     const arrBase = baseline.slos.find((s) => s.id === arr.id);
     const hl = bia.headline;
-    const tiles = `<div class="tile-grid">
-      <div class="tile ${off.length ? 'tile-alert' : 'tile-ok'}"><div class="tile-label">SLOs off track after cyber risk</div><div class="tile-value">${off.length}<span class="tile-sub"> / ${bia.slos.length}</span></div><div class="tile-sub">${bia.slos.filter((s) => s.status === 'breach_projected').length} projected to miss target · ${bia.slos.filter((s) => s.status === 'at_risk').length} at risk</div></div>
-      <div class="tile ${arr.score >= 60 ? 'tile-alert' : arr.score >= 40 ? 'tile-warn' : 'tile-ok'}"><div class="tile-label">${esc(arr.slo.name)} at risk</div><div class="tile-value">${formatUsdShort(arr.loss_usd)}</div><div class="tile-sub">${(arr.loss_pct_of_basis * 100).toFixed(1)}% of ${esc(arr.slo.basis_label)}${arr.loss_usd !== arrBase.loss_usd ? ` · simulation ${signedUsd(arr.loss_usd - arrBase.loss_usd)}` : ''}</div></div>
-      <div class="tile ${hl.critical_findings ? 'tile-alert' : 'tile-warn'}"><div class="tile-label">Open findings feeding SLOs</div><div class="tile-value">${hl.active_findings}</div><div class="tile-sub">${hl.critical_findings} critical · ${hl.high_findings} high (finding score)</div></div>
-      <div class="tile tile-warn"><div class="tile-label">Worst SLO</div><div class="tile-value tile-value-sm">${esc(names.get(hl.worst_slo) || '')}</div><div class="tile-sub">${scoreChip(bia.slos.find((s) => s.id === hl.worst_slo)?.score ?? 0, { label: true })}</div></div>
-    </div>`;
+    const projected = bia.slos.filter((x) => x.status === 'breach_projected').length;
+    const tiles = `<p class="bia-summary"><strong>${off.length} of ${bia.slos.length}</strong> SLOs off track after cyber risk (${projected} projected to miss) ·
+      <strong>${formatUsdShort(arr.loss_usd)}</strong> of ${esc(arr.slo.basis_label)} at risk (${(arr.loss_pct_of_basis * 100).toFixed(1)}%)${arr.loss_usd !== arrBase.loss_usd ? ` <span class="sim-delta">${signedUsd(arr.loss_usd - arrBase.loss_usd)}</span>` : ''} ·
+      <strong>${hl.active_findings}</strong> open findings (${hl.critical_findings} critical, ${hl.high_findings} high)</p>`;
 
     const cards = bia.slos.map((r) => {
       const base = baseline.slos.find((b) => b.id === r.id);
       const t = trend.get(r.id) || [];
-      const bars = r.by_scenario.slice(0, 3).map((s) => {
-        const w = r.loss_usd ? Math.max(3, Math.round((100 * s.loss_usd) / r.by_scenario[0].loss_usd)) : 0;
-        return `<div class="mini-bar"><span class="mini-bar-label">${esc(scen.get(s.id) || s.id)}</span><span class="mini-bar-track"><span style="width:${w}%"></span></span><span class="mini-bar-val">${formatUsdShort(s.loss_usd)}</span></div>`;
-      }).join('');
-      return `<article class="slo-card band-edge-${r.band}${r.id === state.selectedSlo ? ' is-selected' : ''}" data-slo="${esc(r.id)}" tabindex="0" role="button" aria-pressed="${r.id === state.selectedSlo}">
-        <div class="slo-card-head"><div><div class="slo-name">${esc(r.slo.name)}</div><div class="muted slo-owner">${esc(r.slo.owner)} · L1 SLO</div></div>${statusChip(r.status)}</div>
-        <div class="slo-factor"><span class="muted">Cyber Risk Score Factor</span>${scoreChip(r.score, { label: true })}</div>
-        <div class="slo-loss"><span class="slo-loss-value">−${formatUsdShort(r.loss_usd)}</span><span class="muted"> (−${(r.loss_pct_of_basis * 100).toFixed(1)}% of ${esc(r.slo.basis_label)})</span></div>
-        <div class="slo-metrics"><span>Target <strong>${fmtMetric(r.slo.target, r.slo)}</strong></span><span>Plan <strong>${fmtMetric(r.slo.forecast, r.slo)}</strong></span><span>Cyber-adjusted <strong>${fmtMetric(r.projected, r.slo)}</strong></span></div>
-        <div class="mini-bars">${bars}</div>
-        <div class="slo-foot"><span class="muted">${r.contributing_findings} findings: ${r.findings_by_band.critical} critical · ${r.findings_by_band.high} high · ${r.findings_by_band.medium} medium</span>${scoreTrendSvg(t, { width: 120, height: 30 })}</div>
-        ${base && base.loss_usd !== r.loss_usd ? `<div class="slo-sim">Simulation: ${formatUsdShort(base.loss_usd)} → ${formatUsdShort(r.loss_usd)} (${signedUsd(r.loss_usd - base.loss_usd)}), score ${base.score} → ${r.score}</div>` : ''}
+      const meta = STATUS_META[r.status] || STATUS_META.on_track;
+      return `<article class="slo-card${r.id === state.selectedSlo ? ' is-selected' : ''}" data-slo="${esc(r.id)}" tabindex="0" role="button" aria-pressed="${r.id === state.selectedSlo}">
+        <div class="slo-card-head"><span class="slo-name">${esc(r.slo.name)}</span>${scoreChip(r.score)}</div>
+        <div class="slo-loss"><span class="slo-loss-value">−${formatUsdShort(r.loss_usd)}</span><span class="muted">${(r.loss_pct_of_basis * 100).toFixed(1)}%</span>${scoreTrendSvg(t, { width: 84, height: 24 })}</div>
+        <div class="slo-metrics"><span class="slo-status ${meta.cls}" title="${esc(meta.label)}"><span aria-hidden="true">${meta.icon}</span> ${esc(meta.label)}</span><span>${fmtMetric(r.projected, r.slo)} <span class="muted">vs ${fmtMetric(r.slo.target, r.slo)}</span></span></div>
+        ${base && base.loss_usd !== r.loss_usd ? `<div class="slo-sim">${signedUsd(r.loss_usd - base.loss_usd)} with simulated mitigations</div>` : ''}
       </article>`;
     }).join('');
 
@@ -308,20 +336,19 @@ export async function mount(container, { store }) {
     const polRows = sel.by_policy.map((p) => `<tr class="clickable" data-focus="${esc(p.policy_id)}"><td>${esc(names.get(p.policy_id) || p.policy_id)}</td><td class="num">${(p.weight * 100).toFixed(1)}%</td><td class="num">${Math.round(p.probability * 100)}%</td><td class="num">${formatUsdShort(p.loss_usd)}</td></tr>`).join('');
     const findRows = sel.by_finding.slice(0, 12).map((x) => `<tr class="clickable" data-focus="${esc(x.id)}"><td class="nowrap">${esc(x.id)}</td><td>${esc(names.get(x.id) || '')}</td><td>${scoreChip(x.score)}</td><td class="num">${formatUsdShort(x.loss_usd)}</td></tr>`).join('');
     const kpis = (sel.slo.kpi_ids || []).map((id) => ctx.kpis.find((k) => k.id === id)).filter(Boolean);
-    const detail = `<section class="panel slo-detail">
-      <div class="slo-detail-head"><div><div class="layer-tag">L1 · ${esc(sel.slo.owner)}</div><h2>${esc(sel.slo.name)}</h2><p class="slo-sentence">${esc(sloSentence(sel, scen))}</p></div>
-        <div class="slo-detail-score">${scoreChip(sel.score, { label: true })}${statusChip(sel.status)}${scoreTrendSvg(t)}<span class="muted">Score, last 12 months</span></div></div>
-      <div class="dash-grid">
-        <div class="span-7">${figure('Plan → cyber-adjusted, by scenario', sloWaterfallSvg(sel, scen), `<table><tbody>${sel.by_scenario.map((s) => `<tr><td>${esc(scen.get(s.id) || s.id)}</td><td class="num">${formatUsdShort(s.loss_usd)}</td><td class="num">${Math.round(s.share * 100)}%</td></tr>`).join('')}</tbody></table>`, { note: `${esc(sel.slo.description)} Basis: ${formatUsdShort(sel.slo.basis_usd)} (${esc(sel.slo.basis_label)}); headroom between plan and target ${formatUsdShort(sel.headroom_usd)}.` })}</div>
-        <div class="span-5">${figure('Shortfall by cyber-risk scenario (L5)', impactBarsSvg(scenItems, { width: 460 }), `<table><tbody>${scenItems.map((i) => `<tr><td>${esc(i.label)}</td><td class="num">${formatUsdShort(i.value)}</td></tr>`).join('')}</tbody></table>`, { note: 'Click a bar to focus that scenario in the explorer.' })}</div>
-        <div class="span-6"><section class="panel"><h3 class="panel-title">Policies carrying the shortfall (L2)</h3><div class="biz-table-wrap"><table class="biz-table"><thead><tr><th>Policy</th><th class="num">Weight</th><th class="num">P(fail)</th><th class="num">Shortfall</th></tr></thead><tbody>${polRows}</tbody></table></div><p class="biz-figure-note">Weight = share of the SLO’s basis lost if the policy fails; P(fail) is computed from the processes that implement it.</p></section></div>
-        <div class="span-6"><section class="panel"><h3 class="panel-title">Top contributing findings (L6)</h3><div class="biz-table-wrap"><table class="biz-table"><thead><tr><th>Id</th><th>Finding</th><th>Score</th><th class="num">Shortfall</th></tr></thead><tbody>${findRows}</tbody></table></div></section></div>
-        ${kpis.length ? `<div class="span-12"><section class="panel"><h3 class="panel-title">Operational KPIs behind this SLO</h3><div class="pill-list">${kpis.map((k) => `<a class="badge" href="#/business">${esc(k.id)} · ${esc(k.name)}</a>`).join(' ')}</div></section></div>` : ''}
-      </div>
-      <div class="view-actions"><button class="btn btn-primary" type="button" data-drill="${esc(sel.id)}">Drill down from this SLO →</button></div>
+    const section = (title, summary, inner, open = false) => `<details class="fold"${open ? ' open' : ''}><summary><span class="fold-title">${title}</span><span class="fold-sum">${summary}</span></summary><div class="fold-body">${inner}</div></details>`;
+    const detail = `<section class="slo-detail">
+      <div class="slo-detail-head"><div><h2>${esc(sel.slo.name)}</h2><p class="slo-sentence">${esc(sloSentence(sel, scen))}</p></div>
+        <div class="slo-detail-score">${scoreChip(sel.score, { label: true, prefix: 'Cyber Risk Score Factor: ' })}${statusChip(sel.status)}<button class="btn btn-primary" type="button" data-drill="${esc(sel.id)}">Drill down →</button></div></div>
+      ${section('Plan → cyber-adjusted', `${fmtMetric(sel.slo.forecast, sel.slo)} → ${fmtMetric(sel.projected, sel.slo)} (target ${fmtMetric(sel.slo.target, sel.slo)})`, `<div class="two-col-biz">${figure('By scenario', sloWaterfallSvg(sel, scen), `<table><tbody>${sel.by_scenario.map((x) => `<tr><td>${esc(scen.get(x.id) || x.id)}</td><td class="num">${formatUsdShort(x.loss_usd)}</td><td class="num">${Math.round(x.share * 100)}%</td></tr>`).join('')}</tbody></table>`, { note: `${esc(sel.slo.description)} Headroom between plan and target: ${formatUsdShort(sel.headroom_usd)}.` })}
+        ${figure('Shortfall by cyber-risk scenario', impactBarsSvg(scenItems, { width: 460 }), `<table><tbody>${scenItems.map((i) => `<tr><td>${esc(i.label)}</td><td class="num">${formatUsdShort(i.value)}</td></tr>`).join('')}</tbody></table>`, { note: 'Click a bar to explore that scenario.' })}</div>`, true)}
+      ${section('Policies (L2)', `${sel.by_policy.length} carry the shortfall`, `<div class="biz-table-wrap"><table class="biz-table"><thead><tr><th>Policy</th><th class="num">Weight</th><th class="num">P(fail)</th><th class="num">Shortfall</th></tr></thead><tbody>${polRows}</tbody></table></div><p class="biz-figure-note">Weight = share of the SLO’s basis lost if the policy fails.</p>`)}
+      ${section('Findings (L6)', `${sel.contributing_findings} contribute · ${sel.findings_by_band.critical} critical · ${sel.findings_by_band.high} high`, `<div class="biz-table-wrap"><table class="biz-table"><thead><tr><th>Id</th><th>Finding</th><th>Score</th><th class="num">Shortfall</th></tr></thead><tbody>${findRows}</tbody></table></div>`)}
+      ${kpis.length ? section('Operational KPIs', `${kpis.length} linked`, `<div class="pill-list">${kpis.map((k) => `<a class="badge" href="#/business">${esc(k.id)} · ${esc(k.name)}</a>`).join(' ')}</div>`) : ''}
+      ${section('Score history', 'last 12 months', scoreTrendSvg(t))}
     </section>`;
     body.innerHTML = `${tiles}<div class="slo-grid">${cards}</div>${detail}
-      <details class="panel method"><summary><strong>How the cyber-risk score factor is calculated</strong></summary>
+      <details class="fold method"><summary><span class="fold-title">How the score is calculated</span></summary>
         <dl>
           <dt>L6 finding</dt><dd>12-month likelihood from severity × exploitability × internet exposure × active threat, reduced by mapped control effectiveness (the same model as the executive dashboard). Score 100 = likelihood ${BIA_MODEL.findingLikelihoodAt100}.</dd>
           <dt>L5 × L4</dt><dd>Each scenario on each component: 1 − (1 − threat base rate) × Π(1 − finding likelihood × asset criticality) over the findings that enable it there.</dd>
@@ -355,9 +382,15 @@ export async function mount(container, { store }) {
       if (connected && state.onlyConnected) nodes = nodes.filter((n) => conn.has(n.id));
       if (q) nodes = nodes.filter((n) => n.name.toLowerCase().includes(q) || n.id.toLowerCase().includes(q));
       if (state.minBand !== 'low') nodes = nodes.filter((n) => bandRank[n.band] >= bandRank[state.minBand] || n.id === state.focus);
+      // Hidden column: a thin rail with the level and count (click to open).
+      // While focused, an empty level collapses on its own.
+      const autoHidden = connected && state.onlyConnected && !nodes.length && l.key !== focusLevel;
+      if (state.hiddenCols.has(l.key) || autoHidden) {
+        return `<button type="button" class="bia-rail" data-show-col="${l.key}" title="Show ${esc(l.title)}" aria-label="Show level ${l.n}: ${esc(l.label)} (${nodes.length})"><span class="bia-level">L${l.n}</span><span class="bia-rail-label">${esc(l.label)}</span><span class="bia-count">${nodes.length}</span></button>`;
+      }
       const shown = state.expanded.has(l.key) ? nodes : nodes.slice(0, COLUMN_LIMIT);
       const items = shown.map((n) => {
-        const cls = ['bia-node', `band-edge-${n.band}`];
+        const cls = ['bia-node'];
         if (n.id === state.focus) cls.push('is-focus');
         else if (conn?.has(n.id)) cls.push('is-connected');
         else if (connected) cls.push('is-dim');
@@ -367,27 +400,39 @@ export async function mount(container, { store }) {
           <span class="bia-node-score">${scoreChip(n.score)}</span></button>`;
       }).join('');
       const more = nodes.length > COLUMN_LIMIT ? `<button type="button" class="link-btn bia-more" data-expand="${l.key}">${state.expanded.has(l.key) ? 'Show fewer' : `Show all ${nodes.length}`}</button>` : '';
-      return `<section class="bia-col${focusLevel === l.key ? ' is-focus-col' : ''}" aria-label="Level ${l.n}: ${esc(l.title)}">
-        <header class="bia-col-head"><span class="bia-level">L${l.n}</span><span class="bia-col-title" title="${esc(l.title)}">${esc(l.label)}</span><span class="bia-count">${nodes.length}${nodes.length !== total ? `/${total}` : ''}</span></header>
+      return `<section class="bia-col${focusLevel === l.key ? ' is-focus-col' : ''}" data-col="${l.key}" aria-label="Level ${l.n}: ${esc(l.title)}">
+        <header class="bia-col-head"><span class="bia-level">L${l.n}</span><span class="bia-col-title" title="${esc(l.title)}">${esc(l.label)}</span><span class="bia-count">${nodes.length}${nodes.length !== total ? `/${total}` : ''}</span><button type="button" class="col-hide" data-hide-col="${l.key}" title="Hide this level" aria-label="Hide level ${l.n}">−</button></header>
         <div class="bia-col-list">${items || '<p class="muted bia-empty">Nothing at this level.</p>'}${more}</div></section>`;
     }).join('');
 
-    const crumbs = state.focus
-      ? `<div class="bia-focus-bar"><span class="muted">Focus</span> <strong>L${LEVELS.find((l) => l.key === focusLevel).n} · ${esc(names.get(state.focus) || state.focus)}</strong>
-          <span class="muted">connects to</span> ${LEVELS.filter((l) => l.key !== focusLevel).map((l) => `<span class="badge">L${l.n} ${connected.get(l.key).size}</span>`).join(' ')}
-          <button type="button" class="btn" data-action="clear-focus">Clear focus</button></div>`
-      : '<div class="bia-focus-bar muted">Select any item in any level to focus on it: every column narrows to what it is connected to, up to the SLOs and down to the evidence.</div>';
+    const focusChip = state.focus
+      ? `<span class="focus-chip"><span class="muted">L${LEVELS.find((l) => l.key === focusLevel).n}</span> ${esc(names.get(state.focus) || state.focus)}<button type="button" data-action="clear-focus" title="Clear focus" aria-label="Clear focus">✕</button></span>`
+      : '<span class="muted bia-hint">Click anything, at any level, to see everything it connects to.</span>';
+    const hiddenCount = LEVELS.filter((l) => state.hiddenCols.has(l.key)).length;
 
     body.innerHTML = `<div class="bia-toolbar">
-        <label class="bia-search">Find<input type="search" data-action="search" placeholder="Name or id, any level" value="${esc(state.search)}"></label>
-        <label>Minimum score<select data-action="min-band">${BIA_MODEL.bands.slice().reverse().map((b) => option(b.id, b.id === 'low' ? 'All' : `${b.label} (${b.min}+)`, state.minBand === b.id)).join('')}</select></label>
-        <label class="inline-check"><input type="checkbox" data-action="only-connected" ${state.onlyConnected ? 'checked' : ''}> Only connected</label>
-        ${bandLegend()}
+        <input type="search" class="bia-find" data-action="search" placeholder="Find…" aria-label="Find by name or id, any level" value="${esc(state.search)}">
+        ${focusChip}
+        <details class="menu-pop view-menu"><summary class="btn btn-quiet">View${hiddenCount ? ` <span class="count">${hiddenCount} hidden</span>` : ''}</summary><div class="menu-pop-list menu-form">
+          <label class="inline-check"><input type="checkbox" data-action="only-connected" ${state.onlyConnected ? 'checked' : ''}> Only connected</label>
+          <label>Minimum score<select data-action="min-band">${BIA_MODEL.bands.slice().reverse().map((b) => option(b.id, b.id === 'low' ? 'All' : `${b.label} (${b.min}+)`, state.minBand === b.id)).join('')}</select></label>
+          <fieldset><legend>Levels</legend>${LEVELS.map((l) => `<label class="inline-check"><input type="checkbox" data-col-toggle="${l.key}" ${state.hiddenCols.has(l.key) ? '' : 'checked'}> L${l.n} ${esc(l.label)}</label>`).join('')}</fieldset>
+          ${bandLegend()}
+        </div></details>
       </div>
-      ${crumbs}
-      <div class="bia-cols"><div class="bia-cols-grid">${cols}<svg class="bia-links" aria-hidden="true"></svg></div></div>
+      <div class="bia-cols"><div class="bia-cols-grid" style="grid-template-columns:${colTemplate()}">${cols}<svg class="bia-links" aria-hidden="true"></svg></div></div>
       <div class="bia-detail-wrap">${state.focus ? renderDetail() : ''}</div>`;
     requestAnimationFrame(drawLinks);
+  }
+
+  function colTemplate() {
+    const { bia, connected } = current;
+    const focusLevel = state.focus ? levelOf(bia, state.focus) : null;
+    return LEVELS.map((l) => {
+      const n = connected && state.onlyConnected ? connected.get(l.key).size : 1;
+      const rail = state.hiddenCols.has(l.key) || (connected && state.onlyConnected && !n && l.key !== focusLevel);
+      return rail ? '34px' : 'minmax(172px, 1fr)';
+    }).join(' ');
   }
 
   function drawLinks() {
@@ -506,10 +551,10 @@ export async function mount(container, { store }) {
       specific = `<dl class="kv-grid"><dt>Kind</dt><dd>${esc(KIND_LABEL[e.kind] || e.kind)}</dd><dt>Source</dt><dd>${esc(e.source)}</dd><dt>Collected</dt><dd>${esc(e.collected_at)}</dd>${e.asset_id ? `<dt>Asset</dt><dd>${esc(ctx.assets.find((a) => a.id === e.asset_id)?.name || e.asset_id)}</dd>` : ''}<dt>SHA-256</dt><dd class="mono">${esc(e.sha256)}</dd></dl>
         <h3 class="panel-title">Raw record</h3><pre class="raw-json">${esc(JSON.stringify(e.raw, null, 2))}</pre>`;
     }
-    const conns = LEVELS.filter((l) => l.key !== level).map((l) => `<div class="conn-row"><div class="conn-level">L${l.n} ${esc(l.label)} <span class="muted">${connected.get(l.key).size}</span></div><div class="conn-chips">${chipList(connected.get(l.key), l.key)}</div></div>`).join('');
-    return `<section class="panel bia-detail" aria-label="Drill-through">
-      <div class="bia-detail-head"><div><div class="layer-tag">L${lvl.n} · ${esc(lvl.title)}</div><h2>${esc(n.name)}</h2><div class="muted mono">${esc(id)}</div></div>${scoreChip(n.score, { label: true })}</div>
-      <div class="two-col-biz"><div>${specific}</div><div><h3 class="panel-title">Connections (many-to-many)</h3>${conns}</div></div>
+    const conns = LEVELS.filter((l) => l.key !== level).map((l) => `<details class="fold conn-fold"${Math.abs(l.n - lvl.n) === 1 ? ' open' : ''}><summary><span class="fold-title">L${l.n} ${esc(l.label)}</span><span class="fold-sum">${connected.get(l.key).size}</span></summary><div class="conn-chips">${chipList(connected.get(l.key), l.key)}</div></details>`).join('');
+    return `<section class="bia-detail" aria-label="Drill-through">
+      <div class="bia-detail-head"><div><div class="muted bia-detail-kicker">L${lvl.n} · ${esc(lvl.title)} · <span class="mono">${esc(id)}</span></div><h2>${esc(n.name)}</h2></div>${scoreChip(n.score, { label: true })}</div>
+      <div class="two-col-biz"><div>${specific}</div><div><div class="conn-head">Connections</div>${conns}</div></div>
     </section>`;
   }
 
@@ -581,6 +626,7 @@ export async function mount(container, { store }) {
   function render() {
     compute();
     renderTabs();
+    renderToggles();
     renderSide();
     if (state.tab === 'impact') renderImpact();
     else if (state.tab === 'explorer') renderExplorer();
@@ -591,6 +637,8 @@ export async function mount(container, { store }) {
 
   function setFocus(id, { tab } = {}) {
     state.focus = state.focus === id && !tab ? null : id;
+    const lvl = state.focus && current ? levelOf(current.bia, state.focus) : null;
+    if (lvl === 'finding' || lvl === 'evidence') state.hiddenCols.delete('evidence');
     if (tab) state.tab = tab;
     render();
     if (tab === 'explorer') body.querySelector('.bia-detail')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -608,6 +656,10 @@ export async function mount(container, { store }) {
     if (drill) { state.focus = drill.dataset.drill; state.tab = 'explorer'; render(); return; }
     const openSlo = t.closest?.('[data-open-slo]');
     if (openSlo) { state.selectedSlo = openSlo.dataset.openSlo; state.tab = 'impact'; render(); return; }
+    const showCol = t.closest?.('[data-show-col]');
+    if (showCol) { state.hiddenCols.delete(showCol.dataset.showCol); state.onlyConnected = state.onlyConnected && !(current.connected && !current.connected.get(showCol.dataset.showCol).size); render(); return; }
+    const hideCol = t.closest?.('[data-hide-col]');
+    if (hideCol) { state.hiddenCols.add(hideCol.dataset.hideCol); render(); return; }
     const exp = t.closest?.('[data-expand]');
     if (exp) {
       const k = exp.dataset.expand;
@@ -631,6 +683,12 @@ export async function mount(container, { store }) {
   body.addEventListener('change', (e) => {
     const a = e.target?.dataset?.action;
     if (a === 'only-connected') { state.onlyConnected = e.target.checked; render(); }
+    const colToggle = e.target?.dataset?.colToggle;
+    if (colToggle) {
+      if (e.target.checked) state.hiddenCols.delete(colToggle); else state.hiddenCols.add(colToggle);
+      render();
+      body.querySelector('.view-menu')?.setAttribute('open', '');
+    }
     if (a === 'min-band') { state.minBand = e.target.value; render(); }
     if (a === 'include-closed') { state.includeClosed = e.target.checked; render(); }
     const pv = e.target?.dataset?.pivot;
@@ -671,6 +729,7 @@ export async function mount(container, { store }) {
       pdfBtn.disabled = false;
     }
   });
+  printBtn.addEventListener('click', () => window.print());
   jsonBtn.addEventListener('click', () => {
     const { bia } = current;
     const payload = {

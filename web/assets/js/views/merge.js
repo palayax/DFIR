@@ -41,7 +41,10 @@ export async function mount(container, { store }) {
   exportCsvBtn.className = 'btn';
   exportCsvBtn.textContent = 'Export CSV';
   exportCsvBtn.disabled = true;
-  actions.append(mergeBtn, exportJsonlBtn, exportCsvBtn);
+  // SuperTimeline is no longer in the main menu; it is the step between
+  // Triage and AI analysis, so it links onward itself.
+  const nextLink = Object.assign(document.createElement('a'), { className: 'btn', href: '#/analyze', textContent: 'AI analysis →' });
+  actions.append(mergeBtn, exportJsonlBtn, exportCsvBtn, nextLink);
   header.appendChild(actions);
   container.appendChild(header);
 

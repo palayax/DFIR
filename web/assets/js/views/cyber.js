@@ -76,7 +76,7 @@ export async function mount(container, { store }) {
     <div class="view-actions">
       <a class="btn" href="#/merge">SuperTimeline</a>
       <a class="btn" href="#/analyze">AI analysis (IOC/IOA)</a>
-      <a class="btn btn-primary" href="#/business">Business impact →</a>
+      <a class="btn btn-primary" href="#/bia">Business impact →</a>
     </div>`;
   container.appendChild(header);
 
@@ -215,7 +215,7 @@ export async function mount(container, { store }) {
           <p><strong>Business services</strong>: ${esc(x.svcs.map((s) => svcName.get(s)).join(', ') || '—')}</p>
           <p><strong>KPIs / SLAs under pressure</strong>: ${kpis.length ? kpis.map((k) => esc(k.kpi.name)).join('; ') : 'none projected'}</p>
           <p><strong>Failing / related controls</strong>: ${ctls.map((ct) => `${esc(ct.id)} ${esc(ct.title)} (${esc(ct.status.replace('_', ' '))})`).join('; ') || '—'}</p>
-          <p><a href="#/business">See the business impact →</a></p>
+          <p><a href="#/bia">See the business impact →</a></p>
         </div>
       </div>
       <h3>Affected assets (${assets.length})</h3>

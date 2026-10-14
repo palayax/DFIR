@@ -71,7 +71,7 @@ export async function mount(container, { store }) {
   execPanel.innerHTML = `
     <h2 class="panel-title">Executive cyber-to-business risk report</h2>
     <p class="view-subtitle">Board-ready summary: value at risk vs appetite, top business risks, KPIs/SLAs under pressure, compliance posture and recommended remediation. Watermarked PDF, JSON and CSV.</p>
-    <div class="view-actions"><a class="btn btn-primary" href="#/business">Open executive dashboard &amp; export</a></div>`;
+    <div class="view-actions"><a class="btn btn-primary" href="#/bia">Open the BIA explorer &amp; export</a><a class="btn" href="#/business">Executive dashboard</a></div>`;
 
   const actions = document.createElement('div');
   actions.className = 'view-actions';

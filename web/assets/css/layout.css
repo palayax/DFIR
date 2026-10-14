@@ -2,18 +2,24 @@
 
 #app-shell {
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
 }
 
+/* One quiet row: brand, menu, engagement, theme. */
 .app-header {
   display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  padding: var(--space-3) var(--space-5);
+  align-items: stretch;
+  gap: var(--space-5);
+  padding: 0 var(--space-5);
+  min-height: 52px;
   background: var(--color-bg-raised);
   border-bottom: var(--border-width) solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
+.app-header > .app-brand, .app-header > .engagement-picker, .app-header > .theme-toggle { align-self: center; }
 
 .app-brand {
   display: flex;
@@ -36,8 +42,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin-left: auto;
 }
+.engagement-picker input { width: 140px; padding: 4px 8px; font-size: var(--font-size-xs); }
 .engagement-picker label {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
@@ -55,9 +61,10 @@
 .theme-toggle button {
   border: none;
   background: var(--color-bg-raised);
-  padding: var(--space-1) var(--space-2);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
+  padding: 2px 8px;
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  color: var(--color-text-faint);
 }
 .theme-toggle button[aria-pressed="true"] {
   background: var(--color-accent-bg);
@@ -67,17 +74,17 @@
 
 .app-nav {
   display: flex;
+  flex: 1;
   gap: var(--space-1);
-  padding: 0 var(--space-5);
-  background: var(--color-bg-raised);
-  border-bottom: var(--border-width) solid var(--color-border);
+  min-width: 0;
   overflow-x: auto;
+  scrollbar-width: none;
 }
 .app-nav a {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-3);
+  padding: 0 var(--space-3);
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
   font-weight: 500;
@@ -100,6 +107,7 @@
   font-size: var(--font-size-xs);
   color: var(--color-text-faint);
 }
+.app-nav a.nav-icon { margin-left: auto; font-size: var(--font-size-md); }
 .app-nav a.is-active .nav-step-number {
   background: var(--color-accent);
   color: var(--color-text-on-accent);

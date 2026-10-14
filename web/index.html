@@ -19,23 +19,22 @@
   <header class="app-header">
     <div class="app-brand">
       <span class="app-brand-mark" aria-hidden="true">&#9670;</span>
-      <span>IRTriage Console</span>
-      <span class="app-tagline">Triage · Cyber risk · Business risk</span>
+      <span>IRTriage</span>
     </div>
 
+    <nav id="app-nav" class="app-nav" aria-label="Main"></nav>
+
     <div class="engagement-picker">
-      <label for="engagement-input">Engagement</label>
-      <input id="engagement-input" class="input" type="text" placeholder="e.g. ACME-2026-014" autocomplete="off">
+      <label for="engagement-input" class="visually-hidden">Engagement</label>
+      <input id="engagement-input" class="input" type="text" placeholder="Engagement" title="Engagement / case id (used in forensic exports)" autocomplete="off">
     </div>
 
     <div id="theme-toggle" class="theme-toggle" role="group" aria-label="Color theme">
-      <button type="button" data-theme="auto" aria-pressed="false">Auto</button>
-      <button type="button" data-theme="light" aria-pressed="false">Light</button>
-      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+      <button type="button" data-theme="auto" aria-pressed="false" title="Follow system theme" aria-label="Auto theme">◐</button>
+      <button type="button" data-theme="light" aria-pressed="false" title="Light theme" aria-label="Light theme">☀</button>
+      <button type="button" data-theme="dark" aria-pressed="false" title="Dark theme" aria-label="Dark theme">☾</button>
     </div>
   </header>
-
-  <nav id="app-nav" class="app-nav" aria-label="Workflow steps"></nav>
 
   <main id="app-main" class="app-main" role="main" aria-live="polite"></main>
 
