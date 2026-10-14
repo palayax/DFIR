@@ -83,6 +83,7 @@ export const appStore = createStore({
   report: null, // LLM-generated report, once produced
   businessContext: null, // BusinessContext (layer 1 business data + layer 2 risk register), e.g. the ACME.Corp demo
   whatIf: [], // cyber-risk ids marked remediated in the What-if panel (layer 3)
+  biaMitigations: [], // proposed mitigation ids applied in the BIA explorer's simulator (layer 3)
   settings: {
     llmProviderId: null,
     llmModelId: null,

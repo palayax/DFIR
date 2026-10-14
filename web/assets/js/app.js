@@ -11,7 +11,9 @@ import { showError } from './ui/toast.js';
 //   1 Ingested data  -> triage collections, estate inventory, business context
 //   2 Cyber risks    -> risk register (vulns/misconfigs/exposures/IOC/IOA),
 //                       SuperTimeline, AI analysis
-//   3 Business risks -> executive dashboard (the headline output)
+//   3 Business risks -> BIA explorer (SLO -> policy -> process -> component ->
+//                       cyber-risk scenario -> hunt/finding -> evidence) and the
+//                       executive dashboard
 //   4 Report         -> forensic report and exports
 // Route ids are stable: existing deep links (#/ingest, #/merge, ...) keep working.
 const ROUTES = [
@@ -21,11 +23,12 @@ const ROUTES = [
   { id: 'cyber', path: 'cyber', label: 'Risk register', step: 2, group: 'Cyber risks' },
   { id: 'merge', path: 'merge', label: 'SuperTimeline', step: 2, group: 'Cyber risks' },
   { id: 'analyze', path: 'analyze', label: 'AI analysis', step: 2, group: 'Cyber risks' },
+  { id: 'bia', path: 'bia', label: 'BIA explorer', step: 3, group: 'Business risks' },
   { id: 'business', path: 'business', label: 'Executive dashboard', step: 3, group: 'Business risks' },
   { id: 'report', path: 'report', label: 'Reports & export', step: 4, group: 'Report' },
   { id: 'settings', path: 'settings', label: 'Settings', step: '⚙', group: '' },
 ];
-const DEFAULT_ROUTE = 'business';
+const DEFAULT_ROUTE = 'bia';
 
 const viewLoaders = {
   ingest: () => import('./views/ingest.js'),
@@ -34,6 +37,7 @@ const viewLoaders = {
   cyber: () => import('./views/cyber.js'),
   merge: () => import('./views/merge.js'),
   analyze: () => import('./views/analyze.js'),
+  bia: () => import('./views/bia.js'),
   business: () => import('./views/business.js'),
   report: () => import('./views/report.js'),
   settings: () => import('./views/settings.js'),

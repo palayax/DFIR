@@ -171,13 +171,13 @@ describe('executive outputs', () => {
 describe('business layer is reachable from the UI', () => {
   const VIEWS = path.join(HERE, '..', 'assets', 'js', 'views');
 
-  test('the router lists every layer view and lands on the executive dashboard', async () => {
+  test('the router lists every layer view and lands on the BIA explorer', async () => {
     const app = await readFile(path.join(HERE, '..', 'assets', 'js', 'app.js'), 'utf8');
-    for (const id of ['inventory', 'context', 'cyber', 'business']) {
+    for (const id of ['inventory', 'context', 'cyber', 'bia', 'business']) {
       assert.match(app, new RegExp(`\\{ id: '${id}'`), `ROUTES must contain ${id}`);
       assert.match(app, new RegExp(`${id}: \\(\\) => import\\('\\./views/${id}\\.js'\\)`), `viewLoaders must load ${id}`);
     }
-    assert.match(app, /const DEFAULT_ROUTE = 'business'/);
+    assert.match(app, /const DEFAULT_ROUTE = 'bia'/);
   });
 
   test('the dashboard computes, exports and auto-loads the demo', async () => {
@@ -189,7 +189,7 @@ describe('business layer is reachable from the UI', () => {
   });
 
   test('every layer view loads the context the same way', async () => {
-    for (const f of ['inventory.js', 'context.js', 'cyber.js', 'business.js']) {
+    for (const f of ['inventory.js', 'context.js', 'cyber.js', 'bia.js', 'business.js']) {
       const src = await readFile(path.join(VIEWS, f), 'utf8');
       assert.match(src, /ensureBusinessContext\(store\)/, `${f} must load the business context`);
     }

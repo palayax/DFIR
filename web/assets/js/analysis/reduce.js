@@ -82,6 +82,7 @@ function truncate(text, max) {
  * instructed (see prompts.js) to cite it verbatim, and a truncated hash could
  * collide with, or fail to match, the real row during validation. */
 export function renderRow(record) {
+  const event = isWindowsEvent(record);
   return [
     record.row_hash || '',
     record.timestamp_utc || '',
@@ -90,9 +91,159 @@ export function renderRow(record) {
     record.source || '',
     record.severity_max || 'none',
     detectionSummary(record),
-    truncate(record.target, MESSAGE_MAX_CHARS),
-    truncate(record.message, MESSAGE_MAX_CHARS),
+    // For an event row `target` is just the channel name, which the compacted
+    // message already carries -- spend those tokens on evidence instead.
+    event && record.target === record.event.channel ? '' : truncate(record.target, MESSAGE_MAX_CHARS),
+    event ? truncate(compactEventMessage(record), EVENT_MESSAGE_MAX_CHARS) : truncate(record.message, MESSAGE_MAX_CHARS),
   ].join('\t');
+}
+
+// ---------------------------------------------------------------------------
+// Windows event-message compaction
+//
+// WHY: a rendered Windows event message is a title, then "Section:" headers
+// with tab-indented "Label:\t\tValue" lines, then paragraphs of boilerplate
+// ("This event is generated when..."). The fields an analyst actually needs sit
+// AFTER the subject block: New Process Name, Logon Type, Source Network
+// Address, Ticket Encryption Type... A flat 240-character cut therefore kept
+// the "who started it" header and dropped the evidence. Measured on a real
+// 480,581-row domain-controller timeline: 4688 New/Creator Process Name, 4624
+// Source Network Address and logged-on account, and 4769 Client Address
+// reached the model in 0% of rows. Every Security event the analysis most
+// depends on arrived without its deciding fields.
+//
+// HOW: parse the label/value structure, drop boilerplate and empty ("-")
+// values, order fields by forensic value (PRIORITY below, then everything
+// else in original order, then DEMOTED identifiers like SIDs/GUIDs), and only
+// then truncate -- so whatever the budget cuts is the least useful part.
+// Messages without that structure (e.g. 4104 script blocks) keep their text,
+// whitespace-collapsed, exactly as before.
+// ---------------------------------------------------------------------------
+
+export const EVENT_MESSAGE_MAX_CHARS = 320;
+
+const FIELD_PRIORITY = [
+  'New Process Name', 'Process Command Line', 'Creator Process Name', 'Parent Process Name',
+  'Logon Type', 'Source Network Address', 'Source Port', 'Workstation Name', 'Client Address',
+  'Service Name', 'Service File Name', 'Service Type', 'Service Start Type', 'Ticket Encryption Type', 'Ticket Options',
+  'Failure Code', 'Failure Reason', 'Status', 'Sub Status', 'Result Code',
+  'Task Name', 'Task Content', 'Task Command', 'Object Name', 'Object Type', 'Accesses', 'Operation Type',
+  'Group Name', 'Member Name', 'Account Name', 'Account Domain', 'Process Name',
+  'Privileges', 'Logon Process', 'Authentication Package', 'Elevated Token',
+  'Target Server Name', 'Share Name', 'Relative Target Name', 'Application Name', 'Direction',
+  'Destination Address', 'Destination Port', 'Protocol', 'Changed Attributes', 'Old UAC Value', 'New UAC Value',
+];
+const FIELD_RANK = new Map(FIELD_PRIORITY.map((l, i) => [l.toLowerCase(), i]));
+
+const FIELD_DEMOTED = new Set([
+  'security id', 'logon id', 'linked logon id', 'logon guid', 'handle id', 'key length', 'transited services',
+  'package name (ntlm only)', 'restricted admin mode', 'virtual account', 'impersonation level', 'mandatory label',
+  'token elevation type', 'request ticket hash', 'response ticket hash', 'advertized etypes',
+  'msds-supportedencryptiontypes', 'available keys', 'process id', 'new process id', 'creator process id',
+  'network account name', 'network account domain', 'processcreationtime', 'clientprocessid', 'parentprocessid', 'fqdn',
+]);
+
+// Sections whose account is the one that matters, so an ambiguous "Account
+// Name" is labelled with its section ("New Logon/Account Name").
+const SECTION_RANK = ['new logon', 'target account', 'target subject', 'account whose credentials were used', 'account for which logon failed', 'member', 'account information', 'subject', 'creator subject'];
+
+function isWindowsEvent(record) {
+  return record?.source === 'eventlog' && record.event && typeof record.message === 'string';
+}
+
+function cleanValue(v) {
+  return String(v ?? '').replace(/!S!/g, '').replace(/\s+/g, ' ').trim();
+}
+
+/** Pull Command/Arguments out of a scheduled-task XML definition. */
+function summariseTaskXml(xml) {
+  const cmd = /<Command>([\s\S]*?)<\/Command>/i.exec(xml)?.[1];
+  const args = /<Arguments>([\s\S]*?)<\/Arguments>/i.exec(xml)?.[1];
+  return cleanValue([cmd, args].filter(Boolean).join(' '));
+}
+
+/**
+ * Compact a Windows event row's message so its deciding fields come first.
+ * @returns {string} "EventID <id> <channel>: <title> | Label=value; ..."
+ */
+export function compactEventMessage(record) {
+  const raw = record.message.replace(/\r\n?/g, '\n');
+  const head = /^EventID\s+(\d+)\s+on\s+([^:]+):\s*/.exec(raw);
+  const body = head ? raw.slice(head[0].length) : raw;
+  const id = record.event?.event_id ?? head?.[1] ?? '';
+  const channel = record.event?.channel ?? head?.[2] ?? '';
+  const prefix = `EventID ${id} ${channel}:`.trim();
+
+  const lines = body.split('\n');
+  const title = cleanValue(lines.shift());
+  const fields = [];
+  let section = '';
+  let last = null;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (!line.trim()) { last = null; continue; }
+    // "Subject:" / "New Logon:" (possibly "Subject :"), with nothing after it.
+    const header = /^\t*([A-Za-z][^\t:]{0,60}?)\s*:\s*$/.exec(line);
+    if (header) { section = header[1].trim(); last = null; continue; }
+    // "\tAccount Name:\t\tAdministrator" -- the colon is always followed by a
+    // TAB in rendered Windows event messages, which is what separates a field
+    // from a boilerplate sentence that merely contains a colon.
+    const kv = /^\t*([^\t:]{1,60}?)\s*:[ ]*\t[ \t]*(.*)$/.exec(line);
+    if (kv) {
+      let value = kv[2];
+      if (/^\s*</.test(value)) {
+        // XML block (4698/4702 task definitions): consume it, keep the action.
+        let xml = value;
+        while (i + 1 < lines.length && lines[i + 1].trim()) xml += `\n${lines[++i]}`;
+        value = summariseTaskXml(xml);
+      }
+      last = { section, label: kv[1].trim(), value: cleanValue(value), order: fields.length };
+      fields.push(last);
+      continue;
+    }
+    // Continuation of a multi-line value (e.g. the Privileges list) -- but
+    // never a free-text paragraph, which is boilerplate.
+    if (last && /^\t/.test(line) && line.trim().length < 80) {
+      last.value = cleanValue(`${last.value} ${line}`);
+      continue;
+    }
+    last = null;
+  }
+
+  const useful = fields.filter((f) => f.value && f.value !== '-' && !/^%%\d+$/.test(f.value));
+  if (useful.length < 2) {
+    // Not label/value shaped (script blocks, free-text providers): keep the text.
+    return cleanValue(`${prefix} ${body}`);
+  }
+
+  const labelSections = new Map();
+  for (const f of useful) {
+    const k = f.label.toLowerCase();
+    if (!labelSections.has(k)) labelSections.set(k, new Set());
+    labelSections.get(k).add(f.section.toLowerCase());
+  }
+  const sectionRank = (s) => {
+    const i = SECTION_RANK.indexOf(s.toLowerCase());
+    return i < 0 ? SECTION_RANK.length : i;
+  };
+  const tier = (f) => (FIELD_DEMOTED.has(f.label.toLowerCase()) ? 2 : FIELD_RANK.has(f.label.toLowerCase()) ? 0 : 1);
+  useful.sort((a, b) =>
+    tier(a) - tier(b) ||
+    (FIELD_RANK.get(a.label.toLowerCase()) ?? 0) - (FIELD_RANK.get(b.label.toLowerCase()) ?? 0) ||
+    sectionRank(a.section) - sectionRank(b.section) ||
+    a.order - b.order);
+
+  const seen = new Set();
+  const parts = [];
+  for (const f of useful) {
+    const ambiguous = (labelSections.get(f.label.toLowerCase())?.size ?? 0) > 1;
+    const key = ambiguous && f.section ? `${f.section}/${f.label}` : f.label;
+    const dedupe = `${f.label.toLowerCase()}=${f.value}`;
+    if (seen.has(dedupe)) continue;
+    seen.add(dedupe);
+    parts.push(`${key}=${f.value}`);
+  }
+  return `${prefix} ${title} | ${parts.join('; ')}`;
 }
 
 // A fixed-width placeholder time range, used ONLY to size the header at

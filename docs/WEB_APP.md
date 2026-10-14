@@ -43,7 +43,8 @@ Air-gapped operation: with no LLM provider configured (or the mock provider sele
 | 1 · Ingest | `#/context` | Business context: organisation & goals, services & BIA, KPIs/SLOs/SLAs (incl. AI-proposed), GRC controls & policies, documents, API/MCP connectors |
 | 2 · Cyber risks | `#/cyber` | Risk register (vulnerabilities, misconfigurations, exposures), IOC/IOA, ATT&CK exposure; deep link `#/cyber/<risk-id>` |
 | 2 · Cyber risks | `#/merge`, `#/analyze` | SuperTimeline and AI analysis (sections 2.2–2.3) |
-| 3 · Business risks | `#/business` (default) | Executive dashboard: value at risk vs appetite, top business risks with drill-down, risk matrix, service × dimension heatmap, KPI projections, compliance, 12-month trend, What-if remediation; exports to watermarked PDF / JSON / CSV / print |
+| 3 · Business risks | `#/bia` (default) | BIA explorer. **SLO impact** shows a cyber-risk score factor per SLO, the plan → cyber-adjusted waterfall, and the shortfall by scenario, policy and finding. **Drill-down explorer** has 7 columns (L1 SLOs → L7 evidence); focusing any node at any level narrows every column to its many-to-many connections and opens a drill-through panel. Also: **hunts timeline** (L6), **slice & dice** pivot with cell drill-through, and a live **mitigation simulator**. Exports to watermarked PDF / JSON / CSV. Deep link `#/bia/<tab>/<node-id>` |
+| 3 · Business risks | `#/business` | Executive dashboard: value at risk vs appetite, top business risks with drill-down, risk matrix, service × dimension heatmap, KPI projections, compliance, 12-month trend, What-if remediation; exports to watermarked PDF / JSON / CSV / print |
 | 4 · Report | `#/report` | Forensic report and a link to the executive export |
 
 The layer views load the ACME.Corp mock (`web/demo/acme/context.js`) whenever the

@@ -75,6 +75,47 @@ challenge it, without a statistics background.
    whole model with that risk fixed. The list is ordered by how much value at
    risk disappears, and is shown next to the fix's cost and ETA.
 
+## BIA explorer: cyber-risk score factor per SLO
+
+`web/assets/js/business/bia.js` scores a seven-level graph (SLO → policy →
+process → component → scenario → hunt/finding → evidence). Like the engine above,
+it is pure and deterministic, and no score in it is authored.
+
+1. **Finding likelihood** `L_f` uses the same function as above (`riskLikelihood`).
+   Finding score = 100 × min(1, L_f / 0.25).
+2. **Scenario on component:**
+   `P(s,c) = 1 − (1 − base_s × factor_s) × Π (1 − L_f × w)`.
+   - The product runs over findings mapped to scenario *s* that touch component
+     *c*, either through its assets or by an explicit component link.
+   - *w* is the criticality of the touched assets (0.8 for an explicit link).
+   - The threat base rate applies only where the scenario lists the component.
+   - `factor_s` comes from simulated mitigations.
+3. **Component:** `P(c) = 1 − Π_s (1 − P(s,c) × impact_s)`.
+4. **Process:** `P(p) = 1 − Π_c (1 − P(c) × essentiality × 0.35)`.
+   Essentiality is 1 for essential components and 0.3 for supporting ones.
+5. **Policy:** `P(pol) = 1 − Π_p (1 − P(p) × 0.6)`. A policy fails when any of its processes does.
+6. **SLO shortfall:** `Σ weight × basis × P(pol)` over the policies that protect the SLO.
+   - *weight* is the share of the SLO's financial basis lost if that policy fails.
+   - The cyber-adjusted projection is `plan forecast ∓ shortfall × metric_per_usd`.
+   - Status uses target and warning thresholds, like the KPI projection.
+7. **Cyber-risk score factor** = `100 × (1 − e^(−shortfall / headroom))`.
+   - Headroom is the gap between plan forecast and target, in dollars.
+   - 63 means cyber risk is expected to consume exactly the headroom.
+   - Bands: critical 60+, high 40+, medium 20+, low.
+   - Scenario score = `1 − Π_c (1 − P(s,c) × impact_s × 0.35)`: the chance it disrupts at least one process.
+8. **Attribution.** Each probability is split by hazard, −ln(1 − p). Under
+   1 − Π(1 − p) independent hazards add exactly, so the "$ by scenario" and
+   "$ by finding" breakdowns sum to the SLO shortfall at every level.
+9. **Simulation.** A proposed mitigation remediates its findings and multiplies
+   its scenarios' base rates. The explorer recomputes everything live and ranks
+   mitigations by shortfall removed on a chosen SLO, and by ROI. The executive
+   dashboard also treats a simulated mitigation's findings as fixed.
+10. **Trend.** Each SLO's score over 12 months is recomputed from finding first-seen and closure dates.
+
+The calibration constants (0.35 process disruption, 0.6 policy failure, policy
+weights) are mockup values chosen so the ACME.Corp picture is plausible: ARR is
+about 3% at risk and some SLOs are on track. Tune them per organisation.
+
 ## What is mocked in this build
 
 - The AI-proposed KPIs for the two services with no business-supplied KPIs are

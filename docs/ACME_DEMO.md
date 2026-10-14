@@ -24,10 +24,14 @@ are fictional (`ACME-VULN-*`), never real CVE ids.
 | Business services (with BIA) | 10 |
 | Corporate goals (FY2027) | 6 |
 | KPIs / SLOs / SLAs (12-month history) | 39 (6 AI-proposed) |
-| Assets | 661 (500 endpoints, 45 servers, 30 cloud resources, 10 SaaS, 10 CI/CD, 16 network, 34 peripherals/IoT, 11 security controls, 5 AI systems) |
+| Assets | 663 (500 endpoints, 45 servers, 32 cloud resources, 10 SaaS, 10 CI/CD, 16 network, 34 peripherals/IoT, 11 security controls, 5 AI systems) |
 | Controls (crosswalked) / policies | 40 / 15 |
-| Cyber risks | 121 (105 open, 16 remediated over the year) |
+| Cyber risks | 126 (110 open, 16 remediated over the year) |
 | Ingested documents / connectors | 10 / 11 |
+| BIA L1 SLOs / L2 policies / L3 processes | 8 / 13 / 14 |
+| BIA L4 components (people, procedures, data, systems) | 50 (11 / 9 / 9 / 21) |
+| BIA L5 risk scenarios / L6 hunts / L7 evidence records | 11 / 12 / 232 |
+| Proposed mitigations (simulator) | 13 |
 
 ## The story the data tells
 
@@ -49,7 +53,38 @@ are fictional (`ACME-VULN-*`), never real CVE ids.
 - **Missing KPIs:** BI & Decision Support and Identity & Access have no KPIs from
   their owners. The AI-proposed KPIs (with rationale) fill the gap.
 - **Trend:** total value at risk rose sharply in Q3 2026 and now sits at about
-  twice the board appetite. Fixing the top five risks brings it down by about $3.5M.
+  twice the board appetite. Fixing the top five risks brings it down by about $3.3M.
+- **Denial of service:** the website, portal and TIP API edges have no
+  volumetric DDoS protection, the website origin is reachable around the CDN,
+  the TIP API has no per-client rate limits, and the SOC saw three request-rate
+  episodes against the portal login in September (hunt HUNT-01).
+
+## The BIA hierarchy (seven levels)
+
+The BIA explorer (`#/bia`) walks from business SLOs down to evidence:
+
+| Level | What it is | ACME.Corp examples |
+|---|---|---|
+| L1 SLO | Business objective with a financial basis, plan forecast and target | ARR $150M, gross revenue retention 95%, customer SLA attainment 99.5% |
+| L2 Policy | What must happen, and when, for the SLOs to hold (weighted share of each SLO) | "Keep customer-facing platforms available at least 99.95% each month" |
+| L3 Business process | The procedure that implements policies | 24x7 alert triage & escalation; contract renewal & QBR |
+| L4 Component | People, procedures, data and systems a process needs | CISO; release signing; customer PII; company website |
+| L5 Cyber-risk scenario | What can go wrong with a component | Denial of service; ransomware; account takeover |
+| L6 Hunt / finding | IOC/IOA hunts and posture findings the scenario is derived from | HUNT-01 edge request-rate anomalies; CR-070 no DDoS protection |
+| L7 Evidence | Raw records behind findings and hunts | CDN metric series, config snapshots, scanner results, tickets |
+
+Every link is many-to-many: the CISO is a component of six processes, "Denial of
+service" applies to five systems, and a policy protects up to six SLOs.
+Components attach to the estate by asset id or by an attribute query (for
+example, every endpoint in the Finance department), so findings on those assets
+reach the component automatically.
+
+With every mitigation off, the computed picture is:
+- ARR is projected to miss target ($4.8M shortfall, 3.2%; score 85, critical).
+- Customer SLA attainment and gross retention are projected to breach.
+- Net promoter score stays on track (score 33).
+
+Ransomware, data breach and denial of service carry most of the shortfall.
 
 Cyber findings are deliberately at **risk-register level**, phrased the way a
 vulnerability scanner, a CSPM, an identity-posture tool or a SOC would list

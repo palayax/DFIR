@@ -6,6 +6,7 @@
 // any future connector that refreshes store.businessContext re-renders it.
 
 import { computeBusinessRisk, remediationPriorities, formatUsdShort, DIMENSIONS } from '../business/engine.js';
+import { mitigationFindingIds } from '../business/bia.js';
 import {
   esc, figure, statusChip, STATUS_META, sparklineSvg, heatmapSvg, heatmapTable, varBarsSvg, varBarsTable,
   trendSvg, trendTable, complianceSvg, complianceTable, riskMatrixSvg, riskMatrixTable, kpiHealthSvg,
@@ -116,10 +117,13 @@ export async function mount(container, { store }) {
   function render() {
     const c = store.getState().businessContext;
     const whatIf = store.getState().whatIf || [];
+    // Mitigations ticked in the BIA explorer's simulator remediate their findings here too.
+    const mitIds = store.getState().biaMitigations || [];
+    const remediated = [...new Set([...whatIf, ...mitigationFindingIds(c, mitIds)])].sort();
     const f = { ...filters };
     for (const k of Object.keys(f)) if (!f[k]) delete f[k];
-    const view = computeBusinessRisk(c, { remediated: whatIf, filters: f });
-    const baseline = whatIf.length ? computeBusinessRisk(c, { filters: f }) : view;
+    const view = computeBusinessRisk(c, { remediated, filters: f });
+    const baseline = remediated.length ? computeBusinessRisk(c, { filters: f }) : view;
     const priorities = prioritiesFor(c);
     current = { view, baseline, priorities };
     const hl = view.headline;
@@ -128,7 +132,7 @@ export async function mount(container, { store }) {
 
     const varDelta = hl.value_at_risk_usd - bl.value_at_risk_usd;
     const tiles = `<div class="tile-grid">
-      ${tile('Annualised value at risk', formatUsdShort(hl.value_at_risk_usd), `Board appetite ${formatUsdShort(hl.appetite_usd)}${whatIf.length ? ` · scenario ${signedUsd(varDelta)}` : ''}`, hl.appetite_usd && hl.value_at_risk_usd > hl.appetite_usd ? 'tile-alert' : 'tile-ok')}
+      ${tile('Annualised value at risk', formatUsdShort(hl.value_at_risk_usd), `Board appetite ${formatUsdShort(hl.appetite_usd)}${remediated.length ? ` · scenario ${signedUsd(varDelta)}` : ''}`, hl.appetite_usd && hl.value_at_risk_usd > hl.appetite_usd ? 'tile-alert' : 'tile-ok')}
       ${tile('Business risk index', `${hl.risk_index}<span class="tile-sub"> / 100</span>`, 'Tier-weighted likelihood of a material event', hl.risk_index >= 50 ? 'tile-alert' : hl.risk_index >= 30 ? 'tile-warn' : 'tile-ok')}
       ${tile('KPIs & SLAs', `${hl.kpis_breached + hl.kpis_breach_projected}<span class="tile-sub"> / ${hl.kpis_total}</span>`, `${hl.kpis_breached} breached · ${hl.kpis_breach_projected} breach projected · ${hl.kpis_at_risk} at risk`, hl.kpis_breached > (appetite.max_kpis_breached ?? 99) ? 'tile-alert' : 'tile-warn')}
       ${tile('Services above appetite', `${hl.services_above_appetite}<span class="tile-sub"> / ${hl.services_total}</span>`, `Likelihood ceiling ${pct(appetite.max_service_likelihood)}`, hl.services_above_appetite ? 'tile-alert' : 'tile-ok')}
@@ -184,8 +188,8 @@ export async function mount(container, { store }) {
       <div class="biz-table-wrap"><table class="biz-table"><thead><tr><th>KPI / SLA</th><th class="num">Current</th><th class="num">Target</th><th class="num">Projected</th><th>Trend</th><th>Status</th><th>Driver</th></tr></thead><tbody>${kpiRows}</tbody></table></div></section>`;
 
     const chosen = new Set(whatIf);
-    const scenarioLine = whatIf.length
-      ? `<p class="whatif-delta">Scenario: ${whatIf.length} fixed → value at risk ${formatUsdShort(hl.value_at_risk_usd)} (${signedUsd(varDelta)}), KPIs breached/projected ${hl.kpis_breached + hl.kpis_breach_projected} (was ${bl.kpis_breached + bl.kpis_breach_projected}), risk index ${hl.risk_index} (was ${bl.risk_index}).</p>`
+    const scenarioLine = remediated.length
+      ? `<p class="whatif-delta">Scenario: ${whatIf.length} fixed${mitIds.length ? ` + ${mitIds.length} BIA mitigation${mitIds.length > 1 ? 's' : ''}` : ''} → value at risk ${formatUsdShort(hl.value_at_risk_usd)} (${signedUsd(varDelta)}), KPIs breached/projected ${hl.kpis_breached + hl.kpis_breach_projected} (was ${bl.kpis_breached + bl.kpis_breach_projected}), risk index ${hl.risk_index} (was ${bl.risk_index}).</p>`
       : '<p class="biz-figure-note">Tick cyber risks to see the business effect of fixing them. Ordered by how much value at risk each fix removes on its own.</p>';
     const whatIfPanel = `<section class="panel whatif-panel"><h2 class="panel-title">What-if: remediation scenario</h2>${scenarioLine}
       <div class="view-actions" style="margin-bottom:8px"><button class="btn" type="button" data-action="fix-top">Fix top 5</button><button class="btn" type="button" data-action="clear-whatif">Clear</button></div>
@@ -276,6 +280,7 @@ export async function mount(container, { store }) {
   renderFilters();
   render();
   const unsub = store.subscribeSelector((s) => s.whatIf, () => render());
+  const unsubMit = store.subscribeSelector((s) => s.biaMitigations, () => render());
   const unsubCtx = store.subscribeSelector((s) => s.businessContext, (c) => {
     if (!c) return;
     priorityCache.clear();
@@ -285,6 +290,7 @@ export async function mount(container, { store }) {
   return {
     unmount() {
       unsub();
+      unsubMit();
       unsubCtx();
     },
   };

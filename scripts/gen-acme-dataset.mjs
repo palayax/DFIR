@@ -22,13 +22,14 @@
 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 import { makeRng, rngTools, sortKeysDeep, parseGeneratorArgs, emitOutputs } from './lib/demo-common.mjs';
 
 const SCRIPT = 'gen-acme-dataset.mjs';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.join(HERE, '..', 'web', 'demo', 'acme');
 
-const SCHEMA_VERSION = '1.0.0';
+const SCHEMA_VERSION = '1.1.0';
 const AS_OF = '2026-09-30';
 // 12 monthly KPI points, oldest first, ending at AS_OF's month.
 const MONTHS = ['2025-10', '2025-11', '2025-12', '2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09'];
@@ -135,7 +136,7 @@ const SERVICES = [
   },
   {
     id: 'SVC-CRM', name: 'Sales & CRM', owner: 'CRO (Revenue)', tier: 2,
-    description: 'Pipeline, quoting and renewals across all regions.',
+    description: 'Pipeline, quoting and renewals across all regions, fed by the corporate website (lead generation).',
     rto_hours: 24, rpo_hours: 4, mtpd_hours: 72, annual_revenue_usd: 0, cost_of_downtime_per_hour_usd: 2500, customers: 0,
     data_classification: 'internal_confidential', depends_on: ['SVC-IAM'],
     sla: null,
@@ -391,6 +392,8 @@ function buildAssets() {
   cloud('GCP-BQ-TIP', 'gcp: tip_intel (BigQuery)', 'gcp', 'data_warehouse', ['SVC-TIP'], 'high');
   cloud('GCP-GKE-TIP-ML', 'gcp: tip-ml (GKE)', 'gcp', 'kubernetes', ['SVC-TIP'], 'high');
   cloud('GCP-GCS-TIP-FEEDS', 'gcp: gs://acme-tip-feeds', 'gcp', 'object_storage', ['SVC-TIP'], 'high');
+  cloud('WEB-CDN', 'aws: www.acme.example (CDN distribution)', 'aws', 'cdn', ['SVC-CRM'], 'high', { internet_facing: true, owner: 'Marketing Technology' });
+  cloud('WEB-ORIGIN', 'aws: www-origin (marketing CMS origin)', 'aws', 'vm', ['SVC-CRM'], 'medium', { internet_facing: true, owner: 'Marketing Technology' });
 
   // --- SaaS ---
   const saas = (id, name, svcs, crit) => addAsset({ id, name, class: 'saas', site: 'SAAS', service_ids: svcs, criticality: crit, owner: 'IT Applications', internet_facing: false });
@@ -638,6 +641,12 @@ function storyRisks() {
     { id: 'CR-064', type: 'exposure', title: 'APAC firewall management interface exposed to the internet', severity: 'high', exploitability: 'poc', asset_ids: ['NET-SIN-FWMGMT', 'NET-SIN-FW01'], control_ids: ['CTL-16', 'CTL-37'], mitre_techniques: ['T1133'], first_seen: '2026-09-15', source: 'Attack-surface scan', owner: 'Network Engineering', dimensions: [A, I, C], remediation: { action: 'Restrict management plane to admin VPN', effort: 'low', cost_usd: 2000, eta_days: 1 } },
     { id: 'CR-065', type: 'incident_finding', title: 'Unapproved remote-access tool found on two consultant laptops', severity: 'medium', exploitability: 'known_exploited', asset_ids: [], control_ids: ['CTL-04', 'CTL-10'], mitre_techniques: ['T1219'], first_seen: '2026-09-18', source: 'IRTriage triage (Professional Services laptops)', owner: 'Security Operations', dimensions: [C, I], remediation: { action: 'Remove tool, collect triage, confirm no customer data accessed', effort: 'low', cost_usd: 4000, eta_days: 2 } },
     { id: 'CR-066', type: 'misconfiguration', title: 'TIP feed bucket grants write access to a decommissioned partner account', severity: 'high', exploitability: 'poc', asset_ids: ['GCP-GCS-TIP-FEEDS'], control_ids: ['CTL-25', 'CTL-05'], mitre_techniques: ['T1565.001'], first_seen: '2026-08-29', source: 'CSPM', owner: 'Threat Research', dimensions: [I, A], remediation: { action: 'Remove binding; require signed feed manifests', effort: 'low', cost_usd: 3000, eta_days: 2 } },
+    // --- Denial-of-service cluster (website, portal, TIP API): availability SLAs ---
+    { id: 'CR-070', type: 'misconfiguration', title: 'No volumetric DDoS protection on customer-facing edges (portal, TIP API, website)', severity: 'high', exploitability: 'poc', asset_ids: ['AWS-ALB-PORTAL', 'AWS-APIGW-TIP', 'WEB-CDN'], control_ids: ['CTL-17', 'CTL-15'], mitre_techniques: ['T1498'], first_seen: '2026-06-20', source: 'Architecture review', owner: 'Security Engineering', dimensions: [A], remediation: { action: 'Enrol all edges in managed DDoS protection with always-on detection and a response runbook', effort: 'medium', cost_usd: 90000, eta_days: 30 } },
+    { id: 'CR-071', type: 'exposure', title: 'Corporate website origin reachable directly, bypassing the CDN', severity: 'medium', exploitability: 'poc', asset_ids: ['WEB-ORIGIN'], control_ids: ['CTL-16', 'CTL-17'], mitre_techniques: ['T1499'], first_seen: '2026-08-11', source: 'Attack-surface scan', owner: 'Marketing Technology', dimensions: [A], remediation: { action: 'Accept origin traffic from the CDN only; add origin authentication header', effort: 'low', cost_usd: 4000, eta_days: 5 } },
+    { id: 'CR-072', type: 'misconfiguration', title: 'No per-client rate limiting on the TIP public API', severity: 'high', exploitability: 'poc', asset_ids: ['AWS-APIGW-TIP'], control_ids: ['CTL-17'], mitre_techniques: ['T1499'], first_seen: '2026-07-02', source: 'API gateway review', owner: 'Platform Engineering', dimensions: [A], remediation: { action: 'Usage plans with per-key throttling and burst limits', effort: 'low', cost_usd: 9000, eta_days: 10 } },
+    { id: 'CR-073', type: 'ioa', title: 'Recurring request-rate anomalies against the customer portal login (3 episodes in September)', severity: 'medium', exploitability: 'known_exploited', asset_ids: ['AWS-ALB-PORTAL', 'SEC-WAF'], control_ids: ['CTL-12', 'CTL-17'], mitre_techniques: ['T1499'], first_seen: '2026-09-06', source: 'SOC alert (edge)', owner: 'Security Operations', dimensions: [A], remediation: { action: 'Tune WAF rate rules, enable bot management, confirm no account-guessing component', effort: 'low', cost_usd: 6000, eta_days: 3 } },
+    { id: 'CR-074', type: 'exposure', title: 'Staff credentials present in third-party breach data (12 accounts, 2 in finance)', severity: 'high', exploitability: 'known_exploited', asset_ids: ['SAAS-IDP'], control_ids: ['CTL-06', 'CTL-26'], mitre_techniques: ['T1078'], first_seen: '2026-09-16', source: 'Threat-intel monitoring', owner: 'Security Operations', dimensions: [C], component_ids: ['PPL-FIN', 'PPL-EXEC', 'PPL-SALES'], remediation: { action: 'Force password resets, confirm MFA enrolment, watch sign-ins for 30 days', effort: 'low', cost_usd: 3000, eta_days: 2 } },
   ];
   // Endpoint-population story risks get their assets from the inventory.
   const ep = assets.filter((a) => a.class === 'endpoint');
@@ -759,6 +768,408 @@ const CONNECTORS = [
 ];
 
 // ---------------------------------------------------------------------------
+// BIA hierarchy (7 levels, many-to-many)
+//
+//   L1 SLOs                 business objectives with a financial basis (ARR, retention, margin ...)
+//   L2 Policies             what must happen, and when, for each SLO to hold
+//   L3 Business processes   the procedures that implement the policies
+//   L4 BP components        the people, procedures, data and systems a process is made of
+//   L5 Cyber-risk scenarios what can go wrong with a component (denial of service, ransomware ...)
+//   L6 Hunts & findings     the posture findings and IOC/IOA hunts each scenario is derived from
+//   L7 Evidence             the raw records behind every finding and hunt
+//
+// Every link is many-to-many: the CISO is a component of six processes, and
+// "Denial of service" applies to the website, the portal, the TIP API and more.
+// Nothing below carries a computed score: web/assets/js/business/bia.js derives
+// every score and dollar figure from these links and the cyber-risk register.
+//
+// Uses its OWN rng stream, so adding BIA content never shifts the values of the
+// sections above.
+// ---------------------------------------------------------------------------
+
+const T2 = rngTools(makeRng(0xac3e0002));
+
+const SLOS = [
+  // id, name, metric unit, direction, target, warning, plan forecast, decimals, basis usd, basis label, metric per usd, owner, kpi ids, description
+  ['SLO-ARR', 'Annual recurring revenue (FY27 exit)', '$M', 1, 150, 152, 152.5, 1, 150e6, 'FY27 ARR target', 1e-6, 'CEO', ['MDR-NRR', 'TIP-ARR', 'CRM-PIPE', 'CRM-WIN'], 'Board-approved growth plan: grow ARR 25% to $150M.'],
+  ['SLO-NEWARR', 'Net new ARR (FY27)', '$M', 1, 30, 31, 31.8, 1, 30e6, 'FY27 new-business bookings', 1e-6, 'CRO (Revenue)', ['CRM-PIPE', 'CRM-WIN', 'CI-DF'], 'New logos and expansions closed in the fiscal year.'],
+  ['SLO-GRR', 'Gross revenue retention', '%', 1, 95, 95.5, 96.1, 1, 96e6, 'Renewal book (FY27)', 100 / 96e6, 'CRO (Revenue)', ['CRM-CHURN', 'MDR-CSAT', 'POR-AVAIL'], 'Share of last year’s recurring revenue kept, before expansion.'],
+  ['SLO-NRR', 'Net revenue retention', '%', 1, 110, 111, 112.4, 1, 96e6, 'Renewal book incl. expansion', 100 / 96e6, 'CRO (Revenue)', ['MDR-NRR', 'PS-BACKLOG'], 'Retention including upsell; drives the MDR expansion plan.'],
+  ['SLO-MARGIN', 'Operating margin', '%', 1, 18, 18.5, 18.9, 1, 120e6, 'FY27 revenue', 100 / 120e6, 'CFO', ['PS-UTIL', 'FIN-DSO', 'FIN-CLOSE'], 'Operating income over revenue; every unplanned dollar of incident cost lands here.'],
+  ['SLO-SLA', 'Customer SLA attainment', '%', 1, 99.5, 99.7, 99.8, 2, 2.05e6, 'Contractual penalties and credits', 7.8 / 2.05e6, 'COO', ['MDR-MTTD', 'MDR-MTTR', 'MDR-ESC', 'POR-AVAIL', 'TIP-AVAIL', 'TIP-FRESH', 'PS-RESP'], 'Customer-months in which every contracted SLA was met.'],
+  ['SLO-NPS', 'Net promoter score', 'pts', 1, 45, 47, 49, 0, 18e6, 'Advocacy-driven expansion pipeline', 25 / 18e6, 'COO', ['MDR-CSAT'], 'Relationship NPS from the quarterly customer survey.'],
+  ['SLO-TRUST', 'Major audit non-conformities (ISO 27001, SOC 2, PCI DSS)', 'count', -1, 1, 0.5, 0, 1, 42e6, 'Revenue from customers that contractually require certification', 1 / 3e6, 'CISO', ['FIN-PCI', 'IT-PATCH', 'IT-EDR', 'IAM-MFA', 'IAM-PRIV'], 'Certifications are a procurement prerequisite for 40% of ACME’s customers.'],
+];
+
+const BIA_POLICIES = [
+  // id, title, statement (what must happen, and when), cadence / deadline, owner, [slo, weight] — weight = share of the
+  // SLO's financial basis lost if the policy fails (e.g. a customer-data breach costs 2% of ARR through churn and lost deals)
+  ['POL-B01', 'Meet MDR contractual SLAs every month', 'Detect P1 threats within 15 min and respond within 60 min for every MDR customer, every month.', 'Monthly, continuous', 'COO', [['SLO-SLA', 0.052], ['SLO-GRR', 0.0053], ['SLO-NRR', 0.0084], ['SLO-NPS', 0.0528], ['SLO-ARR', 0.0102]]],
+  ['POL-B02', 'Keep customer-facing platforms available', 'Portal, TIP API and website available at least 99.95% each month; degradations communicated within 30 min.', 'Monthly', 'CTO', [['SLO-SLA', 0.039], ['SLO-GRR', 0.0027], ['SLO-NPS', 0.036], ['SLO-ARR', 0.0068], ['SLO-NEWARR', 0.0152]]],
+  ['POL-B03', 'Renew at least 95% of contracts at term', 'Hold a QBR at least 60 days before every renewal; resolve open security and service issues before the renewal date.', 'Per renewal, quarterly review', 'CRO (Revenue)', [['SLO-GRR', 0.0159], ['SLO-NRR', 0.0308], ['SLO-ARR', 0.0272]]],
+  ['POL-B04', 'Generate 3x pipeline coverage every quarter', 'Keep pipeline at three times the quarterly bookings target; website and CRM must be available for lead capture.', 'Quarterly', 'CRO (Revenue)', [['SLO-NEWARR', 0.133], ['SLO-ARR', 0.0204]]],
+  ['POL-B05', 'Protect customer data', 'Zero reportable customer-data breaches; any suspected breach assessed within 24 h and notified within 72 h (GDPR Art. 33).', 'Continuous', 'General Counsel', [['SLO-GRR', 0.0085], ['SLO-NRR', 0.014], ['SLO-ARR', 0.0204], ['SLO-TRUST', 0.075], ['SLO-NPS', 0.0432], ['SLO-NEWARR', 0.0304]]],
+  ['POL-B06', 'Ship signed, attested releases every week', 'Every production release is signed and carries an SBOM; EU sovereign MDR region generally available by end of Q2 FY27.', 'Weekly; Q2 milestone', 'CTO', [['SLO-NEWARR', 0.0684], ['SLO-ARR', 0.0102], ['SLO-TRUST', 0.03]]],
+  ['POL-B07', 'Bill accurately and collect within 45 days', 'Invoices issued within 2 days of period end at 99.5% accuracy; DSO at or below 45 days.', 'Monthly', 'CFO', [['SLO-MARGIN', 0.006]]],
+  ['POL-B08', 'Close the books in 6 days; keep payments PCI compliant', 'Month-end close within 6 business days; card payments only through PCI DSS 4.0 compliant flows.', 'Monthly; annual QSA audit', 'CFO', [['SLO-MARGIN', 0.003], ['SLO-TRUST', 0.05]]],
+  ['POL-B09', 'Least-privilege access, leavers removed within 24 h', 'Access granted by role, privileged access reviewed quarterly, leaver access removed within 24 h.', 'Daily; quarterly review', 'CISO', [['SLO-TRUST', 0.0625], ['SLO-MARGIN', 0.0012]]],
+  ['POL-B10', 'Engage an IR responder within 2 h', 'For every retainer customer, a qualified responder engages within 2 h of the call, 24x7.', 'Per engagement', 'COO', [['SLO-SLA', 0.0156], ['SLO-NRR', 0.0084], ['SLO-NPS', 0.0192]]],
+  ['POL-B11', 'Publish validated intelligence within 30 min', 'Curated intelligence reaches TIP customers within 30 min of validation, with integrity checks on every feed.', 'Continuous', 'CTO', [['SLO-SLA', 0.0104], ['SLO-NRR', 0.0084], ['SLO-ARR', 0.0068]]],
+  ['POL-B12', 'Keep utilisation at 75% and costs within plan', 'Billable utilisation at least 75%; unplanned operating cost (including incidents) within 1% of plan.', 'Monthly', 'CFO', [['SLO-MARGIN', 0.0072]]],
+  ['POL-B13', 'Recover every tier-1 service within its RTO', 'Tier-1 services restored within RTO from immutable backups; recovery tested every quarter.', 'Quarterly test; on incident', 'COO', [['SLO-SLA', 0.013], ['SLO-MARGIN', 0.0024], ['SLO-GRR', 0.0021]]],
+];
+
+// L4 components. asset_ids and/or asset_query link a component to the estate, so
+// findings on those assets connect to it automatically.
+const COMPONENTS = [
+  // --- people ---
+  { id: 'PPL-CISO', name: 'CISO & security leadership', category: 'people', owner: 'CISO', headcount: 4, asset_ids: ['SEC-PAM', 'SEC-SIEM'] },
+  { id: 'PPL-SOC', name: 'SOC analysts (tiers 1–3)', category: 'people', owner: 'COO', headcount: 92, asset_query: { class: 'endpoint', department: 'SOC Operations' } },
+  { id: 'PPL-SRE', name: 'SRE on-call engineers', category: 'people', owner: 'CTO', headcount: 14, asset_ids: ['CICD-ARGO', 'AWS-ACCT-SHARED'] },
+  { id: 'PPL-ENG', name: 'Software engineers', category: 'people', owner: 'CTO', headcount: 116, asset_query: { class: 'endpoint', department: 'Engineering' } },
+  { id: 'PPL-RES', name: 'Threat researchers', category: 'people', owner: 'CTO', headcount: 24, asset_query: { class: 'endpoint', department: 'Threat Research' } },
+  { id: 'PPL-IR', name: 'IR consultants', category: 'people', owner: 'COO', headcount: 64, asset_query: { class: 'endpoint', department: 'Professional Services' } },
+  { id: 'PPL-SALES', name: 'Account executives & customer success', category: 'people', owner: 'CRO (Revenue)', headcount: 90, asset_query: { class: 'endpoint', department: 'Sales' } },
+  { id: 'PPL-FIN', name: 'Finance & billing team', category: 'people', owner: 'CFO', headcount: 24, asset_query: { class: 'endpoint', department: 'Finance' } },
+  { id: 'PPL-HR', name: 'HR operations', category: 'people', owner: 'COO', headcount: 13, asset_query: { class: 'endpoint', department: 'People & HR' } },
+  { id: 'PPL-IDADM', name: 'Identity & IT administrators', category: 'people', owner: 'CISO', headcount: 37, asset_query: { class: 'endpoint', department: 'IT & Security' } },
+  { id: 'PPL-EXEC', name: 'Executives & board', category: 'people', owner: 'CEO', headcount: 40, asset_query: { class: 'endpoint', department: 'Executive & G&A' } },
+  // --- procedures ---
+  { id: 'PRC-ESC', name: 'P1 escalation runbook', category: 'process', owner: 'COO', asset_ids: ['SEC-SOAR', 'SAAS-CHAT'] },
+  { id: 'PRC-CAB', name: 'Change approval (CAB)', category: 'process', owner: 'CTO', asset_ids: ['SAAS-ITSM', 'SAAS-TRACK'] },
+  { id: 'PRC-SIGN', name: 'Release signing & attestation', category: 'process', owner: 'CTO', asset_ids: ['CICD-SIGN', 'SRV-BOS-PKI01'] },
+  { id: 'PRC-ACR', name: 'Quarterly access review', category: 'process', owner: 'CISO', asset_ids: ['SEC-PAM', 'SAAS-ITSM'] },
+  { id: 'PRC-RESTORE', name: 'Backup restore testing', category: 'process', owner: 'COO', asset_ids: ['SEC-BACKUP'] },
+  { id: 'PRC-FEEDVAL', name: 'Feed validation & publishing workflow', category: 'process', owner: 'CTO', asset_ids: ['AI-TIP-ENRICH', 'GCP-GCS-TIP-FEEDS'] },
+  { id: 'PRC-RECON', name: 'Payment reconciliation', category: 'process', owner: 'CFO', asset_ids: ['SAAS-PAY'] },
+  { id: 'PRC-QBR', name: 'Quarterly business review', category: 'process', owner: 'CRO (Revenue)', asset_ids: ['SAAS-CRM', 'SAAS-BI'] },
+  { id: 'PRC-DEPROV', name: 'Leaver deprovisioning', category: 'process', owner: 'CISO', asset_ids: ['SAAS-HRIS', 'SRV-BOS-HR01'] },
+  // --- data ---
+  { id: 'DATA-TEL', name: 'Customer security telemetry', category: 'data', owner: 'COO', classification: 'customer_confidential', asset_ids: ['AWS-S3-MDR-TEL', 'AWS-MSK-MDR', 'AWS-S3-LOGS'] },
+  { id: 'DATA-PII', name: 'Customer account PII', category: 'data', owner: 'General Counsel', classification: 'customer_pii', asset_ids: ['AWS-RDS-PORTAL', 'AWS-S3-PORTAL-EXP'] },
+  { id: 'DATA-INTEL', name: 'Threat-intel corpus & feeds', category: 'data', owner: 'CTO', classification: 'customer_confidential', asset_ids: ['GCP-BQ-TIP', 'GCP-GCS-TIP-FEEDS', 'AWS-RDS-TIP'] },
+  { id: 'DATA-CODE', name: 'Source code & build artifacts', category: 'data', owner: 'CTO', classification: 'source_code', asset_ids: ['SAAS-CODE', 'CICD-ARTIFACTS', 'AWS-ECR'] },
+  { id: 'DATA-CARD', name: 'Cardholder data', category: 'data', owner: 'CFO', classification: 'cardholder_financial', asset_ids: ['SAAS-PAY', 'AZ-APP-BILLING', 'AZ-SQL-FIN'] },
+  { id: 'DATA-HR', name: 'Employee records', category: 'data', owner: 'COO', classification: 'employee_pii', asset_ids: ['SAAS-HRIS', 'SRV-BOS-HR01', 'AZ-SYN-BI'] },
+  { id: 'DATA-CONTRACT', name: 'Contracts & pricing', category: 'data', owner: 'General Counsel', classification: 'internal_confidential', asset_ids: ['SAAS-CRM', 'SAAS-COLLAB', 'AI-ASSIST'] },
+  { id: 'DATA-LEDGER', name: 'Financial ledger', category: 'data', owner: 'CFO', classification: 'cardholder_financial', asset_ids: ['SRV-DUB-SQL01', 'AZ-SQL-FIN', 'SRV-BOS-LEGACY01'] },
+  { id: 'DATA-KEYS', name: 'Signing keys & secrets', category: 'data', owner: 'CISO', classification: 'secret', asset_ids: ['CICD-VAULT', 'CICD-SIGN', 'SRV-BOS-PKI01', 'AZ-KV-CORP'] },
+  // --- systems / services ---
+  { id: 'SYS-WEB', name: 'Company website (www)', category: 'system', owner: 'CRO (Revenue)', asset_ids: ['WEB-CDN', 'WEB-ORIGIN'] },
+  { id: 'SYS-PORTAL', name: 'Customer Portal & API', category: 'system', owner: 'CTO', asset_ids: ['AWS-ALB-PORTAL', 'AWS-ECS-PORTAL-API', 'AZ-APPGW-PORTAL-EU', 'SEC-WAF', 'AWS-ACCT-PORTAL'] },
+  { id: 'SYS-TIP', name: 'TIP SaaS platform & API', category: 'system', owner: 'CTO', asset_ids: ['AWS-APIGW-TIP', 'AWS-EKS-TIP', 'GCP-GKE-TIP-ML', 'AWS-ACCT-TIP', 'GCP-PRJ-TIP'] },
+  { id: 'SYS-MDR', name: 'MDR ingestion & analytics platform', category: 'system', owner: 'COO', asset_ids: ['AWS-EKS-MDR', 'AWS-MSK-MDR', 'AWS-EKS-MDR-EU', 'AWS-ACCT-MDR'] },
+  { id: 'SYS-SOAR', name: 'SOAR & SOC jump hosts', category: 'system', owner: 'COO', asset_ids: ['SRV-BOS-SOAR01', 'SRV-BOS-JMP01', 'SRV-DUB-JMP01', 'SRV-SIN-JMP01', 'SEC-SOAR'] },
+  { id: 'SYS-SIEM', name: 'SIEM, EDR & security tooling', category: 'system', owner: 'CISO', asset_ids: ['SEC-SIEM', 'SEC-EDR', 'SEC-VULN', 'SEC-CASB', 'SEC-DLP', 'SEC-IRTRIAGE', 'SEC-MAILGW'] },
+  { id: 'SYS-CICD', name: 'CI/CD pipeline', category: 'system', owner: 'CTO', asset_ids: ['CICD-RUNNER-01', 'CICD-RUNNER-02', 'CICD-RUNNER-03', 'CICD-RUNNER-04', 'CICD-RUNNER-05', 'CICD-RUNNER-06', 'CICD-ARGO', 'SRV-TLV-BLD01', 'SRV-TLV-BLD02', 'SRV-TLV-BLD03', 'SRV-TLV-BLD04', 'AI-CODE'] },
+  { id: 'SYS-IDP', name: 'Identity provider & directory', category: 'system', owner: 'CISO', asset_ids: ['SAAS-IDP', 'SRV-BOS-DC01', 'SRV-BOS-DC02', 'SRV-DUB-DC01', 'SRV-SIN-DC01', 'SRV-TLV-DC01', 'SEC-PAM'] },
+  { id: 'SYS-CRM', name: 'CRM & sales tooling', category: 'system', owner: 'CRO (Revenue)', asset_ids: ['SAAS-CRM', 'AI-SALES'] },
+  { id: 'SYS-ERP', name: 'Finance & ERP systems', category: 'system', owner: 'CFO', asset_ids: ['SRV-DUB-SQL01', 'SRV-BOS-LEGACY01', 'AZ-SQL-FIN'] },
+  { id: 'SYS-PAY', name: 'Payment page & processor', category: 'system', owner: 'CFO', asset_ids: ['AZ-APP-BILLING', 'SAAS-PAY'] },
+  { id: 'SYS-BI', name: 'Data warehouse & BI', category: 'system', owner: 'CFO', asset_ids: ['AZ-SYN-BI', 'AZ-STG-BI', 'SAAS-BI', 'AZ-SUB-BI'] },
+  { id: 'SYS-BACKUP', name: 'Backup & recovery platform', category: 'system', owner: 'COO', asset_ids: ['SEC-BACKUP', 'SRV-BOS-BKP01'] },
+  { id: 'SYS-VPN', name: 'Remote-access VPN', category: 'system', owner: 'COO', asset_ids: ['NET-BOS-VPN01', 'NET-DUB-VPN01'] },
+  { id: 'SYS-COLLAB', name: 'Email & collaboration', category: 'system', owner: 'COO', asset_ids: ['SAAS-COLLAB', 'SAAS-CHAT', 'SAAS-TRACK', 'SAAS-ITSM'] },
+  { id: 'SYS-AI', name: 'AI models (alert triage, assistant, enrichment)', category: 'system', owner: 'CTO', asset_ids: ['AI-TRIAGE', 'AI-ASSIST', 'AI-TIP-ENRICH'] },
+  { id: 'SYS-NET', name: 'Site networks & firewalls', category: 'system', owner: 'COO', asset_query: { class: 'network_device' } },
+  { id: 'SYS-SRV', name: 'Corporate servers (file, print, utility)', category: 'system', owner: 'COO', asset_query: { class: 'server' } },
+  { id: 'SYS-CLOUD', name: 'Cloud landing zones & shared services', category: 'system', owner: 'CTO', asset_ids: ['AWS-ACCT-SHARED', 'AWS-S3-LOGS', 'AWS-ECR', 'AZ-SUB-CORP', 'AZ-KV-CORP', 'AZ-AKS-PS'] },
+  { id: 'SYS-ENDPOINT', name: 'Workforce endpoints', category: 'system', owner: 'COO', asset_query: { class: 'endpoint' } },
+  { id: 'SYS-FAC', name: 'Facilities (badge, CCTV, meeting rooms, printers)', category: 'system', owner: 'COO', asset_query: { class: 'peripheral_iot' } },
+];
+
+const PROCESSES = [
+  // id, name, owner, services, policies, frequency, rto hours, components [[id, essential?]]
+  ['PR-TRIAGE', '24x7 alert triage & escalation', 'COO', ['SVC-MDR'], ['POL-B01', 'POL-B13'], 'Continuous', 1, [['PPL-SOC', 1], ['PRC-ESC', 1], ['DATA-TEL', 1], ['SYS-MDR', 1], ['SYS-SOAR', 1], ['SYS-IDP', 1], ['SYS-SIEM', 0], ['SYS-AI', 0], ['SYS-VPN', 0], ['PPL-CISO', 0]]],
+  ['PR-ONBOARD', 'Customer onboarding & telemetry integration', 'COO', ['SVC-MDR', 'SVC-PORTAL'], ['POL-B01', 'POL-B03'], 'Per customer', 24, [['PPL-SRE', 1], ['SYS-PORTAL', 1], ['SYS-MDR', 1], ['DATA-PII', 1], ['DATA-TEL', 1], ['PPL-SALES', 0], ['PRC-CAB', 0]]],
+  ['PR-INTEL', 'Threat-intel curation & publishing', 'CTO', ['SVC-TIP'], ['POL-B11', 'POL-B02'], 'Continuous', 4, [['PPL-RES', 1], ['PRC-FEEDVAL', 1], ['DATA-INTEL', 1], ['SYS-TIP', 1], ['SYS-AI', 0], ['SYS-CICD', 0]]],
+  ['PR-PORTAL', 'Customer self-service (cases, reports, API)', 'CTO', ['SVC-PORTAL'], ['POL-B02', 'POL-B05'], 'Continuous', 2, [['SYS-PORTAL', 1], ['DATA-PII', 1], ['SYS-IDP', 1], ['SYS-WEB', 0], ['PPL-SRE', 0]]],
+  ['PR-RENEW', 'Contract renewal & QBR', 'CRO (Revenue)', ['SVC-CRM'], ['POL-B03'], 'Quarterly', 72, [['PPL-SALES', 1], ['PRC-QBR', 1], ['SYS-CRM', 1], ['DATA-CONTRACT', 1], ['PPL-CISO', 0], ['SYS-COLLAB', 0], ['SYS-PORTAL', 0]]],
+  ['PR-LEADGEN', 'Lead generation & pipeline management', 'CRO (Revenue)', ['SVC-CRM'], ['POL-B04'], 'Continuous', 24, [['SYS-WEB', 1], ['SYS-CRM', 1], ['PPL-SALES', 1], ['DATA-CONTRACT', 0], ['SYS-COLLAB', 0]]],
+  ['PR-RELEASE', 'Build, sign & release', 'CTO', ['SVC-CICD'], ['POL-B06', 'POL-B02'], 'Weekly', 8, [['PPL-ENG', 1], ['PRC-SIGN', 1], ['SYS-CICD', 1], ['DATA-CODE', 1], ['DATA-KEYS', 1], ['PRC-CAB', 0], ['SYS-IDP', 0], ['PPL-CISO', 0], ['SYS-CLOUD', 0]]],
+  ['PR-IRENG', 'Incident-response engagement', 'COO', ['SVC-PS'], ['POL-B10', 'POL-B12'], 'Per engagement', 2, [['PPL-IR', 1], ['SYS-ENDPOINT', 1], ['SYS-VPN', 1], ['PPL-CISO', 0], ['SYS-COLLAB', 0], ['DATA-CONTRACT', 0]]],
+  ['PR-BILL', 'Invoicing & collections', 'CFO', ['SVC-FIN'], ['POL-B07'], 'Monthly', 24, [['PPL-FIN', 1], ['SYS-ERP', 1], ['DATA-LEDGER', 1], ['SYS-CRM', 0], ['PRC-RECON', 0], ['SYS-COLLAB', 0]]],
+  ['PR-PAY', 'Card payment processing', 'CFO', ['SVC-FIN'], ['POL-B07', 'POL-B08'], 'Continuous', 12, [['SYS-PAY', 1], ['DATA-CARD', 1], ['PRC-RECON', 1], ['PPL-FIN', 0]]],
+  ['PR-CLOSE', 'Month-end close & board reporting', 'CFO', ['SVC-FIN', 'SVC-BI'], ['POL-B08', 'POL-B12'], 'Monthly', 48, [['PPL-FIN', 1], ['SYS-ERP', 1], ['SYS-BI', 1], ['DATA-LEDGER', 1], ['PPL-EXEC', 0], ['DATA-HR', 0]]],
+  ['PR-JML', 'Joiner / mover / leaver', 'CISO', ['SVC-IAM'], ['POL-B09', 'POL-B05'], 'Daily', 24, [['PPL-HR', 1], ['PPL-IDADM', 1], ['PRC-DEPROV', 1], ['SYS-IDP', 1], ['DATA-HR', 1], ['PRC-ACR', 0], ['PPL-CISO', 0]]],
+  ['PR-DR', 'Backup & disaster recovery', 'COO', ['SVC-IT'], ['POL-B13'], 'Quarterly test', 2, [['PPL-IDADM', 1], ['PRC-RESTORE', 1], ['SYS-BACKUP', 1], ['SYS-SRV', 0], ['SYS-NET', 0], ['SYS-CLOUD', 0], ['PPL-CISO', 0], ['SYS-FAC', 0]]],
+  ['PR-PLAN', 'Resource planning & utilisation', 'CFO', ['SVC-PS', 'SVC-BI'], ['POL-B12'], 'Weekly', 72, [['SYS-BI', 1], ['SYS-COLLAB', 1], ['PPL-EXEC', 0], ['SYS-CRM', 0], ['SYS-ENDPOINT', 0]]],
+];
+
+const SCENARIOS = [
+  // id, name, description, dimensions, annual base rate (threat prior per exposed component), impact factor, ATT&CK tactics, components the scenario applies to regardless of findings
+  ['RS-DOS', 'Denial of service', 'Volumetric or application-layer floods that make customer-facing services unavailable.', [A], 0.15, 0.8, ['Impact'], ['SYS-WEB', 'SYS-PORTAL', 'SYS-TIP', 'SYS-VPN', 'SYS-MDR']],
+  ['RS-RANSOM', 'Ransomware & destructive attack', 'Encryption or destruction of systems and backups, halting operations until recovery.', [A, I], 0.03, 1, ['Impact', 'Lateral Movement'], ['SYS-ERP', 'SYS-SRV', 'SYS-BACKUP', 'SYS-ENDPOINT', 'SYS-IDP']],
+  ['RS-ATO', 'Account takeover', 'Use of stolen or weak credentials to act as a legitimate user or administrator.', [C, I], 0.04, 0.6, ['Initial Access', 'Credential Access'], ['SYS-IDP', 'SYS-VPN', 'SYS-COLLAB']],
+  ['RS-EXFIL', 'Data breach & exposure', 'Unauthorised access to, or publication of, customer or company data.', [C], 0.03, 0.8, ['Exfiltration', 'Collection'], ['DATA-PII', 'DATA-TEL', 'DATA-CONTRACT', 'DATA-INTEL']],
+  ['RS-SUPPLY', 'Software supply-chain compromise', 'Tampering with ACME’s build, dependencies or signing so customers receive altered software.', [I], 0.02, 0.9, ['Initial Access', 'Persistence'], ['SYS-CICD', 'DATA-CODE', 'PRC-SIGN']],
+  ['RS-INSIDER', 'Insider misuse & excessive access', 'Employees, leavers or service accounts using access beyond their role.', [C, I], 0.02, 0.5, ['Collection'], ['DATA-HR', 'PRC-ACR', 'PRC-DEPROV']],
+  ['RS-FRAUD', 'Payment fraud & skimming', 'Manipulation of the payment page or billing flows to divert payments or capture card data.', [C, K], 0.02, 0.7, ['Collection', 'Impact'], ['SYS-PAY', 'DATA-CARD']],
+  ['RS-AI', 'AI manipulation & leakage', 'Prompt injection, poisoned inputs or over-broad retrieval causing wrong actions or disclosure.', [I, C], 0.03, 0.4, ['ML Attack Staging'], ['SYS-AI']],
+  ['RS-OUTAGE', 'Resilience failure', 'A cloud zone, region or platform failure without adequate redundancy (cyber-adjacent).', [A], 0.06, 0.6, [], ['SYS-MDR', 'SYS-PORTAL', 'SYS-TIP']],
+  ['RS-THIRD', 'Third-party compromise', 'A supplier, partner or dependency is compromised and used against ACME.', [C, I], 0.02, 0.5, ['Initial Access'], ['DATA-INTEL', 'SYS-PAY']],
+  ['RS-PHISH', 'Phishing & social engineering', 'Staff deceived into disclosing credentials, approving consent or paying fraudulent invoices.', [C], 0.06, 0.4, ['Initial Access'], ['PPL-FIN', 'PPL-EXEC', 'PPL-SALES', 'PPL-HR']],
+];
+
+// Story findings: which scenarios each one feeds, plus people/procedure components
+// that are not reachable through the asset inventory.
+const STORY_SCENARIOS = {
+  'CR-001': ['RS-EXFIL', 'RS-DOS'], 'CR-002': ['RS-DOS', 'RS-EXFIL'], 'CR-003': ['RS-EXFIL'], 'CR-004': ['RS-EXFIL', 'RS-RANSOM'], 'CR-005': ['RS-EXFIL'],
+  'CR-010': ['RS-OUTAGE', 'RS-DOS'], 'CR-011': ['RS-RANSOM', 'RS-ATO'], 'CR-012': ['RS-RANSOM'], 'CR-013': ['RS-ATO', 'RS-EXFIL', 'RS-PHISH'], 'CR-014': ['RS-RANSOM', 'RS-EXFIL'],
+  'CR-015': ['RS-RANSOM', 'RS-ATO', 'RS-DOS'], 'CR-016': ['RS-AI'],
+  'CR-020': ['RS-SUPPLY'], 'CR-021': ['RS-SUPPLY'], 'CR-022': ['RS-SUPPLY'], 'CR-023': ['RS-SUPPLY', 'RS-ATO'], 'CR-024': ['RS-SUPPLY', 'RS-THIRD'],
+  'CR-030': ['RS-ATO', 'RS-RANSOM'], 'CR-031': ['RS-INSIDER', 'RS-ATO'], 'CR-032': ['RS-ATO', 'RS-FRAUD'], 'CR-033': ['RS-RANSOM'],
+  'CR-040': ['RS-FRAUD', 'RS-THIRD'], 'CR-041': ['RS-RANSOM'], 'CR-042': ['RS-RANSOM'],
+  'CR-050': ['RS-INSIDER', 'RS-EXFIL'], 'CR-051': ['RS-EXFIL'], 'CR-052': ['RS-AI', 'RS-INSIDER'], 'CR-053': ['RS-AI', 'RS-THIRD'],
+  'CR-060': ['RS-RANSOM'], 'CR-061': ['RS-RANSOM', 'RS-SUPPLY'], 'CR-062': ['RS-INSIDER'], 'CR-063': ['RS-EXFIL'], 'CR-064': ['RS-RANSOM', 'RS-DOS'], 'CR-065': ['RS-EXFIL', 'RS-INSIDER'], 'CR-066': ['RS-THIRD', 'RS-SUPPLY'],
+  'CR-070': ['RS-DOS'], 'CR-071': ['RS-DOS'], 'CR-072': ['RS-DOS'], 'CR-073': ['RS-DOS'], 'CR-074': ['RS-ATO', 'RS-PHISH'],
+};
+const STORY_COMPONENTS = {
+  'CR-011': ['PPL-SOC'], 'CR-013': ['PPL-SALES', 'PPL-EXEC'], 'CR-016': ['PPL-SOC'], 'CR-020': ['PPL-ENG', 'PRC-SIGN'], 'CR-022': ['PRC-SIGN', 'PRC-CAB'],
+  'CR-030': ['PPL-IDADM', 'PRC-ACR'], 'CR-031': ['PPL-HR', 'PRC-DEPROV'], 'CR-032': ['PPL-FIN'], 'CR-041': ['PRC-RESTORE'], 'CR-050': ['PRC-ACR'],
+  'CR-052': ['PPL-EXEC', 'DATA-HR', 'DATA-CONTRACT'], 'CR-066': ['PRC-FEEDVAL'], 'CR-040': ['PRC-RECON'], 'CR-012': ['PPL-SOC'], 'CR-014': ['PPL-SOC'],
+};
+
+/** Scenario mapping for templated register entries, by title. */
+function templatedScenarios(r) {
+  const t = r.title;
+  const rules = [
+    [/Critical OS updates/, ['RS-RANSOM', 'RS-EXFIL']],
+    [/Browser with known-exploited/, ['RS-ATO', 'RS-RANSOM']],
+    [/SMB signing/, ['RS-ATO']],
+    [/LAPS/, ['RS-RANSOM', 'RS-ATO']],
+    [/Audit policy/, ['RS-RANSOM', 'RS-INSIDER']],
+    [/TLS cipher/, ['RS-EXFIL']],
+    [/management agent/, ['RS-RANSOM']],
+    [/Host firewall/, ['RS-RANSOM']],
+    [/OpenSSH/, ['RS-RANSOM', 'RS-EXFIL']],
+    [/Access logging/, ['RS-EXFIL']],
+    [/key rotation|Unencrypted snapshot/, ['RS-EXFIL']],
+    [/IAM role/, ['RS-ATO', 'RS-EXFIL']],
+    [/Deletion protection/, ['RS-RANSOM', 'RS-OUTAGE']],
+    [/Management port/, ['RS-ATO', 'RS-RANSOM']],
+    [/Kubernetes audit/, ['RS-INSIDER']],
+    [/run as root/, ['RS-SUPPLY']],
+    [/ITSM admin/, ['RS-INSIDER']],
+    [/integration tokens/, ['RS-THIRD', 'RS-EXFIL']],
+    [/Printers/, ['RS-EXFIL']],
+    [/link sharing|External guests|issue board|published to web/, ['RS-EXFIL']],
+  ];
+  for (const [re, s] of rules) if (re.test(t)) return s;
+  if (r.status === 'mitigated') return r.type === 'exposure' ? ['RS-EXFIL'] : ['RS-RANSOM'];
+  throw new Error(`no scenario mapping for ${r.id}: ${t}`);
+}
+
+const HUNTS = [
+  // id, name, hypothesis, detection logic (summary), data sources, scenarios, findings it produced, cadence, status
+  ['HUNT-01', 'Request-rate anomalies at internet edges', 'Edges are being flooded or probed at rates that threaten availability.', 'Requests per source network above 6x the 14-day baseline for 5+ minutes, per edge.', ['CDN logs', 'ALB access logs', 'WAF logs'], ['RS-DOS'], ['CR-073'], 'daily', 'active'],
+  ['HUNT-02', 'Edges without volumetric protection', 'Some internet-facing endpoints are not covered by DDoS protection or rate limits.', 'Attack-surface inventory joined with DDoS-protection and API usage-plan coverage.', ['Attack-surface scan', 'AWS Security Hub'], ['RS-DOS'], ['CR-070', 'CR-071', 'CR-072', 'CR-002'], 'weekly', 'active'],
+  ['HUNT-03', 'Sign-ins from impossible travel or anonymising networks', 'A workforce account is being used by someone other than its owner.', 'Consecutive sign-ins whose distance/time exceeds 900 km/h, or from anonymiser address ranges.', ['IdP sign-in logs'], ['RS-ATO', 'RS-FRAUD'], ['CR-032'], 'hourly', 'active'],
+  ['HUNT-04', 'Privileged hosts contacting threat-intel-listed destinations', 'A privileged or SOC host is communicating with known-bad infrastructure.', 'Outbound connections from tier-0/SOC hosts matched against the ACME TIP blocklist.', ['Firewall logs', 'EDR network events', 'ACME TIP'], ['RS-RANSOM', 'RS-EXFIL'], ['CR-014'], 'hourly', 'active'],
+  ['HUNT-05', 'Consent grants to unverified applications', 'Users are approving third-party apps that can read company mail or files.', 'New OAuth grants with mail/file scopes to publishers outside the verified list.', ['IdP audit log', 'CASB'], ['RS-ATO', 'RS-PHISH'], ['CR-013'], 'daily', 'active'],
+  ['HUNT-06', 'Unapproved remote-access software on endpoints', 'Remote-access tools outside the approved list are installed on endpoints that hold customer data.', 'Installed-software inventory from IRTriage collections and EDR, compared with the approved list.', ['IRTriage collections', 'EDR inventory'], ['RS-EXFIL', 'RS-INSIDER'], ['CR-065'], 'weekly', 'active'],
+  ['HUNT-07', 'Secrets in code, CI logs and extensions', 'Credentials are stored where people outside their owners can read them.', 'Secret-scanning results across repositories, CI logs and browser-extension packages.', ['Secret scanning', 'Code hosting audit log'], ['RS-SUPPLY', 'RS-ATO', 'RS-AI'], ['CR-023', 'CR-053', 'CR-020'], 'daily', 'active'],
+  ['HUNT-08', 'Public exposure of storage and management planes', 'Storage or management interfaces are reachable from the internet.', 'CSPM and attack-surface findings for public buckets, databases and management ports.', ['AWS Security Hub', 'Defender for Cloud', 'Google SCC', 'Attack-surface scan'], ['RS-EXFIL', 'RS-RANSOM', 'RS-DOS'], ['CR-003', 'CR-004', 'CR-051', 'CR-064'], 'daily', 'active'],
+  ['HUNT-09', 'Security-tool tampering and coverage gaps', 'Endpoints or servers are running without working security tooling.', 'Asset inventory (IRTriage) compared with EDR console enrolment and tamper-protection state.', ['IRTriage inventory', 'EDR console'], ['RS-RANSOM'], ['CR-012', 'CR-060'], 'daily', 'active'],
+  ['HUNT-10', 'Unsigned or unattested artifacts reaching production', 'Production is running builds that did not pass signing and attestation.', 'Deployed image digests compared with the signing service’s attestation log.', ['GitOps deployer', 'Code-signing service'], ['RS-SUPPLY'], ['CR-022', 'CR-021'], 'daily', 'active'],
+  ['HUNT-11', 'Mass file changes on file servers', 'Ransomware-like encryption activity is starting on file servers.', 'Files modified per host per 10 min above 20x baseline, with a high share of high-entropy writes.', ['EDR file telemetry', 'File-server audit logs'], ['RS-RANSOM'], [], 'hourly', 'active'],
+  ['HUNT-12', 'Policy-violating content in AI model inputs and outputs', 'Model inputs carry instructions that try to change the model’s behaviour, or outputs disclose restricted data.', 'Classifier over sampled prompts/outputs for instruction-like content and restricted-data labels.', ['AI gateway logs'], ['RS-AI'], ['CR-016', 'CR-052'], 'daily', 'active'],
+];
+
+const MITIGATIONS = [
+  // id, title, description, cost usd, eta days, owner, findings remediated, scenario likelihood factors
+  ['MIT-01', 'Managed DDoS protection for every customer-facing edge', 'Always-on volumetric protection, CDN in front of the website origin, tested response runbook.', 90000, 30, 'CTO', ['CR-070', 'CR-071'], { 'RS-DOS': 0.4 }],
+  ['MIT-02', 'WAF blocking mode and API rate limiting', 'Switch portal WAF to blocking after tuning; per-client throttling on the TIP API; bot management.', 23000, 14, 'CISO', ['CR-002', 'CR-072', 'CR-073'], { 'RS-DOS': 0.8 }],
+  ['MIT-03', 'Emergency patching: portal API framework and VPN hotfix', 'Emergency change to remove the two known-exploited critical vulnerabilities on internet edges.', 50000, 10, 'CTO', ['CR-001', 'CR-015'], {}],
+  ['MIT-04', 'Close public cloud exposure', 'Block public access on buckets and the data lake; private-only database and firewall management planes.', 17000, 5, 'CTO', ['CR-003', 'CR-004', 'CR-051', 'CR-064'], {}],
+  ['MIT-05', 'Phishing-resistant MFA for every account', 'FIDO2 for all staff, conditional access for admin roles, forced resets for breached credentials.', 60000, 30, 'CISO', ['CR-030', 'CR-074', 'CR-032', 'CR-013'], { 'RS-ATO': 0.6, 'RS-PHISH': 0.6 }],
+  ['MIT-06', 'HR-driven deprovisioning and access trimming', 'Automate leaver removal from the HRIS; scope BI service principals; quarterly certification.', 31000, 21, 'CISO', ['CR-031', 'CR-050'], { 'RS-INSIDER': 0.8 }],
+  ['MIT-07', 'CI/CD hardening', 'Short-lived OIDC credentials, isolated runner groups, signature enforcement at deploy, secret rotation.', 66000, 21, 'CTO', ['CR-020', 'CR-021', 'CR-022', 'CR-023'], { 'RS-SUPPLY': 0.7 }],
+  ['MIT-08', 'Multi-AZ MDR ingestion', 'Re-deploy the ingestion cluster and streaming brokers across three availability zones.', 120000, 45, 'COO', ['CR-010'], { 'RS-OUTAGE': 0.5 }],
+  ['MIT-09', 'Immutable backups and quarterly restore tests', 'Object-locked vault copies for finance and identity systems; restore tested every quarter.', 28000, 30, 'COO', ['CR-041'], { 'RS-RANSOM': 0.6 }],
+  ['MIT-10', 'Payment-page script integrity (PCI DSS 6.4.3 / 11.6.1)', 'Script inventory, SRI and CSP, and change detection on the payment page.', 35000, 30, 'CFO', ['CR-040'], { 'RS-FRAUD': 0.5 }],
+  ['MIT-11', 'AI guardrails', 'Input isolation for the triage model, permission-aware retrieval for the assistant, backend-proxied model keys.', 62000, 30, 'CTO', ['CR-016', 'CR-052', 'CR-053'], { 'RS-AI': 0.6 }],
+  ['MIT-12', 'SOC privileged-access clean-up', 'Scoped SOAR service identity, jump-host tamper protection, isolate and re-image the flagged host.', 43000, 21, 'CISO', ['CR-011', 'CR-012', 'CR-014'], {}],
+  ['MIT-13', 'Endpoint hygiene sprint', 'EDR on every APAC endpoint, forced OS and browser updates across all sites.', 40000, 14, 'COO', [], {}], // findings filled in below
+];
+
+function sloHistory(forecast, decimals) {
+  // Monthly plan forecast over the last 12 months, converging on today's forecast.
+  const out = [];
+  let v = forecast * (1 + (T2.rng() - 0.6) * 0.04);
+  for (let i = 0; i < MONTHS.length; i++) {
+    if (i === MONTHS.length - 1) v = forecast;
+    else v = v + (forecast - v) * 0.25 + (T2.rng() - 0.5) * Math.abs(forecast) * 0.006;
+    out.push({ month: MONTHS[i], value: T2.round(v, decimals) });
+  }
+  return out;
+}
+
+function shortHash(obj) {
+  return createHash('sha256').update(JSON.stringify(sortKeysDeep(obj))).digest('hex');
+}
+
+function addDays(iso, days) {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+function minIso(a, b) {
+  return a < b ? a : b;
+}
+
+/** L7: raw records behind each finding — what the source system actually returned. */
+function buildEvidence(findings, hunts) {
+  const ev = [];
+  let seq = 1;
+  const nextId = () => `EV-${String(seq++).padStart(4, '0')}`;
+  const time = (date) => `${date}T${String(T2.int(0, 23)).padStart(2, '0')}:${String(T2.int(0, 59)).padStart(2, '0')}:${String(T2.int(0, 59)).padStart(2, '0')}Z`;
+  const huntOf = new Map();
+  for (const h of hunts) for (const f of h.finding_ids) huntOf.set(f, h.id);
+
+  const push = (finding, kind, source, date, summary, raw, extra = {}) => {
+    ev.push({ id: nextId(), kind, source, collected_at: time(minIso(date, AS_OF)), finding_ids: [finding.id], hunt_id: huntOf.get(finding.id) || null, asset_id: extra.asset_id ?? finding.asset_ids[0], summary, raw, sha256: shortHash(raw) });
+  };
+
+  for (const f of findings) {
+    const a = byId.get(f.asset_ids[0]);
+    const many = f.asset_ids.length > 3;
+    const until = f.status === 'mitigated' ? f.closed_on : AS_OF;
+    if (f.type === 'vulnerability') {
+      push(f, 'scanner_result', f.source, f.first_seen, `Scanner detected ${f.vuln_id} on ${many ? `${f.asset_ids.length} assets` : a.name}`, {
+        scanner: 'ACME vulnerability scanner (mock)', plugin_id: f.vuln_id, cvss: f.cvss ?? null, epss: f.epss ?? null,
+        assets: f.asset_ids.slice(0, 5).map((id) => byId.get(id).name), affected_total: f.asset_ids.length,
+        detection: 'Installed version is below the vendor-fixed version', first_detected: f.first_seen, last_detected: until,
+      });
+      if (f.status !== 'mitigated') push(f, 'scanner_result', f.source, addDays(f.first_seen, T2.int(7, 20)), `Re-scan: ${f.vuln_id} still present`, { scanner: 'ACME vulnerability scanner (mock)', plugin_id: f.vuln_id, rescan: true, still_vulnerable: f.asset_ids.length });
+    } else if (f.type === 'misconfiguration') {
+      push(f, 'config_snapshot', f.source, f.first_seen, `Configuration check failed on ${many ? `${f.asset_ids.length} assets` : a.name}`, {
+        resource: a.name, resource_id: a.id, check: f.title, expected: 'Compliant with ACME baseline', observed: 'Non-compliant',
+        control: f.control_ids[0], evaluated_at: f.first_seen, affected_total: f.asset_ids.length,
+      });
+    } else if (f.type === 'exposure') {
+      push(f, 'exposure_record', f.source, f.first_seen, `Exposure observed on ${a.name}`, {
+        resource: a.name, resource_id: a.id, exposure: f.title, reachable_from: a.internet_facing ? 'internet' : 'broad internal / third party', observed_at: f.first_seen, confirmed: true,
+      });
+    } else {
+      push(f, 'alert', f.source, f.first_seen, `SOC alert raised: ${f.title}`, {
+        alert_id: `ALR-${f.id.slice(3)}-${T2.int(1000, 9999)}`, rule: f.title, severity: f.severity, techniques: f.mitre_techniques,
+        entities: f.asset_ids.slice(0, 3).map((id) => byId.get(id).name), first_seen: f.first_seen, occurrences: T2.int(1, 14), disposition: 'true positive — under remediation',
+      });
+    }
+    if (f.status === 'in_progress' || f.status === 'accepted' || (f.status === 'open' && f.severity !== 'low' && T2.chance(0.6))) {
+      push(f, 'ticket', 'Jira (remediation)', addDays(f.first_seen, T2.int(1, 4)), `Remediation ticket opened`, {
+        key: `SEC-${2000 + seq}`, status: f.status === 'accepted' ? 'Risk accepted' : f.status === 'in_progress' ? 'In progress' : 'To do', owner_team: f.owner,
+        due: addDays(f.first_seen, f.remediation?.eta_days || 14), action: f.remediation?.action || '',
+      });
+    }
+    if (f.status === 'mitigated') {
+      push(f, 'ticket', 'Jira (remediation)', f.closed_on, 'Remediation verified and closed', { key: `SEC-${2000 + seq}`, status: 'Done', verified_by: 'Re-scan', closed_on: f.closed_on });
+    }
+  }
+
+  // Authored detail for the story findings that executives will drill into.
+  const story = (fid, kind, source, date, summary, raw, assetId) => push(findings.find((x) => x.id === fid), kind, source, date, summary, raw, assetId ? { asset_id: assetId } : {});
+  for (const [date, peak] of [['2026-09-06', 41], ['2026-09-17', 63], ['2026-09-26', 88]]) {
+    story('CR-073', 'metric_series', 'CDN / ALB metrics', date, `Portal login request rate peaked at ${peak}x baseline`, {
+      metric: 'portal_login_requests_per_min', baseline_p50: 1200, peak: 1200 * peak, peak_multiple: peak, duration_min: T2.int(18, 55), error_rate_5xx_peak_pct: T2.round(peak / 20, 1),
+      top_source_networks: ['198.51.100.0/24', '203.0.113.0/24'], waf_action: 'count (detection-only)',
+    });
+  }
+  story('CR-070', 'architecture_note', 'Architecture review', '2026-06-20', 'Edges without DDoS protection plan', { edges: ['portal.acme.example', 'api.tip.acme.example', 'www.acme.example'], ddos_protection: 'standard (no advanced tier)', runbook: 'none', reviewed_by: 'Security architecture board' });
+  story('CR-014', 'network_flow', 'Firewall logs', '2026-09-27', 'Outbound flows from SOC jump host to a blocklisted address', { src_host: 'soc-jump-sin01.acme.example', dst: '198.51.100.23', dst_port: 443, flows: 14, bytes_out: 18233, first: '2026-09-27T02:14:00Z', last: '2026-09-27T05:41:00Z', ti_feed: 'ACME TIP blocklist' }, 'SRV-SIN-JMP01');
+  const pslaptops = findings.find((x) => x.id === 'CR-065').asset_ids;
+  for (const ep of pslaptops) {
+    story('CR-065', 'triage_artifact', 'IRTriage collection (basic profile)', '2026-09-18', `Installed-programs row on ${byId.get(ep).name}`, { collection: 'IRTriage.exe basic profile', artifact: 'Installed programs', host: byId.get(ep).name, program: 'Unapproved remote-access tool', approved_list_match: false, install_date: '2026-08-30' }, ep);
+  }
+  story('CR-003', 'config_snapshot', 'AWS Security Hub', '2026-09-19', 'Bucket public-access settings', { bucket: 's3://acme-portal-exports', block_public_acls: false, block_public_policy: false, policy_allows_list: true, object_count: 18412, encryption: 'SSE-S3' });
+
+  // Hunts that ran but found nothing still leave a record: that is evidence too.
+  for (const h of hunts.filter((x) => !x.finding_ids.length)) {
+    for (const run of h.runs.filter((_, i) => i % 4 === 0)) {
+      ev.push({ id: nextId(), kind: 'hunt_result', source: h.data_sources[0], collected_at: `${run.date}T06:00:00Z`, finding_ids: [], hunt_id: h.id, asset_id: null, summary: `${h.name}: ${run.hits} matches`, raw: { hunt: h.id, window_end: run.date, hosts_evaluated: 41, matches: run.hits }, sha256: shortHash({ hunt: h.id, d: run.date }) });
+    }
+  }
+  return ev;
+}
+
+function buildBia() {
+  const findings = risks;
+  for (const r of findings) {
+    r.scenario_ids = STORY_SCENARIOS[r.id] || templatedScenarios(r);
+    r.component_ids = [...new Set([...(r.component_ids || []), ...(STORY_COMPONENTS[r.id] || [])])];
+  }
+
+  const slos = SLOS.map(([id, name, unit, dir, target, warning, forecast, decimals, basis, basisLabel, mpu, owner, kpiIds, description]) => ({
+    id, name, unit, direction: dir > 0 ? 'higher_is_better' : 'lower_is_better', target, warning, forecast, decimals,
+    basis_usd: basis, basis_label: basisLabel, metric_per_usd: mpu, owner, kpi_ids: kpiIds, description,
+    history: sloHistory(forecast, decimals), source: { type: 'bi', system: 'Power BI — Board pack' },
+  }));
+  const policies = BIA_POLICIES.map(([id, title, statement, cadence, owner, links]) => ({ id, title, statement, cadence, owner, slo_links: links.map(([slo_id, weight]) => ({ slo_id, weight })) }));
+  const processes = PROCESSES.map(([id, name, owner, svcs, pols, frequency, rto, comps]) => ({
+    id, name, owner, service_ids: svcs, policy_ids: pols, frequency, rto_hours: rto,
+    components: comps.map(([cid, ess]) => ({ id: cid, role: ess ? 'essential' : 'supporting' })),
+  }));
+  const scenarios = SCENARIOS.map(([id, name, description, dims, base, impact, tactics, comps]) => ({ id, name, description, dimensions: dims, base_rate: base, impact_factor: impact, attack_tactics: tactics, component_ids: comps }));
+
+  const hunts = HUNTS.map(([id, name, hypothesis, logic, sources, scen, fids, cadence, status]) => {
+    const hitDates = new Set(fids.map((f) => findings.find((x) => x.id === f).first_seen));
+    const runs = [];
+    for (let d = '2026-07-01'; d <= AS_OF; d = addDays(d, 7)) {
+      const weekEnd = addDays(d, 6);
+      const real = [...hitDates].filter((x) => x >= d && x <= weekEnd).length;
+      runs.push({ date: minIso(weekEnd, AS_OF), hits: real ? real * T2.int(2, 9) : (fids.length && T2.chance(0.15) ? 1 : 0) });
+    }
+    return { id, name, hypothesis, logic, data_sources: sources, scenario_ids: scen, finding_ids: fids, cadence, status, owner: 'Security Operations', runs, last_run: AS_OF };
+  });
+
+  const mitigations = MITIGATIONS.map(([id, title, description, cost, eta, owner, fids, factors]) => ({ id, title, description, cost_usd: cost, eta_days: eta, owner, finding_ids: fids, scenario_factors: factors, status: 'proposed' }));
+  const hygiene = mitigations.find((m) => m.id === 'MIT-13');
+  hygiene.finding_ids = ['CR-060', ...findings.filter((r) => /^ACME-VULN-(OSCU|BRW)-/.test(r.vuln_id || '')).map((r) => r.id)];
+
+  const evidence = buildEvidence(findings, hunts);
+  return { slos, bia_policies: policies, business_processes: processes, bp_components: COMPONENTS, risk_scenarios: scenarios, hunts, evidence, mitigations };
+}
+
+function checkBia(ctx) {
+  const ids = (arr) => new Set(arr.map((x) => x.id));
+  const slo = ids(ctx.slos), pol = ids(ctx.bia_policies), comp = ids(ctx.bp_components), scen = ids(ctx.risk_scenarios), risk = ids(ctx.cyber_risks), svc = ids(ctx.business_services), hunt = ids(ctx.hunts);
+  const assetIds = ids(ctx.assets);
+  const need = (set, id, where) => { if (!set.has(id)) throw new Error(`${where}: unknown id ${id}`); };
+  for (const p of ctx.bia_policies) for (const l of p.slo_links) need(slo, l.slo_id, p.id);
+  for (const p of ctx.business_processes) {
+    for (const x of p.policy_ids) need(pol, x, p.id);
+    for (const x of p.service_ids) need(svc, x, p.id);
+    for (const c of p.components) need(comp, c.id, p.id);
+  }
+  for (const c of ctx.bp_components) for (const a of c.asset_ids || []) need(assetIds, a, c.id);
+  for (const s of ctx.risk_scenarios) for (const c of s.component_ids) need(comp, c, s.id);
+  for (const r of ctx.cyber_risks) {
+    if (!r.scenario_ids.length) throw new Error(`${r.id} has no scenario`);
+    for (const s of r.scenario_ids) need(scen, s, r.id);
+    for (const c of r.component_ids) need(comp, c, r.id);
+  }
+  for (const h of ctx.hunts) { for (const s of h.scenario_ids) need(scen, s, h.id); for (const f of h.finding_ids) need(risk, f, h.id); }
+  for (const m of ctx.mitigations) { for (const f of m.finding_ids) need(risk, f, m.id); for (const s of Object.keys(m.scenario_factors)) need(scen, s, m.id); }
+  for (const e of ctx.evidence) { for (const f of e.finding_ids) need(risk, f, e.id); if (e.hunt_id) need(hunt, e.hunt_id, e.id); }
+  // Every policy is implemented by a process, every SLO has a policy, every component is used.
+  for (const p of ctx.bia_policies) if (!ctx.business_processes.some((x) => x.policy_ids.includes(p.id))) throw new Error(`policy ${p.id} has no process`);
+  for (const s of ctx.slos) if (!ctx.bia_policies.some((p) => p.slo_links.some((l) => l.slo_id === s.id))) throw new Error(`SLO ${s.id} has no policy`);
+  for (const c of ctx.bp_components) if (!ctx.business_processes.some((p) => p.components.some((x) => x.id === c.id))) throw new Error(`component ${c.id} is in no process`);
+  // Every open finding must land on at least one component, or it would be invisible in the BIA explorer.
+  const compAssets = new Map(ctx.bp_components.map((c) => [c.id, new Set(c.asset_ids || [])]));
+  for (const c of ctx.bp_components) {
+    if (!c.asset_query) continue;
+    for (const a of ctx.assets) if (Object.entries(c.asset_query).every(([k, v]) => a[k] === v)) compAssets.get(c.id).add(a.id);
+  }
+  for (const r of ctx.cyber_risks) {
+    const hit = r.component_ids.length || [...compAssets.values()].some((set) => r.asset_ids.some((a) => set.has(a)));
+    if (!hit) throw new Error(`finding ${r.id} reaches no BIA component (assets ${r.asset_ids.slice(0, 3).join(', ')})`);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // assemble, check, emit
 // ---------------------------------------------------------------------------
 
@@ -780,6 +1191,7 @@ function main() {
   buildAssets();
   storyRisks();
   templatedRisks();
+  const bia = buildBia();
 
   const context = {
     schema_version: SCHEMA_VERSION,
@@ -800,11 +1212,14 @@ function main() {
     cyber_risks: risks,
     documents: DOCUMENTS,
     connectors: CONNECTORS,
+    ...bia,
   };
   checkIntegrity(context);
+  checkBia(context);
 
   const header = `// GENERATED FILE -- do not edit by hand.
-// ACME.Corp business-risk mock dataset (${assets.length} assets, ${risks.length} cyber risks, ${context.kpis.length} KPIs).
+// ACME.Corp business-risk mock dataset (${assets.length} assets, ${risks.length} cyber risks, ${context.kpis.length} KPIs,
+// ${bia.slos.length} SLOs, ${bia.business_processes.length} processes, ${bia.bp_components.length} components, ${bia.evidence.length} evidence records).
 // Regenerate with:  node scripts/gen-acme-dataset.mjs
 //
 // SYNTHETIC DATA ONLY. ACME.Corp is a fictional company; see docs/ACME_DEMO.md.

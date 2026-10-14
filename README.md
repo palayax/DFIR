@@ -15,7 +15,7 @@ The app is organised in three layers, and opens on the third:
 |---|---|---|
 | **1 · Ingested data** | Triage collections · Estate inventory · Business context | Host triage (IRTriage collections), the estate across endpoints, servers, cloud, SaaS, CI/CD, network, peripherals/IoT, security controls and AI systems — plus SLOs/SLAs/KPIs, BI/DSS data, GRC controls and policies, BIA documents and API/MCP connectors |
 | **2 · Cyber risks** | Risk register · SuperTimeline · AI analysis | Vulnerabilities, misconfigurations, exposures and IOC/IOA findings mapped to assets, controls and ATT&CK; the cross-host SuperTimeline; LLM analysis |
-| **3 · Business risks** | Executive dashboard | Cyber risk correlated with business services, KPIs/SLAs, corporate goals and compliance; value at risk vs. board appetite; What-if remediation; export as watermarked PDF / JSON / CSV |
+| **3 · Business risks** | BIA explorer · Executive dashboard | A seven-level BIA you can slice, dice, drill down and drill through: SLOs → policies → business processes → people/procedures/data/systems → cyber-risk scenarios → hunts & findings → evidence. Each SLO has a cyber-risk score factor and a $ / % impact breakdown, with a live mitigation simulator. Also: cyber risk correlated with business services, KPIs/SLAs, corporate goals and compliance; value at risk vs. board appetite; What-if remediation; export as watermarked PDF / JSON / CSV |
 
 It ships with **ACME.Corp**, a fictional 500-employee cybersecurity company
 (multi-cloud, mature CI/CD and BI, four sites, ISO 27001 / SOC 2 / NIST CSF /
