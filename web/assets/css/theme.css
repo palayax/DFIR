@@ -1,0 +1,137 @@
+/* Theme: steel blue and signal red on brushed-metal neutrals, plus the
+ * standard KPI traffic-light colours (green / amber / red), which are always
+ * paired with an icon and a label. Loaded last: it only re-points tokens and
+ * adds surface finishes; components keep using the tokens. */
+
+:root,
+:root[data-theme="light"] {
+  --color-bg: #edf0f4;
+  --color-bg-raised: #ffffff;
+  --color-bg-sunken: #e2e7ee;
+  --color-border: #cdd4de;
+  --color-border-strong: #a7b1bf;
+  --color-text: #121820;
+  --color-text-muted: #4b5666;
+  --color-text-faint: #7b8595;
+  --color-accent: #1d4f91;
+  --color-accent-hover: #163d70;
+  --color-accent-bg: #e2eaf5;
+  --color-focus-ring: #1d4f91;
+  --color-row-hover: #eaeff6;
+  --color-row-selected: #d7e3f3;
+
+  --brand-red: #c8102e;
+  --brand-red-bg: #fbe8eb;
+  --metal-top: #ffffff;
+  --metal-bottom: #f1f4f8;
+  --metal-edge: rgba(255, 255, 255, 0.85);
+  --header-top: #2e3a48;
+  --header-bottom: #18202a;
+  --header-text: #c6d0dc;
+  --header-text-strong: #ffffff;
+
+  --viz-series: #1d4f91;
+  --viz-series-soft: rgba(29, 79, 145, 0.14);
+  --viz-flag: #c8102e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #0c1117;
+    --color-bg-raised: #141b24;
+    --color-bg-sunken: #0a0e13;
+    --color-border: #253141;
+    --color-border-strong: #37475b;
+    --color-text: #e4e9ef;
+    --color-text-muted: #9dabbb;
+    --color-text-faint: #6b798b;
+    --color-accent: #5e95dd;
+    --color-accent-hover: #7cabe7;
+    --color-accent-bg: #172739;
+    --color-focus-ring: #5e95dd;
+    --color-row-hover: #19222d;
+    --color-row-selected: #1b2b40;
+    --brand-red: #ef4458;
+    --brand-red-bg: #3a1419;
+    --metal-top: #18212b;
+    --metal-bottom: #121921;
+    --metal-edge: rgba(255, 255, 255, 0.05);
+    --header-top: #1c2632;
+    --header-bottom: #0e141b;
+    --viz-series: #5e95dd;
+    --viz-series-soft: rgba(94, 149, 221, 0.18);
+    --viz-flag: #ef4458;
+  }
+}
+:root[data-theme="dark"] {
+  --color-bg: #0c1117;
+  --color-bg-raised: #141b24;
+  --color-bg-sunken: #0a0e13;
+  --color-border: #253141;
+  --color-border-strong: #37475b;
+  --color-text: #e4e9ef;
+  --color-text-muted: #9dabbb;
+  --color-text-faint: #6b798b;
+  --color-accent: #5e95dd;
+  --color-accent-hover: #7cabe7;
+  --color-accent-bg: #172739;
+  --color-focus-ring: #5e95dd;
+  --color-row-hover: #19222d;
+  --color-row-selected: #1b2b40;
+  --brand-red: #ef4458;
+  --brand-red-bg: #3a1419;
+  --metal-top: #18212b;
+  --metal-bottom: #121921;
+  --metal-edge: rgba(255, 255, 255, 0.05);
+  --header-top: #1c2632;
+  --header-bottom: #0e141b;
+  --viz-series: #5e95dd;
+  --viz-series-soft: rgba(94, 149, 221, 0.18);
+  --viz-flag: #ef4458;
+}
+
+/* KPI traffic lights (shared by status chips, bands and meters) */
+:root {
+  --status-good: #1e9e5a;
+  --status-warning: #f2b705;
+  --status-serious: #e8702a;
+  --status-critical: #d62839;
+}
+
+/* ---- gunmetal header with a red signal underline ----------------------- */
+.app-header {
+  background: linear-gradient(180deg, var(--header-top), var(--header-bottom));
+  border-bottom: 1px solid #0a0f15;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1px 0 rgba(0, 0, 0, 0.15);
+  color: var(--header-text-strong);
+}
+.app-brand { color: var(--header-text-strong); letter-spacing: 0.01em; }
+.app-brand .app-brand-mark { color: var(--brand-red); text-shadow: 0 0 8px rgba(200, 16, 46, 0.45); }
+.app-nav a { color: var(--header-text); }
+.app-nav a:hover { color: var(--header-text-strong); }
+.app-nav a.is-active { color: var(--header-text-strong); border-bottom-color: var(--brand-red); }
+.app-header .engagement-picker input { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.18); color: var(--header-text-strong); }
+.app-header .engagement-picker input::placeholder { color: var(--header-text); opacity: 0.7; }
+.app-header .theme-toggle { border-color: rgba(255, 255, 255, 0.2); }
+.app-header .theme-toggle button { background: transparent; color: var(--header-text); }
+.app-header .theme-toggle button[aria-pressed="true"] { background: rgba(255, 255, 255, 0.14); color: #fff; }
+
+/* ---- brushed-metal surfaces -------------------------------------------- */
+.slo-card, .src-tile, .bia-pop-panel, .glance-block, .asset-detail, .panel, .tile {
+  background: linear-gradient(180deg, var(--metal-top), var(--metal-bottom));
+  box-shadow: inset 0 1px 0 var(--metal-edge), 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+.bia-cols { background: linear-gradient(180deg, var(--color-bg-sunken), var(--color-bg)); }
+
+/* ---- buttons: steel-blue primary --------------------------------------- */
+.btn.btn-primary {
+  background: linear-gradient(180deg, #2b66b3, var(--color-accent));
+  border-color: #163d70;
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+.btn.btn-primary:hover { background: linear-gradient(180deg, #2f6fc2, var(--color-accent-hover)); }
+.btn .ico, .btn-primary .ico { width: 16px; height: 16px; vertical-align: -3px; margin-right: 4px; }
+
+/* signal red for the "new" marker and the demo control */
+.new-badge { display: inline-block; padding: 0 6px; border-radius: 999px; background: var(--brand-red); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: 1px; }

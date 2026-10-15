@@ -24,7 +24,7 @@ are fictional (`ACME-VULN-*`), never real CVE ids.
 | Business services (with BIA) | 10 |
 | Corporate goals (FY2027) | 6 |
 | KPIs / SLOs / SLAs (12-month history) | 39 (6 AI-proposed) |
-| Assets | 663 (500 endpoints, 45 servers, 32 cloud resources, 10 SaaS, 10 CI/CD, 16 network, 34 peripherals/IoT, 11 security controls, 5 AI systems) |
+| Assets & data sources | 675 (500 endpoints, 45 servers, 32 cloud resources, 3 APIs, 2 darknet feeds, 7 audit-log sources, 10 SaaS, 10 CI/CD, 16 network, 34 peripherals/IoT, 11 security controls, 5 AI systems) |
 | Controls (crosswalked) / policies | 40 / 15 |
 | Cyber risks | 126 (110 open, 16 remediated over the year) |
 | Ingested documents / connectors | 10 / 11 |
@@ -59,6 +59,25 @@ are fictional (`ACME-VULN-*`), never real CVE ids.
   the TIP API has no per-client rate limits, and the SOC saw three request-rate
   episodes against the portal login in September (hunt HUNT-01).
 
+## Real products and frameworks
+
+- **Products.** Assets carry a real vendor/product (Okta, GitHub Enterprise, Salesforce,
+  Microsoft 365, Splunk, CrowdStrike Falcon, Cloudflare, Palo Alto Networks, Cisco,
+  Qualys, Veeam, AWS, Azure, Google Cloud, Kubernetes, Claude and others). These
+  are rendered as vendored Simple Icons logos or brand-coloured text badges.
+- **Fictional flaws stay unbranded.** Every vulnerability id is fictional
+  (`ACME-VULN-*`). Assets that carry a fictional product *flaw* (the VPN
+  appliance, the portal API framework) are deliberately left unbranded, so no
+  finding reads as a claim about a real product.
+- **Control crosswalk.** Controls map to ISO 27001:2022, SOC 2, NIST CSF 2.0,
+  NIST SP 800-53 Rev. 5, FedRAMP Moderate, CIS Controls v8, GDPR, NIS2 and
+  PCI DSS 4.0.
+- **Finding references.** Findings cite MITRE ATT&CK / ATLAS techniques (official
+  names and links) and OWASP Top 10 (2021), OWASP API Top 10 (2023) or OWASP LLM
+  Top 10 (2025) entries.
+- **Framework catalogue.** `framework_catalog` lists each framework's issuer and
+  official URL.
+
 ## The BIA hierarchy (seven levels)
 
 The BIA explorer (`#/bia`) walks from business SLOs down to evidence:
@@ -90,3 +109,21 @@ Cyber findings are deliberately at **risk-register level**, phrased the way a
 vulnerability scanner, a CSPM, an identity-posture tool or a SOC would list
 them, with ATT&CK technique ids as labels. The dataset contains no attack
 telemetry or procedures.
+
+## Demo mode
+
+The header's **Demo** button runs three guided stories on this dataset:
+
+1. **New high-risk data source.** The preset is "mft-gw01, partner
+   file-transfer gateway": internet-facing, a known-exploited critical
+   vulnerability, an exposed admin interface, a shared admin without MFA,
+   credentials on a darknet market, and no EDR.
+   - ARR shortfall $4.8M → $5.6M (score 85 → 89).
+   - Net revenue retention goes from at risk to breach projected.
+   - The gateway becomes the #1 root-cause asset for ARR.
+2. **Mitigate an existing asset.** MIT-05 (phishing-resistant MFA) on Okta, the
+   largest existing root cause, takes ARR from $5.6M → $4.9M after story 1.
+3. **Change the business context.**
+   - The ARR plan forecast goes from $152.5M to $157M, so ARR comes back on track
+     (score 86 → 50).
+   - The SLA target goes from 99.5% to 99.7%, so the SLA score goes 76 → 99.

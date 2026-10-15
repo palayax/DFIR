@@ -39,7 +39,7 @@ Air-gapped operation: with no LLM provider configured (or the mock provider sele
 | Layer | Route | View |
 |---|---|---|
 | 1 · Ingest | `#/ingest` | Triage collections (IRTriage ZIP / timeline upload, DFIR demo) |
-| 1 · Ingest | `#/inventory` | Estate inventory: every asset class, triage coverage, business-service mapping |
+| 1 · Ingest | `#/triage` (was `#/inventory`) | Triage: every data source and asset (incl. APIs, darknet monitoring, audit logs), triage status, findings with framework references, root-cause impact on each SLO, and "Add data source" |
 | 1 · Ingest | `#/context` | Business context: organisation & goals, services & BIA, KPIs/SLOs/SLAs (incl. AI-proposed), GRC controls & policies, documents, API/MCP connectors |
 | 2 · Cyber risks | `#/cyber` | Risk register (vulnerabilities, misconfigurations, exposures), IOC/IOA, ATT&CK exposure; deep link `#/cyber/<risk-id>` |
 | 2 · Cyber risks | `#/merge`, `#/analyze` | SuperTimeline and AI analysis (sections 2.2–2.3) |
@@ -47,13 +47,44 @@ Air-gapped operation: with no LLM provider configured (or the mock provider sele
 | 3 · Business risks | `#/business` | Executive dashboard: value at risk vs appetite, top business risks with drill-down, risk matrix, service × dimension heatmap, KPI projections, compliance, 12-month trend, What-if remediation; exports to watermarked PDF / JSON / CSV / print |
 | 4 · Report | `#/report` | Forensic report and a link to the executive export |
 
-**Menu.** The header is one row: BIA explorer · Triage · Inventory · Business
-context · AI analysis · Reports · ⚙. The BIA explorer contains the risk register
-(L6 findings, plus the hunts timeline) and replaces the executive dashboard. So
-`#/cyber`, `#/merge` and `#/business` are *hidden* routes: they are still
-reachable by deep link and by contextual buttons (Triage → SuperTimeline → AI
-analysis; "Open in risk register"; the Reports page), and while one is open its
-parent menu item is highlighted.
+**Menu (since D21).** One header row: **Triage · Business context · Dashboard** ·
+⚙, plus a red **Demo** button.
+
+1. **Triage** (`#/triage`, deep link `#/triage/<asset-id>`) replaces Estate
+   inventory. It covers every data source: endpoints, servers, cloud services,
+   SaaS & APIs, network devices, peripherals & IoT, security controls, CI/CD &
+   AI, darknet monitoring, and operational/security audit logs.
+   - Each asset shows its metadata, triage status, findings (with MITRE ATT&CK /
+     OWASP references) and mitigations.
+   - Each asset also shows its **root-cause impact**: the $ of every SLO
+     shortfall that traces back to it, and its strongest path to the board.
+   - **Add data source** "triages" a new source from a posture checklist. Its
+     findings flow into the dashboard immediately.
+2. **Business context** (`#/context`) opens on an editable **SLOs & policies**
+   table: targets, warnings, plan forecasts, financial bases, policy weights and
+   risk appetite. Every change recomputes the dashboard.
+3. **Dashboard** (`#/bia`, also `#/dashboard`) is the BIA explorer.
+   - Its **Export** menu replaces the Reports tab: PDF, JSON, CSV, Print and the
+     forensic case report.
+   - The **Impact** tab adds a data-source and frameworks strip (real brand marks;
+     control posture per ISO 27001, SOC 2, NIST CSF, NIST 800-53, FedRAMP
+     Moderate, CIS v8, GDPR, NIS2 and PCI DSS; finding counts per MITRE ATT&CK /
+     ATLAS and OWASP list).
+   - It also shows **root cause by asset** for each SLO.
+
+**Hidden routes.** Everything else is still reachable by link and contextual
+buttons, with its parent menu item highlighted:
+- `#/inventory`, `#/ingest`, `#/merge` and `#/analyze` sit under Triage;
+- `#/report`, `#/cyber` and `#/business` sit under Dashboard.
+
+**Demo mode** (`web/assets/js/ui/demo-tour.js`) walks through three stories,
+each step navigating, highlighting and optionally performing the change:
+1. Add a high-risk data source (a partner file-transfer gateway). It becomes the
+   #1 root cause for ARR, and net revenue retention flips to "breach projected".
+2. Mitigate an existing asset: Okta and phishing-resistant MFA.
+3. Change the business context: a raised ARR plan and a tighter SLA target.
+
+"Reset demo data" restores the pristine dataset; edits never mutate it.
 
 **BIA explorer layout.** One control bar holds the tabs (Impact · Explore ·
 Timeline · Pivot) and two toggles:

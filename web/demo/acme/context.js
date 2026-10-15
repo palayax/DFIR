@@ -1,5 +1,5 @@
 // GENERATED FILE -- do not edit by hand.
-// ACME.Corp business-risk mock dataset (663 assets, 126 cyber risks, 39 KPIs,
+// ACME.Corp business-risk mock dataset (675 assets, 126 cyber risks, 39 KPIs,
 // 8 SLOs, 14 processes, 50 components, 232 evidence records).
 // Regenerate with:  node scripts/gen-acme-dataset.mjs
 //
@@ -9,6 +9,7 @@ export const context = {
  "as_of": "2026-09-30",
  "assets": [
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -20,6 +21,7 @@ export const context = {
    "name": "dc01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IAM",
     "SVC-IT"
@@ -32,6 +34,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -43,6 +46,7 @@ export const context = {
    "name": "dc02.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IAM",
     "SVC-IT"
@@ -55,6 +59,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -66,6 +71,7 @@ export const context = {
    "name": "dc-dub01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IAM",
     "SVC-IT"
@@ -78,6 +84,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -89,6 +96,7 @@ export const context = {
    "name": "dc-sin01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IAM",
     "SVC-IT"
@@ -101,6 +109,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -112,6 +121,7 @@ export const context = {
    "name": "dc-tlv01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IAM",
     "SVC-IT"
@@ -124,6 +134,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -135,6 +146,7 @@ export const context = {
    "name": "soc-jump01.acme.example",
    "owner": "SOC Engineering",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-MDR"
    ],
@@ -146,6 +158,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -157,6 +170,7 @@ export const context = {
    "name": "soc-jump-dub01.acme.example",
    "owner": "SOC Engineering",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-MDR"
    ],
@@ -168,6 +182,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -179,6 +194,7 @@ export const context = {
    "name": "soc-jump-sin01.acme.example",
    "owner": "SOC Engineering",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-MDR"
    ],
@@ -190,6 +206,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -201,6 +218,7 @@ export const context = {
    "name": "soar01.acme.example",
    "owner": "SOC Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-MDR"
    ],
@@ -212,6 +230,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "high",
@@ -223,6 +242,7 @@ export const context = {
    "name": "build01.rnd.acme.example",
    "owner": "Platform Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -234,6 +254,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "high",
@@ -245,6 +266,7 @@ export const context = {
    "name": "build02.rnd.acme.example",
    "owner": "Platform Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -256,6 +278,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "high",
@@ -267,6 +290,7 @@ export const context = {
    "name": "build03.rnd.acme.example",
    "owner": "Platform Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -278,6 +302,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "high",
@@ -289,6 +314,7 @@ export const context = {
    "name": "build04.rnd.acme.example",
    "owner": "Platform Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -300,6 +326,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -311,6 +338,7 @@ export const context = {
    "name": "fs01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IT"
    ],
@@ -322,6 +350,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "high",
@@ -333,6 +362,7 @@ export const context = {
    "name": "fs-dub01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -345,6 +375,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "low",
@@ -356,6 +387,7 @@ export const context = {
    "name": "print01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2016",
+   "product": "Windows Server 2016",
    "service_ids": [
     "SVC-IT"
    ],
@@ -367,6 +399,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -378,6 +411,7 @@ export const context = {
    "name": "finsql-dub01.acme.example",
    "owner": "Finance Systems",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-FIN"
    ],
@@ -389,6 +423,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -400,6 +435,7 @@ export const context = {
    "name": "backup01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN",
@@ -413,6 +449,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "high",
@@ -424,6 +461,7 @@ export const context = {
    "name": "hris-sync01.acme.example",
    "owner": "HR Systems",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IAM"
    ],
@@ -435,6 +473,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "critical",
@@ -446,6 +485,7 @@ export const context = {
    "name": "pki01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IAM",
     "SVC-CICD"
@@ -458,6 +498,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "high",
@@ -469,6 +510,7 @@ export const context = {
    "name": "ps-tools-dub01.acme.example",
    "owner": "Professional Services",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-PS"
    ],
@@ -480,6 +522,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -491,6 +534,7 @@ export const context = {
    "name": "legacy-erp01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2012 R2",
+   "product": "Windows Server 2012 R2",
    "service_ids": [
     "SVC-FIN"
    ],
@@ -502,6 +546,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -513,6 +558,7 @@ export const context = {
    "name": "fs-sin01.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2016",
+   "product": "Windows Server 2016",
    "service_ids": [
     "SVC-IT"
    ],
@@ -524,6 +570,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -535,6 +582,7 @@ export const context = {
    "name": "util01.bos.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Ubuntu 20.04",
+   "product": "Ubuntu 20.04",
    "service_ids": [
     "SVC-IT"
    ],
@@ -546,6 +594,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "low",
@@ -557,6 +606,7 @@ export const context = {
    "name": "util02.dub.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2019",
+   "product": "Windows Server 2019",
    "service_ids": [
     "SVC-IT"
    ],
@@ -568,6 +618,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -579,6 +630,7 @@ export const context = {
    "name": "util03.sin.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2019",
+   "product": "Windows Server 2019",
    "service_ids": [
     "SVC-IT"
    ],
@@ -590,6 +642,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "low",
@@ -601,6 +654,7 @@ export const context = {
    "name": "util04.tlv.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-IT"
    ],
@@ -612,6 +666,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -623,6 +678,7 @@ export const context = {
    "name": "util05.bos.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2019",
+   "product": "Windows Server 2019",
    "service_ids": [
     "SVC-IT"
    ],
@@ -634,6 +690,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -645,6 +702,7 @@ export const context = {
    "name": "util06.bos.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2019",
+   "product": "Windows Server 2019",
    "service_ids": [
     "SVC-IT"
    ],
@@ -656,6 +714,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "low",
@@ -667,6 +726,7 @@ export const context = {
    "name": "util07.dub.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-IT"
    ],
@@ -678,6 +738,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -689,6 +750,7 @@ export const context = {
    "name": "util08.sin.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Ubuntu 20.04",
+   "product": "Ubuntu 20.04",
    "service_ids": [
     "SVC-IT"
    ],
@@ -700,6 +762,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -711,6 +774,7 @@ export const context = {
    "name": "util09.tlv.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-IT"
    ],
@@ -722,6 +786,7 @@ export const context = {
    }
   },
   {
+   "brand": "redhat",
    "class": "server",
    "cloud": null,
    "criticality": "low",
@@ -733,6 +798,7 @@ export const context = {
    "name": "util10.bos.acme.example",
    "owner": "IT Infrastructure",
    "platform": "RHEL 9",
+   "product": "Red Hat Enterprise Linux 9",
    "service_ids": [
     "SVC-IT"
    ],
@@ -744,6 +810,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -755,6 +822,7 @@ export const context = {
    "name": "util11.bos.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2019",
+   "product": "Windows Server 2019",
    "service_ids": [
     "SVC-IT"
    ],
@@ -766,6 +834,7 @@ export const context = {
    }
   },
   {
+   "brand": "redhat",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -777,6 +846,7 @@ export const context = {
    "name": "util12.dub.acme.example",
    "owner": "IT Infrastructure",
    "platform": "RHEL 9",
+   "product": "Red Hat Enterprise Linux 9",
    "service_ids": [
     "SVC-IT"
    ],
@@ -788,6 +858,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -799,6 +870,7 @@ export const context = {
    "name": "util13.sin.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-IT"
    ],
@@ -810,6 +882,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "low",
@@ -821,6 +894,7 @@ export const context = {
    "name": "util14.tlv.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-IT"
    ],
@@ -832,6 +906,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -843,6 +918,7 @@ export const context = {
    "name": "util15.bos.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-IT"
    ],
@@ -854,6 +930,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "low",
@@ -865,6 +942,7 @@ export const context = {
    "name": "util16.bos.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Ubuntu 22.04",
+   "product": "Ubuntu 22.04",
    "service_ids": [
     "SVC-IT"
    ],
@@ -876,6 +954,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -887,6 +966,7 @@ export const context = {
    "name": "util17.dub.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2019",
+   "product": "Windows Server 2019",
    "service_ids": [
     "SVC-IT"
    ],
@@ -898,6 +978,7 @@ export const context = {
    }
   },
   {
+   "brand": "redhat",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -909,6 +990,7 @@ export const context = {
    "name": "util18.sin.acme.example",
    "owner": "IT Infrastructure",
    "platform": "RHEL 9",
+   "product": "Red Hat Enterprise Linux 9",
    "service_ids": [
     "SVC-IT"
    ],
@@ -920,6 +1002,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -931,6 +1014,7 @@ export const context = {
    "name": "util19.tlv.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2022",
+   "product": "Windows Server 2022",
    "service_ids": [
     "SVC-IT"
    ],
@@ -942,6 +1026,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "low",
@@ -953,6 +1038,7 @@ export const context = {
    "name": "util20.bos.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2019",
+   "product": "Windows Server 2019",
    "service_ids": [
     "SVC-IT"
    ],
@@ -964,6 +1050,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -975,6 +1062,7 @@ export const context = {
    "name": "util21.bos.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Windows Server 2019",
+   "product": "Windows Server 2019",
    "service_ids": [
     "SVC-IT"
    ],
@@ -986,6 +1074,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "server",
    "cloud": null,
    "criticality": "medium",
@@ -997,6 +1086,7 @@ export const context = {
    "name": "util22.dub.acme.example",
    "owner": "IT Infrastructure",
    "platform": "Ubuntu 20.04",
+   "product": "Ubuntu 20.04",
    "service_ids": [
     "SVC-IT"
    ],
@@ -1008,6 +1098,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1017,6 +1108,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: mdr-prod (account)",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-MDR"
    ],
@@ -1029,6 +1121,7 @@ export const context = {
    }
   },
   {
+   "brand": "kubernetes",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1038,6 +1131,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: mdr-ingest (EKS)",
    "owner": "Cloud Platform",
+   "product": "Amazon EKS",
    "region": "us-east-1",
    "service_ids": [
     "SVC-MDR"
@@ -1051,6 +1145,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1060,6 +1155,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: mdr-stream (MSK)",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "region": "us-east-1",
    "service_ids": [
     "SVC-MDR"
@@ -1073,6 +1169,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1082,6 +1179,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: s3://acme-mdr-telemetry",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "region": "us-east-1",
    "service_ids": [
     "SVC-MDR"
@@ -1095,6 +1193,7 @@ export const context = {
    }
   },
   {
+   "brand": "kubernetes",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1104,6 +1203,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: mdr-ingest-eu (EKS)",
    "owner": "Cloud Platform",
+   "product": "Amazon EKS",
    "region": "eu-west-1",
    "service_ids": [
     "SVC-MDR"
@@ -1117,6 +1217,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1126,6 +1227,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: tip-prod (account)",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-TIP"
    ],
@@ -1138,6 +1240,7 @@ export const context = {
    }
   },
   {
+   "brand": "kubernetes",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1147,6 +1250,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: tip-api (EKS)",
    "owner": "Cloud Platform",
+   "product": "Amazon EKS",
    "region": "us-east-1",
    "service_ids": [
     "SVC-TIP"
@@ -1160,6 +1264,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1170,6 +1275,7 @@ export const context = {
    "ip": "203.0.113.11",
    "name": "aws: api.tip.acme.example (API Gateway)",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-TIP"
    ],
@@ -1182,6 +1288,7 @@ export const context = {
    }
   },
   {
+   "brand": "postgresql",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1191,6 +1298,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: tip-db (RDS PostgreSQL)",
    "owner": "Cloud Platform",
+   "product": "Amazon RDS for PostgreSQL",
    "service_ids": [
     "SVC-TIP"
    ],
@@ -1203,6 +1311,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1212,6 +1321,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: portal-prod (account)",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-PORTAL"
    ],
@@ -1224,6 +1334,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1234,6 +1345,7 @@ export const context = {
    "ip": "203.0.113.12",
    "name": "aws: portal.acme.example (ALB)",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-PORTAL"
    ],
@@ -1246,6 +1358,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1255,6 +1368,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: portal-api (ECS)",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-PORTAL"
    ],
@@ -1267,6 +1381,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "critical",
@@ -1276,6 +1391,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: portal-db (RDS)",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-PORTAL"
    ],
@@ -1288,6 +1404,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "high",
@@ -1297,6 +1414,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: s3://acme-portal-exports",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-PORTAL"
    ],
@@ -1309,6 +1427,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "high",
@@ -1318,6 +1437,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: shared-services (account)",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -1331,6 +1451,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "high",
@@ -1340,6 +1461,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: s3://acme-central-logs",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-MDR",
     "SVC-IT"
@@ -1353,6 +1475,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "high",
@@ -1362,6 +1485,7 @@ export const context = {
    "internet_facing": false,
    "name": "aws: container registry (ECR)",
    "owner": "Cloud Platform",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -1374,6 +1498,7 @@ export const context = {
    }
   },
   {
+   "brand": "azure",
    "class": "cloud_resource",
    "cloud": "azure",
    "criticality": "high",
@@ -1383,6 +1508,7 @@ export const context = {
    "internet_facing": false,
    "name": "azure: corp (subscription)",
    "owner": "Cloud Platform",
+   "product": "Microsoft Azure",
    "service_ids": [
     "SVC-IT"
    ],
@@ -1395,6 +1521,7 @@ export const context = {
    }
   },
   {
+   "brand": "azure",
    "class": "cloud_resource",
    "cloud": "azure",
    "criticality": "high",
@@ -1404,6 +1531,7 @@ export const context = {
    "internet_facing": false,
    "name": "azure: analytics (subscription)",
    "owner": "Cloud Platform",
+   "product": "Microsoft Azure",
    "service_ids": [
     "SVC-BI"
    ],
@@ -1416,6 +1544,7 @@ export const context = {
    }
   },
   {
+   "brand": "azure",
    "class": "cloud_resource",
    "cloud": "azure",
    "criticality": "high",
@@ -1425,6 +1554,7 @@ export const context = {
    "internet_facing": false,
    "name": "azure: acme-dw (Synapse)",
    "owner": "Cloud Platform",
+   "product": "Microsoft Azure",
    "service_ids": [
     "SVC-BI"
    ],
@@ -1437,6 +1567,7 @@ export const context = {
    }
   },
   {
+   "brand": "azure",
    "class": "cloud_resource",
    "cloud": "azure",
    "criticality": "high",
@@ -1446,6 +1577,7 @@ export const context = {
    "internet_facing": false,
    "name": "azure: acmebilake (Storage)",
    "owner": "Cloud Platform",
+   "product": "Microsoft Azure",
    "service_ids": [
     "SVC-BI"
    ],
@@ -1458,6 +1590,7 @@ export const context = {
    }
   },
   {
+   "brand": "azure",
    "class": "cloud_resource",
    "cloud": "azure",
    "criticality": "critical",
@@ -1467,6 +1600,7 @@ export const context = {
    "internet_facing": false,
    "name": "azure: fin-billing (Azure SQL)",
    "owner": "Cloud Platform",
+   "product": "Microsoft Azure",
    "service_ids": [
     "SVC-FIN"
    ],
@@ -1479,6 +1613,7 @@ export const context = {
    }
   },
   {
+   "brand": "azure",
    "class": "cloud_resource",
    "cloud": "azure",
    "criticality": "critical",
@@ -1489,6 +1624,7 @@ export const context = {
    "ip": "203.0.113.13",
    "name": "azure: pay.acme.example (App Service)",
    "owner": "Cloud Platform",
+   "product": "Microsoft Azure",
    "service_ids": [
     "SVC-FIN"
    ],
@@ -1501,6 +1637,7 @@ export const context = {
    }
   },
   {
+   "brand": "kubernetes",
    "class": "cloud_resource",
    "cloud": "azure",
    "criticality": "medium",
@@ -1510,6 +1647,7 @@ export const context = {
    "internet_facing": false,
    "name": "azure: ps-tooling (AKS)",
    "owner": "Cloud Platform",
+   "product": "Azure Kubernetes Service",
    "service_ids": [
     "SVC-PS"
    ],
@@ -1522,6 +1660,7 @@ export const context = {
    }
   },
   {
+   "brand": "azure",
    "class": "cloud_resource",
    "cloud": "azure",
    "criticality": "high",
@@ -1531,6 +1670,7 @@ export const context = {
    "internet_facing": false,
    "name": "azure: kv-corp (Key Vault)",
    "owner": "Cloud Platform",
+   "product": "Microsoft Azure",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -1544,6 +1684,7 @@ export const context = {
    }
   },
   {
+   "brand": "azure",
    "class": "cloud_resource",
    "cloud": "azure",
    "criticality": "critical",
@@ -1554,6 +1695,7 @@ export const context = {
    "ip": "203.0.113.14",
    "name": "azure: eu.portal.acme.example (App Gateway + WAF)",
    "owner": "Cloud Platform",
+   "product": "Microsoft Azure",
    "service_ids": [
     "SVC-PORTAL"
    ],
@@ -1566,6 +1708,7 @@ export const context = {
    }
   },
   {
+   "brand": "googlecloud",
    "class": "cloud_resource",
    "cloud": "gcp",
    "criticality": "high",
@@ -1575,6 +1718,7 @@ export const context = {
    "internet_facing": false,
    "name": "gcp: tip-analytics (project)",
    "owner": "Cloud Platform",
+   "product": "Google Cloud",
    "service_ids": [
     "SVC-TIP"
    ],
@@ -1587,6 +1731,7 @@ export const context = {
    }
   },
   {
+   "brand": "googlebigquery",
    "class": "cloud_resource",
    "cloud": "gcp",
    "criticality": "high",
@@ -1596,6 +1741,7 @@ export const context = {
    "internet_facing": false,
    "name": "gcp: tip_intel (BigQuery)",
    "owner": "Cloud Platform",
+   "product": "Google BigQuery",
    "service_ids": [
     "SVC-TIP"
    ],
@@ -1608,6 +1754,7 @@ export const context = {
    }
   },
   {
+   "brand": "kubernetes",
    "class": "cloud_resource",
    "cloud": "gcp",
    "criticality": "high",
@@ -1617,6 +1764,7 @@ export const context = {
    "internet_facing": false,
    "name": "gcp: tip-ml (GKE)",
    "owner": "Cloud Platform",
+   "product": "Google Kubernetes Engine",
    "service_ids": [
     "SVC-TIP"
    ],
@@ -1629,6 +1777,7 @@ export const context = {
    }
   },
   {
+   "brand": "googlecloud",
    "class": "cloud_resource",
    "cloud": "gcp",
    "criticality": "high",
@@ -1638,6 +1787,7 @@ export const context = {
    "internet_facing": false,
    "name": "gcp: gs://acme-tip-feeds",
    "owner": "Cloud Platform",
+   "product": "Google Cloud",
    "service_ids": [
     "SVC-TIP"
    ],
@@ -1650,6 +1800,7 @@ export const context = {
    }
   },
   {
+   "brand": "cloudflare",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "high",
@@ -1660,6 +1811,7 @@ export const context = {
    "ip": "203.0.113.15",
    "name": "aws: www.acme.example (CDN distribution)",
    "owner": "Marketing Technology",
+   "product": "Cloudflare CDN",
    "service_ids": [
     "SVC-CRM"
    ],
@@ -1672,6 +1824,7 @@ export const context = {
    }
   },
   {
+   "brand": "aws",
    "class": "cloud_resource",
    "cloud": "aws",
    "criticality": "medium",
@@ -1682,6 +1835,7 @@ export const context = {
    "ip": "203.0.113.16",
    "name": "aws: www-origin (marketing CMS origin)",
    "owner": "Marketing Technology",
+   "product": "Amazon Web Services",
    "service_ids": [
     "SVC-CRM"
    ],
@@ -1694,6 +1848,7 @@ export const context = {
    }
   },
   {
+   "brand": "okta",
    "class": "saas",
    "cloud": null,
    "criticality": "critical",
@@ -1703,6 +1858,7 @@ export const context = {
    "internet_facing": false,
    "name": "Workforce identity provider (SSO)",
    "owner": "IT Applications",
+   "product": "Okta Workforce Identity",
    "service_ids": [
     "SVC-IAM"
    ],
@@ -1714,6 +1870,7 @@ export const context = {
    }
   },
   {
+   "brand": "workday",
    "class": "saas",
    "cloud": null,
    "criticality": "high",
@@ -1723,6 +1880,7 @@ export const context = {
    "internet_facing": false,
    "name": "HR information system",
    "owner": "IT Applications",
+   "product": "Workday HCM",
    "service_ids": [
     "SVC-IAM"
    ],
@@ -1734,6 +1892,7 @@ export const context = {
    }
   },
   {
+   "brand": "github",
    "class": "saas",
    "cloud": null,
    "criticality": "critical",
@@ -1743,6 +1902,7 @@ export const context = {
    "internet_facing": false,
    "name": "Source-code hosting (enterprise)",
    "owner": "IT Applications",
+   "product": "GitHub Enterprise Cloud",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -1754,6 +1914,7 @@ export const context = {
    }
   },
   {
+   "brand": "salesforce",
    "class": "saas",
    "cloud": null,
    "criticality": "high",
@@ -1763,6 +1924,7 @@ export const context = {
    "internet_facing": false,
    "name": "CRM platform",
    "owner": "IT Applications",
+   "product": "Salesforce Sales Cloud",
    "service_ids": [
     "SVC-CRM"
    ],
@@ -1774,6 +1936,7 @@ export const context = {
    }
   },
   {
+   "brand": "microsoft365",
    "class": "saas",
    "cloud": null,
    "criticality": "high",
@@ -1783,6 +1946,7 @@ export const context = {
    "internet_facing": false,
    "name": "Email & collaboration suite",
    "owner": "IT Applications",
+   "product": "Microsoft 365",
    "service_ids": [
     "SVC-IT"
    ],
@@ -1794,6 +1958,7 @@ export const context = {
    }
   },
   {
+   "brand": "powerbi",
    "class": "saas",
    "cloud": null,
    "criticality": "medium",
@@ -1803,6 +1968,7 @@ export const context = {
    "internet_facing": false,
    "name": "BI & dashboards (Power BI)",
    "owner": "IT Applications",
+   "product": "Microsoft Power BI",
    "service_ids": [
     "SVC-BI"
    ],
@@ -1814,6 +1980,7 @@ export const context = {
    }
   },
   {
+   "brand": "servicenow",
    "class": "saas",
    "cloud": null,
    "criticality": "medium",
@@ -1823,6 +1990,7 @@ export const context = {
    "internet_facing": false,
    "name": "ITSM & GRC (ServiceNow)",
    "owner": "IT Applications",
+   "product": "ServiceNow ITSM & GRC",
    "service_ids": [
     "SVC-IT"
    ],
@@ -1834,6 +2002,7 @@ export const context = {
    }
   },
   {
+   "brand": "stripe",
    "class": "saas",
    "cloud": null,
    "criticality": "critical",
@@ -1843,6 +2012,7 @@ export const context = {
    "internet_facing": false,
    "name": "Payment processor",
    "owner": "IT Applications",
+   "product": "Stripe Payments",
    "service_ids": [
     "SVC-FIN"
    ],
@@ -1854,6 +2024,7 @@ export const context = {
    }
   },
   {
+   "brand": "slack",
    "class": "saas",
    "cloud": null,
    "criticality": "medium",
@@ -1863,6 +2034,7 @@ export const context = {
    "internet_facing": false,
    "name": "Team chat",
    "owner": "IT Applications",
+   "product": "Slack Enterprise Grid",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -1875,6 +2047,7 @@ export const context = {
    }
   },
   {
+   "brand": "jira",
    "class": "saas",
    "cloud": null,
    "criticality": "medium",
@@ -1884,6 +2057,7 @@ export const context = {
    "internet_facing": false,
    "name": "Issue tracking (Jira)",
    "owner": "IT Applications",
+   "product": "Jira Software",
    "service_ids": [
     "SVC-CICD",
     "SVC-IT"
@@ -1896,6 +2070,7 @@ export const context = {
    }
   },
   {
+   "brand": "githubactions",
    "class": "cicd",
    "cloud": null,
    "criticality": "high",
@@ -1906,6 +2081,7 @@ export const context = {
    "name": "self-hosted runner 1",
    "owner": "Platform Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "GitHub Actions self-hosted runner",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -1917,6 +2093,7 @@ export const context = {
    }
   },
   {
+   "brand": "githubactions",
    "class": "cicd",
    "cloud": null,
    "criticality": "high",
@@ -1927,6 +2104,7 @@ export const context = {
    "name": "self-hosted runner 2",
    "owner": "Platform Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "GitHub Actions self-hosted runner",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -1938,6 +2116,7 @@ export const context = {
    }
   },
   {
+   "brand": "githubactions",
    "class": "cicd",
    "cloud": null,
    "criticality": "high",
@@ -1948,6 +2127,7 @@ export const context = {
    "name": "self-hosted runner 3",
    "owner": "Platform Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "GitHub Actions self-hosted runner",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -1959,6 +2139,7 @@ export const context = {
    }
   },
   {
+   "brand": "githubactions",
    "class": "cicd",
    "cloud": null,
    "criticality": "high",
@@ -1969,6 +2150,7 @@ export const context = {
    "name": "self-hosted runner 4",
    "owner": "Platform Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "GitHub Actions self-hosted runner",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -1980,6 +2162,7 @@ export const context = {
    }
   },
   {
+   "brand": "githubactions",
    "class": "cicd",
    "cloud": null,
    "criticality": "high",
@@ -1990,6 +2173,7 @@ export const context = {
    "name": "self-hosted runner 5",
    "owner": "Platform Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "GitHub Actions self-hosted runner",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -2001,6 +2185,7 @@ export const context = {
    }
   },
   {
+   "brand": "githubactions",
    "class": "cicd",
    "cloud": null,
    "criticality": "high",
@@ -2011,6 +2196,7 @@ export const context = {
    "name": "self-hosted runner 6",
    "owner": "Platform Engineering",
    "platform": "Ubuntu 22.04",
+   "product": "GitHub Actions self-hosted runner",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -2022,6 +2208,7 @@ export const context = {
    }
   },
   {
+   "brand": "jfrog",
    "class": "cicd",
    "cloud": null,
    "criticality": "critical",
@@ -2031,6 +2218,7 @@ export const context = {
    "internet_facing": false,
    "name": "Artifact repository",
    "owner": "Platform Engineering",
+   "product": "JFrog Artifactory",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -2042,6 +2230,7 @@ export const context = {
    }
   },
   {
+   "brand": "vault",
    "class": "cicd",
    "cloud": null,
    "criticality": "critical",
@@ -2051,6 +2240,7 @@ export const context = {
    "internet_facing": false,
    "name": "Secrets manager (Vault)",
    "owner": "Platform Engineering",
+   "product": "HashiCorp Vault",
    "service_ids": [
     "SVC-CICD",
     "SVC-MDR",
@@ -2064,6 +2254,7 @@ export const context = {
    }
   },
   {
+   "brand": "argo",
    "class": "cicd",
    "cloud": null,
    "criticality": "critical",
@@ -2073,6 +2264,7 @@ export const context = {
    "internet_facing": false,
    "name": "GitOps deployer (Argo CD)",
    "owner": "Platform Engineering",
+   "product": "Argo CD",
    "service_ids": [
     "SVC-CICD",
     "SVC-TIP",
@@ -2086,6 +2278,7 @@ export const context = {
    }
   },
   {
+   "brand": "sigstore",
    "class": "cicd",
    "cloud": null,
    "criticality": "critical",
@@ -2095,6 +2288,7 @@ export const context = {
    "internet_facing": false,
    "name": "Code-signing service",
    "owner": "Platform Engineering",
+   "product": "Sigstore cosign",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -2106,6 +2300,7 @@ export const context = {
    }
   },
   {
+   "brand": "paloaltonetworks",
    "class": "network_device",
    "cloud": null,
    "criticality": "critical",
@@ -2116,6 +2311,7 @@ export const context = {
    "ip": "10.10.0.1",
    "name": "fw01.bos (next-gen firewall)",
    "owner": "Network Engineering",
+   "product": "Palo Alto Networks PA-Series",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2127,6 +2323,7 @@ export const context = {
    }
   },
   {
+   "brand": "cisco",
    "class": "network_device",
    "cloud": null,
    "criticality": "high",
@@ -2137,6 +2334,7 @@ export const context = {
    "ip": "10.10.0.2",
    "name": "core01.bos (core switch)",
    "owner": "Network Engineering",
+   "product": "Cisco Catalyst 9500",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2148,6 +2346,7 @@ export const context = {
    }
   },
   {
+   "brand": "cisco",
    "class": "network_device",
    "cloud": null,
    "criticality": "medium",
@@ -2158,6 +2357,7 @@ export const context = {
    "ip": "10.10.0.3",
    "name": "wlc01.bos (wireless controller)",
    "owner": "Network Engineering",
+   "product": "Cisco Meraki wireless",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2169,6 +2369,7 @@ export const context = {
    }
   },
   {
+   "brand": "paloaltonetworks",
    "class": "network_device",
    "cloud": null,
    "criticality": "critical",
@@ -2179,6 +2380,7 @@ export const context = {
    "ip": "10.20.0.1",
    "name": "fw01.dub (next-gen firewall)",
    "owner": "Network Engineering",
+   "product": "Palo Alto Networks PA-Series",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2190,6 +2392,7 @@ export const context = {
    }
   },
   {
+   "brand": "cisco",
    "class": "network_device",
    "cloud": null,
    "criticality": "high",
@@ -2200,6 +2403,7 @@ export const context = {
    "ip": "10.20.0.2",
    "name": "core01.dub (core switch)",
    "owner": "Network Engineering",
+   "product": "Cisco Catalyst 9500",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2211,6 +2415,7 @@ export const context = {
    }
   },
   {
+   "brand": "cisco",
    "class": "network_device",
    "cloud": null,
    "criticality": "medium",
@@ -2221,6 +2426,7 @@ export const context = {
    "ip": "10.20.0.3",
    "name": "wlc01.dub (wireless controller)",
    "owner": "Network Engineering",
+   "product": "Cisco Meraki wireless",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2232,6 +2438,7 @@ export const context = {
    }
   },
   {
+   "brand": "paloaltonetworks",
    "class": "network_device",
    "cloud": null,
    "criticality": "critical",
@@ -2242,6 +2449,7 @@ export const context = {
    "ip": "10.30.0.1",
    "name": "fw01.sin (next-gen firewall)",
    "owner": "Network Engineering",
+   "product": "Palo Alto Networks PA-Series",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2253,6 +2461,7 @@ export const context = {
    }
   },
   {
+   "brand": "cisco",
    "class": "network_device",
    "cloud": null,
    "criticality": "high",
@@ -2263,6 +2472,7 @@ export const context = {
    "ip": "10.30.0.2",
    "name": "core01.sin (core switch)",
    "owner": "Network Engineering",
+   "product": "Cisco Catalyst 9500",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2274,6 +2484,7 @@ export const context = {
    }
   },
   {
+   "brand": "cisco",
    "class": "network_device",
    "cloud": null,
    "criticality": "medium",
@@ -2284,6 +2495,7 @@ export const context = {
    "ip": "10.30.0.3",
    "name": "wlc01.sin (wireless controller)",
    "owner": "Network Engineering",
+   "product": "Cisco Meraki wireless",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2295,6 +2507,7 @@ export const context = {
    }
   },
   {
+   "brand": "paloaltonetworks",
    "class": "network_device",
    "cloud": null,
    "criticality": "critical",
@@ -2305,6 +2518,7 @@ export const context = {
    "ip": "10.40.0.1",
    "name": "fw01.tlv (next-gen firewall)",
    "owner": "Network Engineering",
+   "product": "Palo Alto Networks PA-Series",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2316,6 +2530,7 @@ export const context = {
    }
   },
   {
+   "brand": "cisco",
    "class": "network_device",
    "cloud": null,
    "criticality": "high",
@@ -2326,6 +2541,7 @@ export const context = {
    "ip": "10.40.0.2",
    "name": "core01.tlv (core switch)",
    "owner": "Network Engineering",
+   "product": "Cisco Catalyst 9500",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2337,6 +2553,7 @@ export const context = {
    }
   },
   {
+   "brand": "cisco",
    "class": "network_device",
    "cloud": null,
    "criticality": "medium",
@@ -2347,6 +2564,7 @@ export const context = {
    "ip": "10.40.0.3",
    "name": "wlc01.tlv (wireless controller)",
    "owner": "Network Engineering",
+   "product": "Cisco Meraki wireless",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2425,6 +2643,7 @@ export const context = {
    }
   },
   {
+   "brand": "cisco",
    "class": "network_device",
    "cloud": null,
    "criticality": "high",
@@ -2434,6 +2653,7 @@ export const context = {
    "internet_facing": false,
    "name": "SD-WAN orchestrator",
    "owner": "Network Engineering",
+   "product": "Cisco Catalyst SD-WAN",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2775,6 +2995,7 @@ export const context = {
    }
   },
   {
+   "brand": "zoom",
    "class": "peripheral_iot",
    "cloud": null,
    "criticality": "low",
@@ -2785,6 +3006,7 @@ export const context = {
    "ip": "10.10.8.121",
    "name": "conference room system BOS-1",
    "owner": "Facilities",
+   "product": "Zoom Rooms",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2797,6 +3019,7 @@ export const context = {
    }
   },
   {
+   "brand": "zoom",
    "class": "peripheral_iot",
    "cloud": null,
    "criticality": "low",
@@ -2807,6 +3030,7 @@ export const context = {
    "ip": "10.10.8.228",
    "name": "conference room system BOS-2",
    "owner": "Facilities",
+   "product": "Zoom Rooms",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2885,6 +3109,7 @@ export const context = {
    }
   },
   {
+   "brand": "zoom",
    "class": "peripheral_iot",
    "cloud": null,
    "criticality": "low",
@@ -2895,6 +3120,7 @@ export const context = {
    "ip": "10.20.8.197",
    "name": "conference room system DUB-1",
    "owner": "Facilities",
+   "product": "Zoom Rooms",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2907,6 +3133,7 @@ export const context = {
    }
   },
   {
+   "brand": "zoom",
    "class": "peripheral_iot",
    "cloud": null,
    "criticality": "low",
@@ -2917,6 +3144,7 @@ export const context = {
    "ip": "10.20.8.209",
    "name": "conference room system DUB-2",
    "owner": "Facilities",
+   "product": "Zoom Rooms",
    "service_ids": [
     "SVC-IT"
    ],
@@ -2995,6 +3223,7 @@ export const context = {
    }
   },
   {
+   "brand": "zoom",
    "class": "peripheral_iot",
    "cloud": null,
    "criticality": "low",
@@ -3005,6 +3234,7 @@ export const context = {
    "ip": "10.30.8.213",
    "name": "conference room system SIN-1",
    "owner": "Facilities",
+   "product": "Zoom Rooms",
    "service_ids": [
     "SVC-IT"
    ],
@@ -3017,6 +3247,7 @@ export const context = {
    }
   },
   {
+   "brand": "zoom",
    "class": "peripheral_iot",
    "cloud": null,
    "criticality": "low",
@@ -3027,6 +3258,7 @@ export const context = {
    "ip": "10.30.8.15",
    "name": "conference room system SIN-2",
    "owner": "Facilities",
+   "product": "Zoom Rooms",
    "service_ids": [
     "SVC-IT"
    ],
@@ -3105,6 +3337,7 @@ export const context = {
    }
   },
   {
+   "brand": "zoom",
    "class": "peripheral_iot",
    "cloud": null,
    "criticality": "low",
@@ -3115,6 +3348,7 @@ export const context = {
    "ip": "10.40.8.116",
    "name": "conference room system TLV-1",
    "owner": "Facilities",
+   "product": "Zoom Rooms",
    "service_ids": [
     "SVC-IT"
    ],
@@ -3127,6 +3361,7 @@ export const context = {
    }
   },
   {
+   "brand": "zoom",
    "class": "peripheral_iot",
    "cloud": null,
    "criticality": "low",
@@ -3137,6 +3372,7 @@ export const context = {
    "ip": "10.40.8.56",
    "name": "conference room system TLV-2",
    "owner": "Facilities",
+   "product": "Zoom Rooms",
    "service_ids": [
     "SVC-IT"
    ],
@@ -3193,6 +3429,7 @@ export const context = {
    }
   },
   {
+   "brand": "crowdstrike",
    "class": "security_control",
    "cloud": null,
    "criticality": "critical",
@@ -3202,6 +3439,7 @@ export const context = {
    "internet_facing": false,
    "name": "EDR platform",
    "owner": "Security Engineering",
+   "product": "CrowdStrike Falcon Insight",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3214,6 +3452,7 @@ export const context = {
    }
   },
   {
+   "brand": "splunk",
    "class": "security_control",
    "cloud": null,
    "criticality": "critical",
@@ -3223,6 +3462,7 @@ export const context = {
    "internet_facing": false,
    "name": "Internal SIEM",
    "owner": "Security Engineering",
+   "product": "Splunk Enterprise Security",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3235,6 +3475,7 @@ export const context = {
    }
   },
   {
+   "brand": "splunk",
    "class": "security_control",
    "cloud": null,
    "criticality": "critical",
@@ -3244,6 +3485,7 @@ export const context = {
    "internet_facing": false,
    "name": "SOAR / automation",
    "owner": "Security Engineering",
+   "product": "Splunk SOAR",
    "service_ids": [
     "SVC-MDR"
    ],
@@ -3255,6 +3497,7 @@ export const context = {
    }
   },
   {
+   "brand": "proofpoint",
    "class": "security_control",
    "cloud": null,
    "criticality": "critical",
@@ -3264,6 +3507,7 @@ export const context = {
    "internet_facing": false,
    "name": "Email security gateway",
    "owner": "Security Engineering",
+   "product": "Proofpoint Email Protection",
    "service_ids": [
     "SVC-IT"
    ],
@@ -3275,6 +3519,7 @@ export const context = {
    }
   },
   {
+   "brand": "cloudflare",
    "class": "security_control",
    "cloud": null,
    "criticality": "critical",
@@ -3284,6 +3529,7 @@ export const context = {
    "internet_facing": false,
    "name": "Web application firewall (portal)",
    "owner": "Security Engineering",
+   "product": "Cloudflare WAF",
    "service_ids": [
     "SVC-PORTAL"
    ],
@@ -3295,6 +3541,7 @@ export const context = {
    }
   },
   {
+   "brand": "netskope",
    "class": "security_control",
    "cloud": null,
    "criticality": "high",
@@ -3304,6 +3551,7 @@ export const context = {
    "internet_facing": false,
    "name": "Cloud access security broker",
    "owner": "Security Engineering",
+   "product": "Netskope CASB",
    "service_ids": [
     "SVC-IT"
    ],
@@ -3315,6 +3563,7 @@ export const context = {
    }
   },
   {
+   "brand": "cyberark",
    "class": "security_control",
    "cloud": null,
    "criticality": "critical",
@@ -3324,6 +3573,7 @@ export const context = {
    "internet_facing": false,
    "name": "Privileged access management",
    "owner": "Security Engineering",
+   "product": "CyberArk Privilege Cloud",
    "service_ids": [
     "SVC-IAM"
    ],
@@ -3335,6 +3585,7 @@ export const context = {
    }
   },
   {
+   "brand": "microsoft",
    "class": "security_control",
    "cloud": null,
    "criticality": "high",
@@ -3344,6 +3595,7 @@ export const context = {
    "internet_facing": false,
    "name": "Data loss prevention",
    "owner": "Security Engineering",
+   "product": "Microsoft Purview DLP",
    "service_ids": [
     "SVC-IT"
    ],
@@ -3355,6 +3607,7 @@ export const context = {
    }
   },
   {
+   "brand": "qualys",
    "class": "security_control",
    "cloud": null,
    "criticality": "high",
@@ -3364,6 +3617,7 @@ export const context = {
    "internet_facing": false,
    "name": "Vulnerability scanner",
    "owner": "Security Engineering",
+   "product": "Qualys VMDR",
    "service_ids": [
     "SVC-IT"
    ],
@@ -3375,6 +3629,7 @@ export const context = {
    }
   },
   {
+   "brand": "veeam",
    "class": "security_control",
    "cloud": null,
    "criticality": "critical",
@@ -3384,6 +3639,7 @@ export const context = {
    "internet_facing": false,
    "name": "Backup & recovery platform",
    "owner": "Security Engineering",
+   "product": "Veeam Backup & Replication",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN",
@@ -3397,6 +3653,7 @@ export const context = {
    }
   },
   {
+   "brand": "irtriage",
    "class": "security_control",
    "cloud": null,
    "criticality": "high",
@@ -3406,6 +3663,7 @@ export const context = {
    "internet_facing": false,
    "name": "IRTriage collectors (portable triage)",
    "owner": "Security Engineering",
+   "product": "IRTriage",
    "service_ids": [
     "SVC-PS",
     "SVC-MDR"
@@ -3418,6 +3676,7 @@ export const context = {
    }
   },
   {
+   "brand": "openai",
    "class": "ai_system",
    "cloud": null,
    "criticality": "high",
@@ -3428,6 +3687,7 @@ export const context = {
    "internet_facing": false,
    "name": "Internal LLM assistant (\"Ask ACME\")",
    "owner": "AI Platform",
+   "product": "ChatGPT Enterprise",
    "service_ids": [
     "SVC-IT",
     "SVC-BI"
@@ -3440,6 +3700,7 @@ export const context = {
    }
   },
   {
+   "brand": "claude",
    "class": "ai_system",
    "cloud": null,
    "criticality": "critical",
@@ -3450,6 +3711,7 @@ export const context = {
    "internet_facing": false,
    "name": "MDR alert-triage model",
    "owner": "AI Platform",
+   "product": "Claude (Amazon Bedrock)",
    "service_ids": [
     "SVC-MDR"
    ],
@@ -3461,6 +3723,7 @@ export const context = {
    }
   },
   {
+   "brand": "anthropic",
    "class": "ai_system",
    "cloud": null,
    "criticality": "high",
@@ -3471,6 +3734,7 @@ export const context = {
    "internet_facing": false,
    "name": "TIP enrichment LLM pipeline",
    "owner": "AI Platform",
+   "product": "Claude API",
    "service_ids": [
     "SVC-TIP"
    ],
@@ -3482,6 +3746,7 @@ export const context = {
    }
   },
   {
+   "brand": "salesforce",
    "class": "ai_system",
    "cloud": null,
    "criticality": "medium",
@@ -3492,6 +3757,7 @@ export const context = {
    "internet_facing": false,
    "name": "Sales copilot (browser extension)",
    "owner": "AI Platform",
+   "product": "Salesforce Einstein",
    "service_ids": [
     "SVC-CRM"
    ],
@@ -3503,6 +3769,7 @@ export const context = {
    }
   },
   {
+   "brand": "githubcopilot",
    "class": "ai_system",
    "cloud": null,
    "criticality": "medium",
@@ -3513,6 +3780,7 @@ export const context = {
    "internet_facing": false,
    "name": "Code assistant integration",
    "owner": "AI Platform",
+   "product": "GitHub Copilot Business",
    "service_ids": [
     "SVC-CICD"
    ],
@@ -3524,6 +3792,289 @@ export const context = {
    }
   },
   {
+   "brand": "openapi",
+   "class": "api",
+   "cloud": null,
+   "criticality": "critical",
+   "edr": null,
+   "environment": "corp",
+   "id": "API-PORTAL",
+   "internet_facing": true,
+   "ip": "203.0.113.20",
+   "name": "Customer Portal REST API v3",
+   "owner": "Portal Engineering",
+   "product": "OpenAPI 3.1 (AWS API Gateway)",
+   "service_ids": [
+    "SVC-PORTAL"
+   ],
+   "site": "CLOUD",
+   "subtype": "rest_api",
+   "triage": {
+    "collector": "API schema & gateway import (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "openapi",
+   "class": "api",
+   "cloud": null,
+   "criticality": "critical",
+   "edr": null,
+   "environment": "corp",
+   "id": "API-TIP",
+   "internet_facing": true,
+   "ip": "203.0.113.21",
+   "name": "Threat-intel REST API v2",
+   "owner": "Threat Research",
+   "product": "OpenAPI 3.1 (AWS API Gateway)",
+   "service_ids": [
+    "SVC-TIP"
+   ],
+   "site": "CLOUD",
+   "subtype": "rest_api",
+   "triage": {
+    "collector": "API schema & gateway import (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "openapi",
+   "class": "api",
+   "cloud": null,
+   "criticality": "high",
+   "edr": null,
+   "environment": "corp",
+   "id": "API-PARTNER",
+   "internet_facing": false,
+   "name": "Partner integration API (MDR connectors)",
+   "owner": "SOC Engineering",
+   "product": "OpenAPI 3.1",
+   "service_ids": [
+    "SVC-MDR"
+   ],
+   "site": "CLOUD",
+   "subtype": "rest_api",
+   "triage": {
+    "collector": "API schema & gateway import (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "recordedfuture",
+   "class": "darknet",
+   "cloud": null,
+   "criticality": "medium",
+   "edr": null,
+   "environment": "corp",
+   "id": "DN-CREDS",
+   "internet_facing": false,
+   "name": "Dark-web credential-leak monitoring",
+   "owner": "Security Operations",
+   "product": "Recorded Future Identity Intelligence",
+   "service_ids": [
+    "SVC-IT",
+    "SVC-IAM"
+   ],
+   "site": "SAAS",
+   "subtype": "credential_monitoring",
+   "triage": {
+    "collector": "Threat-intel feed (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "flashpoint",
+   "class": "darknet",
+   "cloud": null,
+   "criticality": "medium",
+   "edr": null,
+   "environment": "corp",
+   "id": "DN-BRAND",
+   "internet_facing": false,
+   "name": "Brand, domain & leaked-data monitoring",
+   "owner": "Security Operations",
+   "product": "Flashpoint Ignite",
+   "service_ids": [
+    "SVC-IT"
+   ],
+   "site": "SAAS",
+   "subtype": "brand_monitoring",
+   "triage": {
+    "collector": "Threat-intel feed (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "aws",
+   "class": "audit_log",
+   "cloud": null,
+   "criticality": "high",
+   "edr": null,
+   "environment": "corp",
+   "id": "LOG-CLOUDTRAIL",
+   "internet_facing": false,
+   "name": "AWS CloudTrail (organization trail)",
+   "owner": "Security Operations",
+   "product": "AWS CloudTrail",
+   "service_ids": [
+    "SVC-MDR",
+    "SVC-IT"
+   ],
+   "site": "SAAS",
+   "subtype": "cloud_audit",
+   "triage": {
+    "collector": "Log pipeline (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "microsoft",
+   "class": "audit_log",
+   "cloud": null,
+   "criticality": "high",
+   "edr": null,
+   "environment": "corp",
+   "id": "LOG-ENTRA",
+   "internet_facing": false,
+   "name": "Microsoft Entra ID sign-in & audit logs",
+   "owner": "Security Operations",
+   "product": "Microsoft Entra ID",
+   "service_ids": [
+    "SVC-IAM"
+   ],
+   "site": "SAAS",
+   "subtype": "identity_audit",
+   "triage": {
+    "collector": "Log pipeline (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "okta",
+   "class": "audit_log",
+   "cloud": null,
+   "criticality": "high",
+   "edr": null,
+   "environment": "corp",
+   "id": "LOG-OKTA",
+   "internet_facing": false,
+   "name": "Okta System Log",
+   "owner": "Security Operations",
+   "product": "Okta System Log",
+   "service_ids": [
+    "SVC-IAM"
+   ],
+   "site": "SAAS",
+   "subtype": "identity_audit",
+   "triage": {
+    "collector": "Log pipeline (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "github",
+   "class": "audit_log",
+   "cloud": null,
+   "criticality": "high",
+   "edr": null,
+   "environment": "corp",
+   "id": "LOG-GITHUB",
+   "internet_facing": false,
+   "name": "GitHub Enterprise audit log",
+   "owner": "Security Operations",
+   "product": "GitHub audit log streaming",
+   "service_ids": [
+    "SVC-CICD"
+   ],
+   "site": "SAAS",
+   "subtype": "scm_audit",
+   "triage": {
+    "collector": "Log pipeline (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "windows",
+   "class": "audit_log",
+   "cloud": null,
+   "criticality": "high",
+   "edr": null,
+   "environment": "corp",
+   "id": "LOG-WINSEC",
+   "internet_facing": false,
+   "name": "Windows Security event logs (domain controllers)",
+   "owner": "Security Operations",
+   "product": "Windows Event Forwarding",
+   "service_ids": [
+    "SVC-IAM",
+    "SVC-IT"
+   ],
+   "site": "SAAS",
+   "subtype": "os_audit",
+   "triage": {
+    "collector": "Log pipeline (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "paloaltonetworks",
+   "class": "audit_log",
+   "cloud": null,
+   "criticality": "medium",
+   "edr": null,
+   "environment": "corp",
+   "id": "LOG-PANOS",
+   "internet_facing": false,
+   "name": "Firewall traffic & threat logs",
+   "owner": "Security Operations",
+   "product": "Palo Alto Networks Strata Logging",
+   "service_ids": [
+    "SVC-IT"
+   ],
+   "site": "SAAS",
+   "subtype": "network_logs",
+   "triage": {
+    "collector": "Log pipeline (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "kubernetes",
+   "class": "audit_log",
+   "cloud": null,
+   "criticality": "medium",
+   "edr": null,
+   "environment": "corp",
+   "id": "LOG-K8S",
+   "internet_facing": false,
+   "name": "Kubernetes audit logs (EKS / GKE)",
+   "owner": "Security Operations",
+   "product": "Kubernetes audit",
+   "service_ids": [
+    "SVC-MDR",
+    "SVC-TIP"
+   ],
+   "site": "SAAS",
+   "subtype": "k8s_audit",
+   "triage": {
+    "collector": "Log pipeline (mock)",
+    "last_collected": "2026-09-30",
+    "status": "collected"
+   }
+  },
+  {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3536,6 +4087,7 @@ export const context = {
    "name": "bos-lt-0001.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3549,6 +4101,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3561,6 +4114,7 @@ export const context = {
    "name": "bos-lt-0002.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3574,6 +4128,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3586,6 +4141,7 @@ export const context = {
    "name": "bos-lt-0003.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3599,6 +4155,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3611,6 +4168,7 @@ export const context = {
    "name": "bos-lt-0004.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3624,6 +4182,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3636,6 +4195,7 @@ export const context = {
    "name": "bos-lt-0005.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3649,6 +4209,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3661,6 +4222,7 @@ export const context = {
    "name": "bos-lt-0006.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3674,6 +4236,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3686,6 +4249,7 @@ export const context = {
    "name": "bos-lt-0007.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3699,6 +4263,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3711,6 +4276,7 @@ export const context = {
    "name": "bos-lt-0008.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3724,6 +4290,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3736,6 +4303,7 @@ export const context = {
    "name": "bos-lt-0009.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3749,6 +4317,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3761,6 +4330,7 @@ export const context = {
    "name": "bos-lt-0010.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3774,6 +4344,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3786,6 +4357,7 @@ export const context = {
    "name": "bos-lt-0011.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3799,6 +4371,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3811,6 +4384,7 @@ export const context = {
    "name": "bos-lt-0012.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3824,6 +4398,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3836,6 +4411,7 @@ export const context = {
    "name": "bos-lt-0013.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3849,6 +4425,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3861,6 +4438,7 @@ export const context = {
    "name": "bos-lt-0014.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3874,6 +4452,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3886,6 +4465,7 @@ export const context = {
    "name": "bos-lt-0015.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3899,6 +4479,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3911,6 +4492,7 @@ export const context = {
    "name": "bos-lt-0016.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3924,6 +4506,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3936,6 +4519,7 @@ export const context = {
    "name": "bos-lt-0017.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3949,6 +4533,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3961,6 +4546,7 @@ export const context = {
    "name": "bos-lt-0018.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3974,6 +4560,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -3986,6 +4573,7 @@ export const context = {
    "name": "bos-lt-0019.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -3999,6 +4587,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4011,6 +4600,7 @@ export const context = {
    "name": "bos-lt-0020.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4024,6 +4614,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4036,6 +4627,7 @@ export const context = {
    "name": "bos-lt-0021.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4049,6 +4641,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4061,6 +4654,7 @@ export const context = {
    "name": "bos-lt-0022.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4074,6 +4668,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4086,6 +4681,7 @@ export const context = {
    "name": "bos-lt-0023.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4099,6 +4695,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4111,6 +4708,7 @@ export const context = {
    "name": "bos-lt-0024.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4124,6 +4722,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4136,6 +4735,7 @@ export const context = {
    "name": "bos-lt-0025.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4149,6 +4749,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4161,6 +4762,7 @@ export const context = {
    "name": "bos-lt-0026.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4174,6 +4776,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4186,6 +4789,7 @@ export const context = {
    "name": "bos-lt-0027.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4199,6 +4803,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4211,6 +4816,7 @@ export const context = {
    "name": "bos-lt-0028.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4224,6 +4830,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4236,6 +4843,7 @@ export const context = {
    "name": "bos-lt-0029.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4249,6 +4857,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4261,6 +4870,7 @@ export const context = {
    "name": "bos-lt-0030.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4274,6 +4884,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4286,6 +4897,7 @@ export const context = {
    "name": "bos-lt-0031.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4299,6 +4911,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4311,6 +4924,7 @@ export const context = {
    "name": "bos-lt-0032.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4324,6 +4938,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4336,6 +4951,7 @@ export const context = {
    "name": "bos-lt-0033.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4349,6 +4965,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4361,6 +4978,7 @@ export const context = {
    "name": "bos-lt-0034.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4374,6 +4992,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4386,6 +5005,7 @@ export const context = {
    "name": "bos-lt-0035.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4399,6 +5019,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4411,6 +5032,7 @@ export const context = {
    "name": "bos-lt-0036.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4424,6 +5046,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4436,6 +5059,7 @@ export const context = {
    "name": "bos-lt-0037.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4449,6 +5073,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4461,6 +5086,7 @@ export const context = {
    "name": "bos-lt-0038.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4474,6 +5100,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4486,6 +5113,7 @@ export const context = {
    "name": "bos-lt-0039.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4499,6 +5127,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4511,6 +5140,7 @@ export const context = {
    "name": "bos-lt-0040.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4524,6 +5154,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4536,6 +5167,7 @@ export const context = {
    "name": "dub-lt-0041.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4549,6 +5181,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4561,6 +5194,7 @@ export const context = {
    "name": "dub-lt-0042.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4574,6 +5208,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4586,6 +5221,7 @@ export const context = {
    "name": "dub-lt-0043.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4599,6 +5235,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4611,6 +5248,7 @@ export const context = {
    "name": "dub-lt-0044.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4624,6 +5262,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4636,6 +5275,7 @@ export const context = {
    "name": "dub-lt-0045.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4649,6 +5289,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4661,6 +5302,7 @@ export const context = {
    "name": "dub-lt-0046.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4674,6 +5316,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4686,6 +5329,7 @@ export const context = {
    "name": "dub-lt-0047.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4699,6 +5343,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4711,6 +5356,7 @@ export const context = {
    "name": "dub-lt-0048.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4724,6 +5370,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4736,6 +5383,7 @@ export const context = {
    "name": "dub-lt-0049.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4749,6 +5397,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4761,6 +5410,7 @@ export const context = {
    "name": "dub-lt-0050.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4774,6 +5424,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4786,6 +5437,7 @@ export const context = {
    "name": "dub-lt-0051.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4799,6 +5451,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4811,6 +5464,7 @@ export const context = {
    "name": "dub-lt-0052.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4824,6 +5478,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4836,6 +5491,7 @@ export const context = {
    "name": "dub-lt-0053.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4849,6 +5505,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4861,6 +5518,7 @@ export const context = {
    "name": "dub-lt-0054.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4874,6 +5532,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4886,6 +5545,7 @@ export const context = {
    "name": "dub-lt-0055.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4899,6 +5559,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4911,6 +5572,7 @@ export const context = {
    "name": "dub-lt-0056.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4924,6 +5586,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4936,6 +5599,7 @@ export const context = {
    "name": "dub-lt-0057.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4949,6 +5613,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4961,6 +5626,7 @@ export const context = {
    "name": "dub-lt-0058.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4974,6 +5640,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -4986,6 +5653,7 @@ export const context = {
    "name": "dub-lt-0059.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -4999,6 +5667,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5011,6 +5680,7 @@ export const context = {
    "name": "dub-lt-0060.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5024,6 +5694,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5036,6 +5707,7 @@ export const context = {
    "name": "dub-lt-0061.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5049,6 +5721,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5061,6 +5734,7 @@ export const context = {
    "name": "dub-lt-0062.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5074,6 +5748,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5086,6 +5761,7 @@ export const context = {
    "name": "dub-lt-0063.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5099,6 +5775,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5111,6 +5788,7 @@ export const context = {
    "name": "dub-lt-0064.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5124,6 +5802,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5136,6 +5815,7 @@ export const context = {
    "name": "dub-lt-0065.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5149,6 +5829,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5161,6 +5842,7 @@ export const context = {
    "name": "dub-lt-0066.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5174,6 +5856,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5186,6 +5869,7 @@ export const context = {
    "name": "dub-lt-0067.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5199,6 +5883,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5211,6 +5896,7 @@ export const context = {
    "name": "dub-lt-0068.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5224,6 +5910,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5236,6 +5923,7 @@ export const context = {
    "name": "dub-lt-0069.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5249,6 +5937,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5261,6 +5950,7 @@ export const context = {
    "name": "dub-lt-0070.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5274,6 +5964,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5286,6 +5977,7 @@ export const context = {
    "name": "sin-lt-0071.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5299,6 +5991,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5311,6 +6004,7 @@ export const context = {
    "name": "sin-lt-0072.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5324,6 +6018,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5336,6 +6031,7 @@ export const context = {
    "name": "sin-lt-0073.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5349,6 +6045,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5361,6 +6058,7 @@ export const context = {
    "name": "sin-lt-0074.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5374,6 +6072,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5386,6 +6085,7 @@ export const context = {
    "name": "sin-lt-0075.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5399,6 +6099,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5411,6 +6112,7 @@ export const context = {
    "name": "sin-lt-0076.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5424,6 +6126,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5436,6 +6139,7 @@ export const context = {
    "name": "sin-lt-0077.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5449,6 +6153,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5461,6 +6166,7 @@ export const context = {
    "name": "sin-lt-0078.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5474,6 +6180,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5486,6 +6193,7 @@ export const context = {
    "name": "sin-lt-0079.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5499,6 +6207,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5511,6 +6220,7 @@ export const context = {
    "name": "sin-lt-0080.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5524,6 +6234,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5536,6 +6247,7 @@ export const context = {
    "name": "sin-lt-0081.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5549,6 +6261,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5561,6 +6274,7 @@ export const context = {
    "name": "sin-lt-0082.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5574,6 +6288,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5586,6 +6301,7 @@ export const context = {
    "name": "sin-lt-0083.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5599,6 +6315,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5611,6 +6328,7 @@ export const context = {
    "name": "sin-lt-0084.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5624,6 +6342,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5636,6 +6355,7 @@ export const context = {
    "name": "sin-lt-0085.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5649,6 +6369,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5661,6 +6382,7 @@ export const context = {
    "name": "sin-lt-0086.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5674,6 +6396,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5686,6 +6409,7 @@ export const context = {
    "name": "sin-lt-0087.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5699,6 +6423,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5711,6 +6436,7 @@ export const context = {
    "name": "sin-lt-0088.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5724,6 +6450,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5736,6 +6463,7 @@ export const context = {
    "name": "sin-lt-0089.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5749,6 +6477,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5761,6 +6490,7 @@ export const context = {
    "name": "sin-lt-0090.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5774,6 +6504,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5786,6 +6517,7 @@ export const context = {
    "name": "sin-lt-0091.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5799,6 +6531,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -5811,6 +6544,7 @@ export const context = {
    "name": "sin-lt-0092.acme.example",
    "owner": "SOC Operations",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-MDR"
@@ -5824,6 +6558,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -5836,6 +6571,7 @@ export const context = {
    "name": "tlv-lt-0093.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -5849,6 +6585,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -5861,6 +6598,7 @@ export const context = {
    "name": "tlv-lt-0094.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -5874,6 +6612,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -5886,6 +6625,7 @@ export const context = {
    "name": "tlv-lt-0095.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -5899,6 +6639,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -5911,6 +6652,7 @@ export const context = {
    "name": "tlv-lt-0096.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -5924,6 +6666,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -5936,6 +6679,7 @@ export const context = {
    "name": "tlv-lt-0097.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -5949,6 +6693,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -5961,6 +6706,7 @@ export const context = {
    "name": "tlv-lt-0098.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -5974,6 +6720,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -5986,6 +6733,7 @@ export const context = {
    "name": "tlv-lt-0099.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -5999,6 +6747,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6011,6 +6760,7 @@ export const context = {
    "name": "tlv-lt-0100.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6024,6 +6774,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6036,6 +6787,7 @@ export const context = {
    "name": "tlv-lt-0101.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6049,6 +6801,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6061,6 +6814,7 @@ export const context = {
    "name": "tlv-lt-0102.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6074,6 +6828,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6086,6 +6841,7 @@ export const context = {
    "name": "tlv-lt-0103.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6099,6 +6855,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6111,6 +6868,7 @@ export const context = {
    "name": "tlv-lt-0104.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6124,6 +6882,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6136,6 +6895,7 @@ export const context = {
    "name": "tlv-lt-0105.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6149,6 +6909,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6161,6 +6922,7 @@ export const context = {
    "name": "tlv-lt-0106.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6174,6 +6936,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6186,6 +6949,7 @@ export const context = {
    "name": "tlv-lt-0107.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6199,6 +6963,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6211,6 +6976,7 @@ export const context = {
    "name": "tlv-lt-0108.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6224,6 +6990,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6236,6 +7003,7 @@ export const context = {
    "name": "tlv-lt-0109.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6249,6 +7017,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6261,6 +7030,7 @@ export const context = {
    "name": "tlv-lt-0110.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6274,6 +7044,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6286,6 +7057,7 @@ export const context = {
    "name": "tlv-lt-0111.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6299,6 +7071,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6311,6 +7084,7 @@ export const context = {
    "name": "tlv-lt-0112.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6324,6 +7098,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6336,6 +7111,7 @@ export const context = {
    "name": "tlv-lt-0113.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6349,6 +7125,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6361,6 +7138,7 @@ export const context = {
    "name": "tlv-lt-0114.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6374,6 +7152,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6386,6 +7165,7 @@ export const context = {
    "name": "tlv-lt-0115.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6399,6 +7179,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6411,6 +7192,7 @@ export const context = {
    "name": "tlv-lt-0116.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6424,6 +7206,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6436,6 +7219,7 @@ export const context = {
    "name": "tlv-lt-0117.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6449,6 +7233,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6461,6 +7246,7 @@ export const context = {
    "name": "tlv-lt-0118.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6474,6 +7260,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6486,6 +7273,7 @@ export const context = {
    "name": "tlv-lt-0119.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6499,6 +7287,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6511,6 +7300,7 @@ export const context = {
    "name": "tlv-lt-0120.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6524,6 +7314,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6536,6 +7327,7 @@ export const context = {
    "name": "tlv-lt-0121.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6549,6 +7341,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6561,6 +7354,7 @@ export const context = {
    "name": "tlv-lt-0122.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6574,6 +7368,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6586,6 +7381,7 @@ export const context = {
    "name": "tlv-lt-0123.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6599,6 +7395,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6611,6 +7408,7 @@ export const context = {
    "name": "tlv-lt-0124.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6624,6 +7422,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6636,6 +7435,7 @@ export const context = {
    "name": "tlv-lt-0125.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6649,6 +7449,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6661,6 +7462,7 @@ export const context = {
    "name": "tlv-lt-0126.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6674,6 +7476,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6686,6 +7489,7 @@ export const context = {
    "name": "tlv-lt-0127.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6699,6 +7503,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6711,6 +7516,7 @@ export const context = {
    "name": "tlv-lt-0128.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6724,6 +7530,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6736,6 +7543,7 @@ export const context = {
    "name": "tlv-lt-0129.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6749,6 +7557,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6761,6 +7570,7 @@ export const context = {
    "name": "tlv-lt-0130.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6774,6 +7584,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6786,6 +7597,7 @@ export const context = {
    "name": "tlv-lt-0131.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6799,6 +7611,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6811,6 +7624,7 @@ export const context = {
    "name": "tlv-lt-0132.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6824,6 +7638,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6836,6 +7651,7 @@ export const context = {
    "name": "tlv-lt-0133.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6849,6 +7665,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6861,6 +7678,7 @@ export const context = {
    "name": "tlv-lt-0134.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6874,6 +7692,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6886,6 +7705,7 @@ export const context = {
    "name": "tlv-lt-0135.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6899,6 +7719,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6911,6 +7732,7 @@ export const context = {
    "name": "tlv-lt-0136.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6924,6 +7746,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6936,6 +7759,7 @@ export const context = {
    "name": "tlv-lt-0137.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6949,6 +7773,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6961,6 +7786,7 @@ export const context = {
    "name": "tlv-lt-0138.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6974,6 +7800,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -6986,6 +7813,7 @@ export const context = {
    "name": "tlv-lt-0139.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -6999,6 +7827,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7011,6 +7840,7 @@ export const context = {
    "name": "tlv-lt-0140.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7024,6 +7854,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7036,6 +7867,7 @@ export const context = {
    "name": "tlv-lt-0141.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7049,6 +7881,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7061,6 +7894,7 @@ export const context = {
    "name": "tlv-lt-0142.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7074,6 +7908,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7086,6 +7921,7 @@ export const context = {
    "name": "tlv-lt-0143.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7099,6 +7935,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7111,6 +7948,7 @@ export const context = {
    "name": "tlv-lt-0144.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7124,6 +7962,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7136,6 +7975,7 @@ export const context = {
    "name": "tlv-lt-0145.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7149,6 +7989,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7161,6 +8002,7 @@ export const context = {
    "name": "tlv-lt-0146.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7174,6 +8016,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7186,6 +8029,7 @@ export const context = {
    "name": "tlv-lt-0147.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7199,6 +8043,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7211,6 +8056,7 @@ export const context = {
    "name": "tlv-lt-0148.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7224,6 +8070,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7236,6 +8083,7 @@ export const context = {
    "name": "tlv-lt-0149.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7249,6 +8097,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7261,6 +8110,7 @@ export const context = {
    "name": "tlv-lt-0150.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7274,6 +8124,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7286,6 +8137,7 @@ export const context = {
    "name": "tlv-lt-0151.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7299,6 +8151,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7311,6 +8164,7 @@ export const context = {
    "name": "tlv-lt-0152.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7324,6 +8178,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7336,6 +8191,7 @@ export const context = {
    "name": "tlv-lt-0153.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7349,6 +8205,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7361,6 +8218,7 @@ export const context = {
    "name": "tlv-lt-0154.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7374,6 +8232,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7386,6 +8245,7 @@ export const context = {
    "name": "tlv-lt-0155.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7399,6 +8259,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7411,6 +8272,7 @@ export const context = {
    "name": "tlv-lt-0156.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7424,6 +8286,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7436,6 +8299,7 @@ export const context = {
    "name": "tlv-lt-0157.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7449,6 +8313,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7461,6 +8326,7 @@ export const context = {
    "name": "tlv-lt-0158.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7474,6 +8340,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7486,6 +8353,7 @@ export const context = {
    "name": "tlv-lt-0159.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7499,6 +8367,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7511,6 +8380,7 @@ export const context = {
    "name": "tlv-lt-0160.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7524,6 +8394,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7536,6 +8407,7 @@ export const context = {
    "name": "tlv-lt-0161.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7549,6 +8421,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7561,6 +8434,7 @@ export const context = {
    "name": "tlv-lt-0162.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7574,6 +8448,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7586,6 +8461,7 @@ export const context = {
    "name": "bos-lt-0163.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7599,6 +8475,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7611,6 +8488,7 @@ export const context = {
    "name": "bos-lt-0164.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7624,6 +8502,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7636,6 +8515,7 @@ export const context = {
    "name": "bos-lt-0165.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7649,6 +8529,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7661,6 +8542,7 @@ export const context = {
    "name": "bos-lt-0166.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7674,6 +8556,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7686,6 +8569,7 @@ export const context = {
    "name": "bos-lt-0167.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7699,6 +8583,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7711,6 +8596,7 @@ export const context = {
    "name": "bos-lt-0168.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7724,6 +8610,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7736,6 +8623,7 @@ export const context = {
    "name": "bos-lt-0169.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7749,6 +8637,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7761,6 +8650,7 @@ export const context = {
    "name": "bos-lt-0170.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7774,6 +8664,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7786,6 +8677,7 @@ export const context = {
    "name": "bos-lt-0171.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7799,6 +8691,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7811,6 +8704,7 @@ export const context = {
    "name": "bos-lt-0172.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7824,6 +8718,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7836,6 +8731,7 @@ export const context = {
    "name": "bos-lt-0173.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7849,6 +8745,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7861,6 +8758,7 @@ export const context = {
    "name": "bos-lt-0174.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7874,6 +8772,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7886,6 +8785,7 @@ export const context = {
    "name": "bos-lt-0175.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7899,6 +8799,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7911,6 +8812,7 @@ export const context = {
    "name": "bos-lt-0176.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7924,6 +8826,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7936,6 +8839,7 @@ export const context = {
    "name": "bos-lt-0177.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7949,6 +8853,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7961,6 +8866,7 @@ export const context = {
    "name": "bos-lt-0178.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7974,6 +8880,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -7986,6 +8893,7 @@ export const context = {
    "name": "bos-lt-0179.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -7999,6 +8907,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8011,6 +8920,7 @@ export const context = {
    "name": "bos-lt-0180.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8024,6 +8934,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8036,6 +8947,7 @@ export const context = {
    "name": "bos-lt-0181.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8049,6 +8961,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8061,6 +8974,7 @@ export const context = {
    "name": "bos-lt-0182.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8074,6 +8988,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8086,6 +9001,7 @@ export const context = {
    "name": "bos-lt-0183.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8099,6 +9015,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8111,6 +9028,7 @@ export const context = {
    "name": "bos-lt-0184.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8124,6 +9042,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8136,6 +9055,7 @@ export const context = {
    "name": "bos-lt-0185.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8149,6 +9069,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8161,6 +9082,7 @@ export const context = {
    "name": "bos-lt-0186.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8174,6 +9096,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8186,6 +9109,7 @@ export const context = {
    "name": "bos-lt-0187.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8199,6 +9123,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8211,6 +9136,7 @@ export const context = {
    "name": "dub-lt-0188.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8224,6 +9150,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8236,6 +9163,7 @@ export const context = {
    "name": "dub-lt-0189.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8249,6 +9177,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8261,6 +9190,7 @@ export const context = {
    "name": "dub-lt-0190.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8274,6 +9204,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8286,6 +9217,7 @@ export const context = {
    "name": "dub-lt-0191.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8299,6 +9231,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8311,6 +9244,7 @@ export const context = {
    "name": "dub-lt-0192.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8324,6 +9258,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8336,6 +9271,7 @@ export const context = {
    "name": "dub-lt-0193.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8349,6 +9285,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8361,6 +9298,7 @@ export const context = {
    "name": "dub-lt-0194.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8374,6 +9312,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8386,6 +9325,7 @@ export const context = {
    "name": "dub-lt-0195.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8399,6 +9339,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8411,6 +9352,7 @@ export const context = {
    "name": "dub-lt-0196.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8424,6 +9366,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8436,6 +9379,7 @@ export const context = {
    "name": "dub-lt-0197.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8449,6 +9393,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8461,6 +9406,7 @@ export const context = {
    "name": "dub-lt-0198.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8474,6 +9420,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8486,6 +9433,7 @@ export const context = {
    "name": "dub-lt-0199.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8499,6 +9447,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8511,6 +9460,7 @@ export const context = {
    "name": "dub-lt-0200.acme.example",
    "owner": "Engineering",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8524,6 +9474,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8536,6 +9487,7 @@ export const context = {
    "name": "dub-lt-0201.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8549,6 +9501,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8561,6 +9514,7 @@ export const context = {
    "name": "dub-lt-0202.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8574,6 +9528,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8586,6 +9541,7 @@ export const context = {
    "name": "rem-lt-0203.acme.example",
    "owner": "Engineering",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8599,6 +9555,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8611,6 +9568,7 @@ export const context = {
    "name": "rem-lt-0204.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8624,6 +9582,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8636,6 +9595,7 @@ export const context = {
    "name": "rem-lt-0205.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8649,6 +9609,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8661,6 +9622,7 @@ export const context = {
    "name": "rem-lt-0206.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8674,6 +9636,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8686,6 +9649,7 @@ export const context = {
    "name": "rem-lt-0207.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8699,6 +9663,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8711,6 +9676,7 @@ export const context = {
    "name": "rem-lt-0208.acme.example",
    "owner": "Engineering",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CICD"
@@ -8724,6 +9690,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8736,6 +9703,7 @@ export const context = {
    "name": "tlv-lt-0209.acme.example",
    "owner": "Threat Research",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8749,6 +9717,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8761,6 +9730,7 @@ export const context = {
    "name": "tlv-lt-0210.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8774,6 +9744,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8786,6 +9757,7 @@ export const context = {
    "name": "tlv-lt-0211.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8799,6 +9771,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8811,6 +9784,7 @@ export const context = {
    "name": "tlv-lt-0212.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8824,6 +9798,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8836,6 +9811,7 @@ export const context = {
    "name": "tlv-lt-0213.acme.example",
    "owner": "Threat Research",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8849,6 +9825,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8861,6 +9838,7 @@ export const context = {
    "name": "tlv-lt-0214.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8874,6 +9852,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8886,6 +9865,7 @@ export const context = {
    "name": "tlv-lt-0215.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8899,6 +9879,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8911,6 +9892,7 @@ export const context = {
    "name": "tlv-lt-0216.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8924,6 +9906,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8936,6 +9919,7 @@ export const context = {
    "name": "tlv-lt-0217.acme.example",
    "owner": "Threat Research",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8949,6 +9933,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8961,6 +9946,7 @@ export const context = {
    "name": "tlv-lt-0218.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8974,6 +9960,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -8986,6 +9973,7 @@ export const context = {
    "name": "tlv-lt-0219.acme.example",
    "owner": "Threat Research",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -8999,6 +9987,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9011,6 +10000,7 @@ export const context = {
    "name": "tlv-lt-0220.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9024,6 +10014,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9036,6 +10027,7 @@ export const context = {
    "name": "tlv-lt-0221.acme.example",
    "owner": "Threat Research",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9049,6 +10041,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9061,6 +10054,7 @@ export const context = {
    "name": "tlv-lt-0222.acme.example",
    "owner": "Threat Research",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9074,6 +10068,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9086,6 +10081,7 @@ export const context = {
    "name": "tlv-lt-0223.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9099,6 +10095,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9111,6 +10108,7 @@ export const context = {
    "name": "tlv-lt-0224.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9124,6 +10122,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9136,6 +10135,7 @@ export const context = {
    "name": "tlv-lt-0225.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9149,6 +10149,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9161,6 +10162,7 @@ export const context = {
    "name": "tlv-lt-0226.acme.example",
    "owner": "Threat Research",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9174,6 +10176,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9186,6 +10189,7 @@ export const context = {
    "name": "dub-lt-0227.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9199,6 +10203,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9211,6 +10216,7 @@ export const context = {
    "name": "dub-lt-0228.acme.example",
    "owner": "Threat Research",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9224,6 +10230,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9236,6 +10243,7 @@ export const context = {
    "name": "dub-lt-0229.acme.example",
    "owner": "Threat Research",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9249,6 +10257,7 @@ export const context = {
    }
   },
   {
+   "brand": "ubuntu",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9261,6 +10270,7 @@ export const context = {
    "name": "dub-lt-0230.acme.example",
    "owner": "Threat Research",
    "platform": "Ubuntu 24.04",
+   "product": "Ubuntu 24.04",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9274,6 +10284,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9286,6 +10297,7 @@ export const context = {
    "name": "dub-lt-0231.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9299,6 +10311,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9311,6 +10324,7 @@ export const context = {
    "name": "dub-lt-0232.acme.example",
    "owner": "Threat Research",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-TIP"
@@ -9324,6 +10338,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9336,6 +10351,7 @@ export const context = {
    "name": "bos-lt-0233.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9349,6 +10365,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9361,6 +10378,7 @@ export const context = {
    "name": "bos-lt-0234.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9374,6 +10392,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9386,6 +10405,7 @@ export const context = {
    "name": "bos-lt-0235.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9399,6 +10419,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9411,6 +10432,7 @@ export const context = {
    "name": "bos-lt-0236.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9424,6 +10446,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9436,6 +10459,7 @@ export const context = {
    "name": "bos-lt-0237.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9449,6 +10473,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9461,6 +10486,7 @@ export const context = {
    "name": "bos-lt-0238.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9474,6 +10500,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9486,6 +10513,7 @@ export const context = {
    "name": "bos-lt-0239.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9499,6 +10527,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9511,6 +10540,7 @@ export const context = {
    "name": "bos-lt-0240.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9524,6 +10554,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9536,6 +10567,7 @@ export const context = {
    "name": "bos-lt-0241.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9549,6 +10581,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9561,6 +10594,7 @@ export const context = {
    "name": "bos-lt-0242.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9574,6 +10608,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9586,6 +10621,7 @@ export const context = {
    "name": "bos-lt-0243.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9599,6 +10635,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9611,6 +10648,7 @@ export const context = {
    "name": "bos-lt-0244.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9624,6 +10662,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9636,6 +10675,7 @@ export const context = {
    "name": "bos-lt-0245.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9649,6 +10689,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9661,6 +10702,7 @@ export const context = {
    "name": "bos-lt-0246.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9674,6 +10716,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9686,6 +10729,7 @@ export const context = {
    "name": "bos-lt-0247.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9699,6 +10743,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9711,6 +10756,7 @@ export const context = {
    "name": "bos-lt-0248.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9724,6 +10770,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9736,6 +10783,7 @@ export const context = {
    "name": "bos-lt-0249.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9749,6 +10797,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9761,6 +10810,7 @@ export const context = {
    "name": "bos-lt-0250.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9774,6 +10824,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9786,6 +10837,7 @@ export const context = {
    "name": "bos-lt-0251.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9799,6 +10851,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9811,6 +10864,7 @@ export const context = {
    "name": "bos-lt-0252.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9824,6 +10878,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9836,6 +10891,7 @@ export const context = {
    "name": "bos-lt-0253.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9849,6 +10905,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9861,6 +10918,7 @@ export const context = {
    "name": "bos-lt-0254.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9874,6 +10932,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9886,6 +10945,7 @@ export const context = {
    "name": "dub-lt-0255.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9899,6 +10959,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9911,6 +10972,7 @@ export const context = {
    "name": "dub-lt-0256.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9924,6 +10986,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9936,6 +10999,7 @@ export const context = {
    "name": "dub-lt-0257.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9949,6 +11013,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9961,6 +11026,7 @@ export const context = {
    "name": "dub-lt-0258.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9974,6 +11040,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -9986,6 +11053,7 @@ export const context = {
    "name": "dub-lt-0259.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -9999,6 +11067,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10011,6 +11080,7 @@ export const context = {
    "name": "dub-lt-0260.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10024,6 +11094,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10036,6 +11107,7 @@ export const context = {
    "name": "dub-lt-0261.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10049,6 +11121,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10061,6 +11134,7 @@ export const context = {
    "name": "dub-lt-0262.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10074,6 +11148,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10086,6 +11161,7 @@ export const context = {
    "name": "dub-lt-0263.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10099,6 +11175,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10111,6 +11188,7 @@ export const context = {
    "name": "dub-lt-0264.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10124,6 +11202,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10136,6 +11215,7 @@ export const context = {
    "name": "dub-lt-0265.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10149,6 +11229,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10161,6 +11242,7 @@ export const context = {
    "name": "dub-lt-0266.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10174,6 +11256,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10186,6 +11269,7 @@ export const context = {
    "name": "dub-lt-0267.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10199,6 +11283,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10211,6 +11296,7 @@ export const context = {
    "name": "dub-lt-0268.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10224,6 +11310,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10236,6 +11323,7 @@ export const context = {
    "name": "dub-lt-0269.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10249,6 +11337,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10261,6 +11350,7 @@ export const context = {
    "name": "dub-lt-0270.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10274,6 +11364,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10286,6 +11377,7 @@ export const context = {
    "name": "dub-lt-0271.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10299,6 +11391,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10311,6 +11404,7 @@ export const context = {
    "name": "dub-lt-0272.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10324,6 +11418,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10336,6 +11431,7 @@ export const context = {
    "name": "dub-lt-0273.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10349,6 +11445,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10361,6 +11458,7 @@ export const context = {
    "name": "dub-lt-0274.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10374,6 +11472,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10386,6 +11485,7 @@ export const context = {
    "name": "dub-lt-0275.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10399,6 +11499,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10411,6 +11512,7 @@ export const context = {
    "name": "dub-lt-0276.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10424,6 +11526,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10436,6 +11539,7 @@ export const context = {
    "name": "dub-lt-0277.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10449,6 +11553,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10461,6 +11566,7 @@ export const context = {
    "name": "dub-lt-0278.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10474,6 +11580,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10486,6 +11593,7 @@ export const context = {
    "name": "rem-lt-0279.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10499,6 +11607,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10511,6 +11620,7 @@ export const context = {
    "name": "rem-lt-0280.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10524,6 +11634,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10536,6 +11647,7 @@ export const context = {
    "name": "rem-lt-0281.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10549,6 +11661,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10561,6 +11674,7 @@ export const context = {
    "name": "rem-lt-0282.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10574,6 +11688,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10586,6 +11701,7 @@ export const context = {
    "name": "rem-lt-0283.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10599,6 +11715,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10611,6 +11728,7 @@ export const context = {
    "name": "rem-lt-0284.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10624,6 +11742,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10636,6 +11755,7 @@ export const context = {
    "name": "rem-lt-0285.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10649,6 +11769,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10661,6 +11782,7 @@ export const context = {
    "name": "rem-lt-0286.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10674,6 +11796,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10686,6 +11809,7 @@ export const context = {
    "name": "rem-lt-0287.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10699,6 +11823,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10711,6 +11836,7 @@ export const context = {
    "name": "rem-lt-0288.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10724,6 +11850,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10736,6 +11863,7 @@ export const context = {
    "name": "rem-lt-0289.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10749,6 +11877,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10761,6 +11890,7 @@ export const context = {
    "name": "rem-lt-0290.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10774,6 +11904,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10786,6 +11917,7 @@ export const context = {
    "name": "rem-lt-0291.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10799,6 +11931,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10811,6 +11944,7 @@ export const context = {
    "name": "rem-lt-0292.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10824,6 +11958,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10836,6 +11971,7 @@ export const context = {
    "name": "rem-lt-0293.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10849,6 +11985,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10861,6 +11998,7 @@ export const context = {
    "name": "rem-lt-0294.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10874,6 +12012,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10886,6 +12025,7 @@ export const context = {
    "name": "rem-lt-0295.acme.example",
    "owner": "Professional Services",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10899,6 +12039,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10911,6 +12052,7 @@ export const context = {
    "name": "rem-lt-0296.acme.example",
    "owner": "Professional Services",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-PS"
@@ -10924,6 +12066,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10936,6 +12079,7 @@ export const context = {
    "name": "bos-lt-0297.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -10949,6 +12093,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10961,6 +12106,7 @@ export const context = {
    "name": "bos-lt-0298.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -10974,6 +12120,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -10986,6 +12133,7 @@ export const context = {
    "name": "bos-lt-0299.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -10999,6 +12147,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11011,6 +12160,7 @@ export const context = {
    "name": "bos-lt-0300.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11024,6 +12174,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11036,6 +12187,7 @@ export const context = {
    "name": "bos-lt-0301.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11049,6 +12201,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11061,6 +12214,7 @@ export const context = {
    "name": "bos-lt-0302.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11074,6 +12228,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11086,6 +12241,7 @@ export const context = {
    "name": "bos-lt-0303.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11099,6 +12255,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11111,6 +12268,7 @@ export const context = {
    "name": "bos-lt-0304.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11124,6 +12282,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11136,6 +12295,7 @@ export const context = {
    "name": "bos-lt-0305.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11149,6 +12309,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11161,6 +12322,7 @@ export const context = {
    "name": "bos-lt-0306.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11174,6 +12336,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11186,6 +12349,7 @@ export const context = {
    "name": "bos-lt-0307.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11199,6 +12363,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11211,6 +12376,7 @@ export const context = {
    "name": "bos-lt-0308.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11224,6 +12390,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11236,6 +12403,7 @@ export const context = {
    "name": "bos-lt-0309.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11249,6 +12417,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11261,6 +12430,7 @@ export const context = {
    "name": "bos-lt-0310.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11274,6 +12444,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11286,6 +12457,7 @@ export const context = {
    "name": "bos-lt-0311.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11299,6 +12471,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11311,6 +12484,7 @@ export const context = {
    "name": "bos-lt-0312.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11324,6 +12498,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11336,6 +12511,7 @@ export const context = {
    "name": "bos-lt-0313.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11349,6 +12525,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11361,6 +12538,7 @@ export const context = {
    "name": "bos-lt-0314.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11374,6 +12552,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11386,6 +12565,7 @@ export const context = {
    "name": "bos-lt-0315.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11399,6 +12579,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11411,6 +12592,7 @@ export const context = {
    "name": "bos-lt-0316.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11424,6 +12606,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11436,6 +12619,7 @@ export const context = {
    "name": "bos-lt-0317.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11449,6 +12633,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11461,6 +12646,7 @@ export const context = {
    "name": "bos-lt-0318.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11474,6 +12660,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11486,6 +12673,7 @@ export const context = {
    "name": "bos-lt-0319.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11499,6 +12687,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11511,6 +12700,7 @@ export const context = {
    "name": "bos-lt-0320.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11524,6 +12714,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11536,6 +12727,7 @@ export const context = {
    "name": "bos-lt-0321.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11549,6 +12741,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11561,6 +12754,7 @@ export const context = {
    "name": "bos-lt-0322.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11574,6 +12768,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11586,6 +12781,7 @@ export const context = {
    "name": "bos-lt-0323.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11599,6 +12795,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11611,6 +12808,7 @@ export const context = {
    "name": "bos-lt-0324.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11624,6 +12822,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11636,6 +12835,7 @@ export const context = {
    "name": "bos-lt-0325.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11649,6 +12849,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11661,6 +12862,7 @@ export const context = {
    "name": "bos-lt-0326.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11674,6 +12876,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11686,6 +12889,7 @@ export const context = {
    "name": "bos-lt-0327.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11699,6 +12903,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11711,6 +12916,7 @@ export const context = {
    "name": "bos-lt-0328.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11724,6 +12930,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11736,6 +12943,7 @@ export const context = {
    "name": "bos-lt-0329.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11749,6 +12957,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11761,6 +12970,7 @@ export const context = {
    "name": "bos-lt-0330.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11774,6 +12984,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11786,6 +12997,7 @@ export const context = {
    "name": "bos-lt-0331.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11799,6 +13011,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11811,6 +13024,7 @@ export const context = {
    "name": "bos-lt-0332.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11824,6 +13038,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11836,6 +13051,7 @@ export const context = {
    "name": "dub-lt-0333.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11849,6 +13065,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11861,6 +13078,7 @@ export const context = {
    "name": "dub-lt-0334.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11874,6 +13092,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11886,6 +13105,7 @@ export const context = {
    "name": "dub-lt-0335.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11899,6 +13119,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11911,6 +13132,7 @@ export const context = {
    "name": "dub-lt-0336.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11924,6 +13146,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11936,6 +13159,7 @@ export const context = {
    "name": "dub-lt-0337.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11949,6 +13173,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11961,6 +13186,7 @@ export const context = {
    "name": "dub-lt-0338.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11974,6 +13200,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -11986,6 +13213,7 @@ export const context = {
    "name": "dub-lt-0339.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -11999,6 +13227,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12011,6 +13240,7 @@ export const context = {
    "name": "dub-lt-0340.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12024,6 +13254,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12036,6 +13267,7 @@ export const context = {
    "name": "dub-lt-0341.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12049,6 +13281,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12061,6 +13294,7 @@ export const context = {
    "name": "dub-lt-0342.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12074,6 +13308,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12086,6 +13321,7 @@ export const context = {
    "name": "dub-lt-0343.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12099,6 +13335,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12111,6 +13348,7 @@ export const context = {
    "name": "dub-lt-0344.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12124,6 +13362,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12136,6 +13375,7 @@ export const context = {
    "name": "dub-lt-0345.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12149,6 +13389,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12161,6 +13402,7 @@ export const context = {
    "name": "dub-lt-0346.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12174,6 +13416,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12186,6 +13429,7 @@ export const context = {
    "name": "sin-lt-0347.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12199,6 +13443,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12211,6 +13456,7 @@ export const context = {
    "name": "sin-lt-0348.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12224,6 +13470,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12236,6 +13483,7 @@ export const context = {
    "name": "sin-lt-0349.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12249,6 +13497,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12261,6 +13510,7 @@ export const context = {
    "name": "sin-lt-0350.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12274,6 +13524,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12286,6 +13537,7 @@ export const context = {
    "name": "sin-lt-0351.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12299,6 +13551,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12311,6 +13564,7 @@ export const context = {
    "name": "sin-lt-0352.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12324,6 +13578,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12336,6 +13591,7 @@ export const context = {
    "name": "sin-lt-0353.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12349,6 +13605,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12361,6 +13618,7 @@ export const context = {
    "name": "sin-lt-0354.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12374,6 +13632,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12386,6 +13645,7 @@ export const context = {
    "name": "sin-lt-0355.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12399,6 +13659,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12411,6 +13672,7 @@ export const context = {
    "name": "sin-lt-0356.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12424,6 +13686,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12436,6 +13699,7 @@ export const context = {
    "name": "sin-lt-0357.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12449,6 +13713,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12461,6 +13726,7 @@ export const context = {
    "name": "sin-lt-0358.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12474,6 +13740,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12486,6 +13753,7 @@ export const context = {
    "name": "sin-lt-0359.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12499,6 +13767,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12511,6 +13780,7 @@ export const context = {
    "name": "sin-lt-0360.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12524,6 +13794,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12536,6 +13807,7 @@ export const context = {
    "name": "sin-lt-0361.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12549,6 +13821,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12561,6 +13834,7 @@ export const context = {
    "name": "sin-lt-0362.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12574,6 +13848,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12586,6 +13861,7 @@ export const context = {
    "name": "sin-lt-0363.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12599,6 +13875,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12611,6 +13888,7 @@ export const context = {
    "name": "sin-lt-0364.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12624,6 +13902,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12636,6 +13915,7 @@ export const context = {
    "name": "sin-lt-0365.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12649,6 +13929,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12661,6 +13942,7 @@ export const context = {
    "name": "sin-lt-0366.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12674,6 +13956,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12686,6 +13969,7 @@ export const context = {
    "name": "sin-lt-0367.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12699,6 +13983,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12711,6 +13996,7 @@ export const context = {
    "name": "sin-lt-0368.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12724,6 +14010,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12736,6 +14023,7 @@ export const context = {
    "name": "sin-lt-0369.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12749,6 +14037,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12761,6 +14050,7 @@ export const context = {
    "name": "sin-lt-0370.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12774,6 +14064,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12786,6 +14077,7 @@ export const context = {
    "name": "sin-lt-0371.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12799,6 +14091,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12811,6 +14104,7 @@ export const context = {
    "name": "sin-lt-0372.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12824,6 +14118,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12836,6 +14131,7 @@ export const context = {
    "name": "rem-lt-0373.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12849,6 +14145,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12861,6 +14158,7 @@ export const context = {
    "name": "rem-lt-0374.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12874,6 +14172,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12886,6 +14185,7 @@ export const context = {
    "name": "rem-lt-0375.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12899,6 +14199,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12911,6 +14212,7 @@ export const context = {
    "name": "rem-lt-0376.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12924,6 +14226,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12936,6 +14239,7 @@ export const context = {
    "name": "rem-lt-0377.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12949,6 +14253,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12961,6 +14266,7 @@ export const context = {
    "name": "rem-lt-0378.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12974,6 +14280,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -12986,6 +14293,7 @@ export const context = {
    "name": "rem-lt-0379.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -12999,6 +14307,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13011,6 +14320,7 @@ export const context = {
    "name": "rem-lt-0380.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -13024,6 +14334,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13036,6 +14347,7 @@ export const context = {
    "name": "rem-lt-0381.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -13049,6 +14361,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13061,6 +14374,7 @@ export const context = {
    "name": "rem-lt-0382.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -13074,6 +14388,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13086,6 +14401,7 @@ export const context = {
    "name": "rem-lt-0383.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -13099,6 +14415,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13111,6 +14428,7 @@ export const context = {
    "name": "rem-lt-0384.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -13124,6 +14442,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13136,6 +14455,7 @@ export const context = {
    "name": "rem-lt-0385.acme.example",
    "owner": "Sales",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -13149,6 +14469,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13161,6 +14482,7 @@ export const context = {
    "name": "rem-lt-0386.acme.example",
    "owner": "Sales",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-CRM"
@@ -13174,6 +14496,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13186,6 +14509,7 @@ export const context = {
    "name": "bos-lt-0387.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13199,6 +14523,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13211,6 +14536,7 @@ export const context = {
    "name": "bos-lt-0388.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13224,6 +14550,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13236,6 +14563,7 @@ export const context = {
    "name": "bos-lt-0389.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13249,6 +14577,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13261,6 +14590,7 @@ export const context = {
    "name": "bos-lt-0390.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13274,6 +14604,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13286,6 +14617,7 @@ export const context = {
    "name": "bos-lt-0391.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13299,6 +14631,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13311,6 +14644,7 @@ export const context = {
    "name": "bos-lt-0392.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13324,6 +14658,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13336,6 +14671,7 @@ export const context = {
    "name": "bos-lt-0393.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13349,6 +14685,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13361,6 +14698,7 @@ export const context = {
    "name": "bos-lt-0394.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13374,6 +14712,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13386,6 +14725,7 @@ export const context = {
    "name": "bos-lt-0395.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13399,6 +14739,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13411,6 +14752,7 @@ export const context = {
    "name": "bos-lt-0396.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13424,6 +14766,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13436,6 +14779,7 @@ export const context = {
    "name": "bos-lt-0397.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13449,6 +14793,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13461,6 +14806,7 @@ export const context = {
    "name": "bos-lt-0398.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13474,6 +14820,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13486,6 +14833,7 @@ export const context = {
    "name": "bos-lt-0399.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13499,6 +14847,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13511,6 +14860,7 @@ export const context = {
    "name": "bos-lt-0400.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13524,6 +14874,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13536,6 +14887,7 @@ export const context = {
    "name": "bos-lt-0401.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13549,6 +14901,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13561,6 +14914,7 @@ export const context = {
    "name": "bos-lt-0402.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13574,6 +14928,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13586,6 +14941,7 @@ export const context = {
    "name": "bos-lt-0403.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13599,6 +14955,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13611,6 +14968,7 @@ export const context = {
    "name": "bos-lt-0404.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13624,6 +14982,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13636,6 +14995,7 @@ export const context = {
    "name": "dub-lt-0405.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13649,6 +15009,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13661,6 +15022,7 @@ export const context = {
    "name": "dub-lt-0406.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13674,6 +15036,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13686,6 +15049,7 @@ export const context = {
    "name": "dub-lt-0407.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13699,6 +15063,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13711,6 +15076,7 @@ export const context = {
    "name": "dub-lt-0408.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13724,6 +15090,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13736,6 +15103,7 @@ export const context = {
    "name": "dub-lt-0409.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13749,6 +15117,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -13761,6 +15130,7 @@ export const context = {
    "name": "dub-lt-0410.acme.example",
    "owner": "Finance",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-FIN"
@@ -13774,6 +15144,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13786,6 +15157,7 @@ export const context = {
    "name": "bos-lt-0411.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -13799,6 +15171,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13811,6 +15184,7 @@ export const context = {
    "name": "bos-lt-0412.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -13824,6 +15198,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13836,6 +15211,7 @@ export const context = {
    "name": "bos-lt-0413.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -13849,6 +15225,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13861,6 +15238,7 @@ export const context = {
    "name": "bos-lt-0414.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -13874,6 +15252,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13886,6 +15265,7 @@ export const context = {
    "name": "bos-lt-0415.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -13899,6 +15279,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13911,6 +15292,7 @@ export const context = {
    "name": "bos-lt-0416.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -13924,6 +15306,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13936,6 +15319,7 @@ export const context = {
    "name": "bos-lt-0417.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -13949,6 +15333,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13961,6 +15346,7 @@ export const context = {
    "name": "bos-lt-0418.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -13974,6 +15360,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -13986,6 +15373,7 @@ export const context = {
    "name": "bos-lt-0419.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -13999,6 +15387,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -14011,6 +15400,7 @@ export const context = {
    "name": "bos-lt-0420.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -14024,6 +15414,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -14036,6 +15427,7 @@ export const context = {
    "name": "dub-lt-0421.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -14049,6 +15441,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -14061,6 +15454,7 @@ export const context = {
    "name": "dub-lt-0422.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -14074,6 +15468,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -14086,6 +15481,7 @@ export const context = {
    "name": "dub-lt-0423.acme.example",
    "owner": "People & HR",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT",
     "SVC-IAM"
@@ -14099,6 +15495,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14111,6 +15508,7 @@ export const context = {
    "name": "bos-lt-0424.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14123,6 +15521,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14135,6 +15534,7 @@ export const context = {
    "name": "bos-lt-0425.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14147,6 +15547,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14159,6 +15560,7 @@ export const context = {
    "name": "bos-lt-0426.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14171,6 +15573,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14183,6 +15586,7 @@ export const context = {
    "name": "bos-lt-0427.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14195,6 +15599,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14207,6 +15612,7 @@ export const context = {
    "name": "bos-lt-0428.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14219,6 +15625,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14231,6 +15638,7 @@ export const context = {
    "name": "bos-lt-0429.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14243,6 +15651,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14255,6 +15664,7 @@ export const context = {
    "name": "bos-lt-0430.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14267,6 +15677,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14279,6 +15690,7 @@ export const context = {
    "name": "bos-lt-0431.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14291,6 +15703,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14303,6 +15716,7 @@ export const context = {
    "name": "bos-lt-0432.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14315,6 +15729,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14327,6 +15742,7 @@ export const context = {
    "name": "bos-lt-0433.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14339,6 +15755,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14351,6 +15768,7 @@ export const context = {
    "name": "bos-lt-0434.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14363,6 +15781,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14375,6 +15794,7 @@ export const context = {
    "name": "bos-lt-0435.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14387,6 +15807,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14399,6 +15820,7 @@ export const context = {
    "name": "bos-lt-0436.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14411,6 +15833,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14423,6 +15846,7 @@ export const context = {
    "name": "bos-lt-0437.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14435,6 +15859,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14447,6 +15872,7 @@ export const context = {
    "name": "bos-lt-0438.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14459,6 +15885,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14471,6 +15898,7 @@ export const context = {
    "name": "bos-lt-0439.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14483,6 +15911,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14495,6 +15924,7 @@ export const context = {
    "name": "bos-lt-0440.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14507,6 +15937,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14519,6 +15950,7 @@ export const context = {
    "name": "bos-lt-0441.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14531,6 +15963,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14543,6 +15976,7 @@ export const context = {
    "name": "bos-lt-0442.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14555,6 +15989,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14567,6 +16002,7 @@ export const context = {
    "name": "bos-lt-0443.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14579,6 +16015,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14591,6 +16028,7 @@ export const context = {
    "name": "bos-lt-0444.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14603,6 +16041,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14615,6 +16054,7 @@ export const context = {
    "name": "bos-lt-0445.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14627,6 +16067,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14639,6 +16080,7 @@ export const context = {
    "name": "dub-lt-0446.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14651,6 +16093,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14663,6 +16106,7 @@ export const context = {
    "name": "dub-lt-0447.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14675,6 +16119,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14687,6 +16132,7 @@ export const context = {
    "name": "dub-lt-0448.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14699,6 +16145,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14711,6 +16158,7 @@ export const context = {
    "name": "dub-lt-0449.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14723,6 +16171,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14735,6 +16184,7 @@ export const context = {
    "name": "dub-lt-0450.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14747,6 +16197,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14759,6 +16210,7 @@ export const context = {
    "name": "dub-lt-0451.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14771,6 +16223,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14783,6 +16236,7 @@ export const context = {
    "name": "dub-lt-0452.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14795,6 +16249,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14807,6 +16262,7 @@ export const context = {
    "name": "sin-lt-0453.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14819,6 +16275,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14831,6 +16288,7 @@ export const context = {
    "name": "sin-lt-0454.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14843,6 +16301,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14855,6 +16314,7 @@ export const context = {
    "name": "sin-lt-0455.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14867,6 +16327,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14879,6 +16340,7 @@ export const context = {
    "name": "sin-lt-0456.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14891,6 +16353,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14903,6 +16366,7 @@ export const context = {
    "name": "sin-lt-0457.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14915,6 +16379,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14927,6 +16392,7 @@ export const context = {
    "name": "sin-lt-0458.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14939,6 +16405,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14951,6 +16418,7 @@ export const context = {
    "name": "tlv-lt-0459.acme.example",
    "owner": "IT & Security",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14963,6 +16431,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "high",
@@ -14975,6 +16444,7 @@ export const context = {
    "name": "tlv-lt-0460.acme.example",
    "owner": "IT & Security",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -14987,6 +16457,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -14999,6 +16470,7 @@ export const context = {
    "name": "bos-lt-0461.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15011,6 +16483,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15023,6 +16496,7 @@ export const context = {
    "name": "bos-lt-0462.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15035,6 +16509,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15047,6 +16522,7 @@ export const context = {
    "name": "bos-lt-0463.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15059,6 +16535,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15071,6 +16548,7 @@ export const context = {
    "name": "bos-lt-0464.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15083,6 +16561,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15095,6 +16574,7 @@ export const context = {
    "name": "bos-lt-0465.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15107,6 +16587,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15119,6 +16600,7 @@ export const context = {
    "name": "bos-lt-0466.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15131,6 +16613,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15143,6 +16626,7 @@ export const context = {
    "name": "bos-lt-0467.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15155,6 +16639,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15167,6 +16652,7 @@ export const context = {
    "name": "bos-lt-0468.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15179,6 +16665,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15191,6 +16678,7 @@ export const context = {
    "name": "bos-lt-0469.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15203,6 +16691,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15215,6 +16704,7 @@ export const context = {
    "name": "bos-lt-0470.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15227,6 +16717,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15239,6 +16730,7 @@ export const context = {
    "name": "bos-lt-0471.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15251,6 +16743,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15263,6 +16756,7 @@ export const context = {
    "name": "bos-lt-0472.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15275,6 +16769,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15287,6 +16782,7 @@ export const context = {
    "name": "bos-lt-0473.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15299,6 +16795,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15311,6 +16808,7 @@ export const context = {
    "name": "bos-lt-0474.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15323,6 +16821,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15335,6 +16834,7 @@ export const context = {
    "name": "bos-lt-0475.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15347,6 +16847,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15359,6 +16860,7 @@ export const context = {
    "name": "bos-lt-0476.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15371,6 +16873,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15383,6 +16886,7 @@ export const context = {
    "name": "bos-lt-0477.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15395,6 +16899,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15407,6 +16912,7 @@ export const context = {
    "name": "bos-lt-0478.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15419,6 +16925,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15431,6 +16938,7 @@ export const context = {
    "name": "bos-lt-0479.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15443,6 +16951,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15455,6 +16964,7 @@ export const context = {
    "name": "bos-lt-0480.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15467,6 +16977,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15479,6 +16990,7 @@ export const context = {
    "name": "bos-lt-0481.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15491,6 +17003,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15503,6 +17016,7 @@ export const context = {
    "name": "bos-lt-0482.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15515,6 +17029,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15527,6 +17042,7 @@ export const context = {
    "name": "bos-lt-0483.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15539,6 +17055,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15551,6 +17068,7 @@ export const context = {
    "name": "bos-lt-0484.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15563,6 +17081,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15575,6 +17094,7 @@ export const context = {
    "name": "bos-lt-0485.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15587,6 +17107,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15599,6 +17120,7 @@ export const context = {
    "name": "bos-lt-0486.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15611,6 +17133,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15623,6 +17146,7 @@ export const context = {
    "name": "bos-lt-0487.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15635,6 +17159,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15647,6 +17172,7 @@ export const context = {
    "name": "dub-lt-0488.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15659,6 +17185,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15671,6 +17198,7 @@ export const context = {
    "name": "dub-lt-0489.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15683,6 +17211,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15695,6 +17224,7 @@ export const context = {
    "name": "dub-lt-0490.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15707,6 +17237,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15719,6 +17250,7 @@ export const context = {
    "name": "dub-lt-0491.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15731,6 +17263,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15743,6 +17276,7 @@ export const context = {
    "name": "dub-lt-0492.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15755,6 +17289,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15767,6 +17302,7 @@ export const context = {
    "name": "sin-lt-0493.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15779,6 +17315,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15791,6 +17328,7 @@ export const context = {
    "name": "sin-lt-0494.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15803,6 +17341,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15815,6 +17354,7 @@ export const context = {
    "name": "sin-lt-0495.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15827,6 +17367,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15839,6 +17380,7 @@ export const context = {
    "name": "sin-lt-0496.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15851,6 +17393,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15863,6 +17406,7 @@ export const context = {
    "name": "sin-lt-0497.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15875,6 +17419,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15887,6 +17432,7 @@ export const context = {
    "name": "sin-lt-0498.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15899,6 +17445,7 @@ export const context = {
    }
   },
   {
+   "brand": "apple",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15911,6 +17458,7 @@ export const context = {
    "name": "rem-lt-0499.acme.example",
    "owner": "Executive & G&A",
    "platform": "macOS 15",
+   "product": "macOS 15",
    "service_ids": [
     "SVC-IT"
    ],
@@ -15923,6 +17471,7 @@ export const context = {
    }
   },
   {
+   "brand": "windows",
    "class": "endpoint",
    "cloud": null,
    "criticality": "medium",
@@ -15935,6 +17484,7 @@ export const context = {
    "name": "rem-lt-0500.acme.example",
    "owner": "Executive & G&A",
    "platform": "Windows 11",
+   "product": "Windows 11",
    "service_ids": [
     "SVC-IT"
    ],
@@ -16556,7 +18106,8 @@ export const context = {
     "AWS-ECS-PORTAL-API",
     "AZ-APPGW-PORTAL-EU",
     "SEC-WAF",
-    "AWS-ACCT-PORTAL"
+    "AWS-ACCT-PORTAL",
+    "API-PORTAL"
    ],
    "category": "system",
    "id": "SYS-PORTAL",
@@ -16569,7 +18120,8 @@ export const context = {
     "AWS-EKS-TIP",
     "GCP-GKE-TIP-ML",
     "AWS-ACCT-TIP",
-    "GCP-PRJ-TIP"
+    "GCP-PRJ-TIP",
+    "API-TIP"
    ],
    "category": "system",
    "id": "SYS-TIP",
@@ -16581,7 +18133,8 @@ export const context = {
     "AWS-EKS-MDR",
     "AWS-MSK-MDR",
     "AWS-EKS-MDR-EU",
-    "AWS-ACCT-MDR"
+    "AWS-ACCT-MDR",
+    "API-PARTNER"
    ],
    "category": "system",
    "id": "SYS-MDR",
@@ -16609,7 +18162,16 @@ export const context = {
     "SEC-CASB",
     "SEC-DLP",
     "SEC-IRTRIAGE",
-    "SEC-MAILGW"
+    "SEC-MAILGW",
+    "DN-CREDS",
+    "DN-BRAND",
+    "LOG-CLOUDTRAIL",
+    "LOG-ENTRA",
+    "LOG-OKTA",
+    "LOG-GITHUB",
+    "LOG-WINSEC",
+    "LOG-PANOS",
+    "LOG-K8S"
    ],
    "category": "system",
    "id": "SYS-SIEM",
@@ -17850,6 +19412,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "12.5.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "CM-8"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "CM-8"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "1.1"
     }
    ],
    "id": "CTL-01",
@@ -17881,6 +19455,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "6.3.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "RA-5"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "RA-5"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "7.1"
     }
    ],
    "id": "CTL-02",
@@ -17912,6 +19498,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "6.3.3"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SI-2"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SI-2"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "7.3"
     }
    ],
    "id": "CTL-03",
@@ -17939,6 +19537,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "2.2.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "CM-6"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "CM-6"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "4.1"
     }
    ],
    "id": "CTL-04",
@@ -17966,6 +19576,18 @@ export const context = {
     {
      "framework": "NIS2",
      "ref": "Art.21(2)(d)"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "CA-7"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "CA-7"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "4.1"
     }
    ],
    "id": "CTL-05",
@@ -17997,6 +19619,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "8.4.2"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "IA-2(1)"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "IA-2(1)"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "6.3"
     }
    ],
    "id": "CTL-06",
@@ -18024,6 +19658,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "7.2.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "AC-6"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "AC-6"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "5.4"
     }
    ],
    "id": "CTL-07",
@@ -18051,6 +19697,18 @@ export const context = {
     {
      "framework": "GDPR",
      "ref": "Art.32"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "AC-2"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "AC-2"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "5.3"
     }
    ],
    "id": "CTL-08",
@@ -18078,6 +19736,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "7.2.4"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "AC-2"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "AC-2"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "6.2"
     }
    ],
    "id": "CTL-09",
@@ -18109,6 +19779,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "5.2.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SI-3"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SI-3"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "10.1"
     }
    ],
    "id": "CTL-10",
@@ -18136,6 +19818,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "10.2.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "AU-6"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "AU-6"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "8.2"
     }
    ],
    "id": "CTL-11",
@@ -18163,6 +19857,18 @@ export const context = {
     {
      "framework": "NIS2",
      "ref": "Art.21(2)(b)"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SI-4"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SI-4"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "13.1"
     }
    ],
    "id": "CTL-12",
@@ -18198,6 +19904,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "12.10.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "IR-8"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "IR-8"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "17.4"
     }
    ],
    "id": "CTL-13",
@@ -18225,6 +19943,18 @@ export const context = {
     {
      "framework": "NIS2",
      "ref": "Art.21(2)(c)"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "CP-9"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "CP-9"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "11.3"
     }
    ],
    "id": "CTL-14",
@@ -18252,6 +19982,18 @@ export const context = {
     {
      "framework": "NIS2",
      "ref": "Art.21(2)(c)"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "CP-2"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "CP-2"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "11.1"
     }
    ],
    "id": "CTL-15",
@@ -18279,6 +20021,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "1.3.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SC-7"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SC-7"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "12.2"
     }
    ],
    "id": "CTL-16",
@@ -18306,6 +20060,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "6.4.2"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SC-7"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SC-7"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "13.10"
     }
    ],
    "id": "CTL-17",
@@ -18333,6 +20099,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "4.2.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SC-8"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SC-8"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "3.10"
     }
    ],
    "id": "CTL-18",
@@ -18364,6 +20142,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "3.5.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SC-28"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SC-28"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "3.11"
     }
    ],
    "id": "CTL-19",
@@ -18391,6 +20181,18 @@ export const context = {
     {
      "framework": "GDPR",
      "ref": "Art.5"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "RA-2"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "RA-2"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "3.7"
     }
    ],
    "id": "CTL-20",
@@ -18418,6 +20220,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "8.3.2"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "IA-5"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "IA-5"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "5.2"
     }
    ],
    "id": "CTL-21",
@@ -18449,6 +20263,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "6.2.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SA-11"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SA-11"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "16.1"
     }
    ],
    "id": "CTL-22",
@@ -18476,6 +20302,18 @@ export const context = {
     {
      "framework": "NIS2",
      "ref": "Art.21(2)(d)"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SR-3"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SR-3"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "16.4"
     }
    ],
    "id": "CTL-23",
@@ -18499,6 +20337,18 @@ export const context = {
     {
      "framework": "NIST CSF 2.0",
      "ref": "PR.PS-06"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "CM-7"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "CM-7"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "16.7"
     }
    ],
    "id": "CTL-24",
@@ -18530,6 +20380,18 @@ export const context = {
     {
      "framework": "GDPR",
      "ref": "Art.28"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SR-6"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SR-6"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "15.1"
     }
    ],
    "id": "CTL-25",
@@ -18561,6 +20423,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "12.6.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "AT-2"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "AT-2"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "14.1"
     }
    ],
    "id": "CTL-26",
@@ -18588,6 +20462,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "5.4.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SI-8"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SI-8"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "9.7"
     }
    ],
    "id": "CTL-27",
@@ -18607,6 +20493,14 @@ export const context = {
     {
      "framework": "ISO 27001:2022",
      "ref": "A.8.26"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "SI-7"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "SI-7"
     }
    ],
    "id": "CTL-28",
@@ -18630,6 +20524,18 @@ export const context = {
     {
      "framework": "NIST CSF 2.0",
      "ref": "ID.AM-01"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "CM-8"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "CM-8"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "1.1"
     }
    ],
    "id": "CTL-29",
@@ -18653,6 +20559,14 @@ export const context = {
     {
      "framework": "GDPR",
      "ref": "Art.35"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "RA-3"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "RA-3"
     }
    ],
    "id": "CTL-30",
@@ -18672,6 +20586,14 @@ export const context = {
     {
      "framework": "ISO 27001:2022",
      "ref": "A.5.34"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "RA-8"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "RA-8"
     }
    ],
    "id": "CTL-31",
@@ -18695,6 +20617,18 @@ export const context = {
     {
      "framework": "ISO 27001:2022",
      "ref": "A.5.26"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "IR-6"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "IR-6"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "17.2"
     }
    ],
    "id": "CTL-32",
@@ -18722,6 +20656,14 @@ export const context = {
     {
      "framework": "NIS2",
      "ref": "Art.21(1)"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "PM-9"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "PM-9"
     }
    ],
    "id": "CTL-33",
@@ -18749,6 +20691,14 @@ export const context = {
     {
      "framework": "NIS2",
      "ref": "Art.20"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "PM-2"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "PM-2"
     }
    ],
    "id": "CTL-34",
@@ -18776,6 +20726,14 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "9.2.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "PE-3"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "PE-3"
     }
    ],
    "id": "CTL-35",
@@ -18799,6 +20757,18 @@ export const context = {
     {
      "framework": "NIST CSF 2.0",
      "ref": "PR.DS-01"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "MP-7"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "MP-7"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "10.3"
     }
    ],
    "id": "CTL-36",
@@ -18830,6 +20800,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "8.4.3"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "AC-17"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "AC-17"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "12.7"
     }
    ],
    "id": "CTL-37",
@@ -18857,6 +20839,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "10.5.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "AU-11"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "AU-11"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "8.10"
     }
    ],
    "id": "CTL-38",
@@ -18884,6 +20878,18 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "11.4.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "CA-8"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "CA-8"
+    },
+    {
+     "framework": "CIS Controls v8",
+     "ref": "18.1"
     }
    ],
    "id": "CTL-39",
@@ -18911,6 +20917,14 @@ export const context = {
     {
      "framework": "PCI DSS 4.0",
      "ref": "6.5.1"
+    },
+    {
+     "framework": "NIST SP 800-53 Rev. 5",
+     "ref": "CM-3"
+    },
+    {
+     "framework": "FedRAMP Moderate",
+     "ref": "CM-3"
     }
    ],
    "id": "CTL-40",
@@ -18946,6 +20960,20 @@ export const context = {
     "T1190"
    ],
    "owner": "Portal Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1190",
+     "name": "Exploit Public-Facing Application",
+     "url": "https://attack.mitre.org/techniques/T1190/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A08:2021",
+     "name": "Software and Data Integrity Failures",
+     "url": "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Upgrade API framework to fixed release and redeploy",
     "cost_usd": 40000,
@@ -18984,6 +21012,20 @@ export const context = {
     "T1190"
    ],
    "owner": "Security Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1190",
+     "name": "Exploit Public-Facing Application",
+     "url": "https://attack.mitre.org/techniques/T1190/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Switch managed rule sets to blocking after 7-day tuning",
     "cost_usd": 8000,
@@ -19020,6 +21062,20 @@ export const context = {
     "T1530"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1530",
+     "name": "Data from Cloud Storage",
+     "url": "https://attack.mitre.org/techniques/T1530/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A01:2021",
+     "name": "Broken Access Control",
+     "url": "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+    }
+   ],
    "remediation": {
     "action": "Enable Block Public Access; rotate pre-signed URL keys; review access logs",
     "cost_usd": 5000,
@@ -19056,6 +21112,20 @@ export const context = {
     "T1133"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1133",
+     "name": "External Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1133/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Restrict security group to bastion; enforce IAM auth",
     "cost_usd": 6000,
@@ -19091,6 +21161,20 @@ export const context = {
     "T1557"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557",
+     "name": "Adversary-in-the-Middle",
+     "url": "https://attack.mitre.org/techniques/T1557/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply TLS 1.2+ policy",
     "cost_usd": 2000,
@@ -19124,6 +21208,7 @@ export const context = {
    "id": "CR-010",
    "mitre_techniques": [],
    "owner": "SOC Engineering",
+   "references": [],
    "remediation": {
     "action": "Re-deploy node groups and brokers across three AZs",
     "cost_usd": 120000,
@@ -19164,6 +21249,14 @@ export const context = {
     "T1078.002"
    ],
    "owner": "SOC Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078.002",
+     "name": "Domain Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/002/"
+    }
+   ],
    "remediation": {
     "action": "Replace with scoped gMSA and just-in-time elevation",
     "cost_usd": 25000,
@@ -19204,6 +21297,14 @@ export const context = {
     "T1562.001"
    ],
    "owner": "Security Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.001",
+     "name": "Disable or Modify Tools",
+     "url": "https://attack.mitre.org/techniques/T1562/001/"
+    }
+   ],
    "remediation": {
     "action": "Re-enable tamper protection via policy; alert on change",
     "cost_usd": 3000,
@@ -19243,6 +21344,20 @@ export const context = {
     "T1528"
    ],
    "owner": "Security Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1528",
+     "name": "Steal Application Access Token",
+     "url": "https://attack.mitre.org/techniques/T1528/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A07:2021",
+     "name": "Identification and Authentication Failures",
+     "url": "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Revoke grant, restrict user consent to verified publishers, review mailbox access logs",
     "cost_usd": 4000,
@@ -19284,6 +21399,14 @@ export const context = {
     "T1071.001"
    ],
    "owner": "Security Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1071.001",
+     "name": "Web Protocols",
+     "url": "https://attack.mitre.org/techniques/T1071/001/"
+    }
+   ],
    "remediation": {
     "action": "Isolate host, run IRTriage full collection, re-image after review",
     "cost_usd": 15000,
@@ -19325,6 +21448,20 @@ export const context = {
     "T1190"
    ],
    "owner": "Network Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1133",
+     "name": "External Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1133/"
+    },
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1190",
+     "name": "Exploit Public-Facing Application",
+     "url": "https://attack.mitre.org/techniques/T1190/"
+    }
+   ],
    "remediation": {
     "action": "Apply hotfix in emergency change window; rotate VPN certificates",
     "cost_usd": 10000,
@@ -19365,6 +21502,20 @@ export const context = {
     "AML.T0051"
    ],
    "owner": "AI Platform",
+   "references": [
+    {
+     "framework": "MITRE ATLAS",
+     "id": "AML.T0051",
+     "name": "LLM Prompt Injection",
+     "url": "https://atlas.mitre.org/techniques/AML.T0051"
+    },
+    {
+     "framework": "OWASP LLM Top 10 (2025)",
+     "id": "LLM01:2025",
+     "name": "Prompt Injection",
+     "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"
+    }
+   ],
    "remediation": {
     "action": "Add input isolation and output policy checks; keep analyst-in-the-loop for actions",
     "cost_usd": 30000,
@@ -19407,6 +21558,14 @@ export const context = {
     "T1552.001"
    ],
    "owner": "Platform Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1552.001",
+     "name": "Credentials In Files",
+     "url": "https://attack.mitre.org/techniques/T1552/001/"
+    }
+   ],
    "remediation": {
     "action": "Move to short-lived OIDC credentials with least-privilege scopes",
     "cost_usd": 20000,
@@ -19445,6 +21604,14 @@ export const context = {
     "T1195.002"
    ],
    "owner": "Platform Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1195.002",
+     "name": "Compromise Software Supply Chain",
+     "url": "https://attack.mitre.org/techniques/T1195/002/"
+    }
+   ],
    "remediation": {
     "action": "Separate runner groups; use ephemeral runners for public repos",
     "cost_usd": 18000,
@@ -19485,6 +21652,14 @@ export const context = {
     "T1195.002"
    ],
    "owner": "Platform Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1195.002",
+     "name": "Compromise Software Supply Chain",
+     "url": "https://attack.mitre.org/techniques/T1195/002/"
+    }
+   ],
    "remediation": {
     "action": "Enforce signature verification admission policy",
     "cost_usd": 22000,
@@ -19521,6 +21696,20 @@ export const context = {
     "T1552.001"
    ],
    "owner": "Platform Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1552.001",
+     "name": "Credentials In Files",
+     "url": "https://attack.mitre.org/techniques/T1552/001/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A07:2021",
+     "name": "Identification and Authentication Failures",
+     "url": "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Rotate the 14 exposed secrets; enable push protection",
     "cost_usd": 6000,
@@ -19562,6 +21751,20 @@ export const context = {
     "T1195.001"
    ],
    "owner": "Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1195.001",
+     "name": "Compromise Software Dependencies and Development Tools",
+     "url": "https://attack.mitre.org/techniques/T1195/001/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Bump dependency and rebuild affected images",
     "cost_usd": 7000,
@@ -19605,6 +21808,14 @@ export const context = {
     "T1078"
    ],
    "owner": "Identity Team",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078",
+     "name": "Valid Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/"
+    }
+   ],
    "remediation": {
     "action": "Enforce phishing-resistant MFA conditional access for admin roles",
     "cost_usd": 9000,
@@ -19646,6 +21857,14 @@ export const context = {
     "T1078"
    ],
    "owner": "People & HR",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078",
+     "name": "Valid Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/"
+    }
+   ],
    "remediation": {
     "action": "Automate HRIS-to-IdP deprovisioning; disable stale accounts",
     "cost_usd": 15000,
@@ -19686,6 +21905,14 @@ export const context = {
     "T1078.004"
    ],
    "owner": "Security Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078.004",
+     "name": "Cloud Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/004/"
+    }
+   ],
    "remediation": {
     "action": "Reset credentials and sessions; confirm with user; review finance DB audit",
     "cost_usd": 2000,
@@ -19729,6 +21956,14 @@ export const context = {
     "T1210"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1210",
+     "name": "Exploitation of Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1210/"
+    }
+   ],
    "remediation": {
     "action": "Patch DCs in rolling maintenance",
     "cost_usd": 6000,
@@ -19768,6 +22003,20 @@ export const context = {
     "T1185"
    ],
    "owner": "Finance Systems",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1185",
+     "name": "Browser Session Hijacking",
+     "url": "https://attack.mitre.org/techniques/T1185/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A08:2021",
+     "name": "Software and Data Integrity Failures",
+     "url": "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Script inventory, SRI/CSP and change-detection per PCI 6.4.3 / 11.6.1",
     "cost_usd": 35000,
@@ -19808,6 +22057,14 @@ export const context = {
     "T1490"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1490",
+     "name": "Inhibit System Recovery",
+     "url": "https://attack.mitre.org/techniques/T1490/"
+    }
+   ],
    "remediation": {
     "action": "Enable object-lock vault copies; quarterly restore test",
     "cost_usd": 28000,
@@ -19845,6 +22102,14 @@ export const context = {
     "T1210"
    ],
    "owner": "Finance Systems",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1210",
+     "name": "Exploitation of Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1210/"
+    }
+   ],
    "remediation": {
     "action": "Migrate to supported platform (approved FY27 project)",
     "cost_usd": 140000,
@@ -19885,6 +22150,14 @@ export const context = {
     "T1078.004"
    ],
    "owner": "Data Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078.004",
+     "name": "Cloud Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/004/"
+    }
+   ],
    "remediation": {
     "action": "Row-level security and scoped service principals",
     "cost_usd": 16000,
@@ -19921,6 +22194,14 @@ export const context = {
     "T1530"
    ],
    "owner": "Data Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1530",
+     "name": "Data from Cloud Storage",
+     "url": "https://attack.mitre.org/techniques/T1530/"
+    }
+   ],
    "remediation": {
     "action": "Private endpoints only",
     "cost_usd": 4000,
@@ -19961,6 +22242,20 @@ export const context = {
     "AML.T0057"
    ],
    "owner": "AI Platform",
+   "references": [
+    {
+     "framework": "MITRE ATLAS",
+     "id": "AML.T0057",
+     "name": "LLM Data Leakage",
+     "url": "https://atlas.mitre.org/techniques/AML.T0057"
+    },
+    {
+     "framework": "OWASP LLM Top 10 (2025)",
+     "id": "LLM02:2025",
+     "name": "Sensitive Information Disclosure",
+     "url": "https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/"
+    }
+   ],
    "remediation": {
     "action": "Permission-aware retrieval; remove HR corpus pending DPIA",
     "cost_usd": 24000,
@@ -19998,6 +22293,20 @@ export const context = {
     "T1552.001"
    ],
    "owner": "AI Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1552.001",
+     "name": "Credentials In Files",
+     "url": "https://attack.mitre.org/techniques/T1552/001/"
+    },
+    {
+     "framework": "OWASP API Top 10 (2023)",
+     "id": "API2:2023",
+     "name": "Broken Authentication",
+     "url": "https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication/"
+    }
+   ],
    "remediation": {
     "action": "Proxy calls through backend with per-user tokens; rotate key",
     "cost_usd": 8000,
@@ -20047,6 +22356,14 @@ export const context = {
     "T1562.001"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.001",
+     "name": "Disable or Modify Tools",
+     "url": "https://attack.mitre.org/techniques/T1562/001/"
+    }
+   ],
    "remediation": {
     "action": "Deploy agent via MDM; block network access for unmanaged devices",
     "cost_usd": 5000,
@@ -20145,6 +22462,14 @@ export const context = {
     "T1078.003"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078.003",
+     "name": "Local Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/003/"
+    }
+   ],
    "remediation": {
     "action": "Just-in-time elevation tool",
     "cost_usd": 20000,
@@ -20189,6 +22514,7 @@ export const context = {
    "id": "CR-062",
    "mitre_techniques": [],
    "owner": "Facilities",
+   "references": [],
    "remediation": {
     "action": "Replace controllers (capex approved)",
     "cost_usd": 60000,
@@ -20229,6 +22555,14 @@ export const context = {
     "T1078.001"
    ],
    "owner": "Facilities",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078.001",
+     "name": "Default Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/001/"
+    }
+   ],
    "remediation": {
     "action": "Rotate credentials; move to IoT VLAN",
     "cost_usd": 3000,
@@ -20267,6 +22601,14 @@ export const context = {
     "T1133"
    ],
    "owner": "Network Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1133",
+     "name": "External Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1133/"
+    }
+   ],
    "remediation": {
     "action": "Restrict management plane to admin VPN",
     "cost_usd": 2000,
@@ -20305,6 +22647,14 @@ export const context = {
     "T1219"
    ],
    "owner": "Security Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1219",
+     "name": "Remote Access Software",
+     "url": "https://attack.mitre.org/techniques/T1219/"
+    }
+   ],
    "remediation": {
     "action": "Remove tool, collect triage, confirm no customer data accessed",
     "cost_usd": 4000,
@@ -20344,6 +22694,14 @@ export const context = {
     "T1565.001"
    ],
    "owner": "Threat Research",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1565.001",
+     "name": "Stored Data Manipulation",
+     "url": "https://attack.mitre.org/techniques/T1565/001/"
+    }
+   ],
    "remediation": {
     "action": "Remove binding; require signed feed manifests",
     "cost_usd": 3000,
@@ -20382,6 +22740,20 @@ export const context = {
     "T1498"
    ],
    "owner": "Security Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1498",
+     "name": "Network Denial of Service",
+     "url": "https://attack.mitre.org/techniques/T1498/"
+    },
+    {
+     "framework": "OWASP API Top 10 (2023)",
+     "id": "API4:2023",
+     "name": "Unrestricted Resource Consumption",
+     "url": "https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/"
+    }
+   ],
    "remediation": {
     "action": "Enrol all edges in managed DDoS protection with always-on detection and a response runbook",
     "cost_usd": 90000,
@@ -20417,6 +22789,20 @@ export const context = {
     "T1499"
    ],
    "owner": "Marketing Technology",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1499",
+     "name": "Endpoint Denial of Service",
+     "url": "https://attack.mitre.org/techniques/T1499/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Accept origin traffic from the CDN only; add origin authentication header",
     "cost_usd": 4000,
@@ -20434,7 +22820,8 @@ export const context = {
   },
   {
    "asset_ids": [
-    "AWS-APIGW-TIP"
+    "AWS-APIGW-TIP",
+    "API-TIP"
    ],
    "closed_on": null,
    "component_ids": [],
@@ -20451,6 +22838,20 @@ export const context = {
     "T1499"
    ],
    "owner": "Platform Engineering",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1499",
+     "name": "Endpoint Denial of Service",
+     "url": "https://attack.mitre.org/techniques/T1499/"
+    },
+    {
+     "framework": "OWASP API Top 10 (2023)",
+     "id": "API4:2023",
+     "name": "Unrestricted Resource Consumption",
+     "url": "https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/"
+    }
+   ],
    "remediation": {
     "action": "Usage plans with per-key throttling and burst limits",
     "cost_usd": 9000,
@@ -20469,7 +22870,8 @@ export const context = {
   {
    "asset_ids": [
     "AWS-ALB-PORTAL",
-    "SEC-WAF"
+    "SEC-WAF",
+    "API-PORTAL"
    ],
    "closed_on": null,
    "component_ids": [],
@@ -20487,6 +22889,20 @@ export const context = {
     "T1499"
    ],
    "owner": "Security Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1499",
+     "name": "Endpoint Denial of Service",
+     "url": "https://attack.mitre.org/techniques/T1499/"
+    },
+    {
+     "framework": "OWASP API Top 10 (2023)",
+     "id": "API4:2023",
+     "name": "Unrestricted Resource Consumption",
+     "url": "https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/"
+    }
+   ],
    "remediation": {
     "action": "Tune WAF rate rules, enable bot management, confirm no account-guessing component",
     "cost_usd": 6000,
@@ -20504,7 +22920,8 @@ export const context = {
   },
   {
    "asset_ids": [
-    "SAAS-IDP"
+    "SAAS-IDP",
+    "DN-CREDS"
    ],
    "closed_on": null,
    "component_ids": [
@@ -20526,6 +22943,20 @@ export const context = {
     "T1078"
    ],
    "owner": "Security Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078",
+     "name": "Valid Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A07:2021",
+     "name": "Identification and Authentication Failures",
+     "url": "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Force password resets, confirm MFA enrolment, watch sign-ins for 30 days",
     "cost_usd": 3000,
@@ -20584,6 +23015,20 @@ export const context = {
     "T1203"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1203",
+     "name": "Exploitation for Client Execution",
+     "url": "https://attack.mitre.org/techniques/T1203/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Force-install via MDM with deadline",
     "cost_usd": 2000,
@@ -20634,6 +23079,20 @@ export const context = {
     "T1189"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1189",
+     "name": "Drive-by Compromise",
+     "url": "https://attack.mitre.org/techniques/T1189/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Auto-update browsers; restart enforcement",
     "cost_usd": 1000,
@@ -20684,6 +23143,20 @@ export const context = {
     "T1203"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1203",
+     "name": "Exploitation for Client Execution",
+     "url": "https://attack.mitre.org/techniques/T1203/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Force-install via MDM with deadline",
     "cost_usd": 2000,
@@ -20729,6 +23202,20 @@ export const context = {
     "T1189"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1189",
+     "name": "Drive-by Compromise",
+     "url": "https://attack.mitre.org/techniques/T1189/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Auto-update browsers; restart enforcement",
     "cost_usd": 1000,
@@ -20781,6 +23268,20 @@ export const context = {
     "T1203"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1203",
+     "name": "Exploitation for Client Execution",
+     "url": "https://attack.mitre.org/techniques/T1203/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Force-install via MDM with deadline",
     "cost_usd": 2000,
@@ -20823,6 +23324,20 @@ export const context = {
     "T1189"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1189",
+     "name": "Drive-by Compromise",
+     "url": "https://attack.mitre.org/techniques/T1189/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Auto-update browsers; restart enforcement",
     "cost_usd": 1000,
@@ -20871,6 +23386,20 @@ export const context = {
     "T1203"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1203",
+     "name": "Exploitation for Client Execution",
+     "url": "https://attack.mitre.org/techniques/T1203/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Force-install via MDM with deadline",
     "cost_usd": 2000,
@@ -20914,6 +23443,20 @@ export const context = {
     "T1189"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1189",
+     "name": "Drive-by Compromise",
+     "url": "https://attack.mitre.org/techniques/T1189/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Auto-update browsers; restart enforcement",
     "cost_usd": 1000,
@@ -20957,6 +23500,20 @@ export const context = {
     "T1203"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1203",
+     "name": "Exploitation for Client Execution",
+     "url": "https://attack.mitre.org/techniques/T1203/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Force-install via MDM with deadline",
     "cost_usd": 2000,
@@ -20998,6 +23555,20 @@ export const context = {
     "T1189"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1189",
+     "name": "Drive-by Compromise",
+     "url": "https://attack.mitre.org/techniques/T1189/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Auto-update browsers; restart enforcement",
     "cost_usd": 1000,
@@ -21037,6 +23608,20 @@ export const context = {
     "T1210"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1210",
+     "name": "Exploitation of Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1210/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 2000,
@@ -21074,6 +23659,20 @@ export const context = {
     "T1557.001"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557.001",
+     "name": "LLMNR/NBT-NS Poisoning and SMB Relay",
+     "url": "https://attack.mitre.org/techniques/T1557/001/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 8000,
@@ -21112,6 +23711,20 @@ export const context = {
     "T1210"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1210",
+     "name": "Exploitation of Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1210/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 2000,
@@ -21151,6 +23764,20 @@ export const context = {
     "T1562.004"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.004",
+     "name": "Disable or Modify System Firewall",
+     "url": "https://attack.mitre.org/techniques/T1562/004/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 7000,
@@ -21188,6 +23815,20 @@ export const context = {
     "T1557.001"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557.001",
+     "name": "LLMNR/NBT-NS Poisoning and SMB Relay",
+     "url": "https://attack.mitre.org/techniques/T1557/001/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 8000,
@@ -21225,6 +23866,20 @@ export const context = {
     "T1557.001"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557.001",
+     "name": "LLMNR/NBT-NS Poisoning and SMB Relay",
+     "url": "https://attack.mitre.org/techniques/T1557/001/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 6000,
@@ -21264,6 +23919,20 @@ export const context = {
     "T1210"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1210",
+     "name": "Exploitation of Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1210/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 3000,
@@ -21305,6 +23974,20 @@ export const context = {
     "T1068"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1068",
+     "name": "Exploitation for Privilege Escalation",
+     "url": "https://attack.mitre.org/techniques/T1068/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 2000,
@@ -21344,6 +24027,20 @@ export const context = {
     "T1562.004"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.004",
+     "name": "Disable or Modify System Firewall",
+     "url": "https://attack.mitre.org/techniques/T1562/004/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 2000,
@@ -21381,6 +24078,20 @@ export const context = {
     "T1562.004"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.004",
+     "name": "Disable or Modify System Firewall",
+     "url": "https://attack.mitre.org/techniques/T1562/004/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 1000,
@@ -21420,6 +24131,20 @@ export const context = {
     "T1557"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557",
+     "name": "Adversary-in-the-Middle",
+     "url": "https://attack.mitre.org/techniques/T1557/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 3000,
@@ -21458,6 +24183,20 @@ export const context = {
     "T1557.001"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557.001",
+     "name": "LLMNR/NBT-NS Poisoning and SMB Relay",
+     "url": "https://attack.mitre.org/techniques/T1557/001/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 2000,
@@ -21492,6 +24231,14 @@ export const context = {
     "T1078.003"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078.003",
+     "name": "Local Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/003/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 4000,
@@ -21530,6 +24277,20 @@ export const context = {
     "T1557.001"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557.001",
+     "name": "LLMNR/NBT-NS Poisoning and SMB Relay",
+     "url": "https://attack.mitre.org/techniques/T1557/001/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 3000,
@@ -21567,6 +24328,14 @@ export const context = {
     "T1078.003"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078.003",
+     "name": "Local Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/003/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 7000,
@@ -21604,6 +24373,20 @@ export const context = {
     "T1557"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557",
+     "name": "Adversary-in-the-Middle",
+     "url": "https://attack.mitre.org/techniques/T1557/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 1000,
@@ -21645,6 +24428,20 @@ export const context = {
     "T1068"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1068",
+     "name": "Exploitation for Privilege Escalation",
+     "url": "https://attack.mitre.org/techniques/T1068/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 5000,
@@ -21681,6 +24478,20 @@ export const context = {
     "T1557.001"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557.001",
+     "name": "LLMNR/NBT-NS Poisoning and SMB Relay",
+     "url": "https://attack.mitre.org/techniques/T1557/001/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 3000,
@@ -21718,6 +24529,20 @@ export const context = {
     "T1557"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557",
+     "name": "Adversary-in-the-Middle",
+     "url": "https://attack.mitre.org/techniques/T1557/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 7000,
@@ -21755,6 +24580,20 @@ export const context = {
     "T1562.004"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.004",
+     "name": "Disable or Modify System Firewall",
+     "url": "https://attack.mitre.org/techniques/T1562/004/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 3000,
@@ -21792,6 +24631,20 @@ export const context = {
     "T1210"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1210",
+     "name": "Exploitation of Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1210/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 1000,
@@ -21832,6 +24685,20 @@ export const context = {
     "T1557.001"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557.001",
+     "name": "LLMNR/NBT-NS Poisoning and SMB Relay",
+     "url": "https://attack.mitre.org/techniques/T1557/001/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 2000,
@@ -21869,6 +24736,20 @@ export const context = {
     "T1068"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1068",
+     "name": "Exploitation for Privilege Escalation",
+     "url": "https://attack.mitre.org/techniques/T1068/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A06:2021",
+     "name": "Vulnerable and Outdated Components",
+     "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 5000,
@@ -21905,6 +24786,20 @@ export const context = {
     "T1557.001"
    ],
    "owner": "IT Operations",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1557.001",
+     "name": "LLMNR/NBT-NS Poisoning and SMB Relay",
+     "url": "https://attack.mitre.org/techniques/T1557/001/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply hardening baseline / update",
     "cost_usd": 3000,
@@ -21939,6 +24834,20 @@ export const context = {
     "T1530"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1530",
+     "name": "Data from Cloud Storage",
+     "url": "https://attack.mitre.org/techniques/T1530/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 5000,
@@ -21973,6 +24882,20 @@ export const context = {
     "T1611"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1611",
+     "name": "Escape to Host",
+     "url": "https://attack.mitre.org/techniques/T1611/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 1000,
@@ -22006,6 +24929,14 @@ export const context = {
    "id": "CR-136",
    "mitre_techniques": [],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A09:2021",
+     "name": "Security Logging and Monitoring Failures",
+     "url": "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 4000,
@@ -22042,6 +24973,20 @@ export const context = {
     "T1098"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1098",
+     "name": "Account Manipulation",
+     "url": "https://attack.mitre.org/techniques/T1098/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A01:2021",
+     "name": "Broken Access Control",
+     "url": "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 3000,
@@ -22076,6 +25021,14 @@ export const context = {
    "id": "CR-138",
    "mitre_techniques": [],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 4000,
@@ -22109,6 +25062,14 @@ export const context = {
    "id": "CR-139",
    "mitre_techniques": [],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 3000,
@@ -22145,6 +25106,20 @@ export const context = {
     "T1098"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1098",
+     "name": "Account Manipulation",
+     "url": "https://attack.mitre.org/techniques/T1098/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A01:2021",
+     "name": "Broken Access Control",
+     "url": "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 5000,
@@ -22180,6 +25155,20 @@ export const context = {
     "T1562.008"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.008",
+     "name": "Disable or Modify Cloud Logs",
+     "url": "https://attack.mitre.org/techniques/T1562/008/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A09:2021",
+     "name": "Security Logging and Monitoring Failures",
+     "url": "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 5000,
@@ -22214,6 +25203,20 @@ export const context = {
     "T1562.008"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.008",
+     "name": "Disable or Modify Cloud Logs",
+     "url": "https://attack.mitre.org/techniques/T1562/008/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A09:2021",
+     "name": "Security Logging and Monitoring Failures",
+     "url": "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 3000,
@@ -22249,6 +25252,20 @@ export const context = {
     "T1133"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1133",
+     "name": "External Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1133/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 5000,
@@ -22283,6 +25300,14 @@ export const context = {
    "id": "CR-144",
    "mitre_techniques": [],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A09:2021",
+     "name": "Security Logging and Monitoring Failures",
+     "url": "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 5000,
@@ -22319,6 +25344,20 @@ export const context = {
     "T1098"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1098",
+     "name": "Account Manipulation",
+     "url": "https://attack.mitre.org/techniques/T1098/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A01:2021",
+     "name": "Broken Access Control",
+     "url": "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 4000,
@@ -22354,6 +25393,20 @@ export const context = {
     "T1611"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1611",
+     "name": "Escape to Host",
+     "url": "https://attack.mitre.org/techniques/T1611/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 1000,
@@ -22387,6 +25440,14 @@ export const context = {
    "id": "CR-147",
    "mitre_techniques": [],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 2000,
@@ -22421,6 +25482,14 @@ export const context = {
     "T1485"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1485",
+     "name": "Data Destruction",
+     "url": "https://attack.mitre.org/techniques/T1485/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 2000,
@@ -22455,6 +25524,14 @@ export const context = {
    "id": "CR-149",
    "mitre_techniques": [],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 4000,
@@ -22490,6 +25567,20 @@ export const context = {
     "T1133"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1133",
+     "name": "External Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1133/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 1000,
@@ -22525,6 +25616,14 @@ export const context = {
     "T1485"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1485",
+     "name": "Data Destruction",
+     "url": "https://attack.mitre.org/techniques/T1485/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 5000,
@@ -22561,6 +25660,20 @@ export const context = {
     "T1133"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1133",
+     "name": "External Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1133/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 2000,
@@ -22598,6 +25711,20 @@ export const context = {
     "T1098"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1098",
+     "name": "Account Manipulation",
+     "url": "https://attack.mitre.org/techniques/T1098/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A01:2021",
+     "name": "Broken Access Control",
+     "url": "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 2000,
@@ -22633,6 +25760,20 @@ export const context = {
     "T1562.008"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.008",
+     "name": "Disable or Modify Cloud Logs",
+     "url": "https://attack.mitre.org/techniques/T1562/008/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A09:2021",
+     "name": "Security Logging and Monitoring Failures",
+     "url": "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 1000,
@@ -22667,6 +25808,20 @@ export const context = {
     "T1562.008"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.008",
+     "name": "Disable or Modify Cloud Logs",
+     "url": "https://attack.mitre.org/techniques/T1562/008/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A09:2021",
+     "name": "Security Logging and Monitoring Failures",
+     "url": "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 1000,
@@ -22701,6 +25856,20 @@ export const context = {
     "T1562.008"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1562.008",
+     "name": "Disable or Modify Cloud Logs",
+     "url": "https://attack.mitre.org/techniques/T1562/008/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A09:2021",
+     "name": "Security Logging and Monitoring Failures",
+     "url": "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 1000,
@@ -22735,6 +25904,20 @@ export const context = {
     "T1530"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1530",
+     "name": "Data from Cloud Storage",
+     "url": "https://attack.mitre.org/techniques/T1530/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 4000,
@@ -22770,6 +25953,20 @@ export const context = {
     "T1133"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1133",
+     "name": "External Remote Services",
+     "url": "https://attack.mitre.org/techniques/T1133/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A05:2021",
+     "name": "Security Misconfiguration",
+     "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 2000,
@@ -22805,6 +26002,20 @@ export const context = {
     "T1530"
    ],
    "owner": "Cloud Platform",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1530",
+     "name": "Data from Cloud Storage",
+     "url": "https://attack.mitre.org/techniques/T1530/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A02:2021",
+     "name": "Cryptographic Failures",
+     "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    }
+   ],
    "remediation": {
     "action": "Apply CSPM recommended fix via IaC",
     "cost_usd": 5000,
@@ -22839,6 +26050,20 @@ export const context = {
     "T1567"
    ],
    "owner": "IT Applications",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1567",
+     "name": "Exfiltration Over Web Service",
+     "url": "https://attack.mitre.org/techniques/T1567/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A01:2021",
+     "name": "Broken Access Control",
+     "url": "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+    }
+   ],
    "remediation": {
     "action": "Tighten tenant policy",
     "cost_usd": 1000,
@@ -22873,6 +26098,14 @@ export const context = {
     "T1550.001"
    ],
    "owner": "IT Applications",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1550.001",
+     "name": "Application Access Token",
+     "url": "https://attack.mitre.org/techniques/T1550/001/"
+    }
+   ],
    "remediation": {
     "action": "Tighten tenant policy",
     "cost_usd": 1000,
@@ -22906,6 +26139,7 @@ export const context = {
    "id": "CR-162",
    "mitre_techniques": [],
    "owner": "IT Applications",
+   "references": [],
    "remediation": {
     "action": "Tighten tenant policy",
     "cost_usd": 1000,
@@ -22940,6 +26174,14 @@ export const context = {
     "T1078"
    ],
    "owner": "IT Applications",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1078",
+     "name": "Valid Accounts",
+     "url": "https://attack.mitre.org/techniques/T1078/"
+    }
+   ],
    "remediation": {
     "action": "Tighten tenant policy",
     "cost_usd": 1000,
@@ -22972,6 +26214,14 @@ export const context = {
    "id": "CR-164",
    "mitre_techniques": [],
    "owner": "IT Applications",
+   "references": [
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A01:2021",
+     "name": "Broken Access Control",
+     "url": "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+    }
+   ],
    "remediation": {
     "action": "Tighten tenant policy",
     "cost_usd": 1000,
@@ -23006,6 +26256,20 @@ export const context = {
     "T1530"
    ],
    "owner": "IT Applications",
+   "references": [
+    {
+     "framework": "MITRE ATT&CK",
+     "id": "T1530",
+     "name": "Data from Cloud Storage",
+     "url": "https://attack.mitre.org/techniques/T1530/"
+    },
+    {
+     "framework": "OWASP Top 10 (2021)",
+     "id": "A01:2021",
+     "name": "Broken Access Control",
+     "url": "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+    }
+   ],
    "remediation": {
     "action": "Tighten tenant policy",
     "cost_usd": 1000,
@@ -23041,6 +26305,7 @@ export const context = {
    "id": "CR-166",
    "mitre_techniques": [],
    "owner": "Facilities",
+   "references": [],
    "remediation": {
     "action": "Disable SMBv1, set admin password, move to IoT VLAN",
     "cost_usd": 500,
@@ -23076,6 +26341,7 @@ export const context = {
    "id": "CR-167",
    "mitre_techniques": [],
    "owner": "Facilities",
+   "references": [],
    "remediation": {
     "action": "Disable SMBv1, set admin password, move to IoT VLAN",
     "cost_usd": 500,
@@ -23111,6 +26377,7 @@ export const context = {
    "id": "CR-168",
    "mitre_techniques": [],
    "owner": "Facilities",
+   "references": [],
    "remediation": {
     "action": "Disable SMBv1, set admin password, move to IoT VLAN",
     "cost_usd": 500,
@@ -23146,6 +26413,7 @@ export const context = {
    "id": "CR-169",
    "mitre_techniques": [],
    "owner": "Facilities",
+   "references": [],
    "remediation": {
     "action": "Disable SMBv1, set admin password, move to IoT VLAN",
     "cost_usd": 500,
@@ -23163,7 +26431,7 @@ export const context = {
   },
   {
    "asset_ids": [
-    "SEC-MAILGW"
+    "AI-SALES"
    ],
    "closed_on": "2026-01-08",
    "component_ids": [],
@@ -23179,7 +26447,8 @@ export const context = {
    "first_seen": "2025-10-16",
    "id": "CR-170",
    "mitre_techniques": [],
-   "owner": "Security Engineering",
+   "owner": "AI Platform",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23192,12 +26461,12 @@ export const context = {
    "severity": "medium",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Public exposure on Email security gateway (remediated)",
+   "title": "Public exposure on Sales copilot (browser extension) (remediated)",
    "type": "exposure"
   },
   {
    "asset_ids": [
-    "SRV-DUB-UTL02"
+    "SRV-TLV-UTL04"
    ],
    "closed_on": "2025-12-18",
    "component_ids": [],
@@ -23214,6 +26483,7 @@ export const context = {
    "id": "CR-171",
    "mitre_techniques": [],
    "owner": "IT Infrastructure",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23226,12 +26496,12 @@ export const context = {
    "severity": "high",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Unpatched service on util02.dub.acme.example (remediated)",
+   "title": "Unpatched service on util04.tlv.acme.example (remediated)",
    "type": "exposure"
   },
   {
    "asset_ids": [
-    "IOT-DUB-BADGE04"
+    "IOT-DUB-CONF01"
    ],
    "closed_on": "2025-12-23",
    "component_ids": [],
@@ -23248,6 +26518,7 @@ export const context = {
    "id": "CR-172",
    "mitre_techniques": [],
    "owner": "Facilities",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23260,12 +26531,12 @@ export const context = {
    "severity": "high",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Weak configuration on badge reader EU-4 (remediated)",
+   "title": "Weak configuration on conference room system DUB-1 (remediated)",
    "type": "misconfiguration"
   },
   {
    "asset_ids": [
-    "NET-DUB-FW01"
+    "NET-TLV-CORE01"
    ],
    "closed_on": "2026-02-11",
    "component_ids": [],
@@ -23282,6 +26553,7 @@ export const context = {
    "id": "CR-173",
    "mitre_techniques": [],
    "owner": "Network Engineering",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23294,12 +26566,12 @@ export const context = {
    "severity": "high",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Excessive permissions on fw01.dub (next-gen firewall) (remediated)",
+   "title": "Excessive permissions on core01.tlv (core switch) (remediated)",
    "type": "misconfiguration"
   },
   {
    "asset_ids": [
-    "NET-BOS-FW01"
+    "NET-SIN-CORE01"
    ],
    "closed_on": "2026-03-27",
    "component_ids": [],
@@ -23316,6 +26588,7 @@ export const context = {
    "id": "CR-174",
    "mitre_techniques": [],
    "owner": "Network Engineering",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23328,12 +26601,12 @@ export const context = {
    "severity": "medium",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Unpatched service on fw01.bos (next-gen firewall) (remediated)",
+   "title": "Unpatched service on core01.sin (core switch) (remediated)",
    "type": "misconfiguration"
   },
   {
    "asset_ids": [
-    "GCP-BQ-TIP"
+    "SAAS-HRIS"
    ],
    "closed_on": "2026-04-26",
    "component_ids": [],
@@ -23349,7 +26622,8 @@ export const context = {
    "first_seen": "2026-02-18",
    "id": "CR-175",
    "mitre_techniques": [],
-   "owner": "Cloud Platform",
+   "owner": "IT Applications",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23362,12 +26636,12 @@ export const context = {
    "severity": "critical",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Excessive permissions on gcp: tip_intel (BigQuery) (remediated)",
+   "title": "Excessive permissions on HR information system (remediated)",
    "type": "vulnerability"
   },
   {
    "asset_ids": [
-    "IOT-DUB-BADGE02"
+    "IOT-DUB-PRN02"
    ],
    "closed_on": "2025-12-13",
    "component_ids": [],
@@ -23384,6 +26658,7 @@ export const context = {
    "id": "CR-176",
    "mitre_techniques": [],
    "owner": "Facilities",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23396,12 +26671,12 @@ export const context = {
    "severity": "medium",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Public exposure on badge reader EU-2 (remediated)",
+   "title": "Public exposure on printer DUB-2 (remediated)",
    "type": "exposure"
   },
   {
    "asset_ids": [
-    "CICD-RUNNER-04"
+    "NET-BOS-FW01"
    ],
    "closed_on": "2026-02-19",
    "component_ids": [],
@@ -23417,7 +26692,8 @@ export const context = {
    "first_seen": "2025-12-03",
    "id": "CR-177",
    "mitre_techniques": [],
-   "owner": "Platform Engineering",
+   "owner": "Network Engineering",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23430,12 +26706,12 @@ export const context = {
    "severity": "medium",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Public exposure on self-hosted runner 4 (remediated)",
+   "title": "Public exposure on fw01.bos (next-gen firewall) (remediated)",
    "type": "exposure"
   },
   {
    "asset_ids": [
-    "IOT-SIN-PRN03"
+    "SEC-EDR"
    ],
    "closed_on": "2026-01-19",
    "component_ids": [],
@@ -23451,7 +26727,8 @@ export const context = {
    "first_seen": "2025-10-06",
    "id": "CR-178",
    "mitre_techniques": [],
-   "owner": "Facilities",
+   "owner": "Security Engineering",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23464,12 +26741,12 @@ export const context = {
    "severity": "critical",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Unpatched service on printer SIN-3 (remediated)",
+   "title": "Unpatched service on EDR platform (remediated)",
    "type": "exposure"
   },
   {
    "asset_ids": [
-    "NET-SIN-CORE01"
+    "NET-SDWAN"
    ],
    "closed_on": "2026-05-17",
    "component_ids": [],
@@ -23486,6 +26763,7 @@ export const context = {
    "id": "CR-179",
    "mitre_techniques": [],
    "owner": "Network Engineering",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23498,12 +26776,12 @@ export const context = {
    "severity": "high",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Weak configuration on core01.sin (core switch) (remediated)",
+   "title": "Weak configuration on SD-WAN orchestrator (remediated)",
    "type": "misconfiguration"
   },
   {
    "asset_ids": [
-    "SRV-BOS-UTL15"
+    "SRV-SIN-UTL18"
    ],
    "closed_on": "2025-12-22",
    "component_ids": [],
@@ -23520,6 +26798,7 @@ export const context = {
    "id": "CR-180",
    "mitre_techniques": [],
    "owner": "IT Infrastructure",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23532,12 +26811,12 @@ export const context = {
    "severity": "medium",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Unpatched service on util15.bos.acme.example (remediated)",
+   "title": "Unpatched service on util18.sin.acme.example (remediated)",
    "type": "exposure"
   },
   {
    "asset_ids": [
-    "IOT-DUB-CONF01"
+    "IOT-TLV-CONF01"
    ],
    "closed_on": "2026-05-18",
    "component_ids": [],
@@ -23554,6 +26833,7 @@ export const context = {
    "id": "CR-181",
    "mitre_techniques": [],
    "owner": "Facilities",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23566,12 +26846,12 @@ export const context = {
    "severity": "medium",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Excessive permissions on conference room system DUB-1 (remediated)",
+   "title": "Excessive permissions on conference room system TLV-1 (remediated)",
    "type": "misconfiguration"
   },
   {
    "asset_ids": [
-    "NET-DUB-WLC01"
+    "NET-BOS-VPN01"
    ],
    "closed_on": "2025-12-11",
    "component_ids": [],
@@ -23588,6 +26868,7 @@ export const context = {
    "id": "CR-182",
    "mitre_techniques": [],
    "owner": "Network Engineering",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23600,7 +26881,7 @@ export const context = {
    "severity": "medium",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Unpatched service on wlc01.dub (wireless controller) (remediated)",
+   "title": "Unpatched service on vpn.acme.example (remote-access VPN, NA) (remediated)",
    "type": "vulnerability"
   },
   {
@@ -23622,6 +26903,7 @@ export const context = {
    "id": "CR-183",
    "mitre_techniques": [],
    "owner": "IT Infrastructure",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23639,7 +26921,7 @@ export const context = {
   },
   {
    "asset_ids": [
-    "SRV-BOS-UTL16"
+    "SRV-TLV-UTL19"
    ],
    "closed_on": "2026-02-20",
    "component_ids": [],
@@ -23656,6 +26938,7 @@ export const context = {
    "id": "CR-184",
    "mitre_techniques": [],
    "owner": "IT Infrastructure",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23668,12 +26951,12 @@ export const context = {
    "severity": "medium",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Excessive permissions on util16.bos.acme.example (remediated)",
+   "title": "Excessive permissions on util19.tlv.acme.example (remediated)",
    "type": "vulnerability"
   },
   {
    "asset_ids": [
-    "SAAS-IDP"
+    "SAAS-ITSM"
    ],
    "closed_on": "2026-01-23",
    "component_ids": [],
@@ -23690,6 +26973,7 @@ export const context = {
    "id": "CR-185",
    "mitre_techniques": [],
    "owner": "IT Applications",
+   "references": [],
    "remediation": {
     "action": "Remediated",
     "cost_usd": 0,
@@ -23702,7 +26986,7 @@ export const context = {
    "severity": "critical",
    "source": "Vulnerability scanner",
    "status": "mitigated",
-   "title": "Unpatched service on Workforce identity provider (SSO) (remediated)",
+   "title": "Unpatched service on ITSM & GRC (ServiceNow) (remediated)",
    "type": "vulnerability"
   }
  ],
@@ -23866,6 +27150,42 @@ export const context = {
    "pages": 12,
    "source": "Business owner upload",
    "title": "FY2027 Corporate Goals"
+  },
+  {
+   "category": "Board report",
+   "extraction": {
+    "confidence": "high",
+    "extracted": [
+     "8 business SLOs with FY27 targets",
+     "risk-appetite reaffirmed",
+     "CISO top-5 cyber risks"
+    ],
+    "method": "AI extraction (mock)"
+   },
+   "format": "pptx",
+   "id": "DOC-11",
+   "ingested_on": "2026-09-30",
+   "pages": 18,
+   "source": "Board portal",
+   "title": "Q3 FY26 Board of Directors cyber-risk report"
+  },
+  {
+   "category": "Management note",
+   "extraction": {
+    "confidence": "high",
+    "extracted": [
+     "plan forecast per SLO",
+     "financial basis per SLO",
+     "warning thresholds"
+    ],
+    "method": "AI extraction (mock)"
+   },
+   "format": "docx",
+   "id": "DOC-12",
+   "ingested_on": "2026-09-30",
+   "pages": 3,
+   "source": "Business owner upload",
+   "title": "Management note: FY27 plan forecast and SLO targets (CFO)"
   },
   {
    "category": "Architecture",
@@ -25293,7 +28613,7 @@ export const context = {
    "id": "EV-0064",
    "kind": "config_snapshot",
    "raw": {
-    "affected_total": 1,
+    "affected_total": 2,
     "check": "No per-client rate limiting on the TIP public API",
     "control": "CTL-17",
     "evaluated_at": "2026-07-02",
@@ -25302,7 +28622,7 @@ export const context = {
     "resource": "aws: api.tip.acme.example (API Gateway)",
     "resource_id": "AWS-APIGW-TIP"
    },
-   "sha256": "cbac5a39e38130d040fff022661fc8031aee88d5ec6df6fd607766015d2d11a2",
+   "sha256": "e1ff9dd75254da4d7975d26ffd6b07ec9c7ce2119a987c3e8cf97cdec381c235",
    "source": "API gateway review",
    "summary": "Configuration check failed on aws: api.tip.acme.example (API Gateway)"
   },
@@ -25340,7 +28660,8 @@ export const context = {
     "disposition": "true positive — under remediation",
     "entities": [
      "aws: portal.acme.example (ALB)",
-     "Web application firewall (portal)"
+     "Web application firewall (portal)",
+     "Customer Portal REST API v3"
     ],
     "first_seen": "2026-09-06",
     "occurrences": 7,
@@ -25350,7 +28671,7 @@ export const context = {
      "T1499"
     ]
    },
-   "sha256": "6c3535f195cc81688e10baaa58024eddf1c6d2b3011138aea1f6de8d0568cdbe",
+   "sha256": "058077e2ce6f3db08a0fc43896704abc5d86079543a611e51d68c07745844cf5",
    "source": "SOC alert (edge)",
    "summary": "SOC alert raised: Recurring request-rate anomalies against the customer portal login (3 episodes in September)"
   },
@@ -28086,7 +31407,7 @@ export const context = {
    "summary": "Configuration check failed on printer TLV-1"
   },
   {
-   "asset_id": "SEC-MAILGW",
+   "asset_id": "AI-SALES",
    "collected_at": "2025-10-16T22:27:07Z",
    "finding_ids": [
     "CR-170"
@@ -28096,18 +31417,18 @@ export const context = {
    "kind": "exposure_record",
    "raw": {
     "confirmed": true,
-    "exposure": "Public exposure on Email security gateway (remediated)",
+    "exposure": "Public exposure on Sales copilot (browser extension) (remediated)",
     "observed_at": "2025-10-16",
     "reachable_from": "broad internal / third party",
-    "resource": "Email security gateway",
-    "resource_id": "SEC-MAILGW"
+    "resource": "Sales copilot (browser extension)",
+    "resource_id": "AI-SALES"
    },
-   "sha256": "1d52630d05ad0552975de85453477df9cae71dc2cb22bdaee86cc6ad94b65502",
+   "sha256": "78bd970864a51e42efa67b112c17f65d800914a61bd6eca3ae58929944170148",
    "source": "Vulnerability scanner",
-   "summary": "Exposure observed on Email security gateway"
+   "summary": "Exposure observed on Sales copilot (browser extension)"
   },
   {
-   "asset_id": "SEC-MAILGW",
+   "asset_id": "AI-SALES",
    "collected_at": "2026-01-08T11:05:11Z",
    "finding_ids": [
     "CR-170"
@@ -28126,7 +31447,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "SRV-DUB-UTL02",
+   "asset_id": "SRV-TLV-UTL04",
    "collected_at": "2025-11-03T10:37:19Z",
    "finding_ids": [
     "CR-171"
@@ -28136,18 +31457,18 @@ export const context = {
    "kind": "exposure_record",
    "raw": {
     "confirmed": true,
-    "exposure": "Unpatched service on util02.dub.acme.example (remediated)",
+    "exposure": "Unpatched service on util04.tlv.acme.example (remediated)",
     "observed_at": "2025-11-03",
     "reachable_from": "broad internal / third party",
-    "resource": "util02.dub.acme.example",
-    "resource_id": "SRV-DUB-UTL02"
+    "resource": "util04.tlv.acme.example",
+    "resource_id": "SRV-TLV-UTL04"
    },
-   "sha256": "867884daaf3591379ac7fc398c068cd36c70ab1bee3421ee58d26103747f5ae9",
+   "sha256": "1584d7977aa2931b1f5ca5f366dad5f8f1d7ec6d009d05c209d69559d640cab8",
    "source": "Vulnerability scanner",
-   "summary": "Exposure observed on util02.dub.acme.example"
+   "summary": "Exposure observed on util04.tlv.acme.example"
   },
   {
-   "asset_id": "SRV-DUB-UTL02",
+   "asset_id": "SRV-TLV-UTL04",
    "collected_at": "2025-12-18T11:35:51Z",
    "finding_ids": [
     "CR-171"
@@ -28166,7 +31487,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "IOT-DUB-BADGE04",
+   "asset_id": "IOT-DUB-CONF01",
    "collected_at": "2025-11-12T15:19:34Z",
    "finding_ids": [
     "CR-172"
@@ -28176,20 +31497,20 @@ export const context = {
    "kind": "config_snapshot",
    "raw": {
     "affected_total": 1,
-    "check": "Weak configuration on badge reader EU-4 (remediated)",
+    "check": "Weak configuration on conference room system DUB-1 (remediated)",
     "control": "CTL-02",
     "evaluated_at": "2025-11-12",
     "expected": "Compliant with ACME baseline",
     "observed": "Non-compliant",
-    "resource": "badge reader EU-4",
-    "resource_id": "IOT-DUB-BADGE04"
+    "resource": "conference room system DUB-1",
+    "resource_id": "IOT-DUB-CONF01"
    },
-   "sha256": "6bfe05141e2dbc3294971fc8d4be940e6d6bdaf471e8c50f6640ba72043f90ba",
+   "sha256": "f9b39740a8f735edff6af4261712c7f105dec0ee393ea7b270226beefb11fa07",
    "source": "Vulnerability scanner",
-   "summary": "Configuration check failed on badge reader EU-4"
+   "summary": "Configuration check failed on conference room system DUB-1"
   },
   {
-   "asset_id": "IOT-DUB-BADGE04",
+   "asset_id": "IOT-DUB-CONF01",
    "collected_at": "2025-12-23T02:36:44Z",
    "finding_ids": [
     "CR-172"
@@ -28208,7 +31529,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "NET-DUB-FW01",
+   "asset_id": "NET-TLV-CORE01",
    "collected_at": "2026-01-06T09:53:29Z",
    "finding_ids": [
     "CR-173"
@@ -28218,20 +31539,20 @@ export const context = {
    "kind": "config_snapshot",
    "raw": {
     "affected_total": 1,
-    "check": "Excessive permissions on fw01.dub (next-gen firewall) (remediated)",
+    "check": "Excessive permissions on core01.tlv (core switch) (remediated)",
     "control": "CTL-02",
     "evaluated_at": "2026-01-06",
     "expected": "Compliant with ACME baseline",
     "observed": "Non-compliant",
-    "resource": "fw01.dub (next-gen firewall)",
-    "resource_id": "NET-DUB-FW01"
+    "resource": "core01.tlv (core switch)",
+    "resource_id": "NET-TLV-CORE01"
    },
-   "sha256": "093e291d9f094f4a4025fc135ca979d5de054254a21a9dfbfa0151ec91f1f3b9",
+   "sha256": "27dfe8d3e0b6e32204a9dc2bd142e47f82f416655a1552bff52789c041d7db67",
    "source": "Vulnerability scanner",
-   "summary": "Configuration check failed on fw01.dub (next-gen firewall)"
+   "summary": "Configuration check failed on core01.tlv (core switch)"
   },
   {
-   "asset_id": "NET-DUB-FW01",
+   "asset_id": "NET-TLV-CORE01",
    "collected_at": "2026-02-11T21:39:32Z",
    "finding_ids": [
     "CR-173"
@@ -28250,7 +31571,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "NET-BOS-FW01",
+   "asset_id": "NET-SIN-CORE01",
    "collected_at": "2026-01-24T02:34:36Z",
    "finding_ids": [
     "CR-174"
@@ -28260,20 +31581,20 @@ export const context = {
    "kind": "config_snapshot",
    "raw": {
     "affected_total": 1,
-    "check": "Unpatched service on fw01.bos (next-gen firewall) (remediated)",
+    "check": "Unpatched service on core01.sin (core switch) (remediated)",
     "control": "CTL-02",
     "evaluated_at": "2026-01-24",
     "expected": "Compliant with ACME baseline",
     "observed": "Non-compliant",
-    "resource": "fw01.bos (next-gen firewall)",
-    "resource_id": "NET-BOS-FW01"
+    "resource": "core01.sin (core switch)",
+    "resource_id": "NET-SIN-CORE01"
    },
-   "sha256": "df452103292ad6e0ab7167e59115aca8ce7aaae893aacbef5561ded2e3b25de2",
+   "sha256": "52e2c491ec2d77fed681dde8a8596e3677fda8e2a8bfff03297c19a31efb633a",
    "source": "Vulnerability scanner",
-   "summary": "Configuration check failed on fw01.bos (next-gen firewall)"
+   "summary": "Configuration check failed on core01.sin (core switch)"
   },
   {
-   "asset_id": "NET-BOS-FW01",
+   "asset_id": "NET-SIN-CORE01",
    "collected_at": "2026-03-27T15:49:25Z",
    "finding_ids": [
     "CR-174"
@@ -28292,7 +31613,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "GCP-BQ-TIP",
+   "asset_id": "SAAS-HRIS",
    "collected_at": "2026-02-18T08:50:50Z",
    "finding_ids": [
     "CR-175"
@@ -28303,7 +31624,7 @@ export const context = {
    "raw": {
     "affected_total": 1,
     "assets": [
-     "gcp: tip_intel (BigQuery)"
+     "HR information system"
     ],
     "cvss": null,
     "detection": "Installed version is below the vendor-fixed version",
@@ -28312,12 +31633,12 @@ export const context = {
     "last_detected": "2026-04-26",
     "scanner": "ACME vulnerability scanner (mock)"
    },
-   "sha256": "8a52858612dba7f1dfa7819192231ee7776d72e4bac3c86ddf863e0a05cca9c2",
+   "sha256": "532c10b79ed38028a00e12e3cecd8babd471ef6f6d93da905f26fde9e05bee1e",
    "source": "Vulnerability scanner",
-   "summary": "Scanner detected undefined on gcp: tip_intel (BigQuery)"
+   "summary": "Scanner detected undefined on HR information system"
   },
   {
-   "asset_id": "GCP-BQ-TIP",
+   "asset_id": "SAAS-HRIS",
    "collected_at": "2026-04-26T23:45:05Z",
    "finding_ids": [
     "CR-175"
@@ -28336,7 +31657,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "IOT-DUB-BADGE02",
+   "asset_id": "IOT-DUB-PRN02",
    "collected_at": "2025-11-25T10:06:30Z",
    "finding_ids": [
     "CR-176"
@@ -28346,18 +31667,18 @@ export const context = {
    "kind": "exposure_record",
    "raw": {
     "confirmed": true,
-    "exposure": "Public exposure on badge reader EU-2 (remediated)",
+    "exposure": "Public exposure on printer DUB-2 (remediated)",
     "observed_at": "2025-11-25",
     "reachable_from": "broad internal / third party",
-    "resource": "badge reader EU-2",
-    "resource_id": "IOT-DUB-BADGE02"
+    "resource": "printer DUB-2",
+    "resource_id": "IOT-DUB-PRN02"
    },
-   "sha256": "1790d939f7e4c9d95dc5becf4ef93fa8a6f30363e19ce59587898b414d7f9609",
+   "sha256": "07134e6dca3a5293cd213e19e30f06c47a147911eb1cdf4c1e481af34ef50fbf",
    "source": "Vulnerability scanner",
-   "summary": "Exposure observed on badge reader EU-2"
+   "summary": "Exposure observed on printer DUB-2"
   },
   {
-   "asset_id": "IOT-DUB-BADGE02",
+   "asset_id": "IOT-DUB-PRN02",
    "collected_at": "2025-12-13T11:46:36Z",
    "finding_ids": [
     "CR-176"
@@ -28376,7 +31697,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "CICD-RUNNER-04",
+   "asset_id": "NET-BOS-FW01",
    "collected_at": "2025-12-03T23:45:32Z",
    "finding_ids": [
     "CR-177"
@@ -28386,18 +31707,18 @@ export const context = {
    "kind": "exposure_record",
    "raw": {
     "confirmed": true,
-    "exposure": "Public exposure on self-hosted runner 4 (remediated)",
+    "exposure": "Public exposure on fw01.bos (next-gen firewall) (remediated)",
     "observed_at": "2025-12-03",
     "reachable_from": "broad internal / third party",
-    "resource": "self-hosted runner 4",
-    "resource_id": "CICD-RUNNER-04"
+    "resource": "fw01.bos (next-gen firewall)",
+    "resource_id": "NET-BOS-FW01"
    },
-   "sha256": "9784480e69612e7dfba30dc01119cad027ac0b909d70534a4f65fae5530cb622",
+   "sha256": "0ae8c49bae9fcd637d838c72dbe8390feff383d67bda1952bb1f6abd6e938b43",
    "source": "Vulnerability scanner",
-   "summary": "Exposure observed on self-hosted runner 4"
+   "summary": "Exposure observed on fw01.bos (next-gen firewall)"
   },
   {
-   "asset_id": "CICD-RUNNER-04",
+   "asset_id": "NET-BOS-FW01",
    "collected_at": "2026-02-19T05:52:22Z",
    "finding_ids": [
     "CR-177"
@@ -28416,7 +31737,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "IOT-SIN-PRN03",
+   "asset_id": "SEC-EDR",
    "collected_at": "2025-10-06T21:46:15Z",
    "finding_ids": [
     "CR-178"
@@ -28426,18 +31747,18 @@ export const context = {
    "kind": "exposure_record",
    "raw": {
     "confirmed": true,
-    "exposure": "Unpatched service on printer SIN-3 (remediated)",
+    "exposure": "Unpatched service on EDR platform (remediated)",
     "observed_at": "2025-10-06",
     "reachable_from": "broad internal / third party",
-    "resource": "printer SIN-3",
-    "resource_id": "IOT-SIN-PRN03"
+    "resource": "EDR platform",
+    "resource_id": "SEC-EDR"
    },
-   "sha256": "446dacc70f9ce0c0226d70aeff2ab1842d4030c1a8bb34c5ec74ad42db5d903d",
+   "sha256": "5da19090b29a7dce105c51791a345735da14e775dd0cd467e8113c09f23fb249",
    "source": "Vulnerability scanner",
-   "summary": "Exposure observed on printer SIN-3"
+   "summary": "Exposure observed on EDR platform"
   },
   {
-   "asset_id": "IOT-SIN-PRN03",
+   "asset_id": "SEC-EDR",
    "collected_at": "2026-01-19T06:40:03Z",
    "finding_ids": [
     "CR-178"
@@ -28456,7 +31777,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "NET-SIN-CORE01",
+   "asset_id": "NET-SDWAN",
    "collected_at": "2026-02-22T22:40:54Z",
    "finding_ids": [
     "CR-179"
@@ -28466,20 +31787,20 @@ export const context = {
    "kind": "config_snapshot",
    "raw": {
     "affected_total": 1,
-    "check": "Weak configuration on core01.sin (core switch) (remediated)",
+    "check": "Weak configuration on SD-WAN orchestrator (remediated)",
     "control": "CTL-02",
     "evaluated_at": "2026-02-22",
     "expected": "Compliant with ACME baseline",
     "observed": "Non-compliant",
-    "resource": "core01.sin (core switch)",
-    "resource_id": "NET-SIN-CORE01"
+    "resource": "SD-WAN orchestrator",
+    "resource_id": "NET-SDWAN"
    },
-   "sha256": "ab48c4376fdc80b754c59f87a41a7bc395c8e00ce628539f083a8b404d4f4852",
+   "sha256": "e2c2fb06b25101b20661c28763297e1fecaad8f265ba0bec57be1a3990f8a1b6",
    "source": "Vulnerability scanner",
-   "summary": "Configuration check failed on core01.sin (core switch)"
+   "summary": "Configuration check failed on SD-WAN orchestrator"
   },
   {
-   "asset_id": "NET-SIN-CORE01",
+   "asset_id": "NET-SDWAN",
    "collected_at": "2026-05-17T04:30:55Z",
    "finding_ids": [
     "CR-179"
@@ -28498,7 +31819,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "SRV-BOS-UTL15",
+   "asset_id": "SRV-SIN-UTL18",
    "collected_at": "2025-11-14T18:51:21Z",
    "finding_ids": [
     "CR-180"
@@ -28508,18 +31829,18 @@ export const context = {
    "kind": "exposure_record",
    "raw": {
     "confirmed": true,
-    "exposure": "Unpatched service on util15.bos.acme.example (remediated)",
+    "exposure": "Unpatched service on util18.sin.acme.example (remediated)",
     "observed_at": "2025-11-14",
     "reachable_from": "broad internal / third party",
-    "resource": "util15.bos.acme.example",
-    "resource_id": "SRV-BOS-UTL15"
+    "resource": "util18.sin.acme.example",
+    "resource_id": "SRV-SIN-UTL18"
    },
-   "sha256": "2843bd7168294adfc08143c2c4418ccc327ab07b1a9464f5090e784faa4fe8d2",
+   "sha256": "eb03f546557ccc1c6210c5ade97f6ee09912c1139c870376b655789050a1240f",
    "source": "Vulnerability scanner",
-   "summary": "Exposure observed on util15.bos.acme.example"
+   "summary": "Exposure observed on util18.sin.acme.example"
   },
   {
-   "asset_id": "SRV-BOS-UTL15",
+   "asset_id": "SRV-SIN-UTL18",
    "collected_at": "2025-12-22T18:03:28Z",
    "finding_ids": [
     "CR-180"
@@ -28538,7 +31859,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "IOT-DUB-CONF01",
+   "asset_id": "IOT-TLV-CONF01",
    "collected_at": "2026-02-17T11:49:55Z",
    "finding_ids": [
     "CR-181"
@@ -28548,20 +31869,20 @@ export const context = {
    "kind": "config_snapshot",
    "raw": {
     "affected_total": 1,
-    "check": "Excessive permissions on conference room system DUB-1 (remediated)",
+    "check": "Excessive permissions on conference room system TLV-1 (remediated)",
     "control": "CTL-02",
     "evaluated_at": "2026-02-17",
     "expected": "Compliant with ACME baseline",
     "observed": "Non-compliant",
-    "resource": "conference room system DUB-1",
-    "resource_id": "IOT-DUB-CONF01"
+    "resource": "conference room system TLV-1",
+    "resource_id": "IOT-TLV-CONF01"
    },
-   "sha256": "c8ffe98cb24be3e11957f58f68c03fd0afe946df35d0c605bcc7213ed11546c8",
+   "sha256": "db0572524354811e63957b2f7bf70de1f75b3c711983bdb367d5f30580fd6f06",
    "source": "Vulnerability scanner",
-   "summary": "Configuration check failed on conference room system DUB-1"
+   "summary": "Configuration check failed on conference room system TLV-1"
   },
   {
-   "asset_id": "IOT-DUB-CONF01",
+   "asset_id": "IOT-TLV-CONF01",
    "collected_at": "2026-05-18T18:18:46Z",
    "finding_ids": [
     "CR-181"
@@ -28580,7 +31901,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "NET-DUB-WLC01",
+   "asset_id": "NET-BOS-VPN01",
    "collected_at": "2025-11-22T23:37:46Z",
    "finding_ids": [
     "CR-182"
@@ -28591,7 +31912,7 @@ export const context = {
    "raw": {
     "affected_total": 1,
     "assets": [
-     "wlc01.dub (wireless controller)"
+     "vpn.acme.example (remote-access VPN, NA)"
     ],
     "cvss": null,
     "detection": "Installed version is below the vendor-fixed version",
@@ -28600,12 +31921,12 @@ export const context = {
     "last_detected": "2025-12-11",
     "scanner": "ACME vulnerability scanner (mock)"
    },
-   "sha256": "39f9e52cc1d13992b03902243956a9aaa83c21498431fbbd1baa573b2ea0b7c3",
+   "sha256": "ba3c1e3fa824d619ac34f760fb3c37f539c745dd1c53d6df0ed3698d6048148d",
    "source": "Vulnerability scanner",
-   "summary": "Scanner detected undefined on wlc01.dub (wireless controller)"
+   "summary": "Scanner detected undefined on vpn.acme.example (remote-access VPN, NA)"
   },
   {
-   "asset_id": "NET-DUB-WLC01",
+   "asset_id": "NET-BOS-VPN01",
    "collected_at": "2025-12-11T00:37:23Z",
    "finding_ids": [
     "CR-182"
@@ -28668,7 +31989,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "SRV-BOS-UTL16",
+   "asset_id": "SRV-TLV-UTL19",
    "collected_at": "2025-11-20T18:44:31Z",
    "finding_ids": [
     "CR-184"
@@ -28679,7 +32000,7 @@ export const context = {
    "raw": {
     "affected_total": 1,
     "assets": [
-     "util16.bos.acme.example"
+     "util19.tlv.acme.example"
     ],
     "cvss": null,
     "detection": "Installed version is below the vendor-fixed version",
@@ -28688,12 +32009,12 @@ export const context = {
     "last_detected": "2026-02-20",
     "scanner": "ACME vulnerability scanner (mock)"
    },
-   "sha256": "e467458fb29056f94d2f4377db98738eb96bce69ab5dbcc19a208ada2154d2c5",
+   "sha256": "13010e21a34943913c3b50779da67e4682333ab39f703002956bee32c0c5a992",
    "source": "Vulnerability scanner",
-   "summary": "Scanner detected undefined on util16.bos.acme.example"
+   "summary": "Scanner detected undefined on util19.tlv.acme.example"
   },
   {
-   "asset_id": "SRV-BOS-UTL16",
+   "asset_id": "SRV-TLV-UTL19",
    "collected_at": "2026-02-20T03:26:29Z",
    "finding_ids": [
     "CR-184"
@@ -28712,7 +32033,7 @@ export const context = {
    "summary": "Remediation verified and closed"
   },
   {
-   "asset_id": "SAAS-IDP",
+   "asset_id": "SAAS-ITSM",
    "collected_at": "2025-10-13T21:32:36Z",
    "finding_ids": [
     "CR-185"
@@ -28723,7 +32044,7 @@ export const context = {
    "raw": {
     "affected_total": 1,
     "assets": [
-     "Workforce identity provider (SSO)"
+     "ITSM & GRC (ServiceNow)"
     ],
     "cvss": null,
     "detection": "Installed version is below the vendor-fixed version",
@@ -28732,12 +32053,12 @@ export const context = {
     "last_detected": "2026-01-23",
     "scanner": "ACME vulnerability scanner (mock)"
    },
-   "sha256": "f84514b633313e0b4b006ad8a3f7b066ef3e865d7255b658d9dddbca73e10c2b",
+   "sha256": "82a9c6721f35816b1311a145d6ca1a88251f8fb6cfb9a3c4426ea651da31f5b5",
    "source": "Vulnerability scanner",
-   "summary": "Scanner detected undefined on Workforce identity provider (SSO)"
+   "summary": "Scanner detected undefined on ITSM & GRC (ServiceNow)"
   },
   {
-   "asset_id": "SAAS-IDP",
+   "asset_id": "SAAS-ITSM",
    "collected_at": "2026-01-23T13:40:17Z",
    "finding_ids": [
     "CR-185"
@@ -29009,6 +32330,106 @@ export const context = {
    "sha256": "e1a226f28bda7f96b55be561bc68bfe0e22cce8806531e27265679c334c662c9",
    "source": "EDR file telemetry",
    "summary": "Mass file changes on file servers: 0 matches"
+  }
+ ],
+ "framework_catalog": [
+  {
+   "id": "iso27001",
+   "issuer": "ISO/IEC",
+   "kind": "standard",
+   "name": "ISO/IEC 27001:2022",
+   "url": "https://www.iso.org/standard/27001"
+  },
+  {
+   "id": "soc2",
+   "issuer": "AICPA",
+   "kind": "attestation",
+   "name": "SOC 2 Type II",
+   "url": "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2"
+  },
+  {
+   "id": "nistcsf",
+   "issuer": "NIST",
+   "kind": "framework",
+   "name": "NIST CSF 2.0",
+   "url": "https://www.nist.gov/cyberframework"
+  },
+  {
+   "id": "nist80053",
+   "issuer": "NIST",
+   "kind": "control catalog",
+   "name": "NIST SP 800-53 Rev. 5",
+   "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final"
+  },
+  {
+   "id": "fedramp",
+   "issuer": "GSA FedRAMP PMO",
+   "kind": "authorization",
+   "name": "FedRAMP Moderate",
+   "url": "https://www.fedramp.gov/"
+  },
+  {
+   "id": "cis",
+   "issuer": "Center for Internet Security",
+   "kind": "framework",
+   "name": "CIS Controls v8",
+   "url": "https://www.cisecurity.org/controls/v8"
+  },
+  {
+   "id": "gdpr",
+   "issuer": "European Union",
+   "kind": "regulation",
+   "name": "GDPR",
+   "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+  },
+  {
+   "id": "nis2",
+   "issuer": "European Union",
+   "kind": "regulation",
+   "name": "NIS2 Directive",
+   "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"
+  },
+  {
+   "id": "pcidss",
+   "issuer": "PCI SSC",
+   "kind": "standard",
+   "name": "PCI DSS 4.0",
+   "url": "https://www.pcisecuritystandards.org/"
+  },
+  {
+   "id": "attack",
+   "issuer": "MITRE",
+   "kind": "threat model",
+   "name": "MITRE ATT&CK",
+   "url": "https://attack.mitre.org/"
+  },
+  {
+   "id": "atlas",
+   "issuer": "MITRE",
+   "kind": "threat model",
+   "name": "MITRE ATLAS",
+   "url": "https://atlas.mitre.org/"
+  },
+  {
+   "id": "owasp",
+   "issuer": "OWASP Foundation",
+   "kind": "risk list",
+   "name": "OWASP Top 10 (2021)",
+   "url": "https://owasp.org/Top10/"
+  },
+  {
+   "id": "owaspapi",
+   "issuer": "OWASP Foundation",
+   "kind": "risk list",
+   "name": "OWASP API Security Top 10 (2023)",
+   "url": "https://owasp.org/API-Security/editions/2023/en/0x11-t10/"
+  },
+  {
+   "id": "owaspllm",
+   "issuer": "OWASP Foundation",
+   "kind": "risk list",
+   "name": "OWASP Top 10 for LLM Applications (2025)",
+   "url": "https://genai.owasp.org/llm-top-10/"
   }
  ],
  "generated_by": "scripts/gen-acme-dataset.mjs",
@@ -33072,6 +36493,9 @@ export const context = {
    "ISO 27001:2022",
    "SOC 2 Type II",
    "NIST CSF 2.0",
+   "NIST SP 800-53 Rev. 5",
+   "FedRAMP Moderate",
+   "CIS Controls v8",
    "GDPR",
    "NIS2",
    "PCI DSS 4.0"
@@ -33464,7 +36888,7 @@ export const context = {
    "name": "Phishing & social engineering"
   }
  ],
- "schema_version": "1.1.0",
+ "schema_version": "1.2.0",
  "slos": [
   {
    "basis_label": "FY27 ARR target",

@@ -111,6 +111,11 @@ it is pure and deterministic, and no score in it is authored.
    mitigations by shortfall removed on a chosen SLO, and by ROI. The executive
    dashboard also treats a simulated mitigation's findings as fixed.
 10. **Trend.** Each SLO's score over 12 months is recomputed from finding first-seen and closure dates.
+11. **Root cause by asset.** Each finding's attributed dollars are split over the
+    assets it sits on, weighted by asset criticality. Summed per asset, this
+    gives `by_asset` on every SLO, and `assetImpact(bia, assetId)` for the Triage
+    view. `rootCausePath()` follows the strongest link at each level, from asset
+    to finding, scenario, component, process, policy and SLO.
 
 The calibration constants (0.35 process disruption, 0.6 policy failure, policy
 weights) are mockup values chosen so the ACME.Corp picture is plausible: ARR is

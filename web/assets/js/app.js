@@ -6,31 +6,37 @@
 
 import { appStore } from './store.js';
 import { showError } from './ui/toast.js';
+import { installDemoTour } from './ui/demo-tour.js';
 
-// The menu is deliberately short. The BIA explorer is the home view: it
-// already contains the cyber-risk register (level 6 findings, with a hunts
-// timeline) and replaces the executive dashboard, so those routes are HIDDEN:
-// still reachable by deep link and contextual buttons (#/cyber/<id>,
-// #/business, triage -> #/merge -> #/analyze), but not listed. A hidden route
-// highlights its `parent` menu item while it is open.
+// The menu is three steps of one workflow: Triage (data sources and assets) ->
+// Business context (SLOs, policies, BIA) -> Dashboard (the BIA explorer).
+// Everything else is a HIDDEN route: still reachable by deep link and by
+// contextual buttons (the IRTriage upload -> SuperTimeline -> AI analysis ->
+// forensic report flow starts from Triage; the dashboard's Export menu opens
+// the forensic report), but not listed. A hidden route highlights its `parent`.
 // Route ids are stable: existing deep links keep working.
 const ROUTES = [
-  { id: 'bia', path: 'bia', label: 'BIA explorer' },
-  { id: 'ingest', path: 'ingest', label: 'Triage' },
-  { id: 'inventory', path: 'inventory', label: 'Inventory' },
+  { id: 'triage', path: 'triage', label: 'Triage' },
   { id: 'context', path: 'context', label: 'Business context' },
-  { id: 'analyze', path: 'analyze', label: 'AI analysis' },
-  { id: 'report', path: 'report', label: 'Reports' },
+  { id: 'bia', path: 'bia', label: 'Dashboard' },
   { id: 'settings', path: 'settings', label: 'Settings', icon: '⚙' },
+  { id: 'inventory', path: 'inventory', label: 'Estate inventory', hidden: true, parent: 'triage' },
+  { id: 'ingest', path: 'ingest', label: 'IRTriage collections', hidden: true, parent: 'triage' },
+  { id: 'merge', path: 'merge', label: 'SuperTimeline', hidden: true, parent: 'triage' },
+  { id: 'analyze', path: 'analyze', label: 'AI analysis', hidden: true, parent: 'triage' },
+  { id: 'report', path: 'report', label: 'Forensic report', hidden: true, parent: 'bia' },
   { id: 'cyber', path: 'cyber', label: 'Risk register', hidden: true, parent: 'bia' },
-  { id: 'merge', path: 'merge', label: 'SuperTimeline', hidden: true, parent: 'ingest' },
   { id: 'business', path: 'business', label: 'Executive dashboard', hidden: true, parent: 'bia' },
 ];
+// Friendly aliases for links people type or share.
+const ROUTE_ALIASES = { dashboard: 'bia' };
 const DEFAULT_ROUTE = 'bia';
 
 const viewLoaders = {
+  triage: () => import('./views/triage.js'),
   ingest: () => import('./views/ingest.js'),
-  inventory: () => import('./views/inventory.js'),
+  // Estate inventory was folded into Triage; old links land there.
+  inventory: () => import('./views/triage.js'),
   context: () => import('./views/context.js'),
   cyber: () => import('./views/cyber.js'),
   merge: () => import('./views/merge.js'),
@@ -46,7 +52,8 @@ let currentRouteId = null;
 
 function parseHash() {
   const raw = (location.hash || '').replace(/^#\/?/, '');
-  const id = raw.split('/')[0] || DEFAULT_ROUTE;
+  const first = raw.split('/')[0] || DEFAULT_ROUTE;
+  const id = ROUTE_ALIASES[first] || first;
   return ROUTES.some((r) => r.id === id) ? id : DEFAULT_ROUTE;
 }
 
@@ -187,6 +194,7 @@ function init() {
   installErrorBoundary();
   initTheme();
   initEngagementPicker();
+  installDemoTour(appStore);
   window.addEventListener('hashchange', onHashChange);
   if (!location.hash) location.hash = `#/${DEFAULT_ROUTE}`;
   else onHashChange();

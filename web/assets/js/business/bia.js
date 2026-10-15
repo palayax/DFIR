@@ -282,6 +282,16 @@ export function computeBia(ctx, opts = {}) {
       byScenario.set(s, (byScenario.get(s) || 0) + v);
       if (f !== 'base') byFinding.set(f, (byFinding.get(f) || 0) + v);
     }
+    // Root cause down to the asset: each finding's dollars are split over the
+    // assets it sits on, weighted by their criticality.
+    const byAsset = new Map();
+    for (const [fid, v] of byFinding) {
+      const f = findings.get(fid);
+      const ids = f.risk.asset_ids.filter((a) => passesAsset(idx.assets.get(a), filters));
+      const w = ids.map((a) => MODEL.criticalityWeight[idx.assets.get(a)?.criticality] ?? 0.5);
+      const total = w.reduce((x, y) => x + y, 0) || 1;
+      ids.forEach((a, i) => byAsset.set(a, (byAsset.get(a) || 0) + (v * w[i]) / total));
+    }
     const contributing = [...byFinding.entries()].filter(([, v]) => v >= 1).map(([id]) => id);
     const bandCounts = { critical: 0, high: 0, medium: 0, low: 0 };
     for (const id of contributing) bandCounts[bandOf(findingScore(id)).id]++;
@@ -299,6 +309,8 @@ export function computeBia(ctx, opts = {}) {
       by_scenario: [...byScenario.entries()].map(([id, v]) => ({ id, loss_usd: Math.round(v), share: loss ? round(v / loss) : 0 }))
         .sort((a, b) => b.loss_usd - a.loss_usd || a.id.localeCompare(b.id)),
       by_finding: [...byFinding.entries()].map(([id, v]) => ({ id, loss_usd: Math.round(v), score: findingScore(id) }))
+        .sort((a, b) => b.loss_usd - a.loss_usd || a.id.localeCompare(b.id)),
+      by_asset: [...byAsset.entries()].filter(([, v]) => v >= 1).map(([id, v]) => ({ id, loss_usd: Math.round(v) }))
         .sort((a, b) => b.loss_usd - a.loss_usd || a.id.localeCompare(b.id)),
       contributing_findings: contributing.length,
       findings_by_band: bandCounts,
@@ -463,6 +475,57 @@ export function connectedSet(bia, ctx, focusId) {
   }
   out[level].add(focusId);
   return new Map(Object.entries(out));
+}
+
+/** Every SLO's shortfall that traces back to one asset (root cause), largest first. */
+export function assetImpact(bia, assetId) {
+  const rows = [];
+  for (const r of bia.slos) {
+    const hit = r.by_asset.find((x) => x.id === assetId);
+    if (hit) rows.push({ slo_id: r.id, name: r.slo.name, loss_usd: hit.loss_usd, share: r.loss_usd ? round(hit.loss_usd / r.loss_usd) : 0 });
+  }
+  return rows.sort((a, b) => b.loss_usd - a.loss_usd || a.slo_id.localeCompare(b.slo_id));
+}
+
+/**
+ * The single strongest chain from a finding up to an SLO, for the root-cause
+ * view: asset ← finding → scenario → component → process → policy → SLO.
+ * At each step it follows the link that carries the most risk.
+ */
+export function rootCausePath(bia, ctx, findingId, sloId = null) {
+  const g = bia.graph;
+  const f = g.findings.get(findingId);
+  if (!f) return null;
+  let best = null;
+  for (const p of g.pairs.values()) {
+    const x = p.findings.find((y) => y.id === findingId);
+    if (!x || !g.compRows.has(p.component_id)) continue;
+    if (!best || x.x > best.x) best = { x: x.x, scenario_id: p.scenario_id, component_id: p.component_id };
+  }
+  if (!best) return null;
+  const procs = g.processes.filter((p) => p.components.some((c) => c.id === best.component_id) && g.procRows.has(p.id))
+    .sort((a, b) => g.procRows.get(b.id).probability - g.procRows.get(a.id).probability);
+  const proc = procs[0];
+  const pols = (proc?.policy_ids || []).filter((x) => g.polRows.has(x));
+  let chosen = null;
+  for (const pol of pols) {
+    for (const l of g.polRows.get(pol).policy.slo_links) {
+      if (sloId && l.slo_id !== sloId) continue;
+      const row = bia.slos.find((r) => r.id === l.slo_id);
+      const loss = row?.by_policy.find((x) => x.policy_id === pol)?.loss_usd || 0;
+      if (!chosen || loss > chosen.loss) chosen = { policy_id: pol, slo_id: l.slo_id, loss };
+    }
+  }
+  const assets = [...f.risk.asset_ids].sort((a, b) => {
+    const order = { critical: 0, high: 1, medium: 2, low: 3 };
+    const ca = ctx.assets.find((x) => x.id === a)?.criticality;
+    const cb = ctx.assets.find((x) => x.id === b)?.criticality;
+    return (order[ca] ?? 4) - (order[cb] ?? 4) || a.localeCompare(b);
+  });
+  return {
+    asset_id: assets[0], finding_id: findingId, scenario_id: best.scenario_id, component_id: best.component_id,
+    process_id: proc?.id || null, policy_id: chosen?.policy_id || null, slo_id: chosen?.slo_id || null,
+  };
 }
 
 export function levelOf(bia, id) {

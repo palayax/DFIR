@@ -13,13 +13,17 @@
 
 import {
   computeBia, connectedSet, directLinks, mitigationImpacts, sloScoreTrend, pivot, nameIndex, sloSentence,
-  LEVELS, COMPONENT_CATEGORIES, PIVOT_DIMENSIONS, PIVOT_MEASURES, levelOf, BIA_MODEL, formatSloValue,
+  LEVELS, COMPONENT_CATEGORIES, PIVOT_DIMENSIONS, PIVOT_MEASURES, levelOf, BIA_MODEL, formatSloValue, rootCausePath,
 } from '../business/bia.js';
 import { scoreChip, bandLegend, sloWaterfallSvg, impactBarsSvg, scoreTrendSvg, timelineSvg } from '../business/bia-charts.js';
 import { esc, statusChip, figure, STATUS_META } from '../business/charts.js';
 import { formatUsdShort, DIMENSIONS } from '../business/engine.js';
 import { ensureBusinessContext, mockBanner, downloadBlob } from '../business/data.js';
 import { generateBiaPdf } from '../business/bia-pdf.js';
+import { computeBusinessRisk } from '../business/engine.js';
+import { brandMark, topBrands, frameworkBrand } from '../business/brands.js';
+import { icon } from '../ui/icons.js';
+import { CATEGORIES, rootCauseChain } from './triage.js';
 import { stringifyCsvRow } from '../lib/csv.js';
 import { showError, showToast } from '../ui/toast.js';
 
@@ -60,7 +64,7 @@ export async function mount(container, { store }) {
   container.classList.add('bia-view');
   const header = document.createElement('div');
   header.className = 'bia-head';
-  header.innerHTML = `<div class="bia-title"><h1>BIA explorer</h1><span class="bia-mock" hidden></span></div>`;
+  header.innerHTML = `<div class="bia-title"><h1>Dashboard</h1><span class="bia-mock" hidden></span></div>`;
   // One quiet "Export" menu instead of a row of buttons.
   const exportMenu = document.createElement('details');
   exportMenu.className = 'menu-pop';
@@ -71,7 +75,11 @@ export async function mount(container, { store }) {
   const jsonBtn = Object.assign(document.createElement('button'), { textContent: 'JSON', type: 'button' });
   const csvBtn = Object.assign(document.createElement('button'), { textContent: 'CSV (all levels)', type: 'button' });
   const printBtn = Object.assign(document.createElement('button'), { textContent: 'Print', type: 'button' });
-  menuList.append(pdfBtn, jsonBtn, csvBtn, printBtn);
+  // The Export menu replaces the old Reports tab: the board report, data
+  // exports, and the forensic case report (DFIR flow) all live here.
+  const caseLink = Object.assign(document.createElement('a'), { href: '#/report', textContent: 'Forensic case report…', className: 'menu-link' });
+  const sep = Object.assign(document.createElement('hr'), { className: 'menu-sep' });
+  menuList.append(pdfBtn, jsonBtn, csvBtn, printBtn, sep, caseLink);
   exportMenu.appendChild(menuList);
   exportMenu.addEventListener('click', (e) => { if (e.target.closest('button')) exportMenu.open = false; });
   header.appendChild(exportMenu);
@@ -154,7 +162,7 @@ export async function mount(container, { store }) {
   const mitigations = () => store.getState().biaMitigations || [];
   const whatIf = () => store.getState().whatIf || [];
   const activeFilters = () => Object.fromEntries(Object.entries(state.filters).filter(([, v]) => v));
-  const cacheKey = (extra = '') => JSON.stringify([ctx.id, ctx.as_of, activeFilters(), whatIf(), mitigations(), extra]);
+  const cacheKey = (extra = '') => JSON.stringify([ctx.id, ctx.as_of, ctx.revision || 0, activeFilters(), whatIf(), mitigations(), extra]);
 
   function compute() {
     const filters = activeFilters();
@@ -169,6 +177,12 @@ export async function mount(container, { store }) {
     const connected = state.focus ? connectedSet(bia, ctx, state.focus) : null;
     current = { bia, baseline, impacts: caches.impacts.get(ik), links: caches.links.get(lk), names, connected };
     return current;
+  }
+
+  function complianceFor() {
+    const k = cacheKey('compliance');
+    if (!caches.trend.has(k)) caches.trend.set(k, computeBusinessRisk(ctx, { remediated: whatIf() }));
+    return caches.trend.get(k);
   }
 
   function trendFor() {
@@ -318,12 +332,38 @@ export async function mount(container, { store }) {
       <strong>${formatUsdShort(arr.loss_usd)}</strong> of ${esc(arr.slo.basis_label)} at risk (${(arr.loss_pct_of_basis * 100).toFixed(1)}%)${arr.loss_usd !== arrBase.loss_usd ? ` <span class="sim-delta">${signedUsd(arr.loss_usd - arrBase.loss_usd)}</span>` : ''} ·
       <strong>${hl.active_findings}</strong> open findings (${hl.critical_findings} critical, ${hl.high_findings} high)</p>`;
 
+    // Estate and frameworks at a glance: where the data comes from, which
+    // products run the estate, and which frameworks it is measured against.
+    const c0 = ctx;
+    const dash = complianceFor();
+    const catRow = CATEGORIES.map((cat) => {
+      const list = c0.assets.filter((a) => cat.classes.includes(a.class));
+      const added = list.filter((a) => a.added).length;
+      return `<a class="glance-src" href="#/triage" title="${esc(cat.label)}: ${list.length}${added ? ` (${added} new)` : ''}">${icon(cat.icon)}<span class="glance-n">${list.length}</span><span class="glance-l">${esc(cat.label)}</span>${added ? '<span class="new-badge">new</span>' : ''}</a>`;
+    }).join('');
+    const brandRow = topBrands(c0.assets.filter((a) => !['endpoint'].includes(a.class)), 16).map((b) => brandMark(b, { title: c0.assets.find((a) => a.brand === b)?.product || '' })).join('');
+    const fwRow = (dash.compliance || []).map((fw) => {
+      const pct = Math.round(fw.posture * 100);
+      const tone = pct >= 80 ? 'status-good' : pct >= 60 ? 'status-warning' : 'status-critical';
+      const ic = pct >= 80 ? '✓' : pct >= 60 ? '!' : '✕';
+      return `<span class="fw-chip" title="${esc(fw.framework)}: ${pct}% posture, ${fw.open_risks} open risks against its controls">${brandMark(frameworkBrand(fw.framework), { size: 'xs' })}<span class="fw-name">${esc(fw.framework)}</span><span class="fw-pct ${tone}"><span aria-hidden="true">${ic}</span>${pct}%</span></span>`;
+    }).join('');
+    const threatRow = ['MITRE ATT&CK', 'MITRE ATLAS', 'OWASP Top 10 (2021)', 'OWASP API Top 10 (2023)', 'OWASP LLM Top 10 (2025)'].map((f) => {
+      const n = c0.cyber_risks.filter((r) => (r.references || []).some((x) => x.framework.startsWith(f.split(' (')[0]) && (f.includes('API') ? x.framework.includes('API') : f.includes('LLM') ? x.framework.includes('LLM') : !x.framework.includes('API') && !x.framework.includes('LLM')))).length;
+      return n ? `<span class="fw-chip">${brandMark(frameworkBrand(f) || 'owasp', { size: 'xs' })}<span class="fw-name">${esc(f)}</span><span class="fw-pct">${n} findings</span></span>` : '';
+    }).join('');
+    const glance = `<section class="glance">
+      <div class="glance-block"><div class="glance-title">${icon('server')} Data sources <span class="muted">${c0.assets.length} triaged assets &amp; feeds</span></div><div class="glance-srcs">${catRow}</div><div class="glance-brands">${brandRow}</div></div>
+      <div class="glance-block"><div class="glance-title">${icon('shield')} Frameworks &amp; regulations <span class="muted">control posture</span></div><div class="glance-fws">${fwRow}</div><div class="glance-fws">${threatRow}</div></div>
+    </section>`;
+
+    const SLO_ICON = { 'SLO-ARR': 'dollar', 'SLO-NEWARR': 'growth', 'SLO-GRR': 'refresh', 'SLO-NRR': 'refresh', 'SLO-MARGIN': 'percent', 'SLO-SLA': 'clock', 'SLO-NPS': 'star', 'SLO-TRUST': 'audit' };
     const cards = bia.slos.map((r) => {
       const base = baseline.slos.find((b) => b.id === r.id);
       const t = trend.get(r.id) || [];
       const meta = STATUS_META[r.status] || STATUS_META.on_track;
       return `<article class="slo-card${r.id === state.selectedSlo ? ' is-selected' : ''}" data-slo="${esc(r.id)}" tabindex="0" role="button" aria-pressed="${r.id === state.selectedSlo}">
-        <div class="slo-card-head"><span class="slo-name">${esc(r.slo.name)}</span>${scoreChip(r.score)}</div>
+        <div class="slo-card-head"><span class="slo-ico">${icon(SLO_ICON[r.id] || 'target')}</span><span class="slo-name">${esc(r.slo.name)}</span>${scoreChip(r.score)}</div>
         <div class="slo-loss"><span class="slo-loss-value">−${formatUsdShort(r.loss_usd)}</span><span class="muted">${(r.loss_pct_of_basis * 100).toFixed(1)}%</span>${scoreTrendSvg(t, { width: 84, height: 24 })}</div>
         <div class="slo-metrics"><span class="slo-status ${meta.cls}" title="${esc(meta.label)}"><span aria-hidden="true">${meta.icon}</span> ${esc(meta.label)}</span><span>${fmtMetric(r.projected, r.slo)} <span class="muted">vs ${fmtMetric(r.slo.target, r.slo)}</span></span></div>
         ${base && base.loss_usd !== r.loss_usd ? `<div class="slo-sim">${signedUsd(r.loss_usd - base.loss_usd)} with simulated mitigations</div>` : ''}
@@ -336,18 +376,28 @@ export async function mount(container, { store }) {
     const polRows = sel.by_policy.map((p) => `<tr class="clickable" data-focus="${esc(p.policy_id)}"><td>${esc(names.get(p.policy_id) || p.policy_id)}</td><td class="num">${(p.weight * 100).toFixed(1)}%</td><td class="num">${Math.round(p.probability * 100)}%</td><td class="num">${formatUsdShort(p.loss_usd)}</td></tr>`).join('');
     const findRows = sel.by_finding.slice(0, 12).map((x) => `<tr class="clickable" data-focus="${esc(x.id)}"><td class="nowrap">${esc(x.id)}</td><td>${esc(names.get(x.id) || '')}</td><td>${scoreChip(x.score)}</td><td class="num">${formatUsdShort(x.loss_usd)}</td></tr>`).join('');
     const kpis = (sel.slo.kpi_ids || []).map((id) => ctx.kpis.find((k) => k.id === id)).filter(Boolean);
+    // Root cause, down to the asset (and the new data sources added in Triage).
+    const assetRows = sel.by_asset.slice(0, 8).map((x) => {
+      const a = ctx.assets.find((y) => y.id === x.id);
+      const max = sel.by_asset[0]?.loss_usd || 1;
+      return `<a class="rc-row${a?.added ? ' is-new' : ''}" href="#/triage/${esc(x.id)}">${brandMark(a?.brand, { title: a?.product || '' }) || `<span class="brand brand-sm brand-none">${icon('server')}</span>`}<span class="rc-asset">${esc(a?.name || x.id)}${a?.added ? ' <span class="new-badge">new</span>' : ''}<span class="muted"> · ${esc(a?.product || a?.class || '')}</span></span><span class="impact-bar"><span style="width:${Math.round((100 * x.loss_usd) / max)}%"></span></span><span class="num">${formatUsdShort(x.loss_usd)}</span></a>`;
+    }).join('');
+    const topAsset = sel.by_asset[0];
+    const topFinding = topAsset ? sel.by_finding.find((f) => ctx.cyber_risks.find((r) => r.id === f.id)?.asset_ids.includes(topAsset.id)) : null;
+    const path = topFinding ? rootCausePath(bia, ctx, topFinding.id, sel.id) : null;
     const section = (title, summary, inner, open = false) => `<details class="fold"${open ? ' open' : ''}><summary><span class="fold-title">${title}</span><span class="fold-sum">${summary}</span></summary><div class="fold-body">${inner}</div></details>`;
     const detail = `<section class="slo-detail">
       <div class="slo-detail-head"><div><h2>${esc(sel.slo.name)}</h2><p class="slo-sentence">${esc(sloSentence(sel, scen))}</p></div>
         <div class="slo-detail-score">${scoreChip(sel.score, { label: true, prefix: 'Cyber Risk Score Factor: ' })}${statusChip(sel.status)}<button class="btn btn-primary" type="button" data-drill="${esc(sel.id)}">Drill down →</button></div></div>
       ${section('Plan → cyber-adjusted', `${fmtMetric(sel.slo.forecast, sel.slo)} → ${fmtMetric(sel.projected, sel.slo)} (target ${fmtMetric(sel.slo.target, sel.slo)})`, `<div class="two-col-biz">${figure('By scenario', sloWaterfallSvg(sel, scen), `<table><tbody>${sel.by_scenario.map((x) => `<tr><td>${esc(scen.get(x.id) || x.id)}</td><td class="num">${formatUsdShort(x.loss_usd)}</td><td class="num">${Math.round(x.share * 100)}%</td></tr>`).join('')}</tbody></table>`, { note: `${esc(sel.slo.description)} Headroom between plan and target: ${formatUsdShort(sel.headroom_usd)}.` })}
         ${figure('Shortfall by cyber-risk scenario', impactBarsSvg(scenItems, { width: 460 }), `<table><tbody>${scenItems.map((i) => `<tr><td>${esc(i.label)}</td><td class="num">${formatUsdShort(i.value)}</td></tr>`).join('')}</tbody></table>`, { note: 'Click a bar to explore that scenario.' })}</div>`, true)}
+      ${section('Root cause — assets', topAsset ? `${esc(ctx.assets.find((a) => a.id === topAsset.id)?.name || topAsset.id)} carries the most` : '', `<div class="rc-list">${assetRows}</div>${path ? `<div class="rc-chain-label muted">Strongest path from the top asset to this SLO</div>${rootCauseChain(path, bia, ctx)}` : ''}`, true)}
       ${section('Policies (L2)', `${sel.by_policy.length} carry the shortfall`, `<div class="biz-table-wrap"><table class="biz-table"><thead><tr><th>Policy</th><th class="num">Weight</th><th class="num">P(fail)</th><th class="num">Shortfall</th></tr></thead><tbody>${polRows}</tbody></table></div><p class="biz-figure-note">Weight = share of the SLO’s basis lost if the policy fails.</p>`)}
       ${section('Findings (L6)', `${sel.contributing_findings} contribute · ${sel.findings_by_band.critical} critical · ${sel.findings_by_band.high} high`, `<div class="biz-table-wrap"><table class="biz-table"><thead><tr><th>Id</th><th>Finding</th><th>Score</th><th class="num">Shortfall</th></tr></thead><tbody>${findRows}</tbody></table></div>`)}
       ${kpis.length ? section('Operational KPIs', `${kpis.length} linked`, `<div class="pill-list">${kpis.map((k) => `<a class="badge" href="#/business">${esc(k.id)} · ${esc(k.name)}</a>`).join(' ')}</div>`) : ''}
       ${section('Score history', 'last 12 months', scoreTrendSvg(t))}
     </section>`;
-    body.innerHTML = `${tiles}<div class="slo-grid">${cards}</div>${detail}
+    body.innerHTML = `${tiles}${glance}<div class="slo-grid">${cards}</div>${detail}
       <details class="fold method"><summary><span class="fold-title">How the score is calculated</span></summary>
         <dl>
           <dt>L6 finding</dt><dd>12-month likelihood from severity × exploitability × internet exposure × active threat, reduced by mapped control effectiveness (the same model as the executive dashboard). Score 100 = likelihood ${BIA_MODEL.findingLikelihoodAt100}.</dd>
@@ -365,9 +415,13 @@ export async function mount(container, { store }) {
   function nodeMeta(n) {
     if (n.level === 1) return `${esc(n.owner)} · ${statusChip(n.status)}`;
     if (n.level === 2 || n.level === 3) return esc(n.owner || '');
-    if (n.level === 4) return `<span class="cat-badge cat-${esc(n.category)}"><span aria-hidden="true">${CATEGORY_ICON[n.category] || ''}</span> ${esc(COMPONENT_CATEGORIES[n.category] || n.category)}</span>`;
+    if (n.level === 4) {
+      const comp = ctx.bp_components.find((x) => x.id === n.id);
+      const assets = comp ? ctx.assets.filter((a) => (comp.asset_ids || []).includes(a.id) || (comp.asset_query && Object.entries(comp.asset_query).every(([k, v]) => a[k] === v))) : [];
+      return `<span class="cat-badge cat-${esc(n.category)}"><span aria-hidden="true">${CATEGORY_ICON[n.category] || ''}</span> ${esc(COMPONENT_CATEGORIES[n.category] || n.category)}</span>${topBrands(assets, 3).map((b) => brandMark(b, { size: 'xs' })).join('')}${assets.some((a) => a.added) ? '<span class="new-badge">new</span>' : ''}`;
+    }
     if (n.level === 5) return `${Math.round(n.probability * 100)}% likely to disrupt a process${n.factor < 1 ? ' · <span class="badge">mitigated</span>' : ''}`;
-    if (n.level === 6) return n.kind === 'hunt' ? `<span class="badge badge-hunt">Hunt</span> ${n.hits} matches · ${esc(n.cadence)}` : `<span class="badge">${esc(KIND_LABEL[n.type] || n.type)}</span> ${esc(n.id)}${n.remediated ? ' · <span class="badge">fixed (sim)</span>' : n.active ? '' : ' · closed'}`;
+    if (n.level === 6) return n.kind === 'hunt' ? `<span class="badge badge-hunt">Hunt</span> ${n.hits} matches · ${esc(n.cadence)}` : `<span class="badge">${esc(KIND_LABEL[n.type] || n.type)}</span> ${esc(n.id)}${(() => { const r = ctx.cyber_risks.find((x) => x.id === n.id); const ref = r?.references?.[0]; const isNew = r?.asset_ids.some((a) => ctx.assets.find((y) => y.id === a)?.added); return `${ref ? ` <span class="ref-id">${esc(ref.id)}</span>` : ''}${isNew ? ' <span class="new-badge">new</span>' : ''}`; })()}${n.remediated ? ' · <span class="badge">fixed (sim)</span>' : n.active ? '' : ' · closed'}`;
     return `<span class="badge">${esc(KIND_LABEL[n.kind] || n.kind)}</span> ${esc(n.collected_at.slice(0, 10))}`;
   }
 
@@ -515,7 +569,7 @@ export async function mount(container, { store }) {
       const c = cr.component;
       const assets = ctx.assets.filter((a) => (c.asset_ids || []).includes(a.id) || (c.asset_query && Object.entries(c.asset_query).every(([k, v]) => a[k] === v)));
       const pairs = cr.pairKeys.map((k) => g.pairs.get(k)).filter((p) => g.scenRows.has(p.scenario_id)).sort((a, b) => b.probability - a.probability);
-      specific = `<dl class="kv-grid"><dt>Type</dt><dd>${esc(COMPONENT_CATEGORIES[c.category])}</dd><dt>Owner</dt><dd>${esc(c.owner)}</dd>${c.headcount ? `<dt>Headcount</dt><dd>${c.headcount}</dd>` : ''}${c.classification ? `<dt>Data classification</dt><dd>${esc(c.classification.replaceAll('_', ' '))}</dd>` : ''}<dt>Assets</dt><dd>${assets.length} — ${assets.slice(0, 6).map((a) => esc(a.name)).join(', ')}${assets.length > 6 ? ' …' : ''} <a href="#/inventory">inventory</a></dd></dl>
+      specific = `<dl class="kv-grid"><dt>Type</dt><dd>${esc(COMPONENT_CATEGORIES[c.category])}</dd><dt>Owner</dt><dd>${esc(c.owner)}</dd>${c.headcount ? `<dt>Headcount</dt><dd>${c.headcount}</dd>` : ''}${c.classification ? `<dt>Data classification</dt><dd>${esc(c.classification.replaceAll('_', ' '))}</dd>` : ''}<dt>Assets</dt><dd>${assets.length} <span class="muted">in triage</span><div class="asset-links">${assets.sort((a, b) => (b.added ? 1 : 0) - (a.added ? 1 : 0)).slice(0, 8).map((a) => `<a class="conn-chip" href="#/triage/${esc(a.id)}">${brandMark(a.brand, { size: 'xs' })}${esc(a.name.length > 40 ? `${a.name.slice(0, 39)}…` : a.name)}${a.added ? ' <span class="new-badge">new</span>' : ''}</a>`).join('')}${assets.length > 8 ? `<span class="muted">+${assets.length - 8} more</span>` : ''}</div></dd></dl>
         <h3 class="panel-title">Cyber-risk scenarios on this component (L5)</h3>
         <table class="biz-table"><thead><tr><th>Scenario</th><th class="num">P(12 months)</th><th class="num">Findings</th><th>Threat prior</th></tr></thead><tbody>${pairs.map((p) => `<tr class="clickable" data-node="${esc(p.scenario_id)}"><td>${esc(scen.get(p.scenario_id))}</td><td class="num">${Math.round(p.probability * 100)}%</td><td class="num">${p.findings.length}</td><td>${p.base ? `${(p.base * 100).toFixed(1)}%` : '—'}</td></tr>`).join('')}</tbody></table>`;
     } else if (level === 'scenario') {
@@ -541,11 +595,13 @@ export async function mount(container, { store }) {
       const mits = (ctx.mitigations || []).filter((m) => m.finding_ids.includes(id));
       const rows = [{ id: r.id, label: r.title, kind: 'finding', start: r.first_seen, end: r.closed_on || ctx.as_of, open: r.status !== 'mitigated', score: f.score, evidence: ev.map((e) => e.collected_at.slice(0, 10)) }];
       specific = `<dl class="kv-grid"><dt>Type</dt><dd>${esc(KIND_LABEL[r.type] || r.type)}</dd><dt>Severity</dt><dd><span class="sev-dot sev-${esc(r.severity)}" aria-hidden="true"></span>${esc(r.severity)}${r.cvss ? ` · CVSS ${r.cvss}` : ''}${r.epss != null ? ` · EPSS ${r.epss}` : ''}</dd><dt>Status</dt><dd>${esc(r.status.replace('_', ' '))}${f.remediated ? ' (fixed in simulation)' : ''}</dd><dt>Likelihood (12 months)</dt><dd>${(f.likelihood * 100).toFixed(1)}%</dd>
-        ${r.vuln_id ? `<dt>Vulnerability id</dt><dd>${esc(r.vuln_id)}</dd>` : ''}<dt>Assets</dt><dd>${r.asset_ids.length} — ${r.asset_ids.slice(0, 5).map((a) => esc(ctx.assets.find((x) => x.id === a)?.name || a)).join(', ')}${r.asset_ids.length > 5 ? ' …' : ''}</dd>
-        <dt>Controls</dt><dd>${(r.control_ids || []).map(esc).join(', ')}</dd><dt>ATT&amp;CK</dt><dd>${(r.mitre_techniques || []).map(esc).join(', ') || '—'}</dd><dt>Source</dt><dd>${esc(r.source)} · first seen ${esc(r.first_seen)}</dd>
+        ${r.vuln_id ? `<dt>Vulnerability id</dt><dd>${esc(r.vuln_id)}</dd>` : ''}<dt>Assets</dt><dd><div class="asset-links">${r.asset_ids.slice(0, 6).map((aid) => { const a = ctx.assets.find((x) => x.id === aid); return `<a class="conn-chip" href="#/triage/${esc(aid)}">${brandMark(a?.brand, { size: 'xs' })}${esc(a?.name || aid)}${a?.added ? ' <span class="new-badge">new</span>' : ''}</a>`; }).join('')}${r.asset_ids.length > 6 ? `<span class="muted">+${r.asset_ids.length - 6} more</span>` : ''}</div></dd>
+        <dt>Controls</dt><dd>${(r.control_ids || []).map((cid) => { const ct = ctx.controls.find((x) => x.id === cid); return `<span class="badge" title="${esc(ct ? ct.framework_refs.map((x) => `${x.framework} ${x.ref}`).join(' · ') : '')}">${esc(cid)} ${esc(ct?.title || '')}</span>`; }).join(' ')}</dd>
+        <dt>Frameworks</dt><dd class="ref-list">${(r.references || []).map((ref) => `<a class="ref-chip" href="${esc(ref.url)}" target="_blank" rel="noopener noreferrer" title="${esc(ref.framework)}">${brandMark(frameworkBrand(ref.framework), { size: 'xs' })}${esc(ref.id)} · ${esc(ref.name)}</a>`).join('') || '—'}</dd><dt>Source</dt><dd>${esc(r.source)} · first seen ${esc(r.first_seen)}</dd>
         <dt>Remediation</dt><dd>${esc(r.remediation?.action || '')} · ${formatUsdShort(r.remediation?.cost_usd || 0)} · ${r.remediation?.eta_days ?? '?'} days</dd>${mits.length ? `<dt>In mitigation</dt><dd>${mits.map((m) => esc(`${m.id} ${m.title}`)).join('; ')}</dd>` : ''}</dl>
+        ${(() => { const path = rootCausePath(bia, ctx, r.id); return path ? `<div class="rc-chain-label muted">Root-cause path</div>${rootCauseChain(path, bia, ctx)}` : ''; })()}
         ${timelineSvg(rows, ctx.months, ctx.as_of)}
-        <a class="btn" href="#/cyber/${esc(r.id)}">Open in risk register</a>`;
+        <a class="btn btn-quiet" href="#/cyber/${esc(r.id)}">Open in risk register</a>`;
     } else if (level === 'evidence') {
       const e = (ctx.evidence || []).find((x) => x.id === id);
       specific = `<dl class="kv-grid"><dt>Kind</dt><dd>${esc(KIND_LABEL[e.kind] || e.kind)}</dd><dt>Source</dt><dd>${esc(e.source)}</dd><dt>Collected</dt><dd>${esc(e.collected_at)}</dd>${e.asset_id ? `<dt>Asset</dt><dd>${esc(ctx.assets.find((a) => a.id === e.asset_id)?.name || e.asset_id)}</dd>` : ''}<dt>SHA-256</dt><dd class="mono">${esc(e.sha256)}</dd></dl>
@@ -715,6 +771,16 @@ export async function mount(container, { store }) {
     }, 120);
   };
   window.addEventListener('resize', onResize);
+  const onDemo = (e) => {
+    const d = e.detail || {};
+    if (d.action === 'dashboard-tab') { state.tab = d.tab || 'impact'; if (d.slo) state.selectedSlo = d.slo; if (d.focus !== undefined) state.focus = d.focus; if (d.showSim !== undefined) { state.showSim = d.showSim; } render(); }
+    if (d.action === 'focus-new-asset') {
+      const a = ctx.assets.filter((x) => x.added).at(-1);
+      const f = a && current.bia.slos[0].by_finding.find((x) => ctx.cyber_risks.find((r) => r.id === x.id)?.asset_ids.includes(a.id));
+      if (f) { state.tab = 'explorer'; state.focus = f.id; state.hiddenCols.delete('evidence'); render(); }
+    }
+  };
+  window.addEventListener('irtriage-demo', onDemo);
 
   // ---------------------------------------------------------------- exports
   pdfBtn.addEventListener('click', async () => {
@@ -767,6 +833,7 @@ export async function mount(container, { store }) {
     unmount() {
       for (const u of unsubs) u();
       window.removeEventListener('resize', onResize);
+      window.removeEventListener('irtriage-demo', onDemo);
     },
   };
 }

@@ -7,12 +7,18 @@
 // API / MCP connectors that keep it live.
 
 import { esc, statusChip, sparklineSvg } from '../business/charts.js';
+import { computeBia } from '../business/bia.js';
+import { scoreChip } from '../business/bia-charts.js';
+import { updateSlo, updatePolicyWeight, updateAppetite, DEMO_SLO_CHANGES } from '../business/context-edit.js';
+import { brandMark, frameworkBrand } from '../business/brands.js';
+import { icon } from '../ui/icons.js';
 import { formatUsdShort, computeBusinessRisk } from '../business/engine.js';
 import { ensureBusinessContext, loadAcmeContext, checkBusinessContext, mockBanner, downloadBlob } from '../business/data.js';
 import { openDialog } from '../ui/dialog.js';
 import { showError, showToast } from '../ui/toast.js';
 
 const TABS = [
+  ['slos', 'SLOs & policies'],
   ['overview', 'Organisation & goals'],
   ['services', 'Services & BIA'],
   ['kpis', 'KPIs / SLOs / SLAs'],
@@ -24,20 +30,16 @@ const TABS = [
 const SOURCE_LABEL = { bi: 'BI system', contract: 'Contract', business_owner: 'Business owner', generated: 'AI-proposed' };
 
 export async function mount(container, { store }) {
+  container.classList.add('bia-view');
   const header = document.createElement('div');
-  header.className = 'view-header';
-  header.innerHTML = `
-    <div>
-      <div class="layer-tag">Layer 1 · Ingested data</div>
-      <h1>Business context</h1>
-      <div class="view-subtitle">SLOs, SLAs and KPIs, BI/DSS data, GRC policies and controls, BIA and business-owner input — the business side of the analysis.</div>
-    </div>`;
+  header.className = 'bia-head';
+  header.innerHTML = `<div class="bia-title"><h1>Business context</h1><span class="muted bia-sub">SLOs, policies, BIA, KPIs, GRC, management notes and board reports: the business side of the analysis.</span></div>`;
   const actions = document.createElement('div');
   actions.className = 'view-actions';
-  const loadDemoBtn = Object.assign(document.createElement('button'), { className: 'btn', textContent: 'Load ACME.Corp demo', type: 'button' });
+  const loadDemoBtn = Object.assign(document.createElement('button'), { className: 'btn btn-quiet', textContent: 'Reset to ACME.Corp baseline', type: 'button' });
   loadDemoBtn.dataset.testid = 'load-acme-demo';
-  const importBtn = Object.assign(document.createElement('button'), { className: 'btn', textContent: 'Import context JSON…', type: 'button' });
-  const exportBtn = Object.assign(document.createElement('button'), { className: 'btn', textContent: 'Export context JSON', type: 'button' });
+  const importBtn = Object.assign(document.createElement('button'), { className: 'btn btn-quiet', textContent: 'Import JSON…', type: 'button' });
+  const exportBtn = Object.assign(document.createElement('button'), { className: 'btn btn-quiet', textContent: 'Export JSON', type: 'button' });
   const fileInput = Object.assign(document.createElement('input'), { type: 'file', accept: '.json,application/json', hidden: true });
   actions.append(loadDemoBtn, importBtn, exportBtn, fileInput);
   header.appendChild(actions);
@@ -50,20 +52,61 @@ export async function mount(container, { store }) {
     return { unmount() {} };
   }
 
+  const c0 = store.getState().businessContext;
+  if (c0?.synthetic) header.querySelector('.bia-title').insertAdjacentHTML('beforeend', `<span class="bia-mock" title="${esc(mockBanner(c0).textContent)}">Mock data · ${esc(c0.organization?.name || '')}</span>`);
   const bannerHost = document.createElement('div');
   container.appendChild(bannerHost);
   const root = document.createElement('div');
   root.className = 'layer-root';
   container.appendChild(root);
 
-  const state = { tab: 'overview' };
+  const state = { tab: 'slos', open: new Set(['SLO-ARR']) };
 
   function render() {
     const c = store.getState().businessContext;
-    bannerHost.replaceChildren(mockBanner(c));
-    const tabs = `<div class="tabs" role="tablist">${TABS.map(([id, label]) => `<button role="tab" type="button" data-tab="${id}" aria-selected="${state.tab === id}">${esc(label)}</button>`).join('')}</div>`;
-    const body = { overview, services, kpis, grc, documents, connectors }[state.tab](c);
+    bannerHost.replaceChildren();
+    const tabs = `<div class="bia-bar"><div class="seg-tabs" role="tablist">${TABS.map(([id, label]) => `<button role="tab" type="button" data-tab="${id}" aria-selected="${state.tab === id}">${esc(label)}</button>`).join('')}</div></div>`;
+    const body = { slos, overview, services, kpis, grc, documents, connectors }[state.tab](c);
     root.innerHTML = tabs + body;
+  }
+
+  // Editable SLOs: every change recomputes the dashboard immediately.
+  const SLO_ICON = { 'SLO-ARR': 'dollar', 'SLO-NEWARR': 'growth', 'SLO-GRR': 'refresh', 'SLO-NRR': 'refresh', 'SLO-MARGIN': 'percent', 'SLO-SLA': 'clock', 'SLO-NPS': 'star', 'SLO-TRUST': 'audit' };
+  function slos(c) {
+    if (!Array.isArray(c.slos)) return '<section class="panel"><p class="muted">This context has no SLO hierarchy.</p></section>';
+    const bia = computeBia(c, { remediated: store.getState().whatIf || [], mitigations: store.getState().biaMitigations || [] });
+    const num = (slo, field, step) => `<input class="input num-input" type="number" step="${step}" data-slo="${esc(slo.id)}" data-slo-field="${field}" value="${slo[field]}" aria-label="${esc(slo.name)} ${field}">`;
+    const rows = c.slos.map((slo) => {
+      const r = bia.slos.find((x) => x.id === slo.id);
+      const step = slo.decimals >= 2 ? '0.01' : slo.decimals === 1 ? '0.1' : '1';
+      const pols = c.bia_policies.filter((p) => p.slo_links.some((l) => l.slo_id === slo.id));
+      const open = state.open.has(slo.id);
+      return `<tr class="slo-row">
+          <td><button type="button" class="link-btn slo-toggle" data-open-slo="${esc(slo.id)}" aria-expanded="${open}">${icon(SLO_ICON[slo.id] || 'target')}<span>${esc(slo.name)}</span></button><div class="muted">${esc(slo.owner)} · ${esc(slo.unit)}</div></td>
+          <td>${num(slo, 'target', step)}</td><td>${num(slo, 'warning', step)}</td><td>${num(slo, 'forecast', step)}</td>
+          <td><input class="input num-input" type="number" step="0.1" data-slo="${esc(slo.id)}" data-slo-field="basis_musd" value="${(slo.basis_usd / 1e6).toFixed(2)}" aria-label="${esc(slo.name)} financial basis in $M"></td>
+          <td class="num">${r ? esc(String(r.projected)) : ''}</td><td>${r ? scoreChip(r.score) : ''}</td><td>${r ? statusChip(r.status) : ''}</td>
+        </tr>
+        ${open ? `<tr class="slo-policies"><td colspan="8"><div class="policy-weights"><div class="muted">Policies that protect this SLO — weight = share of the ${esc(slo.basis_label)} lost if the policy fails</div>${pols.map((p) => {
+          const l = p.slo_links.find((x) => x.slo_id === slo.id);
+          const pl = r?.by_policy.find((x) => x.policy_id === p.id);
+          return `<label class="pw-row"><span class="pw-title">${icon('policy')} ${esc(p.title)}<span class="muted"> · ${esc(p.cadence)} · ${esc(p.owner)}</span></span><span class="pw-input"><input class="input num-input" type="number" step="0.1" min="0" max="100" data-policy="${esc(p.id)}" data-policy-slo="${esc(slo.id)}" value="${(l.weight * 100).toFixed(2)}" aria-label="Weight of ${esc(p.title)} on ${esc(slo.name)} (%)">%</span><span class="num muted">${pl ? formatUsdShort(pl.loss_usd) : ''}</span></label>`;
+        }).join('')}</div></td></tr>` : ''}`;
+    }).join('');
+    const a = c.organization.risk_appetite || {};
+    return `<section class="panel">
+        <div class="section-head"><h2 class="panel-title">Business SLOs</h2><button type="button" class="btn btn-quiet" data-demo-slo>${icon('play')} Apply demo change</button></div>
+        <p class="biz-figure-note">Targets, plan forecasts and financial bases come from the board pack and management notes; edit any of them and the dashboard recomputes. Cyber-adjusted values, scores and status are computed, never typed.</p>
+        <div class="biz-table-wrap"><table class="biz-table slo-edit"><thead><tr><th>SLO</th><th>Target</th><th>Warning</th><th>Plan forecast</th><th>Basis ($M)</th><th class="num">Cyber-adjusted</th><th>Score</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></div>
+      </section>
+      <section class="panel"><h2 class="panel-title">Board risk appetite</h2>
+        <div class="appetite-grid">
+          <label>Annual value-at-risk tolerance ($M)<input class="input num-input" type="number" step="0.5" data-appetite="annual_value_at_risk_usd" value="${((a.annual_value_at_risk_usd || 0) / 1e6).toFixed(1)}"></label>
+          <label>Max likelihood per service (%)<input class="input num-input" type="number" step="1" data-appetite="max_service_likelihood" value="${Math.round((a.max_service_likelihood || 0) * 100)}"></label>
+          <label>Compliance floor (%)<input class="input num-input" type="number" step="1" data-appetite="min_compliance_posture" value="${Math.round((a.min_compliance_posture || 0) * 100)}"></label>
+        </div>
+        <p class="muted">${esc(a.statement || '')} Approved by ${esc(a.approved_by || '')} on ${esc(a.approved_on || '')}.</p>
+      </section>`;
   }
 
   function overview(c) {
@@ -78,7 +121,7 @@ export async function mount(container, { store }) {
           <dt>Customers</dt><dd>${o.customers}</dd>
           <dt>Fiscal year</dt><dd>${esc(o.fiscal_year)}</dd>
           <dt>Clouds</dt><dd>${esc(o.cloud_providers.join(', '))}</dd>
-          <dt>Frameworks</dt><dd>${esc(o.frameworks.join(' · '))}</dd>
+          <dt>Frameworks</dt><dd class="fw-list">${(c.framework_catalog || o.frameworks.map((f) => ({ name: f }))).map((f) => `${f.url ? `<a class="fw-chip" href="${esc(f.url)}" target="_blank" rel="noopener noreferrer" title="${esc(f.issuer || '')} · ${esc(f.kind || '')}">` : '<span class="fw-chip">'}${brandMark(frameworkBrand(f.name) || (f.name.includes('OWASP') ? 'owasp' : null), { size: 'xs' })}${esc(f.name)}${f.url ? '</a>' : '</span>'}`).join('')}</dd>
           <dt>Sites</dt><dd>${o.sites.map((s) => `${esc(s.name)} (${esc(s.city)}, ${s.employees})`).join('<br>')}</dd>
           <dt>Leadership</dt><dd>${o.executives.map((e) => `${esc(e.role)}: ${esc(e.name)}`).join('<br>')}</dd>
         </dl>
@@ -193,6 +236,14 @@ export async function mount(container, { store }) {
   root.addEventListener('click', (e) => {
     const tab = e.target.closest?.('[data-tab]');
     if (tab) { state.tab = tab.dataset.tab; render(); return; }
+    const openSlo = e.target.closest?.('[data-open-slo]');
+    if (openSlo) {
+      const id = openSlo.dataset.openSlo;
+      if (state.open.has(id)) state.open.delete(id); else state.open.add(id);
+      render();
+      return;
+    }
+    if (e.target.closest?.('[data-demo-slo]')) { applyDemoSloChange(); return; }
     const sync = e.target.closest?.('[data-sync]');
     if (sync) {
       const c = store.getState().businessContext;
@@ -205,6 +256,30 @@ export async function mount(container, { store }) {
     if (e.target.closest?.('[data-add-connector]')) connectorDialog(null);
   });
   root.addEventListener('change', (e) => {
+    const c0 = store.getState().businessContext;
+    const sloId = e.target?.dataset?.slo;
+    if (sloId) {
+      const field = e.target.dataset.sloField;
+      const v = Number(e.target.value);
+      if (!Number.isFinite(v)) return;
+      const patch = field === 'basis_musd' ? { basis_usd: v * 1e6 } : { [field]: v };
+      store.set({ businessContext: updateSlo(c0, sloId, patch) });
+      return;
+    }
+    const polId = e.target?.dataset?.policy;
+    if (polId) {
+      const v = Number(e.target.value);
+      if (!Number.isFinite(v) || v < 0) return;
+      store.set({ businessContext: updatePolicyWeight(c0, polId, e.target.dataset.policySlo, v / 100) });
+      return;
+    }
+    const ap = e.target?.dataset?.appetite;
+    if (ap) {
+      const v = Number(e.target.value);
+      if (!Number.isFinite(v)) return;
+      store.set({ businessContext: updateAppetite(c0, { [ap]: ap === 'annual_value_at_risk_usd' ? v * 1e6 : v / 100 }) });
+      return;
+    }
     if (!e.target?.matches?.('input[data-docs]')) return;
     const files = [...e.target.files];
     if (!files.length) return;
@@ -223,10 +298,22 @@ export async function mount(container, { store }) {
     showToast({ type: 'success', title: `${files.length} document(s) added`, detail: 'Queued for extraction. The file content stays in this browser.' });
   });
 
+  function applyDemoSloChange() {
+    let c = store.getState().businessContext;
+    for (const ch of DEMO_SLO_CHANGES) c = updateSlo(c, ch.slo_id, ch.patch);
+    store.set({ businessContext: c });
+    for (const ch of DEMO_SLO_CHANGES) state.open.add(ch.slo_id);
+    state.tab = 'slos';
+    render();
+    showToast({ type: 'success', title: 'Business context changed', detail: DEMO_SLO_CHANGES.map((ch) => ch.note).join(' · ') });
+  }
+  const onDemo = (e) => { if (e.detail?.action === 'apply-slo-change') applyDemoSloChange(); if (e.detail?.action === 'show-slos') { state.tab = 'slos'; render(); } };
+  window.addEventListener('irtriage-demo', onDemo);
+
   loadDemoBtn.addEventListener('click', async () => {
     try {
-      store.set({ businessContext: await loadAcmeContext(), whatIf: [] });
-      showToast({ type: 'success', title: 'ACME.Corp demo loaded', detail: 'Every layer now reflects the mock dataset.' });
+      store.set({ businessContext: await loadAcmeContext(), whatIf: [], biaMitigations: [] });
+      showToast({ type: 'success', title: 'ACME.Corp baseline restored', detail: 'Added data sources, SLO edits and simulations were cleared.' });
     } catch (err) {
       showError('Could not load the demo', err);
     }
@@ -255,5 +342,5 @@ export async function mount(container, { store }) {
 
   render();
   const unsub = store.subscribeSelector((s) => s.businessContext, (c) => { if (c) render(); });
-  return { unmount() { unsub(); } };
+  return { unmount() { unsub(); window.removeEventListener('irtriage-demo', onDemo); } };
 }

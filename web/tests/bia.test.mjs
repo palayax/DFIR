@@ -232,9 +232,12 @@ describe('BIA explorer is reachable from the UI', () => {
     assert.match(app, /const DEFAULT_ROUTE = 'bia'/);
   });
 
-  test('the menu is short: register, SuperTimeline and dashboard are hidden, not removed', async () => {
+  test('the menu is Triage, Business context, Dashboard; everything else is hidden, not removed', async () => {
     const app = await readFile(path.join(HERE, '..', 'assets', 'js', 'app.js'), 'utf8');
-    for (const id of ['cyber', 'merge', 'business']) {
+    const routes = [...app.matchAll(/\{ id: '([a-z]+)', path: '[a-z]+', label: '([^']+)'([^}]*)\}/g)];
+    const visible = routes.filter((m) => !m[3].includes('hidden: true')).map((m) => m[2]);
+    assert.deepEqual(visible, ['Triage', 'Business context', 'Dashboard', 'Settings']);
+    for (const id of ['cyber', 'merge', 'business', 'inventory', 'ingest', 'analyze', 'report']) {
       assert.match(app, new RegExp(`\\{ id: '${id}'[^}]*hidden: true[^}]*parent: '`), `${id} must stay routable but hidden`);
       assert.match(app, new RegExp(`${id}: \\(\\) => import\\(`), `${id} must keep its view loader`);
     }

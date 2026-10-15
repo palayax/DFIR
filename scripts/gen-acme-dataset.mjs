@@ -29,7 +29,7 @@ const SCRIPT = 'gen-acme-dataset.mjs';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.join(HERE, '..', 'web', 'demo', 'acme');
 
-const SCHEMA_VERSION = '1.1.0';
+const SCHEMA_VERSION = '1.2.0';
 const AS_OF = '2026-09-30';
 // 12 monthly KPI points, oldest first, ending at AS_OF's month.
 const MONTHS = ['2025-10', '2025-11', '2025-12', '2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09'];
@@ -59,7 +59,7 @@ const ORGANIZATION = {
   fiscal_year: 'FY2027 (Oct 2026 – Sep 2027)',
   sites: SITES.map(({ subnet, ...s }) => s),
   cloud_providers: ['AWS', 'Azure', 'GCP'],
-  frameworks: ['ISO 27001:2022', 'SOC 2 Type II', 'NIST CSF 2.0', 'GDPR', 'NIS2', 'PCI DSS 4.0'],
+  frameworks: ['ISO 27001:2022', 'SOC 2 Type II', 'NIST CSF 2.0', 'NIST SP 800-53 Rev. 5', 'FedRAMP Moderate', 'CIS Controls v8', 'GDPR', 'NIS2', 'PCI DSS 4.0'],
   risk_appetite: {
     statement: 'ACME accepts LOW risk to customer-facing service availability and customer data confidentiality, and MODERATE risk to internal operations, in pursuit of growth.',
     annual_value_at_risk_usd: 6000000,
@@ -306,6 +306,9 @@ function triageFor(cls) {
   if (cls === 'cloud_resource') return { status: 'collected', collector: 'Cloud API (mock)', last_collected: '2026-09-30' };
   if (cls === 'saas' || cls === 'ai_system' || cls === 'security_control' || cls === 'cicd') return { status: 'collected', collector: 'API connector (mock)', last_collected: '2026-09-30' };
   if (cls === 'network_device') return { status: 'collected', collector: 'Config export (mock)', last_collected: '2026-09-28' };
+  if (cls === 'api') return { status: 'collected', collector: 'API schema & gateway import (mock)', last_collected: '2026-09-30' };
+  if (cls === 'darknet') return { status: 'collected', collector: 'Threat-intel feed (mock)', last_collected: '2026-09-30' };
+  if (cls === 'audit_log') return { status: 'collected', collector: 'Log pipeline (mock)', last_collected: '2026-09-30' };
   return { status: T.chance(0.7) ? 'collected' : 'not_collected', collector: 'Network discovery (mock)', last_collected: '2026-09-27' };
 }
 
@@ -461,6 +464,21 @@ function buildAssets() {
   ai('AI-SALES', 'Sales copilot (browser extension)', ['SVC-CRM'], 'medium', 'Drafts proposals from CRM data.');
   ai('AI-CODE', 'Code assistant integration', ['SVC-CICD'], 'medium', 'IDE assistant with repository context.');
 
+  // --- APIs, darknet monitoring, audit & log sources (data sources, not hosts) ---
+  const ds = (id, name, cls, svcs, crit, extra = {}) => addAsset({ id, name, class: cls, site: 'SAAS', service_ids: svcs, criticality: crit, owner: 'Security Operations', ...extra });
+  ds('API-PORTAL', 'Customer Portal REST API v3', 'api', ['SVC-PORTAL'], 'critical', { site: 'CLOUD', owner: 'Portal Engineering', internet_facing: true, subtype: 'rest_api' });
+  ds('API-TIP', 'Threat-intel REST API v2', 'api', ['SVC-TIP'], 'critical', { site: 'CLOUD', owner: 'Threat Research', internet_facing: true, subtype: 'rest_api' });
+  ds('API-PARTNER', 'Partner integration API (MDR connectors)', 'api', ['SVC-MDR'], 'high', { site: 'CLOUD', owner: 'SOC Engineering', subtype: 'rest_api' });
+  ds('DN-CREDS', 'Dark-web credential-leak monitoring', 'darknet', ['SVC-IT', 'SVC-IAM'], 'medium', { subtype: 'credential_monitoring' });
+  ds('DN-BRAND', 'Brand, domain & leaked-data monitoring', 'darknet', ['SVC-IT'], 'medium', { subtype: 'brand_monitoring' });
+  ds('LOG-CLOUDTRAIL', 'AWS CloudTrail (organization trail)', 'audit_log', ['SVC-MDR', 'SVC-IT'], 'high', { subtype: 'cloud_audit' });
+  ds('LOG-ENTRA', 'Microsoft Entra ID sign-in & audit logs', 'audit_log', ['SVC-IAM'], 'high', { subtype: 'identity_audit' });
+  ds('LOG-OKTA', 'Okta System Log', 'audit_log', ['SVC-IAM'], 'high', { subtype: 'identity_audit' });
+  ds('LOG-GITHUB', 'GitHub Enterprise audit log', 'audit_log', ['SVC-CICD'], 'high', { subtype: 'scm_audit' });
+  ds('LOG-WINSEC', 'Windows Security event logs (domain controllers)', 'audit_log', ['SVC-IAM', 'SVC-IT'], 'high', { subtype: 'os_audit' });
+  ds('LOG-PANOS', 'Firewall traffic & threat logs', 'audit_log', ['SVC-IT'], 'medium', { subtype: 'network_logs' });
+  ds('LOG-K8S', 'Kubernetes audit logs (EKS / GKE)', 'audit_log', ['SVC-MDR', 'SVC-TIP'], 'medium', { subtype: 'k8s_audit' });
+
   // --- endpoints (one per employee) ---
   const DEPTS = [
     { dept: 'SOC Operations', svc: 'SVC-MDR', sites: { BOS: 40, DUB: 30, SIN: 22 }, os: ['Windows 11'] },
@@ -541,14 +559,52 @@ const CONTROL_ROWS = [
   ['CTL-40', 'Change management', 'Protect', 'implemented', 0.75, 'IT Operations', { ISO: 'A.8.32', SOC2: 'CC8.1', CSF: 'PR.PS-01', PCI: '6.5.1' }],
 ];
 
-const FRAMEWORK_NAMES = { ISO: 'ISO 27001:2022', SOC2: 'SOC 2 Type II', CSF: 'NIST CSF 2.0', GDPR: 'GDPR', NIS2: 'NIS2', PCI: 'PCI DSS 4.0' };
+const FRAMEWORK_NAMES = {
+  ISO: 'ISO 27001:2022', SOC2: 'SOC 2 Type II', CSF: 'NIST CSF 2.0', NIST53: 'NIST SP 800-53 Rev. 5', FEDRAMP: 'FedRAMP Moderate',
+  CIS: 'CIS Controls v8', GDPR: 'GDPR', NIS2: 'NIS2', PCI: 'PCI DSS 4.0',
+};
+
+// NIST SP 800-53 Rev. 5 control and CIS Controls v8 safeguard for each control.
+// FedRAMP Moderate is an 800-53 baseline, so it reuses the 800-53 id.
+const CONTROL_XWALK = {
+  'CTL-01': ['CM-8', '1.1'], 'CTL-02': ['RA-5', '7.1'], 'CTL-03': ['SI-2', '7.3'], 'CTL-04': ['CM-6', '4.1'], 'CTL-05': ['CA-7', '4.1'],
+  'CTL-06': ['IA-2(1)', '6.3'], 'CTL-07': ['AC-6', '5.4'], 'CTL-08': ['AC-2', '5.3'], 'CTL-09': ['AC-2', '6.2'], 'CTL-10': ['SI-3', '10.1'],
+  'CTL-11': ['AU-6', '8.2'], 'CTL-12': ['SI-4', '13.1'], 'CTL-13': ['IR-8', '17.4'], 'CTL-14': ['CP-9', '11.3'], 'CTL-15': ['CP-2', '11.1'],
+  'CTL-16': ['SC-7', '12.2'], 'CTL-17': ['SC-7', '13.10'], 'CTL-18': ['SC-8', '3.10'], 'CTL-19': ['SC-28', '3.11'], 'CTL-20': ['RA-2', '3.7'],
+  'CTL-21': ['IA-5', '5.2'], 'CTL-22': ['SA-11', '16.1'], 'CTL-23': ['SR-3', '16.4'], 'CTL-24': ['CM-7', '16.7'], 'CTL-25': ['SR-6', '15.1'],
+  'CTL-26': ['AT-2', '14.1'], 'CTL-27': ['SI-8', '9.7'], 'CTL-28': ['SI-7', null], 'CTL-29': ['CM-8', '1.1'], 'CTL-30': ['RA-3', null],
+  'CTL-31': ['RA-8', null], 'CTL-32': ['IR-6', '17.2'], 'CTL-33': ['PM-9', null], 'CTL-34': ['PM-2', null], 'CTL-35': ['PE-3', null],
+  'CTL-36': ['MP-7', '10.3'], 'CTL-37': ['AC-17', '12.7'], 'CTL-38': ['AU-11', '8.10'], 'CTL-39': ['CA-8', '18.1'], 'CTL-40': ['CM-3', null],
+};
+
+// Real frameworks and regulations in scope, with their official references.
+const FRAMEWORK_CATALOG = [
+  { id: 'iso27001', name: 'ISO/IEC 27001:2022', kind: 'standard', issuer: 'ISO/IEC', url: 'https://www.iso.org/standard/27001' },
+  { id: 'soc2', name: 'SOC 2 Type II', kind: 'attestation', issuer: 'AICPA', url: 'https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2' },
+  { id: 'nistcsf', name: 'NIST CSF 2.0', kind: 'framework', issuer: 'NIST', url: 'https://www.nist.gov/cyberframework' },
+  { id: 'nist80053', name: 'NIST SP 800-53 Rev. 5', kind: 'control catalog', issuer: 'NIST', url: 'https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final' },
+  { id: 'fedramp', name: 'FedRAMP Moderate', kind: 'authorization', issuer: 'GSA FedRAMP PMO', url: 'https://www.fedramp.gov/' },
+  { id: 'cis', name: 'CIS Controls v8', kind: 'framework', issuer: 'Center for Internet Security', url: 'https://www.cisecurity.org/controls/v8' },
+  { id: 'gdpr', name: 'GDPR', kind: 'regulation', issuer: 'European Union', url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj' },
+  { id: 'nis2', name: 'NIS2 Directive', kind: 'regulation', issuer: 'European Union', url: 'https://eur-lex.europa.eu/eli/dir/2022/2555/oj' },
+  { id: 'pcidss', name: 'PCI DSS 4.0', kind: 'standard', issuer: 'PCI SSC', url: 'https://www.pcisecuritystandards.org/' },
+  { id: 'attack', name: 'MITRE ATT&CK', kind: 'threat model', issuer: 'MITRE', url: 'https://attack.mitre.org/' },
+  { id: 'atlas', name: 'MITRE ATLAS', kind: 'threat model', issuer: 'MITRE', url: 'https://atlas.mitre.org/' },
+  { id: 'owasp', name: 'OWASP Top 10 (2021)', kind: 'risk list', issuer: 'OWASP Foundation', url: 'https://owasp.org/Top10/' },
+  { id: 'owaspapi', name: 'OWASP API Security Top 10 (2023)', kind: 'risk list', issuer: 'OWASP Foundation', url: 'https://owasp.org/API-Security/editions/2023/en/0x11-t10/' },
+  { id: 'owaspllm', name: 'OWASP Top 10 for LLM Applications (2025)', kind: 'risk list', issuer: 'OWASP Foundation', url: 'https://genai.owasp.org/llm-top-10/' },
+];
 
 function buildControls() {
-  return CONTROL_ROWS.map(([id, title, domain, status, effectiveness, owner, refs]) => ({
+  return CONTROL_ROWS.map(([id, title, domain, status, effectiveness, owner, baseRefs]) => {
+    const [nist, cis] = CONTROL_XWALK[id];
+    const refs = { ...baseRefs, NIST53: nist, FEDRAMP: nist, ...(cis ? { CIS: cis } : {}) };
+    return {
     id, title, domain, status, effectiveness, owner,
     framework_refs: Object.entries(refs).map(([fw, ref]) => ({ framework: FRAMEWORK_NAMES[fw], ref })),
     last_tested: `2026-${String(T.int(3, 9)).padStart(2, '0')}-${String(T.int(1, 28)).padStart(2, '0')}`,
-  }));
+    };
+  });
 }
 
 const POLICIES = [
@@ -750,6 +806,8 @@ const DOCUMENTS = [
   { id: 'DOC-07', title: 'SOC 2 Type II report (FY2026)', format: 'pdf', category: 'Audit report', source: 'Auditor portal', pages: 112, ingested_on: '2026-09-27', extraction: { method: 'AI extraction (mock)', confidence: 'moderate', extracted: ['3 exceptions noted', 'CC6.1 / CC6.2 / CC8.1'] } },
   { id: 'DOC-08', title: 'Board Risk Appetite Statement', format: 'docx', category: 'Governance', source: 'Board portal', pages: 4, ingested_on: '2026-09-29', extraction: { method: 'AI extraction (mock)', confidence: 'high', extracted: ['annual value-at-risk tolerance $6M', 'service likelihood ceiling 35%', 'compliance floor 80%'] } },
   { id: 'DOC-09', title: 'FY2027 Corporate Goals', format: 'pptx', category: 'Strategy', source: 'Business owner upload', pages: 12, ingested_on: '2026-09-30', extraction: { method: 'AI extraction (mock)', confidence: 'moderate', extracted: ['6 corporate goals', 'goal owners', 'linked KPIs'] } },
+  { id: 'DOC-11', title: 'Q3 FY26 Board of Directors cyber-risk report', format: 'pptx', category: 'Board report', source: 'Board portal', pages: 18, ingested_on: '2026-09-30', extraction: { method: 'AI extraction (mock)', confidence: 'high', extracted: ['8 business SLOs with FY27 targets', 'risk-appetite reaffirmed', 'CISO top-5 cyber risks'] } },
+  { id: 'DOC-12', title: 'Management note: FY27 plan forecast and SLO targets (CFO)', format: 'docx', category: 'Management note', source: 'Business owner upload', pages: 3, ingested_on: '2026-09-30', extraction: { method: 'AI extraction (mock)', confidence: 'high', extracted: ['plan forecast per SLO', 'financial basis per SLO', 'warning thresholds'] } },
   { id: 'DOC-10', title: 'Cloud architecture overview', format: 'pdf', category: 'Architecture', source: 'Confluence export', pages: 31, ingested_on: '2026-09-26', extraction: { method: 'AI extraction (mock)', confidence: 'moderate', extracted: ['AWS/Azure/GCP accounts', 'service-to-resource mapping'] } },
 ];
 
@@ -766,6 +824,129 @@ const CONNECTORS = [
   { id: 'CON-MCP-GRC', name: 'grc-evidence MCP server', kind: 'mcp', category: 'GRC', status: 'not_configured', last_sync: null, records: 0, schedule: 'on demand' },
   { id: 'CON-IRT', name: 'IRTriage collections (ZIP upload)', kind: 'file', category: 'Triage', status: 'connected', last_sync: '2026-09-30T03:12:00Z', records: 543, schedule: 'manual' },
 ];
+
+// ---------------------------------------------------------------------------
+// Real-world products and framework references (presentation realism)
+//
+// Brand keys resolve to icons/badges in web/assets/js/business/brands.js. The
+// vulnerability ids stay fictional (ACME-VULN-*): no finding here is a claim
+// about a real product. Assets that carry a fictional product FLAW are left
+// unbranded on purpose.
+// ---------------------------------------------------------------------------
+
+const ASSET_BRANDS = {
+  'SAAS-IDP': ['okta', 'Okta Workforce Identity'], 'SAAS-HRIS': ['workday', 'Workday HCM'], 'SAAS-CODE': ['github', 'GitHub Enterprise Cloud'],
+  'SAAS-CRM': ['salesforce', 'Salesforce Sales Cloud'], 'SAAS-COLLAB': ['microsoft365', 'Microsoft 365'], 'SAAS-BI': ['powerbi', 'Microsoft Power BI'],
+  'SAAS-ITSM': ['servicenow', 'ServiceNow ITSM & GRC'], 'SAAS-PAY': ['stripe', 'Stripe Payments'], 'SAAS-CHAT': ['slack', 'Slack Enterprise Grid'],
+  'SAAS-TRACK': ['jira', 'Jira Software'],
+  'CICD-ARTIFACTS': ['jfrog', 'JFrog Artifactory'], 'CICD-VAULT': ['vault', 'HashiCorp Vault'], 'CICD-ARGO': ['argo', 'Argo CD'], 'CICD-SIGN': ['sigstore', 'Sigstore cosign'],
+  'SEC-EDR': ['crowdstrike', 'CrowdStrike Falcon Insight'], 'SEC-SIEM': ['splunk', 'Splunk Enterprise Security'], 'SEC-SOAR': ['splunk', 'Splunk SOAR'],
+  'SEC-MAILGW': ['proofpoint', 'Proofpoint Email Protection'], 'SEC-WAF': ['cloudflare', 'Cloudflare WAF'], 'SEC-CASB': ['netskope', 'Netskope CASB'],
+  'SEC-PAM': ['cyberark', 'CyberArk Privilege Cloud'], 'SEC-DLP': ['microsoft', 'Microsoft Purview DLP'], 'SEC-VULN': ['qualys', 'Qualys VMDR'],
+  'SEC-BACKUP': ['veeam', 'Veeam Backup & Replication'], 'SEC-IRTRIAGE': ['irtriage', 'IRTriage'],
+  'AI-TRIAGE': ['claude', 'Claude (Amazon Bedrock)'], 'AI-ASSIST': ['openai', 'ChatGPT Enterprise'], 'AI-TIP-ENRICH': ['anthropic', 'Claude API'],
+  'AI-SALES': ['salesforce', 'Salesforce Einstein'], 'AI-CODE': ['githubcopilot', 'GitHub Copilot Business'],
+  'NET-SDWAN': ['cisco', 'Cisco Catalyst SD-WAN'], 'WEB-CDN': ['cloudflare', 'Cloudflare CDN'],
+  'AWS-EKS-MDR': ['kubernetes', 'Amazon EKS'], 'AWS-EKS-MDR-EU': ['kubernetes', 'Amazon EKS'], 'AWS-EKS-TIP': ['kubernetes', 'Amazon EKS'],
+  'GCP-GKE-TIP-ML': ['kubernetes', 'Google Kubernetes Engine'], 'AZ-AKS-PS': ['kubernetes', 'Azure Kubernetes Service'],
+  'AWS-RDS-TIP': ['postgresql', 'Amazon RDS for PostgreSQL'], 'GCP-BQ-TIP': ['googlebigquery', 'Google BigQuery'],
+  'API-PORTAL': ['openapi', 'OpenAPI 3.1 (AWS API Gateway)'], 'API-TIP': ['openapi', 'OpenAPI 3.1 (AWS API Gateway)'], 'API-PARTNER': ['openapi', 'OpenAPI 3.1'],
+  'DN-CREDS': ['recordedfuture', 'Recorded Future Identity Intelligence'], 'DN-BRAND': ['flashpoint', 'Flashpoint Ignite'],
+  'LOG-CLOUDTRAIL': ['aws', 'AWS CloudTrail'], 'LOG-ENTRA': ['microsoft', 'Microsoft Entra ID'], 'LOG-OKTA': ['okta', 'Okta System Log'],
+  'LOG-GITHUB': ['github', 'GitHub audit log streaming'], 'LOG-WINSEC': ['windows', 'Windows Event Forwarding'], 'LOG-PANOS': ['paloaltonetworks', 'Palo Alto Networks Strata Logging'],
+  'LOG-K8S': ['kubernetes', 'Kubernetes audit'],
+};
+
+function brandFor(a) {
+  if (ASSET_BRANDS[a.id]) return ASSET_BRANDS[a.id];
+  if (a.class === 'network_device' && /-FW01$/.test(a.id)) return ['paloaltonetworks', 'Palo Alto Networks PA-Series'];
+  if (a.class === 'network_device' && /CORE|WLC/.test(a.id)) return ['cisco', /WLC/.test(a.id) ? 'Cisco Meraki wireless' : 'Cisco Catalyst 9500'];
+  if (a.subtype === 'conference_system') return ['zoom', 'Zoom Rooms'];
+  if (a.class === 'cicd' && /RUNNER/.test(a.id)) return ['githubactions', 'GitHub Actions self-hosted runner'];
+  if (a.cloud === 'aws') return ['aws', 'Amazon Web Services'];
+  if (a.cloud === 'azure') return ['azure', 'Microsoft Azure'];
+  if (a.cloud === 'gcp') return ['googlecloud', 'Google Cloud'];
+  const p = a.platform || '';
+  if (/^macOS/.test(p)) return ['apple', p];
+  if (/^Ubuntu/.test(p)) return ['ubuntu', p];
+  if (/^RHEL/.test(p)) return ['redhat', `Red Hat Enterprise Linux ${p.split(' ')[1] || ''}`.trim()];
+  if (/^Windows/.test(p)) return ['windows', p];
+  return null;
+}
+
+function applyBrands() {
+  for (const a of assets) {
+    const b = brandFor(a);
+    if (b) { a.brand = b[0]; a.product = b[1]; }
+  }
+  // Data sources are wired into the components that consume them.
+  const comp = (id) => COMPONENTS.find((c) => c.id === id);
+  comp('SYS-PORTAL').asset_ids.push('API-PORTAL');
+  comp('SYS-TIP').asset_ids.push('API-TIP');
+  comp('SYS-MDR').asset_ids.push('API-PARTNER');
+  comp('SYS-SIEM').asset_ids.push('DN-CREDS', 'DN-BRAND', 'LOG-CLOUDTRAIL', 'LOG-ENTRA', 'LOG-OKTA', 'LOG-GITHUB', 'LOG-WINSEC', 'LOG-PANOS', 'LOG-K8S');
+}
+
+// MITRE ATT&CK / ATLAS technique names (as published) for the ids the register uses.
+const TECHNIQUE_NAMES = {
+  T1190: 'Exploit Public-Facing Application', T1133: 'External Remote Services', T1189: 'Drive-by Compromise',
+  'T1195.001': 'Compromise Software Dependencies and Development Tools', 'T1195.002': 'Compromise Software Supply Chain',
+  T1078: 'Valid Accounts', 'T1078.001': 'Default Accounts', 'T1078.002': 'Domain Accounts', 'T1078.003': 'Local Accounts', 'T1078.004': 'Cloud Accounts',
+  T1203: 'Exploitation for Client Execution', T1098: 'Account Manipulation', T1068: 'Exploitation for Privilege Escalation', T1611: 'Escape to Host',
+  'T1562.001': 'Disable or Modify Tools', 'T1562.002': 'Disable Windows Event Logging', 'T1562.004': 'Disable or Modify System Firewall',
+  'T1562.008': 'Disable or Modify Cloud Logs', 'T1550.001': 'Application Access Token', T1528: 'Steal Application Access Token',
+  'T1552.001': 'Credentials In Files', T1557: 'Adversary-in-the-Middle', 'T1557.001': 'LLMNR/NBT-NS Poisoning and SMB Relay',
+  T1210: 'Exploitation of Remote Services', T1530: 'Data from Cloud Storage', T1185: 'Browser Session Hijacking', 'T1071.001': 'Web Protocols',
+  T1219: 'Remote Access Software', T1567: 'Exfiltration Over Web Service', T1490: 'Inhibit System Recovery', T1485: 'Data Destruction',
+  'T1565.001': 'Stored Data Manipulation', T1498: 'Network Denial of Service', T1499: 'Endpoint Denial of Service',
+  'AML.T0051': 'LLM Prompt Injection', 'AML.T0057': 'LLM Data Leakage',
+};
+
+const OWASP = {
+  A01: ['A01:2021', 'Broken Access Control', 'https://owasp.org/Top10/A01_2021-Broken_Access_Control/'],
+  A02: ['A02:2021', 'Cryptographic Failures', 'https://owasp.org/Top10/A02_2021-Cryptographic_Failures/'],
+  A05: ['A05:2021', 'Security Misconfiguration', 'https://owasp.org/Top10/A05_2021-Security_Misconfiguration/'],
+  A06: ['A06:2021', 'Vulnerable and Outdated Components', 'https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/'],
+  A07: ['A07:2021', 'Identification and Authentication Failures', 'https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/'],
+  A08: ['A08:2021', 'Software and Data Integrity Failures', 'https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/'],
+  A09: ['A09:2021', 'Security Logging and Monitoring Failures', 'https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/'],
+  API2: ['API2:2023', 'Broken Authentication', 'https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication/'],
+  API4: ['API4:2023', 'Unrestricted Resource Consumption', 'https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/'],
+  LLM01: ['LLM01:2025', 'Prompt Injection', 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'],
+  LLM02: ['LLM02:2025', 'Sensitive Information Disclosure', 'https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/'],
+};
+const OWASP_STORY = {
+  'CR-001': 'A08', 'CR-002': 'A05', 'CR-003': 'A01', 'CR-004': 'A05', 'CR-005': 'A02', 'CR-013': 'A07', 'CR-016': 'LLM01', 'CR-023': 'A07',
+  'CR-024': 'A06', 'CR-040': 'A08', 'CR-052': 'LLM02', 'CR-053': 'API2', 'CR-070': 'API4', 'CR-071': 'A05', 'CR-072': 'API4', 'CR-073': 'API4', 'CR-074': 'A07',
+};
+function owaspFor(r) {
+  if (OWASP_STORY[r.id]) return OWASP_STORY[r.id];
+  const t = r.title;
+  if (/TLS cipher|key rotation|Unencrypted snapshot/.test(t)) return 'A02';
+  if (/OpenSSH|management agent|OS updates|Browser with/.test(t)) return 'A06';
+  if (/link sharing|published to web|issue board|IAM role/.test(t)) return 'A01';
+  if (/logging disabled|audit logs not exported|Audit policy/.test(t)) return 'A09';
+  if (/run as root|SMB signing|Host firewall|Management port/.test(t)) return 'A05';
+  return null;
+}
+const techniqueUrl = (t) => (t.startsWith('AML.') ? `https://atlas.mitre.org/techniques/${t}` : `https://attack.mitre.org/techniques/${t.replace('.', '/')}/`);
+
+function applyReferences() {
+  for (const r of risks) {
+    const refs = (r.mitre_techniques || []).map((t) => ({ framework: t.startsWith('AML.') ? 'MITRE ATLAS' : 'MITRE ATT&CK', id: t, name: TECHNIQUE_NAMES[t] || t, url: techniqueUrl(t) }));
+    const o = owaspFor(r);
+    if (o) {
+      const [id, name, url] = OWASP[o];
+      refs.push({ framework: o.startsWith('API') ? 'OWASP API Top 10 (2023)' : o.startsWith('LLM') ? 'OWASP LLM Top 10 (2025)' : 'OWASP Top 10 (2021)', id, name, url });
+    }
+    r.references = refs;
+  }
+  // Data sources that produced findings: the darknet feed found the leaked credentials,
+  // and the APIs carry the API-layer findings.
+  risks.find((r) => r.id === 'CR-074').asset_ids.push('DN-CREDS');
+  risks.find((r) => r.id === 'CR-072').asset_ids.push('API-TIP');
+  risks.find((r) => r.id === 'CR-073').asset_ids.push('API-PORTAL');
+}
 
 // ---------------------------------------------------------------------------
 // BIA hierarchy (7 levels, many-to-many)
@@ -1191,6 +1372,8 @@ function main() {
   buildAssets();
   storyRisks();
   templatedRisks();
+  applyBrands();
+  applyReferences();
   const bia = buildBia();
 
   const context = {
@@ -1212,6 +1395,7 @@ function main() {
     cyber_risks: risks,
     documents: DOCUMENTS,
     connectors: CONNECTORS,
+    framework_catalog: FRAMEWORK_CATALOG,
     ...bia,
   };
   checkIntegrity(context);
